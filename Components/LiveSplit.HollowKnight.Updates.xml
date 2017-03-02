@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<updates>
+	<update version="1.0.0">
+		<files>
+			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+		</files>
+		<changelog>
+			<change>
+				Initial Release
+			</change>
+		</changelog>
+	</update>
+</updates>
