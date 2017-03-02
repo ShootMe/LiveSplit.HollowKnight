@@ -12,15 +12,15 @@ namespace LiveSplit.HollowKnight {
 		public string ComponentName { get { return "Hollow Knight Autosplitter"; } }
 		public TimerModel Model { get; set; }
 		public IDictionary<string, Action> ContextMenuControls { get { return null; } }
-		internal static string[] keys = { "CurrentSplit", "State", "GameState", "SceneName", "NailDamage", "Charms", "CameraMode", "MenuState", "UIState", "AcceptingInput", "MapZone", "Completion", "NextSceneName" };
+		internal static string[] keys = { "CurrentSplit", "State", "GameState", "SceneName", "Charms", "CameraMode", "MenuState", "UIState", "AcceptingInput", "MapZone", "NextSceneName" };
 		private HollowKnightMemory mem;
 		private int currentSplit = -1, state = 0, lastLogCheck = 0;
 		private bool hasLog = false;
 		private Dictionary<string, string> currentValues = new Dictionary<string, string>();
 		private HollowKnightSettings settings;
-		private HashSet<string> splitsDone = new HashSet<string>();
+		private HashSet<SplitName> splitsDone = new HashSet<SplitName>();
 		private static string LOGFILE = "_HollowKnight.log";
-
+		private PlayerData pdata = new PlayerData();
 		public HollowKnightComponent() {
 			mem = new HollowKnightMemory();
 			settings = new HollowKnightSettings();
@@ -45,48 +45,48 @@ namespace LiveSplit.HollowKnight {
 				shouldSplit = mem.MenuState() == MainMenuState.PLAY_MODE_MENU && !mem.AcceptingInput();
 			} else if (Model.CurrentState.CurrentPhase == TimerPhase.Running) {
 				if (currentSplit + 1 < Model.CurrentState.Run.Count) {
-					if (settings.FalseKnight && !splitsDone.Contains("FalseKnight") && mem.KilledFalseKnight()) {
+					if (settings.HasSplit(SplitName.FalseKnight) && !splitsDone.Contains(SplitName.FalseKnight) && mem.KilledFalseKnight()) {
 						shouldSplit = true;
-						splitsDone.Add("FalseKnight");
-					} else if (settings.MothwingCloak && !splitsDone.Contains("MothwingCloak") && mem.MothwingCloak()) {
+						splitsDone.Add(SplitName.FalseKnight);
+					} else if (settings.HasSplit(SplitName.MothwingCloak) && !splitsDone.Contains(SplitName.MothwingCloak) && mem.MothwingCloak()) {
 						shouldSplit = true;
-						splitsDone.Add("MothwingCloak");
-					} else if (settings.ThornsOfAgony && !splitsDone.Contains("ThornsOfAgony") && mem.ThornsOfAgony()) {
+						splitsDone.Add(SplitName.MothwingCloak);
+					} else if (settings.HasSplit(SplitName.ThornsOfAgony) && !splitsDone.Contains(SplitName.ThornsOfAgony) && mem.ThornsOfAgony()) {
 						shouldSplit = true;
-						splitsDone.Add("ThornsOfAgony");
-					} else if (settings.MantisClaw && !splitsDone.Contains("MantisClaw") && mem.MantisClaw()) {
+						splitsDone.Add(SplitName.ThornsOfAgony);
+					} else if (settings.HasSplit(SplitName.MantisClaw) && !splitsDone.Contains(SplitName.MantisClaw) && mem.MantisClaw()) {
 						shouldSplit = true;
-						splitsDone.Add("MantisClaw");
-					} else if (settings.DistantVillageStag && !splitsDone.Contains("DistantVillageStag") && mem.SceneName() == "DistantVillage") {
+						splitsDone.Add(SplitName.MantisClaw);
+					} else if (settings.HasSplit(SplitName.DistantVillageStag) && !splitsDone.Contains(SplitName.DistantVillageStag) && mem.SceneName() == "DistantVillage") {
 						shouldSplit = true;
-						splitsDone.Add("DistantVillageStag");
-					} else if (settings.CrystalHeart && !splitsDone.Contains("CrystalHeart") && mem.CrystalHeart()) {
+						splitsDone.Add(SplitName.DistantVillageStag);
+					} else if (settings.HasSplit(SplitName.CrystalHeart) && !splitsDone.Contains(SplitName.CrystalHeart) && mem.CrystalHeart()) {
 						shouldSplit = true;
-						splitsDone.Add("CrystalHeart");
-					} else if (settings.GruzMother && !splitsDone.Contains("GruzMother") && mem.GruzMother()) {
+						splitsDone.Add(SplitName.CrystalHeart);
+					} else if (settings.HasSplit(SplitName.GruzMother) && !splitsDone.Contains(SplitName.GruzMother) && mem.GruzMother()) {
 						shouldSplit = true;
-						splitsDone.Add("GruzMother");
-					} else if (settings.DreamNail && !splitsDone.Contains("DreamNail") && mem.DreamNail()) {
+						splitsDone.Add(SplitName.GruzMother);
+					} else if (settings.HasSplit(SplitName.DreamNail) && !splitsDone.Contains(SplitName.DreamNail) && mem.DreamNail()) {
 						shouldSplit = true;
-						splitsDone.Add("DreamNail");
-					} else if (settings.NailUpgrade1 && !splitsDone.Contains("NailUpgrade1") && mem.NailDamage() == 8) {
+						splitsDone.Add(SplitName.DreamNail);
+					} else if (settings.HasSplit(SplitName.NailUpgrade1) && !splitsDone.Contains(SplitName.NailUpgrade1) && mem.NailDamage() == 8) {
 						shouldSplit = true;
-						splitsDone.Add("NailUpgrade1");
-					} else if (settings.WatcherKnight && !splitsDone.Contains("WatcherKnight") && mem.WatcherKnight()) {
+						splitsDone.Add(SplitName.NailUpgrade1);
+					} else if (settings.HasSplit(SplitName.WatcherKnight) && !splitsDone.Contains(SplitName.WatcherKnight) && mem.WatcherKnight()) {
 						shouldSplit = true;
-						splitsDone.Add("WatcherKnight");
-					} else if (settings.Lurien && !splitsDone.Contains("Lurien") && mem.Lurien()) {
+						splitsDone.Add(SplitName.WatcherKnight);
+					} else if (settings.HasSplit(SplitName.Lurien) && !splitsDone.Contains(SplitName.Lurien) && mem.Lurien()) {
 						shouldSplit = true;
-						splitsDone.Add("Lurien");
-					} else if (settings.Hegemol && !splitsDone.Contains("Hegemol") && mem.Hegemol()) {
+						splitsDone.Add(SplitName.Lurien);
+					} else if (settings.HasSplit(SplitName.Hegemol) && !splitsDone.Contains(SplitName.Hegemol) && mem.Hegemol()) {
 						shouldSplit = true;
-						splitsDone.Add("Hegemol");
-					} else if (settings.Monomon && !splitsDone.Contains("Monomon") && mem.Monomon()) {
+						splitsDone.Add(SplitName.Hegemol);
+					} else if (settings.HasSplit(SplitName.Monomon) && !splitsDone.Contains(SplitName.Monomon) && mem.Monomon()) {
 						shouldSplit = true;
-						splitsDone.Add("Monomon");
-					} else if (settings.Uumuu && !splitsDone.Contains("Uumuu") && mem.Uumuu()) {
+						splitsDone.Add(SplitName.Monomon);
+					} else if (settings.HasSplit(SplitName.Uumuu) && !splitsDone.Contains(SplitName.Uumuu) && mem.Uumuu()) {
 						shouldSplit = true;
-						splitsDone.Add("Uumuu");
+						splitsDone.Add(SplitName.Uumuu);
 					}
 				} else {
 					string nextScene = mem.NextSceneName();
@@ -120,6 +120,9 @@ namespace LiveSplit.HollowKnight {
 			lastLogCheck--;
 
 			if (hasLog || !Console.IsOutputRedirected) {
+				byte[] playerData = mem.GetPlayerData();
+				pdata.UpdateData(mem.Program, playerData, WriteLogWithTime);
+
 				string prev = "", curr = "";
 				foreach (string key in keys) {
 					prev = currentValues[key];
@@ -130,9 +133,7 @@ namespace LiveSplit.HollowKnight {
 						case "GameState": curr = mem.GameState().ToString(); break;
 						case "SceneName": curr = mem.SceneName(); break;
 						case "NextSceneName": curr = mem.NextSceneName(); break;
-						case "NailDamage": curr = mem.NailDamage().ToString(); break;
 						case "Charms": curr = mem.CharmCount().ToString(); break;
-						case "Completion": curr = mem.Completion().ToString(); break;
 						case "MapZone": curr = mem.MapZone().ToString(); break;
 						case "CameraMode": curr = mem.CameraMode().ToString(); break;
 						case "MenuState": curr = mem.MenuState().ToString(); break;
@@ -201,12 +202,13 @@ namespace LiveSplit.HollowKnight {
 		}
 		private void WriteLog(string data) {
 			if (hasLog || !Console.IsOutputRedirected) {
-				if (Console.IsOutputRedirected) {
+				if (!Console.IsOutputRedirected) {
+					Console.WriteLine(data);
+				}
+				if (hasLog) {
 					using (StreamWriter wr = new StreamWriter(LOGFILE, true)) {
 						wr.WriteLine(data);
 					}
-				} else {
-					Console.WriteLine(data);
 				}
 			}
 		}

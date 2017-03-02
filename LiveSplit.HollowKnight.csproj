@@ -56,22 +56,32 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HollowKnightComponent.cs" />
+    <Compile Include="HollowKnightFactory.cs" />
+    <Compile Include="HollowKnightMemory.cs" />
+    <Compile Include="HollowKnightTest.cs" />
+    <Compile Include="MemoryReader.cs" />
     <Compile Include="HollowKnightSettings.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="HollowKnightSettings.Designer.cs">
       <DependentUpon>HollowKnightSettings.cs</DependentUpon>
     </Compile>
-    <Compile Include="HollowKnightComponent.cs" />
-    <Compile Include="HollowKnightFactory.cs" />
-    <Compile Include="HollowKnightMemory.cs" />
-    <Compile Include="HollowKnightTest.cs" />
-    <Compile Include="MemoryReader.cs" />
+    <Compile Include="OriSplit.cs" />
+    <Compile Include="HollowKnightSplitSettings.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="HollowKnightSplitSettings.Designer.cs">
+      <DependentUpon>HollowKnightSplitSettings.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="HollowKnightSettings.resx">
       <DependentUpon>HollowKnightSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HollowKnightSplitSettings.resx">
+      <DependentUpon>HollowKnightSplitSettings.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

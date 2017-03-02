@@ -58,6 +58,16 @@ namespace LiveSplit.Memory {
 			WinAPI.ReadProcessMemory(targetProcess.Handle, address, buffer, numBytes, out bytesRead);
 			return buffer;
 		}
+		public static byte[] Read(this Process targetProcess, IntPtr address, int numBytes, params int[] offsets) {
+			byte[] buffer = new byte[numBytes];
+			if (targetProcess == null || targetProcess.HasExited || address == IntPtr.Zero) { return buffer; }
+
+			int last = OffsetAddress(targetProcess, ref address, offsets);
+
+			int bytesRead;
+			WinAPI.ReadProcessMemory(targetProcess.Handle, address + last, buffer, numBytes, out bytesRead);
+			return buffer;
+		}
 		public static string Read(this Process targetProcess, IntPtr address, bool is64bit = false) {
 			if (targetProcess == null || targetProcess.HasExited || address == IntPtr.Zero) { return string.Empty; }
 

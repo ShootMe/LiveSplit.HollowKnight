@@ -1,136 +1,125 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Reflection;
 using System.Windows.Forms;
 using System.Xml;
 namespace LiveSplit.HollowKnight {
 	public partial class HollowKnightSettings : UserControl {
-		public bool FalseKnight { get; set; }
-		public bool MothwingCloak { get; set; }
-		public bool ThornsOfAgony { get; set; }
-		public bool MantisClaw { get; set; }
-		public bool DistantVillageStag { get; set; }
-		public bool CrystalHeart { get; set; }
-		public bool GruzMother { get; set; }
-		public bool DreamNail { get; set; }
-		public bool NailUpgrade1 { get; set; }
-		public bool WatcherKnight { get; set; }
-		public bool Lurien { get; set; }
-		public bool Hegemol { get; set; }
-		public bool Monomon { get; set; }
-		public bool Uumuu { get; set; }
+		public List<string> Splits { get; private set; }
+		public bool ShowMapDisplay { get; set; }
+		public bool RainbowDash { get; set; }
 		private bool isLoading;
-
 		public HollowKnightSettings() {
 			isLoading = true;
 			InitializeComponent();
 
-			//Defaults
-			FalseKnight = true;
-			MothwingCloak = true;
-			ThornsOfAgony = true;
-			MantisClaw = true;
-			DistantVillageStag = true;
-			CrystalHeart = true;
-			GruzMother = true;
-			DreamNail = true;
-			NailUpgrade1 = true;
-			WatcherKnight = true;
-			Lurien = true;
-			Hegemol = true;
-			Monomon = true;
-			Uumuu = true;
-
+			Splits = new List<string>();
 			isLoading = false;
 		}
 
-		private void Settings_Load(object sender, EventArgs e) {
-			isLoading = true;
+		public bool HasSplit(SplitName split) {
+			MemberInfo info = typeof(SplitName).GetMember(split.ToString())[0];
+			DescriptionAttribute description = (DescriptionAttribute)info.GetCustomAttributes(typeof(DescriptionAttribute), false)[0];
+			return Splits.Contains(description.Description);
+		}
+
+		private void OriSettings_Load(object sender, EventArgs e) {
 			LoadSettings();
-			isLoading = false;
 		}
 		public void LoadSettings() {
-			chkFalseKnight.Checked = FalseKnight;
-			chkMothwingCloak.Checked = MothwingCloak;
-			chkThornsOfAgony.Checked = ThornsOfAgony;
-			chkMantisClaw.Checked = MantisClaw;
-			chkDistantVillageStation.Checked = DistantVillageStag;
-			chkCrystalHeart.Checked = CrystalHeart;
-			chkGruzMother.Checked = GruzMother;
-			chkDreamNail.Checked = DreamNail;
-			chkNailUpgrade1.Checked = NailUpgrade1;
-			chkWatcherKnight.Checked = WatcherKnight;
-			chkLurien.Checked = Lurien;
-			chkHegemol.Checked = Hegemol;
-			chkMonomon.Checked = Monomon;
-			chkUumuu.Checked = Uumuu;
+			isLoading = true;
+			this.flowMain.SuspendLayout();
+
+			for (int i = flowMain.Controls.Count - 1; i > 0; i--) {
+				flowMain.Controls.RemoveAt(i);
+			}
+
+			foreach (string split in Splits) {
+				HollowKnightSplitSettings setting = new HollowKnightSplitSettings();
+				setting.cboName.DataSource = GetAvailableSplits();
+				setting.cboName.Text = split;
+				AddHandlers(setting);
+
+				flowMain.Controls.Add(setting);
+			}
+
+			isLoading = false;
+			this.flowMain.ResumeLayout(true);
 		}
-		private void chkBox_CheckedChanged(object sender, EventArgs e) {
+		private void AddHandlers(HollowKnightSplitSettings setting) {
+			setting.cboName.SelectedIndexChanged += new EventHandler(cboName_SelectedIndexChanged);
+			setting.btnRemove.Click += new EventHandler(btnRemove_Click);
+		}
+		private void RemoveHandlers(HollowKnightSplitSettings setting) {
+			setting.cboName.SelectedIndexChanged -= cboName_SelectedIndexChanged;
+			setting.btnRemove.Click -= btnRemove_Click;
+		}
+		public void btnRemove_Click(object sender, EventArgs e) {
+			for (int i = flowMain.Controls.Count - 1; i > 1; i--) {
+				if (flowMain.Controls[i].Contains((Control)sender)) {
+					RemoveHandlers((HollowKnightSplitSettings)((Button)sender).Parent);
+
+					flowMain.Controls.RemoveAt(i);
+					break;
+				}
+			}
+			UpdateSplits();
+		}
+		public void cboName_SelectedIndexChanged(object sender, EventArgs e) {
 			UpdateSplits();
 		}
 		public void UpdateSplits() {
 			if (isLoading) return;
 
-			FalseKnight = chkFalseKnight.Checked;
-			MothwingCloak = chkMothwingCloak.Checked;
-			ThornsOfAgony = chkThornsOfAgony.Checked;
-			MantisClaw = chkMantisClaw.Checked;
-			DistantVillageStag = chkDistantVillageStation.Checked;
-			CrystalHeart = chkCrystalHeart.Checked;
-			GruzMother = chkGruzMother.Checked;
-			DreamNail = chkDreamNail.Checked;
-			NailUpgrade1 = chkNailUpgrade1.Checked;
-			WatcherKnight = chkWatcherKnight.Checked;
-			Lurien = chkLurien.Checked;
-			Hegemol = chkHegemol.Checked;
-			Monomon = chkMonomon.Checked;
-			Uumuu = chkUumuu.Checked;
+			Splits.Clear();
+			foreach (Control c in flowMain.Controls) {
+				if (c is HollowKnightSplitSettings) {
+					HollowKnightSplitSettings setting = (HollowKnightSplitSettings)c;
+					if (!string.IsNullOrEmpty(setting.cboName.Text)) {
+						Splits.Add(setting.cboName.Text);
+					}
+				}
+			}
 		}
 		public XmlNode UpdateSettings(XmlDocument document) {
 			XmlElement xmlSettings = document.CreateElement("Settings");
 
-			SetSetting(document, xmlSettings, FalseKnight, "FalseKnight");
-			SetSetting(document, xmlSettings, MothwingCloak, "MothwingCloak");
-			SetSetting(document, xmlSettings, ThornsOfAgony, "ThornsOfAgony");
-			SetSetting(document, xmlSettings, MantisClaw, "MantisClaw");
-			SetSetting(document, xmlSettings, DistantVillageStag, "DistantVillageStag");
-			SetSetting(document, xmlSettings, CrystalHeart, "CrystalHeart");
-			SetSetting(document, xmlSettings, GruzMother, "GruzMother");
-			SetSetting(document, xmlSettings, DreamNail, "DreamNail");
-			SetSetting(document, xmlSettings, NailUpgrade1, "NailUpgrade1");
-			SetSetting(document, xmlSettings, WatcherKnight, "WatcherKnight");
-			SetSetting(document, xmlSettings, Lurien, "Lurien");
-			SetSetting(document, xmlSettings, Hegemol, "Hegemol");
-			SetSetting(document, xmlSettings, Monomon, "Monomon");
-			SetSetting(document, xmlSettings, Uumuu, "Uumuu");
+			XmlElement xmlSplits = document.CreateElement("Splits");
+			xmlSettings.AppendChild(xmlSplits);
 
+			foreach (string split in Splits) {
+				XmlElement xmlSplit = document.CreateElement("Split");
+				xmlSplit.InnerText = split;
+
+				xmlSplits.AppendChild(xmlSplit);
+			}
 			return xmlSettings;
 		}
-		private void SetSetting(XmlDocument document, XmlElement settings, bool val, string name) {
-			XmlElement xmlOption = document.CreateElement(name);
-			xmlOption.InnerText = val.ToString();
-			settings.AppendChild(xmlOption);
-		}
 		public void SetSettings(XmlNode settings) {
-			FalseKnight = GetSetting(settings, "//FalseKnight", true);
-			MothwingCloak = GetSetting(settings, "//MothwingCloak", true);
-			ThornsOfAgony = GetSetting(settings, "//ThornsOfAgony", true);
-			MantisClaw = GetSetting(settings, "//MantisClaw", true);
-			DistantVillageStag = GetSetting(settings, "//DistantVillageStag", true);
-			CrystalHeart = GetSetting(settings, "//CrystalHeart", true);
-			GruzMother = GetSetting(settings, "//GruzMother", true);
-			DreamNail = GetSetting(settings, "//DreamNail", true);
-			NailUpgrade1 = GetSetting(settings, "//NailUpgrade1", true);
-			WatcherKnight = GetSetting(settings, "//WatcherKnight", true);
-			Lurien = GetSetting(settings, "//Lurien", true);
-			Hegemol = GetSetting(settings, "//Hegemol", true);
-			Monomon = GetSetting(settings, "//Monomon", true);
-			Uumuu = GetSetting(settings, "//Uumuu", true);
-		}
-		private bool GetSetting(XmlNode settings, string name, bool defaultVal = false) {
-			XmlNode option = settings.SelectSingleNode(name);
-			if (option != null && option.InnerText != "") {
-				return bool.Parse(option.InnerText);
+			Splits.Clear();
+			XmlNodeList splitNodes = settings.SelectNodes("//Splits/Split");
+			foreach (XmlNode splitNode in splitNodes) {
+				Splits.Add(splitNode.InnerText);
 			}
-			return defaultVal;
+		}
+		private void btnAddSplit_Click(object sender, EventArgs e) {
+			HollowKnightSplitSettings setting = new HollowKnightSplitSettings();
+			setting.cboName.DataSource = GetAvailableSplits();
+			setting.cboName.Text = "False Knight";
+			AddHandlers(setting);
+
+			flowMain.Controls.Add(setting);
+			UpdateSplits();
+		}
+		private List<string> GetAvailableSplits() {
+			List<string> splits = new List<string>();
+			foreach(SplitName split in Enum.GetValues(typeof(SplitName))) {
+				MemberInfo info = typeof(SplitName).GetMember(split.ToString())[0];
+				DescriptionAttribute description = (DescriptionAttribute)info.GetCustomAttributes(typeof(DescriptionAttribute), false)[0];
+				splits.Add(description.Description);
+			}
+			return splits;
 		}
 	}
 }
