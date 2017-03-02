@@ -78,6 +78,9 @@
     <Content Include="Components\LiveSplit.HollowKnight.dll" />
     <Content Include="Components\LiveSplit.HollowKnight.Updates.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="README.md" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>copy $(TargetPath) $(ProjectDir)Components\$(TargetFileName)</PostBuildEvent>
