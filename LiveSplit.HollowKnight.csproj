@@ -67,7 +67,6 @@
     <Compile Include="HollowKnightSettings.Designer.cs">
       <DependentUpon>HollowKnightSettings.cs</DependentUpon>
     </Compile>
-    <Compile Include="OriSplit.cs" />
     <Compile Include="HollowKnightSplitSettings.cs">
       <SubType>UserControl</SubType>
     </Compile>

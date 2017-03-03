@@ -42,51 +42,108 @@ namespace LiveSplit.HollowKnight {
 			bool shouldSplit = false;
 
 			if (currentSplit == -1) {
-				shouldSplit = mem.MenuState() == MainMenuState.PLAY_MODE_MENU && !mem.AcceptingInput();
+				shouldSplit = mem.MenuState() == MainMenuState.PLAY_MODE_MENU && mem.GameState() == GameState.MAIN_MENU && !mem.AcceptingInput();
 			} else if (Model.CurrentState.CurrentPhase == TimerPhase.Running) {
 				if (currentSplit + 1 < Model.CurrentState.Run.Count) {
-					if (settings.HasSplit(SplitName.FalseKnight) && !splitsDone.Contains(SplitName.FalseKnight) && mem.KilledFalseKnight()) {
+					if (settings.HasSplit(SplitName.ForgottenCrossroads) && !splitsDone.Contains(SplitName.ForgottenCrossroads) && mem.VisitedCrossroads()) {
+						shouldSplit = true;
+						splitsDone.Add(SplitName.ForgottenCrossroads);
+					} else if (settings.HasSplit(SplitName.FlyingSpitter) && !splitsDone.Contains(SplitName.FlyingSpitter) && mem.KilledFlyingSpitter()) {
+						shouldSplit = true;
+						splitsDone.Add(SplitName.FlyingSpitter);
+					} else if (settings.HasSplit(SplitName.CrossroadsStation) && !splitsDone.Contains(SplitName.CrossroadsStation) && mem.CrossroadsStationOpened()) {
+						shouldSplit = true;
+						splitsDone.Add(SplitName.CrossroadsStation);
+					} else if (settings.HasSplit(SplitName.FalseKnight) && !splitsDone.Contains(SplitName.FalseKnight) && mem.KilledFalseKnight()) {
 						shouldSplit = true;
 						splitsDone.Add(SplitName.FalseKnight);
+					} else if (settings.HasSplit(SplitName.SoulBlast) && !splitsDone.Contains(SplitName.SoulBlast) && mem.HasSoulSpell()) {
+						shouldSplit = true;
+						splitsDone.Add(SplitName.SoulBlast);
+					} else if (settings.HasSplit(SplitName.Greenpath) && !splitsDone.Contains(SplitName.Greenpath) && mem.VisitedGreenpath()) {
+						shouldSplit = true;
+						splitsDone.Add(SplitName.Greenpath);
+					} else if (settings.HasSplit(SplitName.MossKnight) && !splitsDone.Contains(SplitName.MossKnight) && mem.KilledMossKnight()) {
+						shouldSplit = true;
+						splitsDone.Add(SplitName.MossKnight);
+					} else if (settings.HasSplit(SplitName.Hornet1) && !splitsDone.Contains(SplitName.Hornet1) && mem.KilledHornet()) {
+						shouldSplit = true;
+						splitsDone.Add(SplitName.Hornet1);
 					} else if (settings.HasSplit(SplitName.MothwingCloak) && !splitsDone.Contains(SplitName.MothwingCloak) && mem.MothwingCloak()) {
 						shouldSplit = true;
 						splitsDone.Add(SplitName.MothwingCloak);
 					} else if (settings.HasSplit(SplitName.ThornsOfAgony) && !splitsDone.Contains(SplitName.ThornsOfAgony) && mem.ThornsOfAgony()) {
 						shouldSplit = true;
 						splitsDone.Add(SplitName.ThornsOfAgony);
+					} else if (settings.HasSplit(SplitName.FogCanyon) && !splitsDone.Contains(SplitName.FogCanyon) && mem.VisitedFogCanyon()) {
+						shouldSplit = true;
+						splitsDone.Add(SplitName.FogCanyon);
+					} else if (settings.HasSplit(SplitName.QueensStationStation) && !splitsDone.Contains(SplitName.QueensStationStation) && mem.QueensStationOpened()) {
+						shouldSplit = true;
+						splitsDone.Add(SplitName.QueensStationStation);
+					} else if (settings.HasSplit(SplitName.FungalWastes) && !splitsDone.Contains(SplitName.FungalWastes) && mem.VisitedFungalWastes()) {
+						shouldSplit = true;
+						splitsDone.Add(SplitName.FungalWastes);
+					} else if (settings.HasSplit(SplitName.MushroomBrawler) && !splitsDone.Contains(SplitName.MushroomBrawler) && mem.KilledMushroomBrawler()) {
+						shouldSplit = true;
+						splitsDone.Add(SplitName.MushroomBrawler);
 					} else if (settings.HasSplit(SplitName.MantisClaw) && !splitsDone.Contains(SplitName.MantisClaw) && mem.MantisClaw()) {
 						shouldSplit = true;
 						splitsDone.Add(SplitName.MantisClaw);
-					} else if (settings.HasSplit(SplitName.DistantVillageStag) && !splitsDone.Contains(SplitName.DistantVillageStag) && mem.SceneName() == "DistantVillage") {
+					} else if (settings.HasSplit(SplitName.Deepnest) && !splitsDone.Contains(SplitName.Deepnest) && mem.VisitedDeepnest()) {
 						shouldSplit = true;
-						splitsDone.Add(SplitName.DistantVillageStag);
+						splitsDone.Add(SplitName.Deepnest);
+					} else if (settings.HasSplit(SplitName.DeepnestSpa) && !splitsDone.Contains(SplitName.DeepnestSpa) && mem.VisitedDeepnestSpa()) {
+						shouldSplit = true;
+						splitsDone.Add(SplitName.DeepnestSpa);
+					} else if (settings.HasSplit(SplitName.DeepnestStation) && !splitsDone.Contains(SplitName.DeepnestStation) && mem.DeepnestStationOpened()) {
+						shouldSplit = true;
+						splitsDone.Add(SplitName.DeepnestStation);
+					} else if (settings.HasSplit(SplitName.CrystalPeak) && !splitsDone.Contains(SplitName.CrystalPeak) && mem.VisitedCrystalPeak()) {
+						shouldSplit = true;
+						splitsDone.Add(SplitName.CrystalPeak);
 					} else if (settings.HasSplit(SplitName.CrystalHeart) && !splitsDone.Contains(SplitName.CrystalHeart) && mem.CrystalHeart()) {
 						shouldSplit = true;
 						splitsDone.Add(SplitName.CrystalHeart);
-					} else if (settings.HasSplit(SplitName.GruzMother) && !splitsDone.Contains(SplitName.GruzMother) && mem.GruzMother()) {
+					} else if (settings.HasSplit(SplitName.GruzMother) && !splitsDone.Contains(SplitName.GruzMother) && mem.KilledGruzMother()) {
 						shouldSplit = true;
 						splitsDone.Add(SplitName.GruzMother);
-					} else if (settings.HasSplit(SplitName.DreamNail) && !splitsDone.Contains(SplitName.DreamNail) && mem.DreamNail()) {
+					} else if (settings.HasSplit(SplitName.DreamNail) && !splitsDone.Contains(SplitName.DreamNail) && mem.HasDreamNail()) {
 						shouldSplit = true;
 						splitsDone.Add(SplitName.DreamNail);
-					} else if (settings.HasSplit(SplitName.NailUpgrade1) && !splitsDone.Contains(SplitName.NailUpgrade1) && mem.NailDamage() == 8) {
+					} else if (settings.HasSplit(SplitName.RestingGrounds) && !splitsDone.Contains(SplitName.RestingGrounds) && mem.VisitedRestingGrounds()) {
+						shouldSplit = true;
+						splitsDone.Add(SplitName.RestingGrounds);
+					} else if (settings.HasSplit(SplitName.CityOfTears) && !splitsDone.Contains(SplitName.CityOfTears) && mem.VisitedCityOfTears()) {
+						shouldSplit = true;
+						splitsDone.Add(SplitName.CityOfTears);
+					} else if (settings.HasSplit(SplitName.NailUpgrade1) && !splitsDone.Contains(SplitName.NailUpgrade1) && mem.NailDamage() == 9) {
 						shouldSplit = true;
 						splitsDone.Add(SplitName.NailUpgrade1);
-					} else if (settings.HasSplit(SplitName.WatcherKnight) && !splitsDone.Contains(SplitName.WatcherKnight) && mem.WatcherKnight()) {
+					} else if (settings.HasSplit(SplitName.BlackKnight) && !splitsDone.Contains(SplitName.BlackKnight) && mem.KilledWatcherKnight()) {
 						shouldSplit = true;
-						splitsDone.Add(SplitName.WatcherKnight);
+						splitsDone.Add(SplitName.BlackKnight);
 					} else if (settings.HasSplit(SplitName.Lurien) && !splitsDone.Contains(SplitName.Lurien) && mem.Lurien()) {
 						shouldSplit = true;
 						splitsDone.Add(SplitName.Lurien);
+					} else if (settings.HasSplit(SplitName.KingsStation) && !splitsDone.Contains(SplitName.KingsStation) && mem.KingsStationOpened()) {
+						shouldSplit = true;
+						splitsDone.Add(SplitName.KingsStation);
 					} else if (settings.HasSplit(SplitName.Hegemol) && !splitsDone.Contains(SplitName.Hegemol) && mem.Hegemol()) {
 						shouldSplit = true;
 						splitsDone.Add(SplitName.Hegemol);
+					} else if (settings.HasSplit(SplitName.TeachersArchive) && !splitsDone.Contains(SplitName.TeachersArchive) && mem.SceneName().Equals("Fungus3_archive", StringComparison.OrdinalIgnoreCase)) {
+						shouldSplit = true;
+						splitsDone.Add(SplitName.TeachersArchive);
+					} else if (settings.HasSplit(SplitName.Uumuu) && !splitsDone.Contains(SplitName.Uumuu) && mem.KilledUumuu()) {
+						shouldSplit = true;
+						splitsDone.Add(SplitName.Uumuu);
 					} else if (settings.HasSplit(SplitName.Monomon) && !splitsDone.Contains(SplitName.Monomon) && mem.Monomon()) {
 						shouldSplit = true;
 						splitsDone.Add(SplitName.Monomon);
-					} else if (settings.HasSplit(SplitName.Uumuu) && !splitsDone.Contains(SplitName.Uumuu) && mem.Uumuu()) {
+					} else if (settings.HasSplit(SplitName.InfectedCrossroads) && !splitsDone.Contains(SplitName.InfectedCrossroads) && mem.CrossroadsInfected() && mem.VisitedCrossroads()) {
 						shouldSplit = true;
-						splitsDone.Add(SplitName.Uumuu);
+						splitsDone.Add(SplitName.InfectedCrossroads);
 					}
 				} else {
 					string nextScene = mem.NextSceneName();
@@ -97,7 +154,7 @@ namespace LiveSplit.HollowKnight {
 				Model.CurrentState.IsGameTimePaused = gameState != GameState.PLAYING && gameState != GameState.PAUSED;
 			}
 
-			HandleSplit(shouldSplit, false);
+			HandleSplit(shouldSplit);
 		}
 		private void HandleSplit(bool shouldSplit, bool shouldReset = false) {
 			if (shouldReset) {
@@ -120,8 +177,10 @@ namespace LiveSplit.HollowKnight {
 			lastLogCheck--;
 
 			if (hasLog || !Console.IsOutputRedirected) {
-				byte[] playerData = mem.GetPlayerData();
-				pdata.UpdateData(mem.Program, playerData, WriteLogWithTime);
+				if (mem.UIState() == UIState.PLAYING) {
+					byte[] playerData = mem.GetPlayerData();
+					pdata.UpdateData(mem.Program, playerData, WriteLogWithTime);
+				}
 
 				string prev = "", curr = "";
 				foreach (string key in keys) {
