@@ -72,7 +72,7 @@ namespace LiveSplit.HollowKnight {
 		CrystalPeak,
 		[Description("Crystal Heart (Super Dash)"), ToolTip("Splits when obtaining Crystal Heart")]
 		CrystalHeart,
-		[Description("Gruz Mother (Mini Boss)"), ToolTip("Splits when killing Gruz Mother")]
+		[Description("Gruz Mother (Boss)"), ToolTip("Splits when killing Gruz Mother")]
 		GruzMother,
 		[Description("Dream Nail"), ToolTip("Splits when obtaining Dream Nail")]
 		DreamNail,

@@ -85,7 +85,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Components\LiveSplit.HollowKnight.dll" />
-    <Content Include="Components\LiveSplit.HollowKnight.Updates.xml" />
+    <Content Include="Components\LiveSplit.HollowKnight.Updates.xml">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />
