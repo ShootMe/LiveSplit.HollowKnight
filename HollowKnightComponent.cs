@@ -57,9 +57,9 @@ namespace LiveSplit.HollowKnight {
 					} else if (settings.HasSplit(SplitName.FalseKnight) && !splitsDone.Contains(SplitName.FalseKnight) && mem.KilledFalseKnight()) {
 						shouldSplit = true;
 						splitsDone.Add(SplitName.FalseKnight);
-					} else if (settings.HasSplit(SplitName.SoulBlast) && !splitsDone.Contains(SplitName.SoulBlast) && mem.HasSoulSpell()) {
+					} else if (settings.HasSplit(SplitName.VengefulSpirit) && !splitsDone.Contains(SplitName.VengefulSpirit) && mem.HasSoulSpell()) {
 						shouldSplit = true;
-						splitsDone.Add(SplitName.SoulBlast);
+						splitsDone.Add(SplitName.VengefulSpirit);
 					} else if (settings.HasSplit(SplitName.Greenpath) && !splitsDone.Contains(SplitName.Greenpath) && mem.VisitedGreenpath()) {
 						shouldSplit = true;
 						splitsDone.Add(SplitName.Greenpath);

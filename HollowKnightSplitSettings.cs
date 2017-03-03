@@ -32,8 +32,8 @@ namespace LiveSplit.HollowKnight {
 		CrossroadsStation,
 		[Description("False Knight (Boss)"), ToolTip("Splits when killing False Knight")]
 		FalseKnight,
-		[Description("Soul Blast"), ToolTip("Splits when obtaining Soul Blast")]
-		SoulBlast,
+		[Description("Vengeful Spirit"), ToolTip("Splits when obtaining Vengeful Spirit")]
+		VengefulSpirit,
 		[Description("Greenpath (Area)"), ToolTip("Splits when entering Greenpath text first appears")]
 		Greenpath,
 		[Description("Moss Knight (Mini Boss)"), ToolTip("Splits when killing Moss Knight")]
