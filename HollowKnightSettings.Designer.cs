@@ -75,7 +75,7 @@
 			this.Margin = new System.Windows.Forms.Padding(0);
 			this.Name = "OriSettings";
 			this.Size = new System.Drawing.Size(63, 27);
-			this.Load += new System.EventHandler(this.OriSettings_Load);
+			this.Load += new System.EventHandler(this.Settings_Load);
 			this.flowMain.ResumeLayout(false);
 			this.flowMain.PerformLayout();
 			this.flowOptions.ResumeLayout(false);

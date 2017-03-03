@@ -44,6 +44,9 @@ namespace LiveSplit.HollowKnight {
 			if (currentSplit == -1) {
 				shouldSplit = mem.MenuState() == MainMenuState.PLAY_MODE_MENU && mem.GameState() == GameState.MAIN_MENU && !mem.AcceptingInput();
 			} else if (Model.CurrentState.CurrentPhase == TimerPhase.Running) {
+				string nextScene = mem.NextSceneName();
+				string sceneName = mem.SceneName();
+
 				if (currentSplit + 1 < Model.CurrentState.Run.Count) {
 					if (settings.HasSplit(SplitName.ForgottenCrossroads) && !splitsDone.Contains(SplitName.ForgottenCrossroads) && mem.VisitedCrossroads()) {
 						shouldSplit = true;
@@ -120,6 +123,9 @@ namespace LiveSplit.HollowKnight {
 					} else if (settings.HasSplit(SplitName.NailUpgrade1) && !splitsDone.Contains(SplitName.NailUpgrade1) && mem.NailDamage() == 9) {
 						shouldSplit = true;
 						splitsDone.Add(SplitName.NailUpgrade1);
+					} else if (settings.HasSplit(SplitName.FragileStrength) && !splitsDone.Contains(SplitName.FragileStrength) && mem.FragileStrength()) {
+						shouldSplit = true;
+						splitsDone.Add(SplitName.FragileStrength);
 					} else if (settings.HasSplit(SplitName.BlackKnight) && !splitsDone.Contains(SplitName.BlackKnight) && mem.KilledWatcherKnight()) {
 						shouldSplit = true;
 						splitsDone.Add(SplitName.BlackKnight);
@@ -132,7 +138,7 @@ namespace LiveSplit.HollowKnight {
 					} else if (settings.HasSplit(SplitName.Hegemol) && !splitsDone.Contains(SplitName.Hegemol) && mem.Hegemol()) {
 						shouldSplit = true;
 						splitsDone.Add(SplitName.Hegemol);
-					} else if (settings.HasSplit(SplitName.TeachersArchive) && !splitsDone.Contains(SplitName.TeachersArchive) && mem.SceneName().Equals("Fungus3_archive", StringComparison.OrdinalIgnoreCase)) {
+					} else if (settings.HasSplit(SplitName.TeachersArchive) && !splitsDone.Contains(SplitName.TeachersArchive) && sceneName.Equals("Fungus3_archive", StringComparison.OrdinalIgnoreCase)) {
 						shouldSplit = true;
 						splitsDone.Add(SplitName.TeachersArchive);
 					} else if (settings.HasSplit(SplitName.Uumuu) && !splitsDone.Contains(SplitName.Uumuu) && mem.KilledUumuu()) {
@@ -146,12 +152,11 @@ namespace LiveSplit.HollowKnight {
 						splitsDone.Add(SplitName.InfectedCrossroads);
 					}
 				} else {
-					string nextScene = mem.NextSceneName();
 					shouldSplit = nextScene.Equals("Cinematic_Ending_A", StringComparison.OrdinalIgnoreCase);
 				}
 
 				GameState gameState = mem.GameState();
-				Model.CurrentState.IsGameTimePaused = gameState != GameState.PLAYING && gameState != GameState.PAUSED;
+				Model.CurrentState.IsGameTimePaused = gameState == GameState.ENTERING_LEVEL || gameState == GameState.EXITING_LEVEL || gameState == GameState.LOADING || (!string.IsNullOrEmpty(nextScene) && nextScene != sceneName);
 			}
 
 			HandleSplit(shouldSplit);

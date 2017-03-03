@@ -6,7 +6,7 @@ using System.Windows.Forms;
 using System.Xml;
 namespace LiveSplit.HollowKnight {
 	public partial class HollowKnightSettings : UserControl {
-		public List<string> Splits { get; private set; }
+		public List<SplitName> Splits { get; private set; }
 		public bool ShowMapDisplay { get; set; }
 		public bool RainbowDash { get; set; }
 		private bool isLoading;
@@ -14,17 +14,15 @@ namespace LiveSplit.HollowKnight {
 			isLoading = true;
 			InitializeComponent();
 
-			Splits = new List<string>();
+			Splits = new List<SplitName>();
 			isLoading = false;
 		}
 
 		public bool HasSplit(SplitName split) {
-			MemberInfo info = typeof(SplitName).GetMember(split.ToString())[0];
-			DescriptionAttribute description = (DescriptionAttribute)info.GetCustomAttributes(typeof(DescriptionAttribute), false)[0];
-			return Splits.Contains(description.Description);
+			return Splits.Contains(split);
 		}
 
-		private void OriSettings_Load(object sender, EventArgs e) {
+		private void Settings_Load(object sender, EventArgs e) {
 			LoadSettings();
 		}
 		public void LoadSettings() {
@@ -35,10 +33,13 @@ namespace LiveSplit.HollowKnight {
 				flowMain.Controls.RemoveAt(i);
 			}
 
-			foreach (string split in Splits) {
+			foreach (SplitName split in Splits) {
+				MemberInfo info = typeof(SplitName).GetMember(split.ToString())[0];
+				DescriptionAttribute description = (DescriptionAttribute)info.GetCustomAttributes(typeof(DescriptionAttribute), false)[0];
+
 				HollowKnightSplitSettings setting = new HollowKnightSplitSettings();
 				setting.cboName.DataSource = GetAvailableSplits();
-				setting.cboName.Text = split;
+				setting.cboName.Text = description.Description;
 				AddHandlers(setting);
 
 				flowMain.Controls.Add(setting);
@@ -77,7 +78,8 @@ namespace LiveSplit.HollowKnight {
 				if (c is HollowKnightSplitSettings) {
 					HollowKnightSplitSettings setting = (HollowKnightSplitSettings)c;
 					if (!string.IsNullOrEmpty(setting.cboName.Text)) {
-						Splits.Add(setting.cboName.Text);
+						SplitName split = HollowKnightSplitSettings.GetSplitName(setting.cboName.Text);
+						Splits.Add(split);
 					}
 				}
 			}
@@ -88,9 +90,9 @@ namespace LiveSplit.HollowKnight {
 			XmlElement xmlSplits = document.CreateElement("Splits");
 			xmlSettings.AppendChild(xmlSplits);
 
-			foreach (string split in Splits) {
+			foreach (SplitName split in Splits) {
 				XmlElement xmlSplit = document.CreateElement("Split");
-				xmlSplit.InnerText = split;
+				xmlSplit.InnerText = split.ToString();
 
 				xmlSplits.AppendChild(xmlSplit);
 			}
@@ -100,13 +102,16 @@ namespace LiveSplit.HollowKnight {
 			Splits.Clear();
 			XmlNodeList splitNodes = settings.SelectNodes("//Splits/Split");
 			foreach (XmlNode splitNode in splitNodes) {
-				Splits.Add(splitNode.InnerText);
+				string splitDescription = splitNode.InnerText;
+				SplitName split = HollowKnightSplitSettings.GetSplitName(splitDescription);
+				Splits.Add(split);
 			}
 		}
 		private void btnAddSplit_Click(object sender, EventArgs e) {
 			HollowKnightSplitSettings setting = new HollowKnightSplitSettings();
-			setting.cboName.DataSource = GetAvailableSplits();
-			setting.cboName.Text = "False Knight";
+			List<string> splitNames = GetAvailableSplits();
+			setting.cboName.DataSource = splitNames;
+			setting.cboName.Text = splitNames[0];
 			AddHandlers(setting);
 
 			flowMain.Controls.Add(setting);
@@ -114,7 +119,7 @@ namespace LiveSplit.HollowKnight {
 		}
 		private List<string> GetAvailableSplits() {
 			List<string> splits = new List<string>();
-			foreach(SplitName split in Enum.GetValues(typeof(SplitName))) {
+			foreach (SplitName split in Enum.GetValues(typeof(SplitName))) {
 				MemberInfo info = typeof(SplitName).GetMember(split.ToString())[0];
 				DescriptionAttribute description = (DescriptionAttribute)info.GetCustomAttributes(typeof(DescriptionAttribute), false)[0];
 				splits.Add(description.Description);

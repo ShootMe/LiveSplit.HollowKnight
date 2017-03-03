@@ -9,18 +9,26 @@ namespace LiveSplit.HollowKnight {
 			InitializeComponent();
 		}
 		private void cboName_SelectedIndexChanged(object sender, EventArgs e) {
-			Split = cboName.SelectedValue.ToString();
+			string splitDescription = cboName.SelectedValue.ToString();
+			SplitName split = GetSplitName(splitDescription);
+			Split = split.ToString();
 
+			MemberInfo info = typeof(SplitName).GetMember(split.ToString())[0];
+			DescriptionAttribute description = (DescriptionAttribute)info.GetCustomAttributes(typeof(DescriptionAttribute), false)[0];
+			ToolTipAttribute tooltip = (ToolTipAttribute)info.GetCustomAttributes(typeof(ToolTipAttribute), false)[0];
+			ToolTips.SetToolTip(cboName, tooltip.ToolTip);
+		}
+		public static SplitName GetSplitName(string text) {
 			foreach (SplitName split in Enum.GetValues(typeof(SplitName))) {
-				MemberInfo info = typeof(SplitName).GetMember(split.ToString())[0];
+				string name = split.ToString();
+				MemberInfo info = typeof(SplitName).GetMember(name)[0];
 				DescriptionAttribute description = (DescriptionAttribute)info.GetCustomAttributes(typeof(DescriptionAttribute), false)[0];
 
-				if (description.Description.Equals(Split, StringComparison.OrdinalIgnoreCase)) {
-					ToolTipAttribute tooltip = (ToolTipAttribute)info.GetCustomAttributes(typeof(ToolTipAttribute), false)[0];
-					ToolTips.SetToolTip(cboName, tooltip.ToolTip);
-					break;
+				if (name.Equals(text, StringComparison.OrdinalIgnoreCase) || description.Description.Equals(text, StringComparison.OrdinalIgnoreCase)) {
+					return split;
 				}
 			}
+			return SplitName.ForgottenCrossroads;
 		}
 	}
 	public enum SplitName {
@@ -74,6 +82,8 @@ namespace LiveSplit.HollowKnight {
 		CityOfTears,
 		[Description("Nail Upgrade 1"), ToolTip("Splits when getting Nail Upgrade 1")]
 		NailUpgrade1,
+		[Description("Fragile Strength (Charm)"), ToolTip("Splits when obtaining the Fragile Strength charm")]
+		FragileStrength,
 		[Description("Watcher Knight (Boss)"), ToolTip("Splits when killing Watcher Knight")]
 		BlackKnight,
 		[Description("Lurien (Dreamer)"), ToolTip("Splits when you see the mask for Lurien")]

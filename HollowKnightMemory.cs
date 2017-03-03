@@ -169,6 +169,10 @@ namespace LiveSplit.HollowKnight {
 			//GameManager._instance.playerData.visitedRuins
 			return gameManager.Read<bool>(0x0, 0x30, 0x9d6);
 		}
+		public bool FragileStrength() {
+			//GameManager._instance.playerData.gotCharm_25
+			return gameManager.Read<bool>(0x0, 0x30, 0x449);
+		}
 		public bool KilledWatcherKnight() {
 			//GameManager._instance.playerData.killedBlackKnight
 			return gameManager.Read<bool>(0x0, 0x30, 0x689);
