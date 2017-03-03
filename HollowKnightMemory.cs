@@ -518,6 +518,8 @@ namespace LiveSplit.HollowKnight {
 					case "scenesEncounteredDreamPlant":
 					case "scenesEncounteredDreamPlantC":
 					case "playerStory":
+					case "MPCharge":
+					case "MPReserve":
 					case "equippedCharms": continue;
 				}
 
