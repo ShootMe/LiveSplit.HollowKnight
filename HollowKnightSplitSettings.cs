@@ -32,13 +32,15 @@ namespace LiveSplit.HollowKnight {
 		}
 	}
 	public enum SplitName {
+		[Description("Abyss Shriek (Skill)"), ToolTip("Splits when obtaining Abyss Shriek (Shadow Scream)")]
+		AbyssShriek,
 		[Description("Crystal Heart (Skill)"), ToolTip("Splits when obtaining Crystal Heart (Super Dash)")]
 		CrystalHeart,
 		[Description("Cyclone Slash (Skill)"), ToolTip("Splits when obtaining Cyclone Slash (Nail Art)")]
 		CycloneSlash,
 		[Description("Dash Slash (Skill)"), ToolTip("Splits when obtaining Dash Slash (Nail Art)")]
 		DashSlash,
-		[Description("Descending Dark (Skill)"), ToolTip("Splits when obtaining Descending Dark")]
+		[Description("Descending Dark (Skill)"), ToolTip("Splits when obtaining Descending Dark (Shadow Dive)")]
 		DescendingDark,
 		[Description("Desolate Dive (Skill)"), ToolTip("Splits when obtaining Desolate Dive")]
 		DesolateDive,
@@ -48,6 +50,8 @@ namespace LiveSplit.HollowKnight {
 		DreamNail2,
 		[Description("Great Slash (Skill)"), ToolTip("Splits when obtaining Great Slash (Nail Art)")]
 		GreatSlash,
+		[Description("Howling Wraiths (Skill)"), ToolTip("Splits when obtaining Howling Wraiths (Scream)")]
+		HowlingWraiths,
 		[Description("Isma's Tear (Skill)"), ToolTip("Splits when obtaining Isma's Tear (Acid Armour)")]
 		IsmasTear,
 		[Description("Mantis Claw (Skill)"), ToolTip("Splits when obtaining Mantis Claw (Wall Jump)")]
@@ -70,17 +74,25 @@ namespace LiveSplit.HollowKnight {
 		[Description("Tram Pass (Item)"), ToolTip("Splits when obtaining the Tram Pass")]
 		TramPass,
 
-		[Description("Nail Upgrade 1"), ToolTip("Splits when getting Nail Upgrade 1")]
+		[Description("Nail 1 (Upgrade)"), ToolTip("Splits when getting Nail Upgrade 1")]
 		NailUpgrade1,
-		[Description("Nail Upgrade 2"), ToolTip("Splits when getting Nail Upgrade 2")]
+		[Description("Nail 2 (Upgrade)"), ToolTip("Splits when getting Nail Upgrade 2")]
 		NailUpgrade2,
-		[Description("Nail Upgrade 3"), ToolTip("Splits when getting Nail Upgrade 3")]
+		[Description("Nail 3 (Upgrade)"), ToolTip("Splits when getting Coil Nail (Upgrade 3)")]
 		NailUpgrade3,
-		[Description("Nail Upgrade 4"), ToolTip("Splits when getting Nail Upgrade 4")]
+		[Description("Nail 4 (Upgrade)"), ToolTip("Splits when getting Pure Nail (Upgrade 4)")]
 		NailUpgrade4,
 
-		[Description("Colelctor (Boss)"), ToolTip("Splits when killing Collector")]
+		[Description("Broken Vessel (Boss)"), ToolTip("Splits when killing Broken Vessel")]
+		BrokenVessel,
+		[Description("Brooding Mawlek (Boss)"), ToolTip("Splits when killing Brooding Mawlek")]
+		BroodingMawlek,
+		[Description("Collector (Boss)"), ToolTip("Splits when killing Collector")]
 		Collector,
+		[Description("Crystal Guardian 1 (Boss)"), ToolTip("Splits when killing the Crystal Guardian for the first time")]
+		CrystalGuardian1,
+		[Description("Crystal Guardian 2 (Boss)"), ToolTip("Splits when killing the Crystal Guardian for the second time")]
+		CrystalGuardian2,
 		[Description("Dung Defender (Boss)"), ToolTip("Splits when killing Dung Defender")]
 		DungDefender,
 		[Description("Elder Hu (Boss)"), ToolTip("Splits when killing Elder Hu")]
@@ -101,12 +113,14 @@ namespace LiveSplit.HollowKnight {
 		Hornet1,
 		[Description("Hornet 2 (Boss)"), ToolTip("Splits when killing Hornet for the second time")]
 		Hornet2,
+		[Description("Lost Kin (Boss)"), ToolTip("Splits when killing Lost Kin (Broken Vessel Dream)")]
+		LostKin,
+		[Description("Mantis Lords (Boss)"), ToolTip("Splits when killing Mantis Lords")]
+		MantisLords,
 		[Description("Markoth (Boss)"), ToolTip("Splits when killing Markoth")]
 		Markoth,
 		[Description("Marmu (Boss)"), ToolTip("Splits when killing Marmu")]
 		Marmu,
-		[Description("Mawlek (Boss)"), ToolTip("Splits when killing Mawlek")]
-		Mawlek,
 		[Description("No Eyes (Boss)"), ToolTip("Splits when killing No Eyes")]
 		NoEyes,
 		[Description("Radiance (Boss)"), ToolTip("Splits when killing Radiance")]
@@ -115,6 +129,8 @@ namespace LiveSplit.HollowKnight {
 		SoulMaster,
 		[Description("Soul Tyrant (Boss)"), ToolTip("Splits when killing Soul Tyrant (Soul Master Dream)")]
 		SoulTyrant,
+		[Description("Traitor Lord (Boss)"), ToolTip("Splits when killing Traitor Lord")]
+		TraitorLord,
 		[Description("Uumuu (Boss)"), ToolTip("Splits when killing Uumuu")]
 		Uumuu,
 		[Description("Watcher Knight (Boss)"), ToolTip("Splits when killing Watcher Knight")]
@@ -122,11 +138,11 @@ namespace LiveSplit.HollowKnight {
 		[Description("Xero (Boss)"), ToolTip("Splits when killing Xero")]
 		Xero,
 
-		[Description("Herrah (Dreamer)"), ToolTip("Splits when you see the mask for Herrah (In Spider Area)")]
+		[Description("Herrah the Beast (Dreamer)"), ToolTip("Splits when you see the mask for Herrah (In Spider Area)")]
 		Hegemol,
-		[Description("Lurien (Dreamer)"), ToolTip("Splits when you see the mask for Lurien (After killing Watcher Knight)")]
+		[Description("Lurien the Watcher (Dreamer)"), ToolTip("Splits when you see the mask for Lurien (After killing Watcher Knight)")]
 		Lurien,
-		[Description("Monomon (Dreamer)"), ToolTip("Splits when you see the mask for Monomon (After killing Uumuu)")]
+		[Description("Monomon the Teacher (Dreamer)"), ToolTip("Splits when you see the mask for Monomon (After killing Uumuu)")]
 		Monomon,
 
 		[Description("Aspid Hunter (Mini Boss)"), ToolTip("Splits when killing the final Aspid Hunter")]
@@ -176,14 +192,78 @@ namespace LiveSplit.HollowKnight {
 		[Description("White Palace (Area)"), ToolTip("Splits when entering White Palace text for the first time")]
 		WhitePalace,
 
+		[Description("Baldur Shell (Charm)"), ToolTip("Splits when obtaining the Baldur Shell charm")]
+		BaldurShell,
+		[Description("Dashmaster (Charm)"), ToolTip("Splits when obtaining the Dashmaster charm")]
+		Dashmaster,
+		[Description("Deep Focus (Charm)"), ToolTip("Splits when obtaining the Deep Focus charm")]
+		DeepFocus,
 		[Description("Defenders Crest (Charm)"), ToolTip("Splits when obtaining the Defenders Crest charm")]
 		DefendersCrest,
+		[Description("Dream Wielder (Charm)"), ToolTip("Splits when obtaining the Dream Wielder charm")]
+		DreamWielder,
+		[Description("Flukenest (Charm)"), ToolTip("Splits when obtaining the Flukenest charm")]
+		Flukenest,
+		[Description("Fragile Greed (Charm)"), ToolTip("Splits when obtaining the Fragile Greed charm")]
+		FragileGreed,
+		[Description("Fragile Heart (Charm)"), ToolTip("Splits when obtaining the Fragile Heart charm")]
+		FragileHeart,
 		[Description("Fragile Strength (Charm)"), ToolTip("Splits when obtaining the Fragile Strength charm")]
 		FragileStrength,
+		[Description("Fury of the Fallen (Charm)"), ToolTip("Splits when obtaining the Fury of the Fallen charm")]
+		FuryOfTheFallen,
+		[Description("Gathering Swarm (Charm)"), ToolTip("Splits when obtaining the Gathering Swarm charm")]
+		GatheringSwarm,
+		[Description("Glowing Womb (Charm)"), ToolTip("Splits when obtaining the Glowing Womb charm")]
+		GlowingWomb,
+		[Description("Grubberfly's Elegy (Charm)"), ToolTip("Splits when obtaining the Grubberfly's Elegy charm")]
+		GrubberflysElegy,
+		[Description("Grubsong (Charm)"), ToolTip("Splits when obtaining the Grubsong charm")]
+		Grubsong,
+		[Description("Heavy Blow (Charm)"), ToolTip("Splits when obtaining the Heavy Blow charm")]
+		HeavyBlow,
+		[Description("Hiveblood (Charm)"), ToolTip("Splits when obtaining the Hiveblood charm")]
+		Hiveblood,
+		[Description("Joni's Blessing (Charm)"), ToolTip("Splits when obtaining the Joni's Blessing charm")]
+		JonisBlessing,
+		[Description("Kingsoul (Charm)"), ToolTip("Splits when obtaining the completed Kingsoul charm")]
+		Kingsoul,
+		[Description("Lifeblood Core (Charm)"), ToolTip("Splits when obtaining the Lifeblood Core charm")]
+		LifebloodCore,
+		[Description("Lifeblood Heart (Charm)"), ToolTip("Splits when obtaining the Lifeblood Heart charm")]
+		LifebloodHeart,
+		[Description("Longnail (Charm)"), ToolTip("Splits when obtaining the Longnail charm")]
+		Longnail,
+		[Description("Mark Of Pride (Charm)"), ToolTip("Splits when obtaining the Mark Of Pride charm")]
+		MarkOfPride,
+		[Description("Nailmaster's Glory (Charm)"), ToolTip("Splits when obtaining the Nailmaster's Glory charm")]
+		NailmastersGlory,
+		[Description("Quick Focus (Charm)"), ToolTip("Splits when obtaining the Quick Focus charm")]
+		QuickFocus,
+		[Description("Quick Slash (Charm)"), ToolTip("Splits when obtaining the Quick Slash charm")]
+		QuickSlash,
+		[Description("Shaman Stone (Charm)"), ToolTip("Splits when obtaining Shaman Stone charm")]
+		ShamanStone,
+		[Description("Shape of Unn (Charm)"), ToolTip("Splits when obtaining Shape of Unn charm")]
+		ShapeOfUnn,
+		[Description("Sharp Shadow (Charm)"), ToolTip("Splits when obtaining Sharp Shadow charm")]
+		SharpShadow,
 		[Description("Soul Catcher (Charm)"), ToolTip("Splits when obtaining the Soul Catcher charm")]
 		SoulCatcher,
+		[Description("Soul Eater (Charm)"), ToolTip("Splits when obtaining the Soul Eater charm")]
+		SoulEater,
+		[Description("Spell Twister (Charm)"), ToolTip("Splits when obtaining the Spell Twister charm")]
+		SpellTwister,
+		[Description("Spore Shroom (Charm)"), ToolTip("Splits when obtaining the Spore Shroom charm")]
+		SporeShroom,
+		[Description("Stalwart Shell (Charm)"), ToolTip("Splits when obtaining Stalwart Shell charm")]
+		StalwartShell,
+		[Description("Steady Body (Charm)"), ToolTip("Splits when obtaining the Steady Body charm")]
+		SteadyBody,
 		[Description("Thorns Of Agony (Charm)"), ToolTip("Splits when obtaining Thorns of Agony charm")]
 		ThornsOfAgony,
+		[Description("Wayward Compass (Charm)"), ToolTip("Splits when obtaining Wayward Compass charm")]
+		WaywardCompass,
 	}
 	public class ToolTipAttribute : Attribute {
 		public string ToolTip { get; set; }
