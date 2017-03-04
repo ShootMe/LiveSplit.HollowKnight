@@ -124,7 +124,22 @@ namespace LiveSplit.HollowKnight {
 				DescriptionAttribute description = (DescriptionAttribute)info.GetCustomAttributes(typeof(DescriptionAttribute), false)[0];
 				splits.Add(description.Description);
 			}
+			if (rdAlpha.Checked) {
+				splits.Sort(delegate (string one, string two) {
+					return one.CompareTo(two);
+				});
+			}
 			return splits;
+		}
+		private void radio_CheckedChanged(object sender, EventArgs e) {
+			foreach (Control c in flowMain.Controls) {
+				if (c is HollowKnightSplitSettings) {
+					HollowKnightSplitSettings setting = (HollowKnightSplitSettings)c;
+					string text = setting.cboName.Text;
+					setting.cboName.DataSource = GetAvailableSplits();
+					setting.cboName.Text = text;
+				}
+			}
 		}
 	}
 }

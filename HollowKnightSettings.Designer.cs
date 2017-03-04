@@ -26,6 +26,9 @@
 			this.btnAddSplit = new System.Windows.Forms.Button();
 			this.flowMain = new System.Windows.Forms.FlowLayoutPanel();
 			this.flowOptions = new System.Windows.Forms.FlowLayoutPanel();
+			this.lblSort = new System.Windows.Forms.Label();
+			this.rdType = new System.Windows.Forms.RadioButton();
+			this.rdAlpha = new System.Windows.Forms.RadioButton();
 			this.flowMain.SuspendLayout();
 			this.flowOptions.SuspendLayout();
 			this.SuspendLayout();
@@ -50,7 +53,7 @@
 			this.flowMain.Location = new System.Drawing.Point(0, 0);
 			this.flowMain.Margin = new System.Windows.Forms.Padding(0);
 			this.flowMain.Name = "flowMain";
-			this.flowMain.Size = new System.Drawing.Size(63, 27);
+			this.flowMain.Size = new System.Drawing.Size(318, 27);
 			this.flowMain.TabIndex = 0;
 			this.flowMain.WrapContents = false;
 			// 
@@ -58,13 +61,49 @@
 			// 
 			this.flowOptions.AutoSize = true;
 			this.flowOptions.Controls.Add(this.btnAddSplit);
+			this.flowOptions.Controls.Add(this.lblSort);
+			this.flowOptions.Controls.Add(this.rdType);
+			this.flowOptions.Controls.Add(this.rdAlpha);
 			this.flowOptions.Location = new System.Drawing.Point(0, 0);
 			this.flowOptions.Margin = new System.Windows.Forms.Padding(0);
 			this.flowOptions.Name = "flowOptions";
-			this.flowOptions.Size = new System.Drawing.Size(63, 27);
+			this.flowOptions.Size = new System.Drawing.Size(318, 27);
 			this.flowOptions.TabIndex = 0;
 			// 
-			// OriSettings
+			// lblSort
+			// 
+			this.lblSort.Location = new System.Drawing.Point(66, 0);
+			this.lblSort.Name = "lblSort";
+			this.lblSort.Size = new System.Drawing.Size(105, 23);
+			this.lblSort.TabIndex = 1;
+			this.lblSort.Text = "Sort Combo List By:";
+			this.lblSort.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// rdType
+			// 
+			this.rdType.AutoSize = true;
+			this.rdType.Checked = true;
+			this.rdType.Location = new System.Drawing.Point(177, 3);
+			this.rdType.Name = "rdType";
+			this.rdType.Size = new System.Drawing.Size(49, 17);
+			this.rdType.TabIndex = 2;
+			this.rdType.TabStop = true;
+			this.rdType.Text = "Type";
+			this.rdType.UseVisualStyleBackColor = true;
+			this.rdType.CheckedChanged += new System.EventHandler(this.radio_CheckedChanged);
+			// 
+			// rdAlpha
+			// 
+			this.rdAlpha.AutoSize = true;
+			this.rdAlpha.Location = new System.Drawing.Point(232, 3);
+			this.rdAlpha.Name = "rdAlpha";
+			this.rdAlpha.Size = new System.Drawing.Size(83, 17);
+			this.rdAlpha.TabIndex = 3;
+			this.rdAlpha.Text = "Alphabetical";
+			this.rdAlpha.UseVisualStyleBackColor = true;
+			this.rdAlpha.CheckedChanged += new System.EventHandler(this.radio_CheckedChanged);
+			// 
+			// HollowKnightSettings
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -73,12 +112,13 @@
 			this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
 			this.Controls.Add(this.flowMain);
 			this.Margin = new System.Windows.Forms.Padding(0);
-			this.Name = "OriSettings";
-			this.Size = new System.Drawing.Size(63, 27);
+			this.Name = "HollowKnightSettings";
+			this.Size = new System.Drawing.Size(318, 27);
 			this.Load += new System.EventHandler(this.Settings_Load);
 			this.flowMain.ResumeLayout(false);
 			this.flowMain.PerformLayout();
 			this.flowOptions.ResumeLayout(false);
+			this.flowOptions.PerformLayout();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -88,5 +128,8 @@
 		private System.Windows.Forms.Button btnAddSplit;
 		private System.Windows.Forms.FlowLayoutPanel flowMain;
 		private System.Windows.Forms.FlowLayoutPanel flowOptions;
+		private System.Windows.Forms.Label lblSort;
+		private System.Windows.Forms.RadioButton rdType;
+		private System.Windows.Forms.RadioButton rdAlpha;
 	}
 }

@@ -32,74 +32,158 @@ namespace LiveSplit.HollowKnight {
 		}
 	}
 	public enum SplitName {
-		[Description("Forgotten Crossroads (Area)"), ToolTip("Splits when entering Forgotten Crossroads text first appears")]
-		ForgottenCrossroads,
-		[Description("Aspid Hunter (Mini Boss)"), ToolTip("Splits when killing the final Aspid Hunter")]
-		FlyingSpitter,
-		[Description("Forgotten Crossroads (Stag Staion)"), ToolTip("Splits when opening the Forgotten Crossroads Stag Station")]
-		CrossroadsStation,
+		[Description("Crystal Heart (Skill)"), ToolTip("Splits when obtaining Crystal Heart (Super Dash)")]
+		CrystalHeart,
+		[Description("Cyclone Slash (Skill)"), ToolTip("Splits when obtaining Cyclone Slash (Nail Art)")]
+		CycloneSlash,
+		[Description("Dash Slash (Skill)"), ToolTip("Splits when obtaining Dash Slash (Nail Art)")]
+		DashSlash,
+		[Description("Descending Dark (Skill)"), ToolTip("Splits when obtaining Descending Dark")]
+		DescendingDark,
+		[Description("Desolate Dive (Skill)"), ToolTip("Splits when obtaining Desolate Dive")]
+		DesolateDive,
+		[Description("Dream Nail (Skill)"), ToolTip("Splits when obtaining Dream Nail")]
+		DreamNail,
+		[Description("Dream Nail - Awoken (Skill)"), ToolTip("Splits when Awkening the Dream Nail")]
+		DreamNail2,
+		[Description("Great Slash (Skill)"), ToolTip("Splits when obtaining Great Slash (Nail Art)")]
+		GreatSlash,
+		[Description("Isma's Tear (Skill)"), ToolTip("Splits when obtaining Isma's Tear (Acid Armour)")]
+		IsmasTear,
+		[Description("Mantis Claw (Skill)"), ToolTip("Splits when obtaining Mantis Claw (Wall Jump)")]
+		MantisClaw,
+		[Description("Monarch Wings (Skill)"), ToolTip("Splits when obtaining Monarch Wings (Double Jump)")]
+		MonarchWings,
+		[Description("Mothwing Cloak (Skill)"), ToolTip("Splits when obtaining Mothwing Cloak (Dash)")]
+		MothwingCloak,
+		[Description("Shade Cloak (Skill)"), ToolTip("Splits when obtaining Shade Cloak (Shadow Dash)")]
+		ShadeCloak,
+		[Description("Shade Soul (Skill)"), ToolTip("Splits when obtaining Shade Soul (Vengeful Spirit 2)")]
+		ShadeSoul,
+		[Description("Vengeful Spirit (Skill)"), ToolTip("Splits when obtaining Vengeful Spirit")]
+		VengefulSpirit,
+
+		[Description("Kings Brand (Item)"), ToolTip("Splits when obtaining the Kings Brand")]
+		KingsBrand,
+		[Description("Lumafly Lantern (Item)"), ToolTip("Splits when obtaining the Lumafly Lantern")]
+		LumaflyLantern,
+		[Description("Tram Pass (Item)"), ToolTip("Splits when obtaining the Tram Pass")]
+		TramPass,
+
+		[Description("Nail Upgrade 1"), ToolTip("Splits when getting Nail Upgrade 1")]
+		NailUpgrade1,
+		[Description("Nail Upgrade 2"), ToolTip("Splits when getting Nail Upgrade 2")]
+		NailUpgrade2,
+		[Description("Nail Upgrade 3"), ToolTip("Splits when getting Nail Upgrade 3")]
+		NailUpgrade3,
+		[Description("Nail Upgrade 4"), ToolTip("Splits when getting Nail Upgrade 4")]
+		NailUpgrade4,
+
+		[Description("Colelctor (Boss)"), ToolTip("Splits when killing Collector")]
+		Collector,
+		[Description("Dung Defender (Boss)"), ToolTip("Splits when killing Dung Defender")]
+		DungDefender,
+		[Description("Elder Hu (Boss)"), ToolTip("Splits when killing Elder Hu")]
+		ElderHu,
 		[Description("False Knight (Boss)"), ToolTip("Splits when killing False Knight")]
 		FalseKnight,
-		[Description("Vengeful Spirit"), ToolTip("Splits when obtaining Vengeful Spirit")]
-		VengefulSpirit,
-		[Description("Greenpath (Area)"), ToolTip("Splits when entering Greenpath text first appears")]
-		Greenpath,
-		[Description("Moss Knight (Mini Boss)"), ToolTip("Splits when killing Moss Knight")]
-		MossKnight,
+		[Description("Failed Knight (Boss)"), ToolTip("Splits when killing Failed Knight (False Knight Dream)")]
+		FailedKnight,
+		[Description("Galien (Boss)"), ToolTip("Splits when killing Galien")]
+		Galien,
+		[Description("Gorb (Boss)"), ToolTip("Splits when killing Gorb")]
+		Gorb,
+		[Description("Gruz Mother (Boss)"), ToolTip("Splits when killing Gruz Mother")]
+		GruzMother,
+		[Description("Hollow Knight (Boss)"), ToolTip("Splits when killing Hollow Knight")]
+		HollowKnight,
 		[Description("Hornet 1 (Boss)"), ToolTip("Splits when killing Hornet for the first time")]
 		Hornet1,
-		[Description("Mothwing Cloak (Dash)"), ToolTip("Splits when obtaining Mothwing Cloak")]
-		MothwingCloak,
-		[Description("Thorns Of Agony (Charm)"), ToolTip("Splits when obtaining Thorns of Agony charm")]
-		ThornsOfAgony,
-		[Description("Fog Canyon (Area)"), ToolTip("Splits when entering Fog Canyon text first appears")]
-		FogCanyon,
-		[Description("Queens Station (Stag Staion)"), ToolTip("Splits when obtaining Queens Station Stag Staion")]
-		QueensStationStation,
-		[Description("Fungal Wastes (Area)"), ToolTip("Splits when entering Fungal Wastes text first appears")]
-		FungalWastes,
+		[Description("Hornet 2 (Boss)"), ToolTip("Splits when killing Hornet for the second time")]
+		Hornet2,
+		[Description("Markoth (Boss)"), ToolTip("Splits when killing Markoth")]
+		Markoth,
+		[Description("Marmu (Boss)"), ToolTip("Splits when killing Marmu")]
+		Marmu,
+		[Description("Mawlek (Boss)"), ToolTip("Splits when killing Mawlek")]
+		Mawlek,
+		[Description("No Eyes (Boss)"), ToolTip("Splits when killing No Eyes")]
+		NoEyes,
+		[Description("Radiance (Boss)"), ToolTip("Splits when killing Radiance")]
+		Radiance,
+		[Description("Soul Master (Boss)"), ToolTip("Splits when killing Soul Master")]
+		SoulMaster,
+		[Description("Soul Tyrant (Boss)"), ToolTip("Splits when killing Soul Tyrant (Soul Master Dream)")]
+		SoulTyrant,
+		[Description("Uumuu (Boss)"), ToolTip("Splits when killing Uumuu")]
+		Uumuu,
+		[Description("Watcher Knight (Boss)"), ToolTip("Splits when killing Watcher Knight")]
+		BlackKnight,
+		[Description("Xero (Boss)"), ToolTip("Splits when killing Xero")]
+		Xero,
+
+		[Description("Herrah (Dreamer)"), ToolTip("Splits when you see the mask for Herrah (In Spider Area)")]
+		Hegemol,
+		[Description("Lurien (Dreamer)"), ToolTip("Splits when you see the mask for Lurien (After killing Watcher Knight)")]
+		Lurien,
+		[Description("Monomon (Dreamer)"), ToolTip("Splits when you see the mask for Monomon (After killing Uumuu)")]
+		Monomon,
+
+		[Description("Aspid Hunter (Mini Boss)"), ToolTip("Splits when killing the final Aspid Hunter")]
+		AspidHunter,
+		[Description("Moss Knight (Mini Boss)"), ToolTip("Splits when killing Moss Knight")]
+		MossKnight,
 		[Description("Shrumal Ogre (Mini Boss)"), ToolTip("Splits when killing the final Shrumal Ogre")]
 		MushroomBrawler,
-		[Description("Mantis Claw (Wall Jump)"), ToolTip("Splits when obtaining Mantis Claw")]
-		MantisClaw,
+
+		[Description("Distant Village (Stag Staion)"), ToolTip("Splits when obtaining Distant Village Stag Station")]
+		DeepnestStation,
+		[Description("Forgotten Crossroads (Stag Staion)"), ToolTip("Splits when opening the Forgotten Crossroads Stag Station")]
+		CrossroadsStation,
+		[Description("Kings Station (Stag Staion)"), ToolTip("Splits when obtaining Kings Station Stag Station")]
+		KingsStationStation,
+		[Description("Queens Station (Stag Staion)"), ToolTip("Splits when obtaining Queens Station Stag Staion")]
+		QueensStationStation,
+
+		[Description("City Of Tears (Area)"), ToolTip("Splits when entering City Of Tears text first appears")]
+		CityOfTears,
+		[Description("Crystal Peak (Area)"), ToolTip("Splits when entering Crystal Peak text first appears")]
+		CrystalPeak,
 		[Description("Deepnest (Area)"), ToolTip("Splits when entering Deepnest text first appears")]
 		Deepnest,
 		[Description("Deepnest Spa (Area)"), ToolTip("Splits when entering the Deepnest Spa area with bench")]
 		DeepnestSpa,
-		[Description("Distant Village (Stag Staion)"), ToolTip("Splits when obtaining Distant Village Stag Station")]
-		DeepnestStation,
-		[Description("Crystal Peak (Area)"), ToolTip("Splits when entering Crystal Peak text first appears")]
-		CrystalPeak,
-		[Description("Crystal Heart (Super Dash)"), ToolTip("Splits when obtaining Crystal Heart")]
-		CrystalHeart,
-		[Description("Gruz Mother (Boss)"), ToolTip("Splits when killing Gruz Mother")]
-		GruzMother,
-		[Description("Dream Nail"), ToolTip("Splits when obtaining Dream Nail")]
-		DreamNail,
+		[Description("Fog Canyon (Area)"), ToolTip("Splits when entering Fog Canyon text first appears")]
+		FogCanyon,
+		[Description("Forgotten Crossroads (Area)"), ToolTip("Splits when entering Forgotten Crossroads text first appears")]
+		ForgottenCrossroads,
+		[Description("Fungal Wastes (Area)"), ToolTip("Splits when entering Fungal Wastes text first appears")]
+		FungalWastes,
+		[Description("Greenpath (Area)"), ToolTip("Splits when entering Greenpath text first appears")]
+		Greenpath,
+		[Description("Hive (Area)"), ToolTip("Splits when entering Hive text first appears")]
+		Hive,
+		[Description("Infected Crossroads (Area)"), ToolTip("Splits when entering Infected Crossroads text first appears")]
+		InfectedCrossroads,
+		[Description("Queens Gardens (Area)"), ToolTip("Splits when entering Queen's Gardens text first appears")]
+		QueensGardens,
 		[Description("Resting Grounds (Area)"), ToolTip("Splits when entering Resting Grounds text first appears")]
 		RestingGrounds,
-		[Description("City Of Tears (Area)"), ToolTip("Splits when entering City Of Tears text first appears")]
-		CityOfTears,
-		[Description("Nail Upgrade 1"), ToolTip("Splits when getting Nail Upgrade 1")]
-		NailUpgrade1,
-		[Description("Fragile Strength (Charm)"), ToolTip("Splits when obtaining the Fragile Strength charm")]
-		FragileStrength,
-		[Description("Watcher Knight (Boss)"), ToolTip("Splits when killing Watcher Knight")]
-		BlackKnight,
-		[Description("Lurien (Dreamer)"), ToolTip("Splits when you see the mask for Lurien")]
-		Lurien,
-		[Description("Kings Station (Stag Staion)"), ToolTip("Splits when obtaining Kings Station Stag Station")]
-		KingsStation,
-		[Description("Herrah (Dreamer)"), ToolTip("Splits when you see the mask for Herrah")]
-		Hegemol,
+		[Description("Royal Waterways (Area)"), ToolTip("Splits when entering Royal Waterways text first appears")]
+		RoyalWaterways,
 		[Description("Teachers Archive (Area)"), ToolTip("Splits when entering Teachers Archive for the first time")]
 		TeachersArchive,
-		[Description("Uumuu (Boss)"), ToolTip("Splits when killing Uumuu")]
-		Uumuu,
-		[Description("Monomon (Dreamer)"), ToolTip("Splits when you see the mask for Monomon")]
-		Monomon,
-		[Description("Infected Crossroads (Area)"), ToolTip("Splits when entering Infected Crossroads text first appears")]
-		InfectedCrossroads
+		[Description("White Palace (Area)"), ToolTip("Splits when entering White Palace text for the first time")]
+		WhitePalace,
+
+		[Description("Defenders Crest (Charm)"), ToolTip("Splits when obtaining the Defenders Crest charm")]
+		DefendersCrest,
+		[Description("Fragile Strength (Charm)"), ToolTip("Splits when obtaining the Fragile Strength charm")]
+		FragileStrength,
+		[Description("Soul Catcher (Charm)"), ToolTip("Splits when obtaining the Soul Catcher charm")]
+		SoulCatcher,
+		[Description("Thorns Of Agony (Charm)"), ToolTip("Splits when obtaining Thorns of Agony charm")]
+		ThornsOfAgony,
 	}
 	public class ToolTipAttribute : Attribute {
 		public string ToolTip { get; set; }

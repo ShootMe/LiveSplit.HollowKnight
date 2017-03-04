@@ -62,6 +62,10 @@ namespace LiveSplit.HollowKnight {
 			//GameManager._instance.playerData.nailDamage
 			return gameManager.Read<int>(0x0, 0x30, 0x118);
 		}
+		public int NailUpgrades() {
+			//GameManager._instance.playerData.nailSmithUpgrades
+			return gameManager.Read<int>(0x0, 0x30, 0x2d4);
+		}
 		public int CharmCount() {
 			//GameManager._instance.playerData.charms
 			int count = 0;
@@ -89,29 +93,141 @@ namespace LiveSplit.HollowKnight {
 			//GameManager._instance.playerData.killedMossKnight
 			return gameManager.Read<bool>(0x0, 0x30, 0x5d1);
 		}
-		public bool KilledFlyingSpitter() {
+		public bool KilledAspidHunter() {
 			//GameManager._instance.playerData.killsSpitter
 			return gameManager.Read<int>(0x0, 0x30, 0x504) == 17;
 		}
 		public bool KilledFalseKnight() {
 			//GameManager._instance.playerData.killedFlaseKnight
-			return gameManager.Read<bool>(0x0, 0x30, 0x561);
+			return gameManager.Read<bool>(0x0, 0x30, 0x97e);
 		}
-		public bool HasSoulSpell() {
+		public bool KilledFailedKnight() {
+			//GameManager._instance.playerData.falseKnightDreamDefeated
+			return gameManager.Read<bool>(0x0, 0x30, 0x97f);
+		}
+		public bool KilledNoEyes() {
+			//GameManager._instance.playerData.killedGhostNoEyes
+			return gameManager.Read<bool>(0x0, 0x30, 0x941);
+		}
+		public bool KilledMarkoth() {
+			//GameManager._instance.playerData.killedGhostMarkoth
+			return gameManager.Read<bool>(0x0, 0x30, 0x949);
+		}
+		public bool KilledXero() {
+			//GameManager._instance.playerData.killedGhostXero
+			return gameManager.Read<bool>(0x0, 0x30, 0x929);
+		}
+		public bool KilledGorb() {
+			//GameManager._instance.playerData.killedGhostAladar
+			return gameManager.Read<bool>(0x0, 0x30, 0x921);
+		}
+		public bool KilledCollector() {
+			//GameManager._instance.playerData.collectorDefeated
+			return gameManager.Read<bool>(0x0, 0x30, 0x987);
+		}
+		public bool KilledHollowKnight() {
+			//GameManager._instance.playerData.killedHollowKnight
+			return gameManager.Read<bool>(0x0, 0x30, 0x959);
+		}
+		public bool KilledRadiance() {
+			//GameManager._instance.playerData.killedFinalBoss
+			return gameManager.Read<bool>(0x0, 0x30, 0x961);
+		}
+		public bool KilledGalien() {
+			//GameManager._instance.playerData.killedGhostGalien
+			return gameManager.Read<bool>(0x0, 0x30, 0x951);
+		}
+		public bool KilledMarmu() {
+			//GameManager._instance.playerData.killedGhostMarmu
+			return gameManager.Read<bool>(0x0, 0x30, 0x939);
+		}
+		public bool KilledElderHu() {
+			//GameManager._instance.playerData.killedGhostHu
+			return gameManager.Read<bool>(0x0, 0x30, 0x931);
+		}
+		public bool KilledMawlek() {
+			//GameManager._instance.playerData.mawlekDefeated
+			return gameManager.Read<bool>(0x0, 0x30, 0x981);
+		}
+		public bool KilledSoulTyrant() {
+			//GameManager._instance.playerData.mageLordDreamDefeated
+			return gameManager.Read<bool>(0x0, 0x30, 0x989);
+		}
+		public bool HasVengefulSpirit() {
 			//GameManager._instance.playerData.hasSpell
 			return gameManager.Read<bool>(0x0, 0x30, 0x129);
+		}
+		public bool HasMonarchWings() {
+			//GameManager._instance.playerData.hasDoubleJump
+			return gameManager.Read<bool>(0x0, 0x30, 0x149);
+		}
+		public bool HasKingsBrand() {
+			//GameManager._instance.playerData.hasKingsBrand
+			return gameManager.Read<bool>(0x0, 0x30, 0x156);
+		}
+		public bool HasLumaflyLantern() {
+			//GameManager._instance.playerData.hasLantern
+			return gameManager.Read<bool>(0x0, 0x30, 0x14a);
+		}
+		public bool HasTramPass() {
+			//GameManager._instance.playerData.hasTramPass
+			return gameManager.Read<bool>(0x0, 0x30, 0x14b);
+		}
+		public bool HasShadeSoul() {
+			//GameManager._instance.playerData.fireballLevel
+			return gameManager.Read<int>(0x0, 0x30, 0x12c) == 2;
+		}
+		public bool HasIsmasTear() {
+			//GameManager._instance.playerData.hasAcidArmour
+			return gameManager.Read<bool>(0x0, 0x30, 0x148);
+		}
+		public bool HasCycloneSlash() {
+			//GameManager._instance.playerData.hasCyclone
+			return gameManager.Read<bool>(0x0, 0x30, 0x139);
+		}
+		public bool HasDashSlash() {
+			//GameManager._instance.playerData.hasDashSlash
+			return gameManager.Read<bool>(0x0, 0x30, 0x13a);
+		}
+		public bool HasGreatSlash() {
+			//GameManager._instance.playerData.hasUpwardSlash
+			return gameManager.Read<bool>(0x0, 0x30, 0x13b);
+		}
+		public int DesolateDiveLevel() {
+			//GameManager._instance.playerData.quakeLevel
+			return gameManager.Read<int>(0x0, 0x30, 0x130);
 		}
 		public bool KilledHornet() {
 			//GameManager._instance.playerData.killedHornet
 			return gameManager.Read<bool>(0x0, 0x30, 0x851);
 		}
-		public bool MothwingCloak() {
+		public bool KilledHornet2() {
+			//GameManager._instance.playerData.hornetOutskirtsDefeated
+			return gameManager.Read<bool>(0x0, 0x30, 0x988);
+		}
+		public bool KilledDungDefender() {
+			//GameManager._instance.playerData.killedDungDefender
+			return gameManager.Read<bool>(0x0, 0x30, 0x739);
+		}
+		public bool KilledSoulMaster() {
+			//GameManager._instance.playerData.killedMageLord
+			return gameManager.Read<bool>(0x0, 0x30, 0x701);
+		}
+		public bool HasMothwingCloak() {
 			//GameManager._instance.playerData.hasDash
 			return gameManager.Read<bool>(0x0, 0x30, 0x144);
 		}
-		public bool ThornsOfAgony() {
+		public bool HasShadeCloak() {
+			//GameManager._instance.playerData.hasShadowDash
+			return gameManager.Read<bool>(0x0, 0x30, 0x147);
+		}
+		public bool HasThornsOfAgony() {
 			//GameManager._instance.playerData.gotCharm_12
 			return gameManager.Read<bool>(0x0, 0x30, 0x3e1);
+		}
+		public bool HasDefendersCrest() {
+			//GameManager._instance.playerData.gotCharm_10
+			return gameManager.Read<bool>(0x0, 0x30, 0x3d1);
 		}
 		public bool VisitedFogCanyon() {
 			//GameManager._instance.playerData.visitedFogCanyon
@@ -125,11 +241,27 @@ namespace LiveSplit.HollowKnight {
 			//GameManager._instance.playerData.visitedFungus
 			return gameManager.Read<bool>(0x0, 0x30, 0x9d3);
 		}
+		public bool VisitedHive() {
+			//GameManager._instance.playerData.visitedHive
+			return gameManager.Read<bool>(0x0, 0x30, 0x9d4);
+		}
+		public bool VisitedRoyalWaterways() {
+			//GameManager._instance.playerData.visitedWaterways
+			return gameManager.Read<bool>(0x0, 0x30, 0x9dc);
+		}
+		public bool VisitedQueensGardens() {
+			//GameManager._instance.playerData.visitedRoyalGardens
+			return gameManager.Read<bool>(0x0, 0x30, 0x9d8);
+		}
+		public bool VisitedWhitePalace() {
+			//GameManager._instance.playerData.visitedWhitePalace
+			return gameManager.Read<bool>(0x0, 0x30, 0x9df);
+		}
 		public bool KilledMushroomBrawler() {
 			//GameManager._instance.playerData.killsMushroomBrawler
 			return gameManager.Read<int>(0x0, 0x30, 0x65c) == 6;
 		}
-		public bool MantisClaw() {
+		public bool HasMantisClaw() {
 			//GameManager._instance.playerData.hasWallJump
 			return gameManager.Read<bool>(0x0, 0x30, 0x145);
 		}
@@ -149,7 +281,7 @@ namespace LiveSplit.HollowKnight {
 			//GameManager._instance.playerData.visitedMines
 			return gameManager.Read<bool>(0x0, 0x30, 0x9d7);
 		}
-		public bool CrystalHeart() {
+		public bool HasCrystalHeart() {
 			//GameManager._instance.playerData.hasSuperDash
 			return gameManager.Read<bool>(0x0, 0x30, 0x146);
 		}
@@ -161,6 +293,10 @@ namespace LiveSplit.HollowKnight {
 			//GameManager._instance.playerData.hasDreamNail
 			return gameManager.Read<bool>(0x0, 0x30, 0x13d);
 		}
+		public bool HasDreamNail2() {
+			//GameManager._instance.playerData.dreamNailUpgraded
+			return gameManager.Read<bool>(0x0, 0x30, 0x13e);
+		}
 		public bool VisitedRestingGrounds() {
 			//GameManager._instance.playerData.visitedRestingGrounds
 			return gameManager.Read<bool>(0x0, 0x30, 0x9db);
@@ -169,11 +305,15 @@ namespace LiveSplit.HollowKnight {
 			//GameManager._instance.playerData.visitedRuins
 			return gameManager.Read<bool>(0x0, 0x30, 0x9d6);
 		}
-		public bool FragileStrength() {
+		public bool HasFragileStrength() {
 			//GameManager._instance.playerData.gotCharm_25
 			return gameManager.Read<bool>(0x0, 0x30, 0x449);
 		}
-		public bool KilledWatcherKnight() {
+		public bool HasSoulCatcher() {
+			//GameManager._instance.playerData.gotCharm_20
+			return gameManager.Read<bool>(0x0, 0x30, 0x421);
+		}
+		public bool KilledBlackKnight() {
 			//GameManager._instance.playerData.killedBlackKnight
 			return gameManager.Read<bool>(0x0, 0x30, 0x689);
 		}
@@ -540,8 +680,8 @@ namespace LiveSplit.HollowKnight {
 					default: key.Value = BitConverter.ToInt32(newData, key.Index); break;
 				}
 
-				if (oldValue != null) {
-					bool changed = false;
+				bool changed = oldValue == null;
+				if (!changed) {
 					switch (key.Type) {
 						case "UnityEngine.Vector3": changed = (PointF)oldValue != (PointF)key.Value; break;
 						case "System.Single": changed = (float)oldValue != (float)key.Value; break;
@@ -552,10 +692,9 @@ namespace LiveSplit.HollowKnight {
 						case "System.Boolean": changed = (bool)oldValue != (bool)key.Value; break;
 						default: changed = (int)oldValue != (int)key.Value; break;
 					}
-
-					if (changed && logWriter != null) {
-						logWriter(key.ToString(oldValue));
-					}
+				}
+				if (changed && oldValue != null && logWriter != null) {
+					logWriter(key.ToString(oldValue));
 				}
 			}
 		}
@@ -576,7 +715,7 @@ namespace LiveSplit.HollowKnight {
 			return Index.ToString("X") + " " + Name + " " + Type + " = " + (Value ?? "").ToString();
 		}
 		public string ToString(object oldValue) {
-			return Name + ": " + oldValue.ToString() + " -> " + (Value ?? "").ToString();
+			return Name + ": " + (oldValue ?? "").ToString() + " -> " + (Value ?? "").ToString();
 		}
 	}
 }

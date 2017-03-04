@@ -48,108 +48,87 @@ namespace LiveSplit.HollowKnight {
 				string sceneName = mem.SceneName();
 
 				if (currentSplit + 1 < Model.CurrentState.Run.Count) {
-					if (settings.HasSplit(SplitName.ForgottenCrossroads) && !splitsDone.Contains(SplitName.ForgottenCrossroads) && mem.VisitedCrossroads()) {
-						shouldSplit = true;
-						splitsDone.Add(SplitName.ForgottenCrossroads);
-					} else if (settings.HasSplit(SplitName.FlyingSpitter) && !splitsDone.Contains(SplitName.FlyingSpitter) && mem.KilledFlyingSpitter()) {
-						shouldSplit = true;
-						splitsDone.Add(SplitName.FlyingSpitter);
-					} else if (settings.HasSplit(SplitName.CrossroadsStation) && !splitsDone.Contains(SplitName.CrossroadsStation) && mem.CrossroadsStationOpened()) {
-						shouldSplit = true;
-						splitsDone.Add(SplitName.CrossroadsStation);
-					} else if (settings.HasSplit(SplitName.FalseKnight) && !splitsDone.Contains(SplitName.FalseKnight) && mem.KilledFalseKnight()) {
-						shouldSplit = true;
-						splitsDone.Add(SplitName.FalseKnight);
-					} else if (settings.HasSplit(SplitName.VengefulSpirit) && !splitsDone.Contains(SplitName.VengefulSpirit) && mem.HasSoulSpell()) {
-						shouldSplit = true;
-						splitsDone.Add(SplitName.VengefulSpirit);
-					} else if (settings.HasSplit(SplitName.Greenpath) && !splitsDone.Contains(SplitName.Greenpath) && mem.VisitedGreenpath()) {
-						shouldSplit = true;
-						splitsDone.Add(SplitName.Greenpath);
-					} else if (settings.HasSplit(SplitName.MossKnight) && !splitsDone.Contains(SplitName.MossKnight) && mem.KilledMossKnight()) {
-						shouldSplit = true;
-						splitsDone.Add(SplitName.MossKnight);
-					} else if (settings.HasSplit(SplitName.Hornet1) && !splitsDone.Contains(SplitName.Hornet1) && mem.KilledHornet()) {
-						shouldSplit = true;
-						splitsDone.Add(SplitName.Hornet1);
-					} else if (settings.HasSplit(SplitName.MothwingCloak) && !splitsDone.Contains(SplitName.MothwingCloak) && mem.MothwingCloak()) {
-						shouldSplit = true;
-						splitsDone.Add(SplitName.MothwingCloak);
-					} else if (settings.HasSplit(SplitName.ThornsOfAgony) && !splitsDone.Contains(SplitName.ThornsOfAgony) && mem.ThornsOfAgony()) {
-						shouldSplit = true;
-						splitsDone.Add(SplitName.ThornsOfAgony);
-					} else if (settings.HasSplit(SplitName.FogCanyon) && !splitsDone.Contains(SplitName.FogCanyon) && mem.VisitedFogCanyon()) {
-						shouldSplit = true;
-						splitsDone.Add(SplitName.FogCanyon);
-					} else if (settings.HasSplit(SplitName.QueensStationStation) && !splitsDone.Contains(SplitName.QueensStationStation) && mem.QueensStationOpened()) {
-						shouldSplit = true;
-						splitsDone.Add(SplitName.QueensStationStation);
-					} else if (settings.HasSplit(SplitName.FungalWastes) && !splitsDone.Contains(SplitName.FungalWastes) && mem.VisitedFungalWastes()) {
-						shouldSplit = true;
-						splitsDone.Add(SplitName.FungalWastes);
-					} else if (settings.HasSplit(SplitName.MushroomBrawler) && !splitsDone.Contains(SplitName.MushroomBrawler) && mem.KilledMushroomBrawler()) {
-						shouldSplit = true;
-						splitsDone.Add(SplitName.MushroomBrawler);
-					} else if (settings.HasSplit(SplitName.MantisClaw) && !splitsDone.Contains(SplitName.MantisClaw) && mem.MantisClaw()) {
-						shouldSplit = true;
-						splitsDone.Add(SplitName.MantisClaw);
-					} else if (settings.HasSplit(SplitName.Deepnest) && !splitsDone.Contains(SplitName.Deepnest) && mem.VisitedDeepnest()) {
-						shouldSplit = true;
-						splitsDone.Add(SplitName.Deepnest);
-					} else if (settings.HasSplit(SplitName.DeepnestSpa) && !splitsDone.Contains(SplitName.DeepnestSpa) && mem.VisitedDeepnestSpa()) {
-						shouldSplit = true;
-						splitsDone.Add(SplitName.DeepnestSpa);
-					} else if (settings.HasSplit(SplitName.DeepnestStation) && !splitsDone.Contains(SplitName.DeepnestStation) && mem.DeepnestStationOpened()) {
-						shouldSplit = true;
-						splitsDone.Add(SplitName.DeepnestStation);
-					} else if (settings.HasSplit(SplitName.CrystalPeak) && !splitsDone.Contains(SplitName.CrystalPeak) && mem.VisitedCrystalPeak()) {
-						shouldSplit = true;
-						splitsDone.Add(SplitName.CrystalPeak);
-					} else if (settings.HasSplit(SplitName.CrystalHeart) && !splitsDone.Contains(SplitName.CrystalHeart) && mem.CrystalHeart()) {
-						shouldSplit = true;
-						splitsDone.Add(SplitName.CrystalHeart);
-					} else if (settings.HasSplit(SplitName.GruzMother) && !splitsDone.Contains(SplitName.GruzMother) && mem.KilledGruzMother()) {
-						shouldSplit = true;
-						splitsDone.Add(SplitName.GruzMother);
-					} else if (settings.HasSplit(SplitName.DreamNail) && !splitsDone.Contains(SplitName.DreamNail) && mem.HasDreamNail()) {
-						shouldSplit = true;
-						splitsDone.Add(SplitName.DreamNail);
-					} else if (settings.HasSplit(SplitName.RestingGrounds) && !splitsDone.Contains(SplitName.RestingGrounds) && mem.VisitedRestingGrounds()) {
-						shouldSplit = true;
-						splitsDone.Add(SplitName.RestingGrounds);
-					} else if (settings.HasSplit(SplitName.CityOfTears) && !splitsDone.Contains(SplitName.CityOfTears) && mem.VisitedCityOfTears()) {
-						shouldSplit = true;
-						splitsDone.Add(SplitName.CityOfTears);
-					} else if (settings.HasSplit(SplitName.NailUpgrade1) && !splitsDone.Contains(SplitName.NailUpgrade1) && mem.NailDamage() == 9) {
-						shouldSplit = true;
-						splitsDone.Add(SplitName.NailUpgrade1);
-					} else if (settings.HasSplit(SplitName.FragileStrength) && !splitsDone.Contains(SplitName.FragileStrength) && mem.FragileStrength()) {
-						shouldSplit = true;
-						splitsDone.Add(SplitName.FragileStrength);
-					} else if (settings.HasSplit(SplitName.BlackKnight) && !splitsDone.Contains(SplitName.BlackKnight) && mem.KilledWatcherKnight()) {
-						shouldSplit = true;
-						splitsDone.Add(SplitName.BlackKnight);
-					} else if (settings.HasSplit(SplitName.Lurien) && !splitsDone.Contains(SplitName.Lurien) && mem.Lurien()) {
-						shouldSplit = true;
-						splitsDone.Add(SplitName.Lurien);
-					} else if (settings.HasSplit(SplitName.KingsStation) && !splitsDone.Contains(SplitName.KingsStation) && mem.KingsStationOpened()) {
-						shouldSplit = true;
-						splitsDone.Add(SplitName.KingsStation);
-					} else if (settings.HasSplit(SplitName.Hegemol) && !splitsDone.Contains(SplitName.Hegemol) && mem.Hegemol()) {
-						shouldSplit = true;
-						splitsDone.Add(SplitName.Hegemol);
-					} else if (settings.HasSplit(SplitName.TeachersArchive) && !splitsDone.Contains(SplitName.TeachersArchive) && sceneName.Equals("Fungus3_archive", StringComparison.OrdinalIgnoreCase)) {
-						shouldSplit = true;
-						splitsDone.Add(SplitName.TeachersArchive);
-					} else if (settings.HasSplit(SplitName.Uumuu) && !splitsDone.Contains(SplitName.Uumuu) && mem.KilledUumuu()) {
-						shouldSplit = true;
-						splitsDone.Add(SplitName.Uumuu);
-					} else if (settings.HasSplit(SplitName.Monomon) && !splitsDone.Contains(SplitName.Monomon) && mem.Monomon()) {
-						shouldSplit = true;
-						splitsDone.Add(SplitName.Monomon);
-					} else if (settings.HasSplit(SplitName.InfectedCrossroads) && !splitsDone.Contains(SplitName.InfectedCrossroads) && mem.CrossroadsInfected() && mem.VisitedCrossroads()) {
-						shouldSplit = true;
-						splitsDone.Add(SplitName.InfectedCrossroads);
+					foreach (SplitName split in settings.Splits) {
+						if (splitsDone.Contains(SplitName.InfectedCrossroads)) { continue; }
+
+						switch (split) {
+							case SplitName.AspidHunter: shouldSplit = mem.KilledAspidHunter(); break;
+							case SplitName.BlackKnight: shouldSplit = mem.KilledBlackKnight(); break;
+							case SplitName.CityOfTears: shouldSplit = mem.VisitedCityOfTears(); break;
+							case SplitName.Collector: shouldSplit = mem.KilledCollector(); break;
+							case SplitName.CrossroadsStation: shouldSplit = mem.CrossroadsStationOpened(); break;
+							case SplitName.CrystalHeart: shouldSplit = mem.HasCrystalHeart(); break;
+							case SplitName.CrystalPeak: shouldSplit = mem.VisitedCrystalPeak(); break;
+							case SplitName.CycloneSlash: shouldSplit = mem.HasCycloneSlash(); break;
+							case SplitName.DashSlash: shouldSplit = mem.HasDashSlash(); break;
+							case SplitName.Deepnest: shouldSplit = mem.VisitedDeepnest(); break;
+							case SplitName.DeepnestSpa: shouldSplit = mem.VisitedDeepnestSpa(); break;
+							case SplitName.DeepnestStation: shouldSplit = mem.DeepnestStationOpened(); break;
+							case SplitName.DefendersCrest: shouldSplit = mem.HasDefendersCrest(); break;
+							case SplitName.DescendingDark: shouldSplit = mem.DesolateDiveLevel() == 2; break;
+							case SplitName.DesolateDive: shouldSplit = mem.DesolateDiveLevel() == 1; break;
+							case SplitName.DreamNail: shouldSplit = mem.HasDreamNail(); break;
+							case SplitName.DreamNail2: shouldSplit = mem.HasDreamNail2(); break;
+							case SplitName.DungDefender: shouldSplit = mem.KilledDungDefender(); break;
+							case SplitName.ElderHu: shouldSplit = mem.KilledElderHu(); break;
+							case SplitName.FailedKnight: shouldSplit = mem.KilledFailedKnight(); break;
+							case SplitName.FalseKnight: shouldSplit = mem.KilledFalseKnight(); break;
+							case SplitName.FogCanyon: shouldSplit = mem.VisitedFogCanyon(); break;
+							case SplitName.ForgottenCrossroads: shouldSplit = mem.VisitedCrossroads(); break;
+							case SplitName.FragileStrength: shouldSplit = mem.HasFragileStrength(); break;
+							case SplitName.FungalWastes: shouldSplit = mem.VisitedFungalWastes(); break;
+							case SplitName.Galien: shouldSplit = mem.KilledGalien(); break;
+							case SplitName.Gorb: shouldSplit = mem.KilledGorb(); break;
+							case SplitName.GreatSlash: shouldSplit = mem.HasGreatSlash(); break;
+							case SplitName.Greenpath: shouldSplit = mem.VisitedGreenpath(); break;
+							case SplitName.GruzMother: shouldSplit = mem.KilledGruzMother(); break;
+							case SplitName.Hegemol: shouldSplit = mem.Hegemol(); break;
+							case SplitName.Hive: shouldSplit = mem.VisitedHive(); break;
+							case SplitName.HollowKnight: shouldSplit = mem.KilledHollowKnight(); break;
+							case SplitName.Hornet1: shouldSplit = mem.KilledHornet(); break;
+							case SplitName.Hornet2: shouldSplit = mem.KilledHornet2(); break;
+							case SplitName.InfectedCrossroads: shouldSplit = mem.CrossroadsInfected() && mem.VisitedCrossroads(); break;
+							case SplitName.IsmasTear: shouldSplit = mem.HasIsmasTear(); break;
+							case SplitName.KingsBrand: shouldSplit = mem.HasKingsBrand(); break;
+							case SplitName.KingsStationStation: shouldSplit = mem.KingsStationOpened(); break;
+							case SplitName.LumaflyLantern: shouldSplit = mem.HasLumaflyLantern(); break;
+							case SplitName.Lurien: shouldSplit = mem.Lurien(); break;
+							case SplitName.MantisClaw: shouldSplit = mem.HasMantisClaw(); break;
+							case SplitName.Markoth: shouldSplit = mem.KilledMarkoth(); break;
+							case SplitName.Marmu: shouldSplit = mem.KilledMarmu(); break;
+							case SplitName.MonarchWings: shouldSplit = mem.HasMonarchWings(); break;
+							case SplitName.Monomon: shouldSplit = mem.Monomon(); break;
+							case SplitName.MossKnight: shouldSplit = mem.KilledMossKnight(); break;
+							case SplitName.MothwingCloak: shouldSplit = mem.HasMothwingCloak(); break;
+							case SplitName.MushroomBrawler: shouldSplit = mem.KilledMushroomBrawler(); break;
+							case SplitName.NailUpgrade1: shouldSplit = mem.NailUpgrades() == 1; break;
+							case SplitName.NailUpgrade2: shouldSplit = mem.NailUpgrades() == 2; break;
+							case SplitName.NailUpgrade3: shouldSplit = mem.NailUpgrades() == 3; break;
+							case SplitName.NailUpgrade4: shouldSplit = mem.NailUpgrades() == 4; break;
+							case SplitName.NoEyes: shouldSplit = mem.KilledNoEyes(); break;
+							case SplitName.QueensGardens: shouldSplit = mem.VisitedQueensGardens(); break;
+							case SplitName.QueensStationStation: shouldSplit = mem.QueensStationOpened(); break;
+							case SplitName.Radiance: shouldSplit = mem.KilledRadiance(); break;
+							case SplitName.RestingGrounds: shouldSplit = mem.VisitedRestingGrounds(); break;
+							case SplitName.RoyalWaterways: shouldSplit = mem.VisitedRoyalWaterways(); break;
+							case SplitName.ShadeCloak: shouldSplit = mem.HasShadeCloak(); break;
+							case SplitName.ShadeSoul: shouldSplit = mem.HasShadeSoul(); break;
+							case SplitName.SoulCatcher: shouldSplit = mem.HasSoulCatcher(); break;
+							case SplitName.SoulMaster: shouldSplit = mem.KilledSoulMaster(); break;
+							case SplitName.SoulTyrant: shouldSplit = mem.KilledSoulTyrant(); break;
+							case SplitName.TeachersArchive: shouldSplit = sceneName.Equals("Fungus3_archive", StringComparison.OrdinalIgnoreCase); break;
+							case SplitName.ThornsOfAgony: shouldSplit = mem.HasThornsOfAgony(); break;
+							case SplitName.TramPass: shouldSplit = mem.HasTramPass(); break;
+							case SplitName.Uumuu: shouldSplit = mem.KilledUumuu(); break;
+							case SplitName.VengefulSpirit: shouldSplit = mem.HasVengefulSpirit(); break;
+							case SplitName.WhitePalace: shouldSplit = mem.VisitedWhitePalace(); break;
+							case SplitName.Xero: shouldSplit = mem.KilledXero(); break;
+						}
+
+						if (shouldSplit) {
+							splitsDone.Add(split);
+							break;
+						}
 					}
 				} else {
 					shouldSplit = nextScene.Equals("Cinematic_Ending_A", StringComparison.OrdinalIgnoreCase);
