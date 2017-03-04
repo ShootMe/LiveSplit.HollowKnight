@@ -83,7 +83,8 @@ namespace LiveSplit.HollowKnight {
 	}
 	public enum Offset : int {
 		health = 0x68,
-		maxHealth = 0x6c,
+		maxHealthBase = 0x70,
+		MPReserveMax = 0xac,
 		mapZone = 0xcc,
 		nailDamage = 0x118,
 		fireballLevel = 0x12c,
@@ -107,7 +108,11 @@ namespace LiveSplit.HollowKnight {
 		hegemolDefeated = 0x1c1,
 		monomonDefeated = 0x1c2,
 		visitedDeepnestSpa = 0x200,
+		mothDeparted = 0x2a9,
 		nailSmithUpgrades = 0x2d4,
+		colosseumBronzeCompleted = 0x367,
+		colosseumSilverCompleted = 0x369,
+		colosseumGoldCompleted = 0x36b,
 		openedCrossroads = 0x36e,
 		openedRuins2 = 0x371,
 		openedFungalWastes = 0x372,
@@ -158,6 +163,7 @@ namespace LiveSplit.HollowKnight {
 		killedBlackKnight = 0x689,
 		killedMageLord = 0x701,
 		killedDungDefender = 0x739,
+		killedMimicSpider = 0x7e1,
 		killedHornet = 0x851,
 		killedTraitorLord = 0x8a1,
 		killedGhostAladar = 0x921,
@@ -191,7 +197,8 @@ namespace LiveSplit.HollowKnight {
 		crossroadsInfected = 0xa1e,
 		defeatedMantisLords = 0xa30,
 		defeatedMegaBeamMiner = 0xa56,
-		defeatedMegaBeamMiner2 = 0xa57
+		defeatedMegaBeamMiner2 = 0xa57,
+		gotShadeCharm = 0xa6a
 	}
 	public enum MemVersion {
 		None,

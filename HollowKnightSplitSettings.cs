@@ -74,6 +74,14 @@ namespace LiveSplit.HollowKnight {
 		[Description("Tram Pass (Item)"), ToolTip("Splits when obtaining the Tram Pass")]
 		TramPass,
 
+		[Description("Mask 1 (Upgrade)"), ToolTip("Splits when getting first full Mask upgrade (6 HP)")]
+		Mask1,
+		[Description("Mask 2 (Upgrade)"), ToolTip("Splits when getting second full Mask upgrade (7 HP)")]
+		Mask2,
+		[Description("Mask 3 (Upgrade)"), ToolTip("Splits when getting third full Mask upgrade (8 HP)")]
+		Mask3,
+		[Description("Mask 4 (Upgrade)"), ToolTip("Splits when getting fourth full Mask upgrade (9 HP)")]
+		Mask4,
 		[Description("Nail 1 (Upgrade)"), ToolTip("Splits when getting Nail Upgrade 1")]
 		NailUpgrade1,
 		[Description("Nail 2 (Upgrade)"), ToolTip("Splits when getting Nail Upgrade 2")]
@@ -82,6 +90,12 @@ namespace LiveSplit.HollowKnight {
 		NailUpgrade3,
 		[Description("Nail 4 (Upgrade)"), ToolTip("Splits when getting Pure Nail (Upgrade 4)")]
 		NailUpgrade4,
+		[Description("Vessel 1 (Upgrade)"), ToolTip("Splits when getting first full Vessel upgrade (1 extra MP)")]
+		Vessel1,
+		[Description("Vessel 2 (Upgrade)"), ToolTip("Splits when getting second full Vessel upgrade (2 extra MP)")]
+		Vessel2,
+		[Description("Vessel 3 (Upgrade)"), ToolTip("Splits when getting third full Vessel upgrade (3 extra MP)")]
+		Vessel3,
 
 		[Description("Broken Vessel (Boss)"), ToolTip("Splits when killing Broken Vessel")]
 		BrokenVessel,
@@ -123,6 +137,8 @@ namespace LiveSplit.HollowKnight {
 		Marmu,
 		[Description("No Eyes (Boss)"), ToolTip("Splits when killing No Eyes")]
 		NoEyes,
+		[Description("Nosk (Boss)"), ToolTip("Splits when killing Nosk")]
+		Nosk,
 		[Description("Radiance (Boss)"), ToolTip("Splits when killing Radiance")]
 		Radiance,
 		[Description("Soul Master (Boss)"), ToolTip("Splits when killing Soul Master")]
@@ -144,6 +160,15 @@ namespace LiveSplit.HollowKnight {
 		Lurien,
 		[Description("Monomon the Teacher (Dreamer)"), ToolTip("Splits when you see the mask for Monomon (After killing Uumuu)")]
 		Monomon,
+		[Description("Seer Departs (Event)"), ToolTip("Splits when the Seer Departs after bringing back 2400 essence")]
+		SeerDeparts,
+
+		[Description("Colosseum Fight 1 (Trial)"), ToolTip("Splits when beating the first Colosseum trial")]
+		ColosseumBronze,
+		[Description("Colosseum Fight 2 (Trial)"), ToolTip("Splits when beating the second Colosseum trial")]
+		ColosseumSilver,
+		[Description("Colosseum Fight 3 (Trial)"), ToolTip("Splits when beating the third Colosseum trial")]
+		ColosseumGold,
 
 		[Description("Aspid Hunter (Mini Boss)"), ToolTip("Splits when killing the final Aspid Hunter")]
 		AspidHunter,
@@ -262,6 +287,8 @@ namespace LiveSplit.HollowKnight {
 		SteadyBody,
 		[Description("Thorns Of Agony (Charm)"), ToolTip("Splits when obtaining Thorns of Agony charm")]
 		ThornsOfAgony,
+		[Description("Void Heart (Charm)"), ToolTip("Splits when changing the Kingsoul to the Void Heart charm")]
+		VoidHeart,
 		[Description("Wayward Compass (Charm)"), ToolTip("Splits when obtaining Wayward Compass charm")]
 		WaywardCompass,
 	}
