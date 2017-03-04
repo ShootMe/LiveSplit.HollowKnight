@@ -49,7 +49,7 @@ namespace LiveSplit.HollowKnight {
 
 				if (currentSplit + 1 < Model.CurrentState.Run.Count) {
 					foreach (SplitName split in settings.Splits) {
-						if (splitsDone.Contains(SplitName.InfectedCrossroads)) { continue; }
+						if (splitsDone.Contains(split)) { continue; }
 
 						switch (split) {
 							case SplitName.AspidHunter: shouldSplit = mem.KilledAspidHunter(); break;
