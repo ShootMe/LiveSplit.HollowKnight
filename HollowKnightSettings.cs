@@ -57,7 +57,7 @@ namespace LiveSplit.HollowKnight {
 			setting.btnRemove.Click -= btnRemove_Click;
 		}
 		public void btnRemove_Click(object sender, EventArgs e) {
-			for (int i = flowMain.Controls.Count - 1; i > 1; i--) {
+			for (int i = flowMain.Controls.Count - 1; i > 0; i--) {
 				if (flowMain.Controls[i].Contains((Control)sender)) {
 					RemoveHandlers((HollowKnightSplitSettings)((Button)sender).Parent);
 
