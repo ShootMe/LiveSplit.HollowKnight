@@ -87,7 +87,7 @@ namespace LiveSplit.HollowKnight {
 							case SplitName.FalseKnight: shouldSplit = mem.PlayerData<bool>(Offset.killedFlaseKnight); break;
 							case SplitName.Flukenest: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_11); break;
 							case SplitName.FogCanyon: shouldSplit = mem.PlayerData<bool>(Offset.visitedFogCanyon); break;
-							case SplitName.ForgottenCrossroads: mem.PlayerData<bool>(Offset.visitedCrossroads); break;
+							case SplitName.ForgottenCrossroads: shouldSplit = mem.PlayerData<bool>(Offset.visitedCrossroads); break;
 							case SplitName.FragileGreed: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_24); break;
 							case SplitName.FragileHeart: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_23); break;
 							case SplitName.FragileStrength: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_25); break;
