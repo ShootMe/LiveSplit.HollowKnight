@@ -71,6 +71,8 @@ namespace LiveSplit.HollowKnight {
 		KingsBrand,
 		[Description("Lumafly Lantern (Item)"), ToolTip("Splits when obtaining the Lumafly Lantern")]
 		LumaflyLantern,
+		[Description("Pale Ore - Any (Item)"), ToolTip("Splits when obtaining any Pale Ore")]
+		PaleOre,
 		[Description("Tram Pass (Item)"), ToolTip("Splits when obtaining the Tram Pass")]
 		TramPass,
 

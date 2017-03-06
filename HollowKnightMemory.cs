@@ -8,16 +8,99 @@ namespace LiveSplit.HollowKnight {
 		public Process Program { get; set; }
 		public bool IsHooked { get; set; } = false;
 		private DateTime lastHooked;
-		private ProgramPointer gameManager;
-
+		private ProgramPointer gameManager, playmakerFSM;
+		//private Dictionary<string, int> enemyInfo = new Dictionary<string, int>();
 		public HollowKnightMemory() {
 			lastHooked = DateTime.MinValue;
 			gameManager = new ProgramPointer(this, MemPointer.GameManager) { AutoDeref = false };
+			playmakerFSM = new ProgramPointer(this, MemPointer.PlaymakerFSM) { AutoDeref = false };
 		}
 
 		public byte[] GetPlayerData() {
 			return gameManager.ReadBytes(2702, 0x0, 0x30, 0x0);
 		}
+		//public void ListVariables() {
+		//	Dictionary<int, Dictionary<string, object>> enemies = GetEnemyInfo();
+
+		//	foreach (KeyValuePair<int, Dictionary<string, object>> pair in enemies) {
+		//		Dictionary<string, object> info = pair.Value;
+
+		//		object value = null;
+		//		string name = null;
+		//		if (info.TryGetValue("PD Killed Name.str", out value)) {
+		//			name = (string)value;
+		//		}
+		//		if (string.IsNullOrEmpty(name) && info.TryGetValue("PlayerData Name.str", out value)) {
+		//			name = (string)value;
+		//		}
+		//		if (string.IsNullOrEmpty(name) && info.TryGetValue("Send KILLED to.str", out value)) {
+		//			name = (string)value;
+		//		}
+		//		if (info.ContainsKey("HP.int")) {
+		//			name = (name ?? "") + "." + pair.Key.ToString();
+		//			int hp = (int)info["HP.int"];
+		//			int oldHp = 0;
+		//			if (!enemyInfo.TryGetValue(name, out oldHp)) {
+		//				enemyInfo.Add(name, hp);
+		//				Console.WriteLine("Enemy: " + name + " " + hp);
+		//			} else if (hp != oldHp) {
+		//				enemyInfo[name] = hp;
+		//				Console.WriteLine("Enemy: " + name + " " + oldHp + " -> " + hp);
+		//			}
+		//		}
+		//	}
+		//}
+		//private Dictionary<int, Dictionary<string, object>> GetEnemyInfo() {
+		//	Dictionary<int, Dictionary<string, object>> enemies = new Dictionary<int, Dictionary<string, object>>();
+		//	int size = playmakerFSM.Read<int>(0x0, 0xc);
+
+		//	for (int x = 0; x < size; x++) {
+		//		string fsm = playmakerFSM.Read(0x0, 0x8, 0x10 + x * 4, 0xc, 0x14);
+		//		//if (fsm != "health_manager_enemy") { continue; }
+
+		//		Dictionary<string, object> info = new Dictionary<string, object>();
+		//		IntPtr ptr = (IntPtr)playmakerFSM.Read<int>(0x0, 0x8, 0x10 + x * 4, 0xc, 0x28);
+
+		//		for (int j = 0x8; j <= 0x30; j += 4) {
+		//			int infoSize = Program.Read<int>(ptr, j, 0xc);
+		//			if (infoSize == 0) { continue; }
+
+		//			for (int i = 0; i < infoSize; i++) {
+		//				string fsmName = Program.Read((IntPtr)Program.Read<int>(ptr, j, 0x10 + i * 4, 0x8));
+		//				if (string.IsNullOrEmpty(fsmName)) { continue; }
+
+		//				object value = null;
+		//				switch (j) {
+		//					case 0x8:
+		//						fsmName += ".float";
+		//						value = Program.Read<float>(ptr, j, 0x10 + i * 4, 0x14); break;
+		//					case 0xc:
+		//						fsmName += ".int";
+		//						value = Program.Read<int>(ptr, j, 0x10 + i * 4, 0x14); break;
+		//					case 0x10:
+		//						fsmName += ".bool";
+		//						value = Program.Read<bool>(ptr, j, 0x10 + i * 4, 0x14); break;
+		//					case 0x14:
+		//						fsmName += ".str";
+		//						value = Program.Read((IntPtr)Program.Read<int>(ptr, j, 0x10 + i * 4, 0x14)); break;
+		//					default:
+		//						fsmName += ".obj";
+		//						value = Program.Read<int>(ptr, j, 0x10 + i * 4, 0x14); break;
+		//				}
+
+		//				if (!info.ContainsKey(fsmName)) {
+		//					info.Add(fsmName, value);
+		//				}
+		//			}
+		//		}
+
+		//		if (info.Count > 50) {
+		//			enemies.Add(playmakerFSM.Read<int>(0x0, 0x8, 0x10 + x * 4, 0xc), info);
+		//		}
+		//	}
+
+		//	return enemies;
+		//}
 		public T PlayerData<T>(Offset offset) where T : struct {
 			return gameManager.Read<T>(0x0, 0x30, (int)offset);
 		}
@@ -104,6 +187,7 @@ namespace LiveSplit.HollowKnight {
 		hasLantern = 0x14a,
 		hasTramPass = 0x14b,
 		hasKingsBrand = 0x156,
+		ore = 0x15c,
 		lurienDefeated = 0x1c0,
 		hegemolDefeated = 0x1c1,
 		monomonDefeated = 0x1c2,
@@ -205,12 +289,14 @@ namespace LiveSplit.HollowKnight {
 		V1
 	}
 	public enum MemPointer {
-		GameManager
+		GameManager,
+		PlaymakerFSM
 	}
 	public class ProgramPointer {
 		private static Dictionary<MemVersion, Dictionary<MemPointer, string>> funcPatterns = new Dictionary<MemVersion, Dictionary<MemPointer, string>>() {
 			{MemVersion.V1, new Dictionary<MemPointer, string>() {
-				{MemPointer.GameManager, "558BEC5783EC048B7D088B05????????83EC086A0050E8????????83C41085C07421B8????????893883EC0C57E8????????83C41083EC0C57E8????????83C410EB3D8B05" }
+				{MemPointer.GameManager, "558BEC5783EC048B7D088B05????????83EC086A0050E8????????83C41085C07421B8????????893883EC0C57E8????????83C41083EC0C57E8????????83C410EB3D8B05" },
+				{MemPointer.PlaymakerFSM, "558BEC5783EC048B7D088B05????????83EC0857503900E8????????83C4108B470C85C074238B470C8BC83909|-33" }
 			}},
 		};
 		private IntPtr pointer;

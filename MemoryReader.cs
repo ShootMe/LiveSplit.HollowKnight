@@ -222,12 +222,13 @@ namespace LiveSplit.Memory {
 
 			return returnAddresses;
 		}
-		public static List<IntPtr> FindAllSignatures(this Process targetProcess, string searchString) {
+		public static List<IntPtr> FindAllSignatures(this Process targetProcess, string searchString, long minAddress = 65536, long maxAddress = 140737488289791L) {
 			List<IntPtr> returnAddresses = new List<IntPtr>();
 			MemorySignature byteCode = GetSignature(searchString);
 
-			long minAddress = 65536;
-			long maxAddress = Is64Bit(targetProcess) ? 140737488289791L : 2147418111L;
+			if (!Is64Bit(targetProcess) && maxAddress > 2147418111L) {
+				maxAddress = 2147418111L;
+			}
 			uint memInfoSize = (uint)Marshal.SizeOf(typeof(MemInfo));
 			MemInfo memInfo;
 
@@ -241,7 +242,7 @@ namespace LiveSplit.Memory {
 
 					int bytesRead = 0;
 					if (WinAPI.ReadProcessMemory(targetProcess.Handle, memInfo.BaseAddress, buffer, (int)regionSize, out bytesRead)) {
-						SearchAllMemory(buffer, byteCode, (IntPtr)minAddress, returnAddresses);
+						SearchAllMemory(buffer, byteCode, memInfo.BaseAddress, (int)(minAddress - (long)memInfo.BaseAddress), maxAddress, returnAddresses);
 					}
 				}
 
@@ -250,10 +251,10 @@ namespace LiveSplit.Memory {
 
 			return returnAddresses;
 		}
-		private static void SearchAllMemory(byte[] buffer, MemorySignature byteCode, IntPtr currentAddress, List<IntPtr> foundAddresses) {
+		private static void SearchAllMemory(byte[] buffer, MemorySignature byteCode, IntPtr currentAddress, int offset, long maxAddress, List<IntPtr> foundAddresses) {
 			byte[] bytes = byteCode.byteCode;
 			byte[] wild = byteCode.wildCards;
-			for (int i = 0, j = 0; i <= buffer.Length - bytes.Length; i++) {
+			for (int i = offset, j = 0; i <= buffer.Length - bytes.Length; i++) {// && (long)currentAddress + i + bytes.Length - byteCode.offset < maxAddress
 				int k = i;
 				while (j < bytes.Length && (wild[j] == 1 || buffer[k] == bytes[j])) {
 					k++; j++;
