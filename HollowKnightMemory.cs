@@ -3,104 +3,84 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.Text;
 namespace LiveSplit.HollowKnight {
 	public partial class HollowKnightMemory {
 		public Process Program { get; set; }
 		public bool IsHooked { get; set; } = false;
 		private DateTime lastHooked;
-		private ProgramPointer gameManager, playmakerFSM;
-		//private Dictionary<string, int> enemyInfo = new Dictionary<string, int>();
+		private ProgramPointer gameManager, playmakerFSM, gameCameras, fsmExecutionStack;
+		
 		public HollowKnightMemory() {
 			lastHooked = DateTime.MinValue;
 			gameManager = new ProgramPointer(this, MemPointer.GameManager) { AutoDeref = false };
 			playmakerFSM = new ProgramPointer(this, MemPointer.PlaymakerFSM) { AutoDeref = false };
+			gameCameras = new ProgramPointer(this, MemPointer.GameCameras) { AutoDeref = false };
+			fsmExecutionStack = new ProgramPointer(this, MemPointer.FSMExecutionStack) { AutoDeref = false };
 		}
 
 		public byte[] GetPlayerData() {
 			return gameManager.ReadBytes(2702, 0x0, 0x30, 0x0);
 		}
-		//public void ListVariables() {
-		//	Dictionary<int, Dictionary<string, object>> enemies = GetEnemyInfo();
+		public void UpdateGeoCounter(bool enable, int geo) {
+			gameManager.Write(-0.02f, 0x0, 0x78, 0x1d4, 0x50);
+			gameManager.Write(enable ? 0 : 1, 0x0, 0x78, 0x1d4, 0x44);
+			gameManager.Write(1, 0x0, 0x78, 0x1d4, 0x34);
+			gameManager.Write(geo, 0x0, 0x78, 0x1d4, 0x2c);
+			gameManager.Write(2, 0x0, 0x78, 0x1d4, 0x3c);
+		}
+		public List<EntityInfo> GetEnemyInfo() {
+			List<EntityInfo> enemies = new List<EntityInfo>();
+			int size = playmakerFSM.Read<int>(0x0, 0xc);
+			//int size = fsmExecutionStack.Read<int>(0x0, 0xc);
+			//int size = 1; IntPtr fsmPtr = (IntPtr)gameCameras.Read<int>(0x0, 0x20, 0xc);
+			for (int x = 0; x < size; x++) {
+				IntPtr fsmPtr = (IntPtr)playmakerFSM.Read<int>(0x0, 0x8, 0x10 + x * 4, 0xc);
+				//IntPtr fsmPtr = (IntPtr)fsmExecutionStack.Read<int>(0x0, 0x8, 0x10 + x * 4);
+				if (fsmPtr == IntPtr.Zero) { continue; }
+				string fsm = Program.Read((IntPtr)Program.Read<int>(fsmPtr, 0x14));
+				if (fsm != "health_manager_enemy") { continue; }
 
-		//	foreach (KeyValuePair<int, Dictionary<string, object>> pair in enemies) {
-		//		Dictionary<string, object> info = pair.Value;
+				EntityInfo info = new EntityInfo();
+				info.Name = fsm;
+				info.Pointer = Program.Read<int>(fsmPtr, 0x28);
 
-		//		object value = null;
-		//		string name = null;
-		//		if (info.TryGetValue("PD Killed Name.str", out value)) {
-		//			name = (string)value;
-		//		}
-		//		if (string.IsNullOrEmpty(name) && info.TryGetValue("PlayerData Name.str", out value)) {
-		//			name = (string)value;
-		//		}
-		//		if (string.IsNullOrEmpty(name) && info.TryGetValue("Send KILLED to.str", out value)) {
-		//			name = (string)value;
-		//		}
-		//		if (info.ContainsKey("HP.int")) {
-		//			name = (name ?? "") + "." + pair.Key.ToString();
-		//			int hp = (int)info["HP.int"];
-		//			int oldHp = 0;
-		//			if (!enemyInfo.TryGetValue(name, out oldHp)) {
-		//				enemyInfo.Add(name, hp);
-		//				Console.WriteLine("Enemy: " + name + " " + hp);
-		//			} else if (hp != oldHp) {
-		//				enemyInfo[name] = hp;
-		//				Console.WriteLine("Enemy: " + name + " " + oldHp + " -> " + hp);
-		//			}
-		//		}
-		//	}
-		//}
-		//private Dictionary<int, Dictionary<string, object>> GetEnemyInfo() {
-		//	Dictionary<int, Dictionary<string, object>> enemies = new Dictionary<int, Dictionary<string, object>>();
-		//	int size = playmakerFSM.Read<int>(0x0, 0xc);
+				int infoSize = Program.Read<int>((IntPtr)info.Pointer, 0xc, 0xc);
+				if (infoSize == 0) { continue; }
+				for (int i = 0; i < infoSize; i++) {
+					string fsmName = Program.Read((IntPtr)Program.Read<int>((IntPtr)info.Pointer, 0xc, 0x10 + i * 4, 0x8));
+					if (string.IsNullOrEmpty(fsmName)) { continue; }
 
-		//	for (int x = 0; x < size; x++) {
-		//		string fsm = playmakerFSM.Read(0x0, 0x8, 0x10 + x * 4, 0xc, 0x14);
-		//		//if (fsm != "health_manager_enemy") { continue; }
+					info.IntVars.Add(new KeyValuePair<string, int>(fsmName, Program.Read<int>((IntPtr)info.Pointer, 0xc, 0x10 + i * 4, 0x14)));
+				}
 
-		//		Dictionary<string, object> info = new Dictionary<string, object>();
-		//		IntPtr ptr = (IntPtr)playmakerFSM.Read<int>(0x0, 0x8, 0x10 + x * 4, 0xc, 0x28);
+				//for (int j = 0x8; j <= 0x30; j += 4) {
+				//	int infoSize = Program.Read<int>((IntPtr)info.Pointer, j, 0xc);
+				//	if (infoSize == 0) { continue; }
 
-		//		for (int j = 0x8; j <= 0x30; j += 4) {
-		//			int infoSize = Program.Read<int>(ptr, j, 0xc);
-		//			if (infoSize == 0) { continue; }
+				//	for (int i = 0; i < infoSize; i++) {
+				//		string fsmName = Program.Read((IntPtr)Program.Read<int>((IntPtr)info.Pointer, j, 0x10 + i * 4, 0x8));
+				//		if (string.IsNullOrEmpty(fsmName)) { continue; }
 
-		//			for (int i = 0; i < infoSize; i++) {
-		//				string fsmName = Program.Read((IntPtr)Program.Read<int>(ptr, j, 0x10 + i * 4, 0x8));
-		//				if (string.IsNullOrEmpty(fsmName)) { continue; }
+				//		switch (j) {
+				//			case 0x8: info.FloatVars.Add(new KeyValuePair<string, float>(fsmName, Program.Read<float>((IntPtr)info.Pointer, j, 0x10 + i * 4, 0x14))); break;
+				//			case 0xc: info.IntVars.Add(new KeyValuePair<string, int>(fsmName, Program.Read<int>((IntPtr)info.Pointer, j, 0x10 + i * 4, 0x14))); break;
+				//			case 0x10: info.BoolVars.Add(new KeyValuePair<string, bool>(fsmName, Program.Read<bool>((IntPtr)info.Pointer, j, 0x10 + i * 4, 0x14))); break;
+				//			case 0x14: info.StringVars.Add(new KeyValuePair<string, string>(fsmName, Program.Read((IntPtr)Program.Read<int>((IntPtr)info.Pointer, j, 0x10 + i * 4, 0x14)))); break;
+				//			case 0x18:
+				//			case 0x1c: info.VectorVars.Add(new KeyValuePair<string, PointF>(fsmName, new PointF(Program.Read<float>((IntPtr)info.Pointer, j, 0x10 + i * 4, 0x14), Program.Read<float>((IntPtr)info.Pointer, j, 0x10 + i * 4, 0x18)))); break;
+				//			default: info.ObjVars.Add(new KeyValuePair<string, int>(fsmName, Program.Read<int>((IntPtr)info.Pointer, j, 0x10 + i * 4, 0x14))); break;
+				//		}
+				//	}
+				//}
 
-		//				object value = null;
-		//				switch (j) {
-		//					case 0x8:
-		//						fsmName += ".float";
-		//						value = Program.Read<float>(ptr, j, 0x10 + i * 4, 0x14); break;
-		//					case 0xc:
-		//						fsmName += ".int";
-		//						value = Program.Read<int>(ptr, j, 0x10 + i * 4, 0x14); break;
-		//					case 0x10:
-		//						fsmName += ".bool";
-		//						value = Program.Read<bool>(ptr, j, 0x10 + i * 4, 0x14); break;
-		//					case 0x14:
-		//						fsmName += ".str";
-		//						value = Program.Read((IntPtr)Program.Read<int>(ptr, j, 0x10 + i * 4, 0x14)); break;
-		//					default:
-		//						fsmName += ".obj";
-		//						value = Program.Read<int>(ptr, j, 0x10 + i * 4, 0x14); break;
-		//				}
+				if (info.Count > 0) {
+					enemies.Add(info);
+				}
+			}
 
-		//				if (!info.ContainsKey(fsmName)) {
-		//					info.Add(fsmName, value);
-		//				}
-		//			}
-		//		}
-
-		//		if (info.Count > 50) {
-		//			enemies.Add(playmakerFSM.Read<int>(0x0, 0x8, 0x10 + x * 4, 0xc), info);
-		//		}
-		//	}
-
-		//	return enemies;
-		//}
+			return enemies;
+		}
 		public T PlayerData<T>(Offset offset) where T : struct {
 			return gameManager.Read<T>(0x0, 0x30, (int)offset);
 		}
@@ -290,13 +270,17 @@ namespace LiveSplit.HollowKnight {
 	}
 	public enum MemPointer {
 		GameManager,
-		PlaymakerFSM
+		PlaymakerFSM,
+		GameCameras,
+		FSMExecutionStack
 	}
 	public class ProgramPointer {
 		private static Dictionary<MemVersion, Dictionary<MemPointer, string>> funcPatterns = new Dictionary<MemVersion, Dictionary<MemPointer, string>>() {
 			{MemVersion.V1, new Dictionary<MemPointer, string>() {
 				{MemPointer.GameManager, "558BEC5783EC048B7D088B05????????83EC086A0050E8????????83C41085C07421B8????????893883EC0C57E8????????83C41083EC0C57E8????????83C410EB3D8B05" },
-				{MemPointer.PlaymakerFSM, "558BEC5783EC048B7D088B05????????83EC0857503900E8????????83C4108B470C85C074238B470C8BC83909|-33" }
+				{MemPointer.PlaymakerFSM, "558BEC5783EC048B7D088B05????????83EC0857503900E8????????83C4108B470C85C074238B470C8BC83909|-33" },
+				{MemPointer.GameCameras, "558BEC83EC088B05????????83EC086A0050E8????????83C41085C00F845B000000BA????????E8????????8BC8B8" },
+				{MemPointer.FSMExecutionStack, "558BEC83EC088B05????????83EC08FF7508503900E8????????83C4108B05????????8BC839098B400C8B0D????????3BC17E148B05" }
 			}},
 		};
 		private IntPtr pointer;
@@ -508,6 +492,82 @@ namespace LiveSplit.HollowKnight {
 		PLAYING,
 		PAUSED,
 		OPTIONS
+	}
+	public class EntityInfo {
+		public string Name { get; set; }
+		public int Pointer { get; set; }
+		public List<KeyValuePair<string, float>> FloatVars { get; set; } = new List<KeyValuePair<string, float>>();
+		public List<KeyValuePair<string, int>> IntVars { get; set; } = new List<KeyValuePair<string, int>>();
+		public List<KeyValuePair<string, bool>> BoolVars { get; set; } = new List<KeyValuePair<string, bool>>();
+		public List<KeyValuePair<string, string>> StringVars { get; set; } = new List<KeyValuePair<string, string>>();
+		public List<KeyValuePair<string, PointF>> VectorVars { get; set; } = new List<KeyValuePair<string, PointF>>();
+		public List<KeyValuePair<string, int>> ObjVars { get; set; } = new List<KeyValuePair<string, int>>();
+
+		public int Count { get { return FloatVars.Count + IntVars.Count + BoolVars.Count + StringVars.Count + VectorVars.Count + ObjVars.Count; } }
+		public override int GetHashCode() {
+			return Pointer;
+		}
+		public bool Same(EntityInfo info) {
+			return info.Pointer == this.Pointer;
+		}
+		public override string ToString() {
+			StringBuilder sb = new StringBuilder();
+			sb.AppendLine(Name);
+			for (int i = 0; i < FloatVars.Count; i++) {
+				sb.Append("    ").Append(FloatVars[i].Key).Append(" = ").AppendLine(FloatVars[i].Value.ToString());
+			}
+			for (int i = 0; i < VectorVars.Count; i++) {
+				sb.Append("    ").Append(VectorVars[i].Key).Append(" = ").AppendLine(VectorVars[i].Value.ToString());
+			}
+			for (int i = 0; i < IntVars.Count; i++) {
+				sb.Append("    ").Append(IntVars[i].Key).Append(" = ").AppendLine(IntVars[i].Value.ToString());
+			}
+			for (int i = 0; i < BoolVars.Count; i++) {
+				sb.Append("    ").Append(BoolVars[i].Key).Append(" = ").AppendLine(BoolVars[i].Value.ToString());
+			}
+			for (int i = 0; i < StringVars.Count; i++) {
+				sb.Append("    ").Append(StringVars[i].Key).Append(" = ").AppendLine(StringVars[i].Value.ToString());
+			}
+			for (int i = 0; i < ObjVars.Count; i++) {
+				sb.Append("    ").Append(ObjVars[i].Key).Append(" = [").Append(ObjVars[i].Value.ToString()).AppendLine("]");
+			}
+			return sb.ToString();
+		}
+		public override bool Equals(object obj) {
+			EntityInfo info = obj as EntityInfo;
+			if (info == null || info.Count != this.Count) { return false; }
+
+			if (this.FloatVars.Count != info.FloatVars.Count) { return false; }
+			for (int i = 0; i < FloatVars.Count; i++) {
+				if (FloatVars[i].Value != info.FloatVars[i].Value) { return false; }
+			}
+
+			if (this.VectorVars.Count != info.VectorVars.Count) { return false; }
+			for (int i = 0; i < VectorVars.Count; i++) {
+				if (VectorVars[i].Value != info.VectorVars[i].Value) { return false; }
+			}
+
+			if (this.IntVars.Count != info.IntVars.Count) { return false; }
+			for (int i = 0; i < IntVars.Count; i++) {
+				if (IntVars[i].Value != info.IntVars[i].Value) { return false; }
+			}
+
+			if (this.BoolVars.Count != info.BoolVars.Count) { return false; }
+			for (int i = 0; i < BoolVars.Count; i++) {
+				if (BoolVars[i].Value != info.BoolVars[i].Value) { return false; }
+			}
+
+			if (this.StringVars.Count != info.StringVars.Count) { return false; }
+			for (int i = 0; i < StringVars.Count; i++) {
+				if (StringVars[i].Value != info.StringVars[i].Value) { return false; }
+			}
+
+			if (this.ObjVars.Count != info.ObjVars.Count) { return false; }
+			for (int i = 0; i < ObjVars.Count; i++) {
+				if (ObjVars[i].Value != info.ObjVars[i].Value) { return false; }
+			}
+			return true;
+		}
 	}
 	public class PlayerData {
 		private Dictionary<int, PlayerKey> data;

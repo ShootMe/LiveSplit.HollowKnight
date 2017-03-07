@@ -1,4 +1,5 @@
-﻿using LiveSplit.Model;
+﻿#if !Info
+using LiveSplit.Model;
 using LiveSplit.UI.Components;
 using System;
 using System.Reflection;
@@ -14,3 +15,4 @@ namespace LiveSplit.HollowKnight {
 		public Version Version { get { return Assembly.GetExecutingAssembly().GetName().Version; } }
 	}
 }
+#endif

@@ -1,6 +1,8 @@
-﻿using LiveSplit.Model;
+﻿#if !Info
+using LiveSplit.Model;
 using LiveSplit.UI;
 using LiveSplit.UI.Components;
+#endif
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -8,9 +10,13 @@ using System.IO;
 using System.Windows.Forms;
 using System.Xml;
 namespace LiveSplit.HollowKnight {
+#if !Info
 	public class HollowKnightComponent : IComponent {
-		public string ComponentName { get { return "Hollow Knight Autosplitter"; } }
 		public TimerModel Model { get; set; }
+#else
+	public class HollowKnightComponent {
+#endif
+		public string ComponentName { get { return "Hollow Knight Autosplitter"; } }
 		public IDictionary<string, Action> ContextMenuControls { get { return null; } }
 		internal static string[] keys = { "CurrentSplit", "State", "GameState", "SceneName", "Charms", "CameraMode", "MenuState", "UIState", "AcceptingInput", "MapZone", "NextSceneName" };
 		private HollowKnightMemory mem;
@@ -32,12 +38,15 @@ namespace LiveSplit.HollowKnight {
 		public void GetValues() {
 			if (!mem.HookProcess()) { return; }
 
+#if !Info
 			if (Model != null) {
 				HandleSplits();
 			}
+#endif
 
 			LogValues();
 		}
+#if !Info
 		private void HandleSplits() {
 			bool shouldSplit = false;
 
@@ -208,6 +217,7 @@ namespace LiveSplit.HollowKnight {
 				}
 			}
 		}
+#endif
 		private void LogValues() {
 			if (lastLogCheck == 0) {
 				hasLog = File.Exists(LOGFILE);
@@ -248,7 +258,27 @@ namespace LiveSplit.HollowKnight {
 				}
 			}
 		}
+		private void WriteLog(string data) {
+			if (hasLog || !Console.IsOutputRedirected) {
+				if (!Console.IsOutputRedirected) {
+					Console.WriteLine(data);
+				}
+				if (hasLog) {
+					using (StreamWriter wr = new StreamWriter(LOGFILE, true)) {
+						wr.WriteLine(data);
+					}
+				}
+			}
+		}
+		private void WriteLogWithTime(string data) {
+#if !Info
+			WriteLog(DateTime.Now.ToString(@"HH\:mm\:ss.fff") + (Model != null && Model.CurrentState.CurrentTime.RealTime.HasValue ? " | " + Model.CurrentState.CurrentTime.RealTime.Value.ToString("G").Substring(3, 11) : "") + ": " + data);
+#else
+			WriteLog(DateTime.Now.ToString(@"HH\:mm\:ss.fff") + ": " + data);
+#endif
+		}
 
+#if !Info
 		public void Update(IInvalidator invalidator, LiveSplitState lvstate, float width, float height, LayoutMode mode) {
 			if (Model == null) {
 				Model = new TimerModel() { CurrentState = lvstate };
@@ -298,27 +328,12 @@ namespace LiveSplit.HollowKnight {
 			currentSplit++;
 			state = 0;
 		}
-		private void WriteLog(string data) {
-			if (hasLog || !Console.IsOutputRedirected) {
-				if (!Console.IsOutputRedirected) {
-					Console.WriteLine(data);
-				}
-				if (hasLog) {
-					using (StreamWriter wr = new StreamWriter(LOGFILE, true)) {
-						wr.WriteLine(data);
-					}
-				}
-			}
-		}
-		private void WriteLogWithTime(string data) {
-			WriteLog(DateTime.Now.ToString(@"HH\:mm\:ss.fff") + (Model != null && Model.CurrentState.CurrentTime.RealTime.HasValue ? " | " + Model.CurrentState.CurrentTime.RealTime.Value.ToString("G").Substring(3, 11) : "") + ": " + data);
-		}
-
 		public Control GetSettingsControl(LayoutMode mode) { return settings; }
 		public void SetSettings(XmlNode document) { settings.SetSettings(document); }
 		public XmlNode GetSettings(XmlDocument document) { return settings.UpdateSettings(document); }
 		public void DrawHorizontal(Graphics g, LiveSplitState state, float height, Region clipRegion) { }
 		public void DrawVertical(Graphics g, LiveSplitState state, float width, Region clipRegion) { }
+#endif
 		public float HorizontalWidth { get { return 0; } }
 		public float MinimumHeight { get { return 0; } }
 		public float MinimumWidth { get { return 0; } }

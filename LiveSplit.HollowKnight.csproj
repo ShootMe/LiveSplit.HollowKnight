@@ -38,6 +38,18 @@
     <StartupObject>
     </StartupObject>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>HollowKnight.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Info|AnyCPU'">
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE;Info</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="LiveSplit.Core">
       <HintPath>..\..\LiveSplit\LiveSplit.Core.dll</HintPath>
@@ -58,6 +70,12 @@
   <ItemGroup>
     <Compile Include="HollowKnightComponent.cs" />
     <Compile Include="HollowKnightFactory.cs" />
+    <Compile Include="HollowKnightInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="HollowKnightInfo.Designer.cs">
+      <DependentUpon>HollowKnightInfo.cs</DependentUpon>
+    </Compile>
     <Compile Include="HollowKnightMemory.cs" />
     <Compile Include="HollowKnightTest.cs" />
     <Compile Include="MemoryReader.cs" />
@@ -76,6 +94,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="HollowKnightInfo.resx">
+      <DependentUpon>HollowKnightInfo.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="HollowKnightSettings.resx">
       <DependentUpon>HollowKnightSettings.cs</DependentUpon>
     </EmbeddedResource>
@@ -88,6 +109,7 @@
     <Content Include="Components\LiveSplit.HollowKnight.Updates.xml">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="HollowKnight.ico" />
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />
