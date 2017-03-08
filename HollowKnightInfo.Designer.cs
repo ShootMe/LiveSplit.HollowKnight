@@ -43,6 +43,7 @@
 			this.chkShowEnemyHP.TabIndex = 6;
 			this.chkShowEnemyHP.Text = "Show Enemy HP in Geo Counter";
 			this.chkShowEnemyHP.UseVisualStyleBackColor = true;
+			this.chkShowEnemyHP.CheckedChanged += new System.EventHandler(this.chkShowEnemyHP_CheckedChanged);
 			// 
 			// lblNote
 			// 

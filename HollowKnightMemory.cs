@@ -10,7 +10,7 @@ namespace LiveSplit.HollowKnight {
 		public bool IsHooked { get; set; } = false;
 		private DateTime lastHooked;
 		private ProgramPointer gameManager, playmakerFSM, gameCameras, fsmExecutionStack;
-		
+
 		public HollowKnightMemory() {
 			lastHooked = DateTime.MinValue;
 			gameManager = new ProgramPointer(this, MemPointer.GameManager) { AutoDeref = false };
@@ -29,57 +29,76 @@ namespace LiveSplit.HollowKnight {
 			gameManager.Write(geo, 0x0, 0x78, 0x1d4, 0x2c);
 			gameManager.Write(2, 0x0, 0x78, 0x1d4, 0x3c);
 		}
-		public List<EntityInfo> GetEnemyInfo() {
-			List<EntityInfo> enemies = new List<EntityInfo>();
+		public List<EnemyInfo> GetEnemyInfo() {
+			List<EnemyInfo> enemies = new List<EnemyInfo>();
 			int size = playmakerFSM.Read<int>(0x0, 0xc);
 			//int size = fsmExecutionStack.Read<int>(0x0, 0xc);
-			//int size = 1; IntPtr fsmPtr = (IntPtr)gameCameras.Read<int>(0x0, 0x20, 0xc);
+			for (int x = 0; x < size; x++) {
+				//IntPtr fsmPtr = (IntPtr)fsmExecutionStack.Read<int>(0x0, 0x8, 0x10 + x * 4);
+				IntPtr fsmPtr = (IntPtr)playmakerFSM.Read<int>(0x0, 0x8, 0x10 + x * 4, 0xc);
+				if (fsmPtr == IntPtr.Zero) { continue; }
+				int fsmLength = Program.Read<int>(fsmPtr, 0x14, 0x8);
+				byte fsmChar = Program.Read<byte>(fsmPtr, 0x14, 0xc);
+				if (fsmLength != 20 || fsmChar != (byte)'h') { continue; }
+
+				EnemyInfo info = new EnemyInfo();
+				info.Pointer = Program.Read<int>(fsmPtr, 0x28);
+
+				int infoSize = Program.Read<int>((IntPtr)info.Pointer, 0xc, 0xc);
+				if (infoSize == 0) { continue; }
+
+				for (int i = 0; i < infoSize; i++) {
+					fsmLength = Program.Read<int>((IntPtr)info.Pointer, 0xc, 0x10 + i * 4, 0x8, 0x8);
+					fsmChar = Program.Read<byte>((IntPtr)info.Pointer, 0xc, 0x10 + i * 4, 0x8, 0xc);
+					if (fsmLength != 2 || fsmChar != (byte)'H') { continue; }
+
+					info.HPIndex = i;
+					info.HP = Program.Read<int>((IntPtr)info.Pointer, 0xc, 0x10 + i * 4, 0x14);
+				}
+
+				enemies.Add(info);
+			}
+
+			return enemies;
+		}
+		public List<EntityInfo> GetEntityInfo() {
+			List<EntityInfo> entities = new List<EntityInfo>();
+			int size = playmakerFSM.Read<int>(0x0, 0xc);
 			for (int x = 0; x < size; x++) {
 				IntPtr fsmPtr = (IntPtr)playmakerFSM.Read<int>(0x0, 0x8, 0x10 + x * 4, 0xc);
-				//IntPtr fsmPtr = (IntPtr)fsmExecutionStack.Read<int>(0x0, 0x8, 0x10 + x * 4);
 				if (fsmPtr == IntPtr.Zero) { continue; }
 				string fsm = Program.Read((IntPtr)Program.Read<int>(fsmPtr, 0x14));
-				if (fsm != "health_manager_enemy") { continue; }
 
 				EntityInfo info = new EntityInfo();
 				info.Name = fsm;
 				info.Pointer = Program.Read<int>(fsmPtr, 0x28);
 
-				int infoSize = Program.Read<int>((IntPtr)info.Pointer, 0xc, 0xc);
-				if (infoSize == 0) { continue; }
-				for (int i = 0; i < infoSize; i++) {
-					string fsmName = Program.Read((IntPtr)Program.Read<int>((IntPtr)info.Pointer, 0xc, 0x10 + i * 4, 0x8));
-					if (string.IsNullOrEmpty(fsmName)) { continue; }
+				for (int j = 0x8; j <= 0x30; j += 4) {
+					int infoSize = Program.Read<int>((IntPtr)info.Pointer, j, 0xc);
+					if (infoSize == 0) { continue; }
 
-					info.IntVars.Add(new KeyValuePair<string, int>(fsmName, Program.Read<int>((IntPtr)info.Pointer, 0xc, 0x10 + i * 4, 0x14)));
+					for (int i = 0; i < infoSize; i++) {
+						string fsmName = Program.Read((IntPtr)Program.Read<int>((IntPtr)info.Pointer, j, 0x10 + i * 4, 0x8));
+						if (string.IsNullOrEmpty(fsmName)) { continue; }
+
+						switch (j) {
+							case 0x8: info.FloatVars.Add(new KeyValuePair<string, float>(fsmName, Program.Read<float>((IntPtr)info.Pointer, j, 0x10 + i * 4, 0x14))); break;
+							case 0xc: info.IntVars.Add(new KeyValuePair<string, int>(fsmName, Program.Read<int>((IntPtr)info.Pointer, j, 0x10 + i * 4, 0x14))); break;
+							case 0x10: info.BoolVars.Add(new KeyValuePair<string, bool>(fsmName, Program.Read<bool>((IntPtr)info.Pointer, j, 0x10 + i * 4, 0x14))); break;
+							case 0x14: info.StringVars.Add(new KeyValuePair<string, string>(fsmName, Program.Read((IntPtr)Program.Read<int>((IntPtr)info.Pointer, j, 0x10 + i * 4, 0x14)))); break;
+							case 0x18:
+							case 0x1c: info.VectorVars.Add(new KeyValuePair<string, PointF>(fsmName, new PointF(Program.Read<float>((IntPtr)info.Pointer, j, 0x10 + i * 4, 0x14), Program.Read<float>((IntPtr)info.Pointer, j, 0x10 + i * 4, 0x18)))); break;
+							default: info.ObjVars.Add(new KeyValuePair<string, int>(fsmName, Program.Read<int>((IntPtr)info.Pointer, j, 0x10 + i * 4, 0x14))); break;
+						}
+					}
 				}
 
-				//for (int j = 0x8; j <= 0x30; j += 4) {
-				//	int infoSize = Program.Read<int>((IntPtr)info.Pointer, j, 0xc);
-				//	if (infoSize == 0) { continue; }
-
-				//	for (int i = 0; i < infoSize; i++) {
-				//		string fsmName = Program.Read((IntPtr)Program.Read<int>((IntPtr)info.Pointer, j, 0x10 + i * 4, 0x8));
-				//		if (string.IsNullOrEmpty(fsmName)) { continue; }
-
-				//		switch (j) {
-				//			case 0x8: info.FloatVars.Add(new KeyValuePair<string, float>(fsmName, Program.Read<float>((IntPtr)info.Pointer, j, 0x10 + i * 4, 0x14))); break;
-				//			case 0xc: info.IntVars.Add(new KeyValuePair<string, int>(fsmName, Program.Read<int>((IntPtr)info.Pointer, j, 0x10 + i * 4, 0x14))); break;
-				//			case 0x10: info.BoolVars.Add(new KeyValuePair<string, bool>(fsmName, Program.Read<bool>((IntPtr)info.Pointer, j, 0x10 + i * 4, 0x14))); break;
-				//			case 0x14: info.StringVars.Add(new KeyValuePair<string, string>(fsmName, Program.Read((IntPtr)Program.Read<int>((IntPtr)info.Pointer, j, 0x10 + i * 4, 0x14)))); break;
-				//			case 0x18:
-				//			case 0x1c: info.VectorVars.Add(new KeyValuePair<string, PointF>(fsmName, new PointF(Program.Read<float>((IntPtr)info.Pointer, j, 0x10 + i * 4, 0x14), Program.Read<float>((IntPtr)info.Pointer, j, 0x10 + i * 4, 0x18)))); break;
-				//			default: info.ObjVars.Add(new KeyValuePair<string, int>(fsmName, Program.Read<int>((IntPtr)info.Pointer, j, 0x10 + i * 4, 0x14))); break;
-				//		}
-				//	}
-				//}
-
 				if (info.Count > 0) {
-					enemies.Add(info);
+					entities.Add(info);
 				}
 			}
 
-			return enemies;
+			return entities;
 		}
 		public T PlayerData<T>(Offset offset) where T : struct {
 			return gameManager.Read<T>(0x0, 0x30, (int)offset);
@@ -492,6 +511,25 @@ namespace LiveSplit.HollowKnight {
 		PLAYING,
 		PAUSED,
 		OPTIONS
+	}
+	public class EnemyInfo {
+		public int Pointer { get; set; }
+		public int HP { get; set; }
+		public int HPIndex { get; set; }
+
+		public int UpdateHP(HollowKnightMemory mem) {
+			int hp = HP;
+			if (Pointer != 0) {
+				HP = mem.Program.Read<int>((IntPtr)Pointer, 0xc, 0x10 + HPIndex * 4, 0x14);
+			}
+			return hp;
+		}
+		public override int GetHashCode() {
+			return Pointer;
+		}
+		public override bool Equals(object obj) {
+			return obj != null && (obj is EnemyInfo) && ((EnemyInfo)obj).Pointer == this.Pointer;
+		}
 	}
 	public class EntityInfo {
 		public string Name { get; set; }
