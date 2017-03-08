@@ -61,6 +61,8 @@ namespace LiveSplit.HollowKnight {
 				}
 				lblSceneName.Text = "Scene: " + scene;
 				lblUIState.Text = "UI State: " + Memory.UIState().ToString();
+				bool disablePause = Memory.PlayerData<bool>(Offset.disablePause);
+				btnEnablePause.Enabled = disablePause;
 				if (chkShowEnemyHP.Checked) {
 					DisplayEnemyHP();
 				}
@@ -104,6 +106,9 @@ namespace LiveSplit.HollowKnight {
 			if (!chkShowEnemyHP.Checked) {
 				Memory.UpdateGeoCounter(false, 0);
 			}
+		}
+		private void btnEnablePause_Click(object sender, EventArgs e) {
+			Memory.SetDisablePause(false);
 		}
 	}
 }

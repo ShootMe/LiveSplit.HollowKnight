@@ -29,6 +29,9 @@ namespace LiveSplit.HollowKnight {
 			gameManager.Write(geo, 0x0, 0x78, 0x1d4, 0x2c);
 			gameManager.Write(2, 0x0, 0x78, 0x1d4, 0x3c);
 		}
+		public void SetDisablePause(bool disablePause) {
+			gameManager.Write(disablePause, 0x0, 0x30, (int)Offset.disablePause);
+		}
 		public List<EnemyInfo> GetEnemyInfo() {
 			List<EnemyInfo> enemies = new List<EnemyInfo>();
 			int size = playmakerFSM.Read<int>(0x0, 0xc);
@@ -281,7 +284,8 @@ namespace LiveSplit.HollowKnight {
 		defeatedMantisLords = 0xa30,
 		defeatedMegaBeamMiner = 0xa56,
 		defeatedMegaBeamMiner2 = 0xa57,
-		gotShadeCharm = 0xa6a
+		gotShadeCharm = 0xa6a,
+		disablePause = 0xa84
 	}
 	public enum MemVersion {
 		None,
