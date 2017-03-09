@@ -9,18 +9,29 @@ namespace LiveSplit.HollowKnight {
 		public Process Program { get; set; }
 		public bool IsHooked { get; set; } = false;
 		private DateTime lastHooked;
-		private ProgramPointer gameManager, playmakerFSM, gameCameras, fsmExecutionStack;
+		private ProgramPointer gameManager, playmakerFSM;
 
 		public HollowKnightMemory() {
 			lastHooked = DateTime.MinValue;
 			gameManager = new ProgramPointer(this, MemPointer.GameManager) { AutoDeref = false };
 			playmakerFSM = new ProgramPointer(this, MemPointer.PlaymakerFSM) { AutoDeref = false };
-			gameCameras = new ProgramPointer(this, MemPointer.GameCameras) { AutoDeref = false };
-			fsmExecutionStack = new ProgramPointer(this, MemPointer.FSMExecutionStack) { AutoDeref = false };
 		}
 
 		public byte[] GetPlayerData() {
 			return gameManager.ReadBytes(2702, 0x0, 0x30, 0x0);
+		}
+		public PointF GetCameraTarget() {
+			//GameManger._instance.cameraCtrl.camTarget.destination
+			float x = gameManager.Read<float>(0x0, 0x74, 0x28, 0x24);
+			float y = gameManager.Read<float>(0x0, 0x74, 0x28, 0x28);
+			return new PointF(x, y);
+		}
+		public TargetMode GetCameraTargetMode() {
+			//GameManger._instance.cameraCtrl.camTarget.mode
+			return (TargetMode)gameManager.Read<int>(0x0, 0x74, 0x28, 0x20);
+		}
+		public void SetCameraTargetMode(TargetMode mode) {
+			gameManager.Write((int)mode, 0x0, 0x74, 0x28, 0x20);
 		}
 		public void UpdateGeoCounter(bool enable, int geo) {
 			gameManager.Write(-0.02f, 0x0, 0x78, 0x1d4, 0x50);
@@ -38,10 +49,8 @@ namespace LiveSplit.HollowKnight {
 		public List<EnemyInfo> GetEnemyInfo() {
 			List<EnemyInfo> enemies = new List<EnemyInfo>();
 			int size = playmakerFSM.Read<int>(0x0, 0xc);
-			//int size = fsmExecutionStack.Read<int>(0x0, 0xc);
 			IntPtr basePointer = (IntPtr)playmakerFSM.Read<int>(0x0, 0x8);
 			for (int x = 0; x < size; x++) {
-				//IntPtr fsmPtr = (IntPtr)fsmExecutionStack.Read<int>(0x0, 0x8, 0x10 + x * 4);
 				IntPtr fsmPtr = (IntPtr)Program.Read<int>(basePointer, 0x10 + x * 4, 0xc);
 				if (fsmPtr == IntPtr.Zero) { continue; }
 				int fsmLength = Program.Read<int>(fsmPtr, 0x14, 0x8);
@@ -299,17 +308,13 @@ namespace LiveSplit.HollowKnight {
 	}
 	public enum MemPointer {
 		GameManager,
-		PlaymakerFSM,
-		GameCameras,
-		FSMExecutionStack
+		PlaymakerFSM
 	}
 	public class ProgramPointer {
 		private static Dictionary<MemVersion, Dictionary<MemPointer, string>> funcPatterns = new Dictionary<MemVersion, Dictionary<MemPointer, string>>() {
 			{MemVersion.V1, new Dictionary<MemPointer, string>() {
 				{MemPointer.GameManager, "558BEC5783EC048B7D088B05????????83EC086A0050E8????????83C41085C07421B8????????893883EC0C57E8????????83C41083EC0C57E8????????83C410EB3D8B05" },
-				{MemPointer.PlaymakerFSM, "558BEC5783EC048B7D088B05????????83EC0857503900E8????????83C4108B470C85C074238B470C8BC83909|-33" },
-				{MemPointer.GameCameras, "558BEC83EC088B05????????83EC086A0050E8????????83C41085C00F845B000000BA????????E8????????8BC8B8" },
-				{MemPointer.FSMExecutionStack, "558BEC83EC088B05????????83EC08FF7508503900E8????????83C4108B05????????8BC839098B400C8B0D????????3BC17E148B05" }
+				{MemPointer.PlaymakerFSM, "558BEC5783EC048B7D088B05????????83EC0857503900E8????????83C4108B470C85C074238B470C8BC83909|-33" }
 			}},
 		};
 		private IntPtr pointer;
@@ -489,6 +494,12 @@ namespace LiveSplit.HollowKnight {
 		FADEOUT,
 		FADEIN,
 		PREVIOUS
+	}
+	public enum TargetMode {
+		FOLLOW_HERO,
+		LOCK_ZONE,
+		BOSS,
+		FREE
 	}
 	public enum MainMenuState {
 		LOGO,

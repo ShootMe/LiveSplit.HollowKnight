@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
 namespace LiveSplit.HollowKnight {
@@ -10,6 +11,7 @@ namespace LiveSplit.HollowKnight {
 		private bool changed = false;
 		private string lastScene = null;
 		private DateTime lastCheck = DateTime.MinValue;
+		private TargetMode lastTargetMode = TargetMode.FOLLOW_HERO;
 		public static void Main(string[] args) {
 			try {
 				Application.EnableVisualStyles();
@@ -51,6 +53,8 @@ namespace LiveSplit.HollowKnight {
 				lblCameraMode.Text = "Camera Mode: " + Memory.CameraMode().ToString();
 				lblGameState.Text = "Game State: " + Memory.GameState().ToString();
 				lblMenuState.Text = "Menu State: " + Memory.MenuState().ToString();
+				lblUIState.Text = "UI State: " + Memory.UIState().ToString();
+
 				string scene = Memory.SceneName();
 				if (lastScene != scene) {
 					enemyInfo.Clear();
@@ -60,7 +64,18 @@ namespace LiveSplit.HollowKnight {
 					lastScene = scene;
 				}
 				lblSceneName.Text = "Scene: " + scene;
-				lblUIState.Text = "UI State: " + Memory.UIState().ToString();
+
+				TargetMode target = Memory.GetCameraTargetMode();
+				if (chkCameraTarget.Checked && target != TargetMode.FOLLOW_HERO) {
+					lastTargetMode = target;
+					target = TargetMode.FOLLOW_HERO;
+					Memory.SetCameraTargetMode(target);
+				}
+				lblTargetMode.Text = "Target Mode: " + target.ToString();
+
+				PointF position = Memory.GetCameraTarget();
+				lblPosition.Text = "Position: " + position.X.ToString("0.00") + ", " + position.Y.ToString("0.00");
+
 				bool disablePause = Memory.PlayerData<bool>(Offset.disablePause);
 				btnEnablePause.Enabled = disablePause;
 				if (chkShowEnemyHP.Checked) {
@@ -122,6 +137,11 @@ namespace LiveSplit.HollowKnight {
 		private void chkInvincible_CheckedChanged(object sender, EventArgs e) {
 			if (!chkInvincible.Checked) {
 				Memory.SetPlayerData(Offset.isInvincible, false);
+			}
+		}
+		private void chkCameraTarget_CheckedChanged(object sender, EventArgs e) {
+			if (!chkCameraTarget.Checked) {
+				Memory.SetCameraTargetMode(lastTargetMode);
 			}
 		}
 	}
