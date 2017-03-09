@@ -32,6 +32,9 @@
 			this.lblGameState = new System.Windows.Forms.Label();
 			this.lblCameraMode = new System.Windows.Forms.Label();
 			this.btnEnablePause = new System.Windows.Forms.Button();
+			this.chkInfiniteHP = new System.Windows.Forms.CheckBox();
+			this.chkInfiniteSoul = new System.Windows.Forms.CheckBox();
+			this.chkInvincible = new System.Windows.Forms.CheckBox();
 			this.SuspendLayout();
 			// 
 			// chkShowEnemyHP
@@ -41,7 +44,7 @@
 			this.chkShowEnemyHP.Location = new System.Drawing.Point(60, 112);
 			this.chkShowEnemyHP.Name = "chkShowEnemyHP";
 			this.chkShowEnemyHP.Size = new System.Drawing.Size(259, 24);
-			this.chkShowEnemyHP.TabIndex = 6;
+			this.chkShowEnemyHP.TabIndex = 5;
 			this.chkShowEnemyHP.Text = "Show Enemy HP in Geo Counter";
 			this.chkShowEnemyHP.UseVisualStyleBackColor = true;
 			this.chkShowEnemyHP.CheckedChanged += new System.EventHandler(this.chkShowEnemyHP_CheckedChanged);
@@ -52,7 +55,7 @@
 			this.lblNote.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.lblNote.Location = new System.Drawing.Point(0, 0);
 			this.lblNote.Name = "lblNote";
-			this.lblNote.Size = new System.Drawing.Size(390, 175);
+			this.lblNote.Size = new System.Drawing.Size(390, 252);
 			this.lblNote.TabIndex = 0;
 			this.lblNote.Text = "Not available";
 			this.lblNote.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -64,7 +67,7 @@
 			this.lblSceneName.Location = new System.Drawing.Point(56, 89);
 			this.lblSceneName.Name = "lblSceneName";
 			this.lblSceneName.Size = new System.Drawing.Size(63, 20);
-			this.lblSceneName.TabIndex = 5;
+			this.lblSceneName.TabIndex = 4;
 			this.lblSceneName.Text = "Scene: ";
 			// 
 			// lblUIState
@@ -74,7 +77,7 @@
 			this.lblUIState.Location = new System.Drawing.Point(40, 9);
 			this.lblUIState.Name = "lblUIState";
 			this.lblUIState.Size = new System.Drawing.Size(73, 20);
-			this.lblUIState.TabIndex = 1;
+			this.lblUIState.TabIndex = 0;
 			this.lblUIState.Text = "UI State:";
 			// 
 			// lblMenuState
@@ -84,7 +87,7 @@
 			this.lblMenuState.Location = new System.Drawing.Point(18, 29);
 			this.lblMenuState.Name = "lblMenuState";
 			this.lblMenuState.Size = new System.Drawing.Size(100, 20);
-			this.lblMenuState.TabIndex = 2;
+			this.lblMenuState.TabIndex = 1;
 			this.lblMenuState.Text = "Menu State: ";
 			// 
 			// lblGameState
@@ -94,7 +97,7 @@
 			this.lblGameState.Location = new System.Drawing.Point(15, 49);
 			this.lblGameState.Name = "lblGameState";
 			this.lblGameState.Size = new System.Drawing.Size(104, 20);
-			this.lblGameState.TabIndex = 3;
+			this.lblGameState.TabIndex = 2;
 			this.lblGameState.Text = "Game State: ";
 			// 
 			// lblCameraMode
@@ -104,26 +107,62 @@
 			this.lblCameraMode.Location = new System.Drawing.Point(3, 69);
 			this.lblCameraMode.Name = "lblCameraMode";
 			this.lblCameraMode.Size = new System.Drawing.Size(117, 20);
-			this.lblCameraMode.TabIndex = 4;
+			this.lblCameraMode.TabIndex = 3;
 			this.lblCameraMode.Text = "Camera Mode: ";
 			// 
 			// btnEnablePause
 			// 
 			this.btnEnablePause.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.btnEnablePause.Location = new System.Drawing.Point(60, 138);
+			this.btnEnablePause.Location = new System.Drawing.Point(60, 214);
 			this.btnEnablePause.Name = "btnEnablePause";
 			this.btnEnablePause.Size = new System.Drawing.Size(127, 27);
-			this.btnEnablePause.TabIndex = 7;
+			this.btnEnablePause.TabIndex = 9;
 			this.btnEnablePause.Text = "Enable Pause";
 			this.btnEnablePause.UseVisualStyleBackColor = true;
 			this.btnEnablePause.Click += new System.EventHandler(this.btnEnablePause_Click);
+			// 
+			// chkInfiniteHP
+			// 
+			this.chkInfiniteHP.AutoSize = true;
+			this.chkInfiniteHP.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.chkInfiniteHP.Location = new System.Drawing.Point(60, 136);
+			this.chkInfiniteHP.Name = "chkInfiniteHP";
+			this.chkInfiniteHP.Size = new System.Drawing.Size(102, 24);
+			this.chkInfiniteHP.TabIndex = 6;
+			this.chkInfiniteHP.Text = "Infinite HP";
+			this.chkInfiniteHP.UseVisualStyleBackColor = true;
+			// 
+			// chkInfiniteSoul
+			// 
+			this.chkInfiniteSoul.AutoSize = true;
+			this.chkInfiniteSoul.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.chkInfiniteSoul.Location = new System.Drawing.Point(60, 160);
+			this.chkInfiniteSoul.Name = "chkInfiniteSoul";
+			this.chkInfiniteSoul.Size = new System.Drawing.Size(112, 24);
+			this.chkInfiniteSoul.TabIndex = 7;
+			this.chkInfiniteSoul.Text = "Infinite Soul";
+			this.chkInfiniteSoul.UseVisualStyleBackColor = true;
+			// 
+			// chkInvincible
+			// 
+			this.chkInvincible.AutoSize = true;
+			this.chkInvincible.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.chkInvincible.Location = new System.Drawing.Point(60, 184);
+			this.chkInvincible.Name = "chkInvincible";
+			this.chkInvincible.Size = new System.Drawing.Size(93, 24);
+			this.chkInvincible.TabIndex = 8;
+			this.chkInvincible.Text = "Invincible";
+			this.chkInvincible.UseVisualStyleBackColor = true;
+			this.chkInvincible.CheckedChanged += new System.EventHandler(this.chkInvincible_CheckedChanged);
 			// 
 			// HollowKnightInfo
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(390, 175);
-			this.Controls.Add(this.lblNote);
+			this.ClientSize = new System.Drawing.Size(390, 252);
+			this.Controls.Add(this.chkInvincible);
+			this.Controls.Add(this.chkInfiniteSoul);
+			this.Controls.Add(this.chkInfiniteHP);
 			this.Controls.Add(this.btnEnablePause);
 			this.Controls.Add(this.lblCameraMode);
 			this.Controls.Add(this.lblGameState);
@@ -131,6 +170,7 @@
 			this.Controls.Add(this.lblUIState);
 			this.Controls.Add(this.lblSceneName);
 			this.Controls.Add(this.chkShowEnemyHP);
+			this.Controls.Add(this.lblNote);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.MaximizeBox = false;
@@ -152,5 +192,8 @@
 		private System.Windows.Forms.Label lblGameState;
 		private System.Windows.Forms.Label lblCameraMode;
 		private System.Windows.Forms.Button btnEnablePause;
+		private System.Windows.Forms.CheckBox chkInfiniteHP;
+		private System.Windows.Forms.CheckBox chkInfiniteSoul;
+		private System.Windows.Forms.CheckBox chkInvincible;
 	}
 }

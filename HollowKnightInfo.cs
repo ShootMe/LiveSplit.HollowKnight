@@ -66,6 +66,15 @@ namespace LiveSplit.HollowKnight {
 				if (chkShowEnemyHP.Checked) {
 					DisplayEnemyHP();
 				}
+				if (chkInfiniteHP.Checked) {
+					Memory.SetPlayerData(Offset.health, Memory.PlayerData<int>(Offset.maxHealthBase));
+				}
+				if (chkInfiniteSoul.Checked) {
+					Memory.SetPlayerData(Offset.MPCharge, 99);
+				}
+				if (chkInvincible.Checked) {
+					Memory.SetPlayerData(Offset.isInvincible, true);
+				}
 			}
 		}
 		public void DisplayEnemyHP() {
@@ -87,13 +96,13 @@ namespace LiveSplit.HollowKnight {
 
 			foreach (EnemyInfo info in enemyInfo) {
 				int oldHP = info.UpdateHP(Memory);
-				if (oldHP != info.HP) {
+				if (oldHP != info.HP && info.HP < 5000 && info.HP > 0) {
 					currentEnemy = info;
 					changed = true;
 				}
 			}
 
-			if (maxHP > 0) {
+			if (maxHP > 0 && maxHP < 5000) {
 				currentEnemy = maxPointer;
 				changed = true;
 			}
@@ -108,7 +117,12 @@ namespace LiveSplit.HollowKnight {
 			}
 		}
 		private void btnEnablePause_Click(object sender, EventArgs e) {
-			Memory.SetDisablePause(false);
+			Memory.SetPlayerData(Offset.disablePause, false);
+		}
+		private void chkInvincible_CheckedChanged(object sender, EventArgs e) {
+			if (!chkInvincible.Checked) {
+				Memory.SetPlayerData(Offset.isInvincible, false);
+			}
 		}
 	}
 }

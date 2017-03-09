@@ -29,34 +29,38 @@ namespace LiveSplit.HollowKnight {
 			gameManager.Write(geo, 0x0, 0x78, 0x1d4, 0x2c);
 			gameManager.Write(2, 0x0, 0x78, 0x1d4, 0x3c);
 		}
-		public void SetDisablePause(bool disablePause) {
-			gameManager.Write(disablePause, 0x0, 0x30, (int)Offset.disablePause);
+		public void SetPlayerData(Offset offset, int value) {
+			gameManager.Write(value, 0x0, 0x30, (int)offset);
+		}
+		public void SetPlayerData(Offset offset, bool value) {
+			gameManager.Write(value, 0x0, 0x30, (int)offset);
 		}
 		public List<EnemyInfo> GetEnemyInfo() {
 			List<EnemyInfo> enemies = new List<EnemyInfo>();
 			int size = playmakerFSM.Read<int>(0x0, 0xc);
 			//int size = fsmExecutionStack.Read<int>(0x0, 0xc);
+			IntPtr basePointer = (IntPtr)playmakerFSM.Read<int>(0x0, 0x8);
 			for (int x = 0; x < size; x++) {
 				//IntPtr fsmPtr = (IntPtr)fsmExecutionStack.Read<int>(0x0, 0x8, 0x10 + x * 4);
-				IntPtr fsmPtr = (IntPtr)playmakerFSM.Read<int>(0x0, 0x8, 0x10 + x * 4, 0xc);
+				IntPtr fsmPtr = (IntPtr)Program.Read<int>(basePointer, 0x10 + x * 4, 0xc);
 				if (fsmPtr == IntPtr.Zero) { continue; }
 				int fsmLength = Program.Read<int>(fsmPtr, 0x14, 0x8);
 				byte fsmChar = Program.Read<byte>(fsmPtr, 0x14, 0xc);
 				if (fsmLength != 20 || fsmChar != (byte)'h') { continue; }
 
 				EnemyInfo info = new EnemyInfo();
-				info.Pointer = Program.Read<int>(fsmPtr, 0x28);
+				info.Pointer = Program.Read<int>(fsmPtr, 0x28, 0xc);
 
-				int infoSize = Program.Read<int>((IntPtr)info.Pointer, 0xc, 0xc);
+				int infoSize = Program.Read<int>((IntPtr)info.Pointer, 0xc);
 				if (infoSize == 0) { continue; }
 
 				for (int i = 0; i < infoSize; i++) {
-					fsmLength = Program.Read<int>((IntPtr)info.Pointer, 0xc, 0x10 + i * 4, 0x8, 0x8);
-					fsmChar = Program.Read<byte>((IntPtr)info.Pointer, 0xc, 0x10 + i * 4, 0x8, 0xc);
+					fsmLength = Program.Read<int>((IntPtr)info.Pointer, 0x10 + i * 4, 0x8, 0x8);
+					fsmChar = Program.Read<byte>((IntPtr)info.Pointer, 0x10 + i * 4, 0x8, 0xc);
 					if (fsmLength != 2 || fsmChar != (byte)'H') { continue; }
 
 					info.HPIndex = i;
-					info.HP = Program.Read<int>((IntPtr)info.Pointer, 0xc, 0x10 + i * 4, 0x14);
+					info.HP = Program.Read<int>((IntPtr)info.Pointer, 0x10 + i * 4, 0x14);
 				}
 
 				enemies.Add(info);
@@ -169,6 +173,7 @@ namespace LiveSplit.HollowKnight {
 	public enum Offset : int {
 		health = 0x68,
 		maxHealthBase = 0x70,
+		MPCharge = 0xa4,
 		MPReserveMax = 0xac,
 		mapZone = 0xcc,
 		nailDamage = 0x118,
@@ -268,6 +273,7 @@ namespace LiveSplit.HollowKnight {
 		hornetOutskirtsDefeated = 0x988,
 		mageLordDreamDefeated = 0x989,
 		infectedKnightDreamDefeated = 0x98b,
+		isInvincible = 0x9c7,
 		visitedCrossroads = 0x9d1,
 		visitedGreenpath = 0x9d2,
 		visitedFungus = 0x9d3,
@@ -524,7 +530,7 @@ namespace LiveSplit.HollowKnight {
 		public int UpdateHP(HollowKnightMemory mem) {
 			int hp = HP;
 			if (Pointer != 0) {
-				HP = mem.Program.Read<int>((IntPtr)Pointer, 0xc, 0x10 + HPIndex * 4, 0x14);
+				HP = mem.Program.Read<int>((IntPtr)Pointer, 0x10 + HPIndex * 4, 0x14);
 			}
 			return hp;
 		}
