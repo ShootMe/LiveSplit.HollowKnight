@@ -49,9 +49,9 @@ namespace LiveSplit.HollowKnight {
 		public List<EnemyInfo> GetEnemyInfo() {
 			List<EnemyInfo> enemies = new List<EnemyInfo>();
 			int size = playmakerFSM.Read<int>(0x0, 0xc);
-			IntPtr basePointer = (IntPtr)playmakerFSM.Read<int>(0x0, 0x8);
+			IntPtr basePointer = (IntPtr)playmakerFSM.Read<uint>(0x0, 0x8);
 			for (int x = 0; x < size; x++) {
-				IntPtr fsmPtr = (IntPtr)Program.Read<int>(basePointer, 0x10 + x * 4, 0xc);
+				IntPtr fsmPtr = (IntPtr)Program.Read<uint>(basePointer, 0x10 + x * 4, 0xc);
 				if (fsmPtr == IntPtr.Zero) { continue; }
 				int fsmLength = Program.Read<int>(fsmPtr, 0x14, 0x8);
 				byte fsmChar = Program.Read<byte>(fsmPtr, 0x14, 0xc);
@@ -81,9 +81,9 @@ namespace LiveSplit.HollowKnight {
 			List<EntityInfo> entities = new List<EntityInfo>();
 			int size = playmakerFSM.Read<int>(0x0, 0xc);
 			for (int x = 0; x < size; x++) {
-				IntPtr fsmPtr = (IntPtr)playmakerFSM.Read<int>(0x0, 0x8, 0x10 + x * 4, 0xc);
+				IntPtr fsmPtr = (IntPtr)playmakerFSM.Read<uint>(0x0, 0x8, 0x10 + x * 4, 0xc);
 				if (fsmPtr == IntPtr.Zero) { continue; }
-				string fsm = Program.Read((IntPtr)Program.Read<int>(fsmPtr, 0x14));
+				string fsm = Program.Read((IntPtr)Program.Read<uint>(fsmPtr, 0x14));
 
 				EntityInfo info = new EntityInfo();
 				info.Name = fsm;
@@ -94,7 +94,7 @@ namespace LiveSplit.HollowKnight {
 					if (infoSize == 0) { continue; }
 
 					for (int i = 0; i < infoSize; i++) {
-						string fsmName = Program.Read((IntPtr)Program.Read<int>((IntPtr)info.Pointer, j, 0x10 + i * 4, 0x8));
+						string fsmName = Program.Read((IntPtr)Program.Read<uint>((IntPtr)info.Pointer, j, 0x10 + i * 4, 0x8));
 						if (string.IsNullOrEmpty(fsmName)) { continue; }
 
 						switch (j) {
@@ -350,9 +350,9 @@ namespace LiveSplit.HollowKnight {
 			bool is64bit = Memory.Program.Is64Bit();
 			IntPtr p = IntPtr.Zero;
 			if (is64bit) {
-				p = (IntPtr)Memory.Program.Read<long>(Value, offsets);
+				p = (IntPtr)Memory.Program.Read<ulong>(Value, offsets);
 			} else {
-				p = (IntPtr)Memory.Program.Read<int>(Value, offsets);
+				p = (IntPtr)Memory.Program.Read<uint>(Value, offsets);
 			}
 			return Memory.Program.Read(p, is64bit);
 		}
@@ -397,9 +397,9 @@ namespace LiveSplit.HollowKnight {
 					pointer = (IntPtr)Memory.Program.Read<int>(pointer);
 					if (AutoDeref) {
 						if (is64bit) {
-							pointer = (IntPtr)Memory.Program.Read<long>(pointer);
+							pointer = (IntPtr)Memory.Program.Read<ulong>(pointer);
 						} else {
-							pointer = (IntPtr)Memory.Program.Read<int>(pointer);
+							pointer = (IntPtr)Memory.Program.Read<uint>(pointer);
 						}
 					}
 				}
@@ -717,7 +717,7 @@ namespace LiveSplit.HollowKnight {
 					case "System.Single": key.Value = BitConverter.ToSingle(newData, key.Index); break;
 					case "System.Int16": key.Value = BitConverter.ToInt16(newData, key.Index); break;
 					case "System.Int64": key.Value = BitConverter.ToInt64(newData, key.Index); break;
-					case "System.String": key.Value = program.Read((IntPtr)BitConverter.ToInt32(newData, key.Index)); break;
+					case "System.String": key.Value = program.Read((IntPtr)BitConverter.ToUInt32(newData, key.Index)); break;
 					case "System.Byte": key.Value = newData[key.Index]; break;
 					case "System.Boolean": key.Value = newData[key.Index] == 1; break;
 					default: key.Value = BitConverter.ToInt32(newData, key.Index); break;

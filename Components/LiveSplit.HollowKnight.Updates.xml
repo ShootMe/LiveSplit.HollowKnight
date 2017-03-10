@@ -1,5 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <updates>
+	<update version="1.5.0">
+		<files>
+			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+		</files>
+		<changelog>
+			<change>
+				Fix memory reading to account for v1.0.1.1
+			</change>
+		</changelog>
+	</update>
 	<update version="1.4.6">
 		<files>
 			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>

@@ -176,9 +176,9 @@ namespace LiveSplit.Memory {
 			for (int i = 0; i < offsets.Length - 1; i++) {
 				WinAPI.ReadProcessMemory(targetProcess.Handle, address + offsets[i], buffer, buffer.Length, out bytesWritten);
 				if (is64bit) {
-					address = (IntPtr)BitConverter.ToInt64(buffer, 0);
+					address = (IntPtr)BitConverter.ToUInt64(buffer, 0);
 				} else {
-					address = (IntPtr)BitConverter.ToInt32(buffer, 0);
+					address = (IntPtr)BitConverter.ToUInt32(buffer, 0);
 				}
 			}
 			return offsets.Length > 0 ? offsets[offsets.Length - 1] : 0;
