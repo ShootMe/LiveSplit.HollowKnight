@@ -34,11 +34,19 @@ namespace LiveSplit.HollowKnight {
 			gameManager.Write((int)mode, 0x0, 0x74, 0x28, 0x20);
 		}
 		public void UpdateGeoCounter(bool enable, int geo) {
-			gameManager.Write(-0.02f, 0x0, 0x78, 0x1d4, 0x50);
-			gameManager.Write(enable ? 0 : 1, 0x0, 0x78, 0x1d4, 0x44);
-			gameManager.Write(1, 0x0, 0x78, 0x1d4, 0x34);
-			gameManager.Write(geo, 0x0, 0x78, 0x1d4, 0x2c);
-			gameManager.Write(2, 0x0, 0x78, 0x1d4, 0x3c);
+			int offset = 0x1d4;
+			string ver = gameManager.Read(0x0, 0x30, 0x8);
+			if(string.IsNullOrEmpty(ver)) { return; }
+
+			Version version = new Version(ver);
+			if(version.Build > 0) {
+				offset = 0x1dc;
+			}
+			gameManager.Write(-0.02f, 0x0, 0x78, offset, 0x50);
+			gameManager.Write(enable ? 0 : 1, 0x0, 0x78, offset, 0x44);
+			gameManager.Write(1, 0x0, 0x78, offset, 0x34);
+			gameManager.Write(geo, 0x0, 0x78, offset, 0x2c);
+			gameManager.Write(2, 0x0, 0x78, offset, 0x3c);
 		}
 		public void SetPlayerData(Offset offset, int value) {
 			gameManager.Write(value, 0x0, 0x30, (int)offset);
@@ -58,7 +66,7 @@ namespace LiveSplit.HollowKnight {
 				if (fsmLength != 20 || fsmChar != (byte)'h') { continue; }
 
 				EnemyInfo info = new EnemyInfo();
-				info.Pointer = Program.Read<int>(fsmPtr, 0x28, 0xc);
+				info.Pointer = Program.Read<uint>(fsmPtr, 0x28, 0xc);
 
 				int infoSize = Program.Read<int>((IntPtr)info.Pointer, 0xc);
 				if (infoSize == 0) { continue; }
@@ -87,7 +95,7 @@ namespace LiveSplit.HollowKnight {
 
 				EntityInfo info = new EntityInfo();
 				info.Name = fsm;
-				info.Pointer = Program.Read<int>(fsmPtr, 0x28);
+				info.Pointer = Program.Read<uint>(fsmPtr, 0x28);
 
 				for (int j = 0x8; j <= 0x30; j += 4) {
 					int infoSize = Program.Read<int>((IntPtr)info.Pointer, j, 0xc);
@@ -534,7 +542,7 @@ namespace LiveSplit.HollowKnight {
 		OPTIONS
 	}
 	public class EnemyInfo {
-		public int Pointer { get; set; }
+		public uint Pointer { get; set; }
 		public int HP { get; set; }
 		public int HPIndex { get; set; }
 
@@ -546,7 +554,7 @@ namespace LiveSplit.HollowKnight {
 			return hp;
 		}
 		public override int GetHashCode() {
-			return Pointer;
+			return (int)Pointer;
 		}
 		public override bool Equals(object obj) {
 			return obj != null && (obj is EnemyInfo) && ((EnemyInfo)obj).Pointer == this.Pointer;
@@ -554,7 +562,7 @@ namespace LiveSplit.HollowKnight {
 	}
 	public class EntityInfo {
 		public string Name { get; set; }
-		public int Pointer { get; set; }
+		public uint Pointer { get; set; }
 		public List<KeyValuePair<string, float>> FloatVars { get; set; } = new List<KeyValuePair<string, float>>();
 		public List<KeyValuePair<string, int>> IntVars { get; set; } = new List<KeyValuePair<string, int>>();
 		public List<KeyValuePair<string, bool>> BoolVars { get; set; } = new List<KeyValuePair<string, bool>>();
@@ -564,7 +572,7 @@ namespace LiveSplit.HollowKnight {
 
 		public int Count { get { return FloatVars.Count + IntVars.Count + BoolVars.Count + StringVars.Count + VectorVars.Count + ObjVars.Count; } }
 		public override int GetHashCode() {
-			return Pointer;
+			return (int)Pointer;
 		}
 		public bool Same(EntityInfo info) {
 			return info.Pointer == this.Pointer;

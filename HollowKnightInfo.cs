@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
 namespace LiveSplit.HollowKnight {
@@ -24,6 +25,7 @@ namespace LiveSplit.HollowKnight {
 		public HollowKnightInfo() {
 			this.DoubleBuffered = true;
 			InitializeComponent();
+			Text = "Hollow Knight Info " + Assembly.GetExecutingAssembly().GetName().Version.ToString();
 			Memory = new HollowKnightMemory();
 			Thread t = new Thread(UpdateLoop);
 			t.IsBackground = true;
@@ -98,6 +100,7 @@ namespace LiveSplit.HollowKnight {
 
 			if (lastCheck.AddSeconds(1) < DateTime.Now) {
 				lastCheck = DateTime.Now;
+
 				List<EnemyInfo> enemies = Memory.GetEnemyInfo();
 				foreach (EnemyInfo info in enemies) {
 					if (enemyInfo.Add(info)) {
@@ -124,6 +127,7 @@ namespace LiveSplit.HollowKnight {
 
 			if (changed) {
 				Memory.UpdateGeoCounter(true, currentEnemy.HP < 0 ? 0 : currentEnemy.HP);
+				changed = false;
 			}
 		}
 		private void chkShowEnemyHP_CheckedChanged(object sender, EventArgs e) {
