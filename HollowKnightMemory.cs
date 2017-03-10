@@ -394,7 +394,7 @@ namespace LiveSplit.HollowKnight {
 				pointer = GetVersionedFunctionPointer();
 				if (pointer != IntPtr.Zero) {
 					bool is64bit = Memory.Program.Is64Bit();
-					pointer = (IntPtr)Memory.Program.Read<int>(pointer);
+					pointer = (IntPtr)Memory.Program.Read<uint>(pointer);
 					if (AutoDeref) {
 						if (is64bit) {
 							pointer = (IntPtr)Memory.Program.Read<ulong>(pointer);
