@@ -36,10 +36,10 @@ namespace LiveSplit.HollowKnight {
 		public void UpdateGeoCounter(bool enable, int geo) {
 			int offset = 0x1d4;
 			string ver = gameManager.Read(0x0, 0x30, 0x8);
-			if(string.IsNullOrEmpty(ver)) { return; }
+			if (string.IsNullOrEmpty(ver)) { return; }
 
 			Version version = new Version(ver);
-			if(version.Build > 0) {
+			if (version.Build > 0) {
 				offset = 0x1dc;
 			}
 			gameManager.Write(-0.02f, 0x0, 0x78, offset, 0x50);
@@ -210,13 +210,20 @@ namespace LiveSplit.HollowKnight {
 		hasDoubleJump = 0x149,
 		hasLantern = 0x14a,
 		hasTramPass = 0x14b,
+		hasLoveKey = 0x155,
 		hasKingsBrand = 0x156,
 		ore = 0x15c,
+		notchShroomOgres = 0x1a0,
+		notchFogCanyon = 0x1a1,
 		lurienDefeated = 0x1c0,
 		hegemolDefeated = 0x1c1,
 		monomonDefeated = 0x1c2,
 		visitedDeepnestSpa = 0x200,
 		mothDeparted = 0x2a9,
+		salubraNotch1 = 0x2c7,
+		salubraNotch2 = 0x2c8,
+		salubraNotch3 = 0x2c9,
+		salubraNotch4 = 0x2ca,
 		nailSmithUpgrades = 0x2d4,
 		colosseumBronzeCompleted = 0x367,
 		colosseumSilverCompleted = 0x369,
@@ -270,6 +277,7 @@ namespace LiveSplit.HollowKnight {
 		killsMushroomBrawler = 0x65c,
 		killedBlackKnight = 0x689,
 		killedMageLord = 0x701,
+		killedFlukeMother = 0x731,
 		killedDungDefender = 0x739,
 		killedMimicSpider = 0x7e1,
 		killedHornet = 0x851,

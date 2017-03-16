@@ -69,6 +69,8 @@ namespace LiveSplit.HollowKnight {
 
 		[Description("Kings Brand (Item)"), ToolTip("Splits when obtaining the Kings Brand")]
 		KingsBrand,
+		[Description("Love Key (Item)"), ToolTip("Splits when obtaining the Love Key")]
+		LoveKey,
 		[Description("Lumafly Lantern (Item)"), ToolTip("Splits when obtaining the Lumafly Lantern")]
 		LumaflyLantern,
 		[Description("Pale Ore - First (Item)"), ToolTip("Splits when obtaining the first Pale Ore")]
@@ -117,6 +119,8 @@ namespace LiveSplit.HollowKnight {
 		FalseKnight,
 		[Description("Failed Knight (Boss)"), ToolTip("Splits when killing Failed Knight (False Knight Dream)")]
 		FailedKnight,
+		[Description("Flukemarm (Boss)"), ToolTip("Splits when killing Flukemarm")]
+		Flukemarm,
 		[Description("Galien (Boss)"), ToolTip("Splits when killing Galien")]
 		Galien,
 		[Description("Gorb (Boss)"), ToolTip("Splits when killing Gorb")]
@@ -293,6 +297,18 @@ namespace LiveSplit.HollowKnight {
 		VoidHeart,
 		[Description("Wayward Compass (Charm)"), ToolTip("Splits when obtaining Wayward Compass charm")]
 		WaywardCompass,
+		[Description("Shrumal Ogres (Charm Notch)"), ToolTip("Splits when obtaining the charm notch after defeating the Shrumal Ogres")]
+		NotchShrumalOgres,
+		[Description("Fog Canyon (Charm Notch)"), ToolTip("Splits when obtaining the charm notch in Fog Canyon")]
+		NotchFogCanyon,
+		[Description("Salubra 1 (Charm Notch)"), ToolTip("Splits when obtaining the first charm notch from Salubra")]
+		NotchSalubra1,
+		[Description("Salubra 2 (Charm Notch)"), ToolTip("Splits when obtaining the second charm notch from Salubra")]
+		NotchSalubra2,
+		[Description("Salubra 3 (Charm Notch)"), ToolTip("Splits when obtaining the third charm notch from Salubra")]
+		NotchSalubra3,
+		[Description("Salubra 4 (Charm Notch)"), ToolTip("Splits when obtaining the fourth charm notch from Salubra")]
+		NotchSalubra4,
 	}
 	public class ToolTipAttribute : Attribute {
 		public string ToolTip { get; set; }
