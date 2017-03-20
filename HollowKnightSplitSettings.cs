@@ -75,6 +75,8 @@ namespace LiveSplit.HollowKnight {
 		LumaflyLantern,
 		[Description("Pale Ore - First (Item)"), ToolTip("Splits when obtaining the first Pale Ore")]
 		PaleOre,
+		[Description("Simple Key - First (Item)"), ToolTip("Splits when obtaining the first Simple Key")]
+		SimpleKey,
 		[Description("Tram Pass (Item)"), ToolTip("Splits when obtaining the Tram Pass")]
 		TramPass,
 
@@ -127,7 +129,7 @@ namespace LiveSplit.HollowKnight {
 		Gorb,
 		[Description("Gruz Mother (Boss)"), ToolTip("Splits when killing Gruz Mother")]
 		GruzMother,
-		[Description("Hollow Knight (Boss)"), ToolTip("Splits when killing Hollow Knight")]
+		[Description("Hollow Knight - Dream Nail (Boss)"), ToolTip("Splits when going into the dream world for Hollow Knight to fight Radiance")]
 		HollowKnight,
 		[Description("Hornet 1 (Boss)"), ToolTip("Splits when killing Hornet for the first time")]
 		Hornet1,
@@ -141,12 +143,12 @@ namespace LiveSplit.HollowKnight {
 		Markoth,
 		[Description("Marmu (Boss)"), ToolTip("Splits when killing Marmu")]
 		Marmu,
+		[Description("Mega Moss Charger (Boss)"), ToolTip("Splits when killing Mega Moss Charger")]
+		MegaMossCharger,
 		[Description("No Eyes (Boss)"), ToolTip("Splits when killing No Eyes")]
 		NoEyes,
 		[Description("Nosk (Boss)"), ToolTip("Splits when killing Nosk")]
 		Nosk,
-		[Description("Radiance (Boss)"), ToolTip("Splits when killing Radiance")]
-		Radiance,
 		[Description("Soul Master (Boss)"), ToolTip("Splits when killing Soul Master")]
 		SoulMaster,
 		[Description("Soul Tyrant (Boss)"), ToolTip("Splits when killing Soul Tyrant (Soul Master Dream)")]
@@ -182,6 +184,10 @@ namespace LiveSplit.HollowKnight {
 		MossKnight,
 		[Description("Shrumal Ogre (Mini Boss)"), ToolTip("Splits when killing the final Shrumal Ogre")]
 		MushroomBrawler,
+		[Description("Zote Rescued Vengefly King (Mini Boss)"), ToolTip("Splits when rescuing Zote from the Vengefly King")]
+		Zote1,
+		[Description("Zote Rescued Deepnest (Mini Boss)"), ToolTip("Splits when rescuing Zote in Deepnest")]
+		Zote2,
 
 		[Description("Distant Village (Stag Staion)"), ToolTip("Splits when obtaining Distant Village Stag Station")]
 		DeepnestStation,

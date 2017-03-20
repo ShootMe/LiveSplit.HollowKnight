@@ -1,5 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <updates>
+	<update version="1.6.0">
+		<files>
+			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+		</files>
+		<changelog>
+			<change>
+				Fixed Crystal Guardian 2, Brooding Mawlek, Hollow Knight for All Bosses. Added Zote Rescued 1 and 2, and first Simple Key
+			</change>
+		</changelog>
+	</update>
 	<update version="1.5.5">
 		<files>
 			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
