@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Text;
 namespace LiveSplit.HollowKnight {
 	public partial class HollowKnightMemory {
@@ -10,48 +11,87 @@ namespace LiveSplit.HollowKnight {
 		public bool IsHooked { get; set; } = false;
 		private DateTime lastHooked;
 		private ProgramPointer gameManager, playmakerFSM;
+		private int uiManager, inputHandler, cameraCtrl, gameState, heroController, camTarget, camMode, menuState, uiState;
 
 		public HollowKnightMemory() {
 			lastHooked = DateTime.MinValue;
-			gameManager = new ProgramPointer(this, MemPointer.GameManager) { AutoDeref = false };
-			playmakerFSM = new ProgramPointer(this, MemPointer.PlaymakerFSM) { AutoDeref = false };
+			gameManager = new ProgramPointer(this, MemPointer.GameManager) { AutoDeref = false, UpdatedPointer = UpdatedPointer };
+			playmakerFSM = new ProgramPointer(this, MemPointer.PlaymakerFSM) { AutoDeref = false, UpdatedPointer = UpdatedPointer };
 		}
 
+		private void UpdatedPointer(ProgramPointer pointer) {
+			if (pointer == gameManager) {
+				if (pointer.Version == MemVersion.V1026) {
+					uiManager = 0x88;
+					inputHandler = 0x6c;
+					cameraCtrl = 0x78;
+					gameState = 0x9c;
+					heroController = 0x7c;
+					camTarget = 0x24;
+					camMode = 0x3c;
+					menuState = 0x12c;
+					uiState = 0x128;
+				} else {
+					uiManager = 0x84;
+					inputHandler = 0x68;
+					cameraCtrl = 0x74;
+					gameState = 0x98;
+					heroController = 0x78;
+					camTarget = 0x28;
+					camMode = 0x40;
+					menuState = 0x128;
+					uiState = 0x124;
+				}
+			}
+		}
 		public byte[] GetPlayerData() {
+			//GameManger._instance.playerData
 			return gameManager.ReadBytes(2702, 0x0, 0x30, 0x0);
 		}
 		public PointF GetCameraTarget() {
 			//GameManger._instance.cameraCtrl.camTarget.destination
-			float x = gameManager.Read<float>(0x0, 0x74, 0x28, 0x24);
-			float y = gameManager.Read<float>(0x0, 0x74, 0x28, 0x28);
+			float x = gameManager.Read<float>(0x0, cameraCtrl, camTarget, 0x24);
+			float y = gameManager.Read<float>(0x0, cameraCtrl, camTarget, 0x28);
 			return new PointF(x, y);
 		}
 		public TargetMode GetCameraTargetMode() {
 			//GameManger._instance.cameraCtrl.camTarget.mode
-			return (TargetMode)gameManager.Read<int>(0x0, 0x74, 0x28, 0x20);
+			return (TargetMode)gameManager.Read<int>(0x0, cameraCtrl, camTarget, 0x20);
 		}
 		public void SetCameraTargetMode(TargetMode mode) {
-			gameManager.Write((int)mode, 0x0, 0x74, 0x28, 0x20);
+			//GameManger._instance.cameraCtrl.camTarget.mode
+			gameManager.Write((int)mode, 0x0, cameraCtrl, camTarget, 0x20);
+		}
+		public CameraMode CameraMode() {
+			//GameManager._instance.cameraCtrl.mode
+			return (CameraMode)gameManager.Read<int>(0x0, cameraCtrl, camMode);
 		}
 		public void UpdateGeoCounter(bool enable, int geo) {
 			int offset = 0x1d4;
+			//GameManger._instance.playerData.version
 			string ver = gameManager.Read(0x0, 0x30, 0x8);
 			if (string.IsNullOrEmpty(ver)) { return; }
 
 			Version version = new Version(ver);
-			if (version.Build > 0) {
-				offset = 0x1dc;
-			}
-			gameManager.Write(-0.02f, 0x0, 0x78, offset, 0x50);
-			gameManager.Write(enable ? 0 : 1, 0x0, 0x78, offset, 0x44);
-			gameManager.Write(1, 0x0, 0x78, offset, 0x34);
-			gameManager.Write(geo, 0x0, 0x78, offset, 0x2c);
-			gameManager.Write(2, 0x0, 0x78, offset, 0x3c);
+			if (version.Build > 0) { offset = 0x1dc; }
+
+			//GameManger._instance.heroCtrl.geoCounter.digitChangeTimer
+			gameManager.Write(-0.02f, 0x0, heroController, offset, 0x50);
+			//GameManger._instance.heroCtrl.geoCounter.changePerTick
+			gameManager.Write(enable ? 0 : 1, 0x0, heroController, offset, 0x44);
+			//GameManger._instance.heroCtrl.geoCounter.addCounter
+			gameManager.Write(1, 0x0, heroController, offset, 0x34);
+			//GameManger._instance.heroCtrl.geoCounter.counterCurrent
+			gameManager.Write(geo, 0x0, heroController, offset, 0x2c);
+			//GameManger._instance.heroCtrl.geoCounter.addRollerState
+			gameManager.Write(2, 0x0, heroController, offset, 0x3c);
 		}
 		public void SetPlayerData(Offset offset, int value) {
+			//GameManger._instance.playerData.(offset)
 			gameManager.Write(value, 0x0, 0x30, (int)offset);
 		}
 		public void SetPlayerData(Offset offset, bool value) {
+			//GameManger._instance.playerData.(offset)
 			gameManager.Write(value, 0x0, 0x30, (int)offset);
 		}
 		public List<EnemyInfo> GetEnemyInfo() {
@@ -125,27 +165,28 @@ namespace LiveSplit.HollowKnight {
 			return entities;
 		}
 		public T PlayerData<T>(Offset offset) where T : struct {
+			//GameManger._instance.playerData.(offset)
 			return gameManager.Read<T>(0x0, 0x30, (int)offset);
 		}
 		public GameState GameState() {
 			//GameManager._instance.gameState
-			return (GameState)gameManager.Read<int>(0x0, 0x98);
+			return (GameState)gameManager.Read<int>(0x0, gameState);
 		}
 		public MainMenuState MenuState() {
 			//GameManager._instance.uiManager.menuState
-			return (MainMenuState)gameManager.Read<int>(0x0, 0x84, 0x128);
+			return (MainMenuState)gameManager.Read<int>(0x0, uiManager, menuState);
 		}
 		public UIState UIState() {
 			//GameManager._instance.uiManager.uiState
-			return (UIState)gameManager.Read<int>(0x0, 0x84, 0x124);
+			int ui = gameManager.Read<int>(0x0, uiManager, uiState);
+			if (gameManager.Version == MemVersion.V1026 && ui >= 2) {
+				ui += 2;
+			}
+			return (UIState)ui;
 		}
 		public bool AcceptingInput() {
 			//GameManager._instance.InputHandler.acceptingInput
-			return gameManager.Read<bool>(0x0, 0x68, 0x58);
-		}
-		public CameraMode CameraMode() {
-			//GameManager._instance.cameraController.mode
-			return (CameraMode)gameManager.Read<int>(0x0, 0x74, 0x40);
+			return gameManager.Read<bool>(0x0, inputHandler, 0x58);
 		}
 		public string SceneName() {
 			//GameManager._instance.sceneName
@@ -326,7 +367,9 @@ namespace LiveSplit.HollowKnight {
 	}
 	public enum MemVersion {
 		None,
-		V1
+		V1,
+		V1006 = 2552320,
+		V1026 = 2563072
 	}
 	public enum MemPointer {
 		GameManager,
@@ -344,6 +387,7 @@ namespace LiveSplit.HollowKnight {
 		public MemPointer Name { get; set; }
 		public MemVersion Version { get; set; }
 		public bool AutoDeref { get; set; }
+		public Action<ProgramPointer> UpdatedPointer { get; set; }
 		private int lastID;
 		private DateTime lastTry;
 		public ProgramPointer(HollowKnightMemory memory, MemPointer pointer) {
@@ -378,26 +422,8 @@ namespace LiveSplit.HollowKnight {
 			}
 			return Memory.Program.Read(p, is64bit);
 		}
-		public void Write(int value, params int[] offsets) {
-			Memory.Program.Write(Value, value, offsets);
-		}
-		public void Write(long value, params int[] offsets) {
-			Memory.Program.Write(Value, value, offsets);
-		}
-		public void Write(double value, params int[] offsets) {
-			Memory.Program.Write(Value, value, offsets);
-		}
-		public void Write(float value, params int[] offsets) {
-			Memory.Program.Write(Value, value, offsets);
-		}
-		public void Write(short value, params int[] offsets) {
-			Memory.Program.Write(Value, value, offsets);
-		}
-		public void Write(byte value, params int[] offsets) {
-			Memory.Program.Write(Value, value, offsets);
-		}
-		public void Write(bool value, params int[] offsets) {
-			Memory.Program.Write(Value, value, offsets);
+		public void Write<T>(T value, params int[] offsets) where T : struct {
+			Memory.Program.Write<T>(Value, value, offsets);
 		}
 		private void GetPointer() {
 			if (!Memory.IsHooked) {
@@ -424,6 +450,7 @@ namespace LiveSplit.HollowKnight {
 							pointer = (IntPtr)Memory.Program.Read<uint>(pointer);
 						}
 					}
+					UpdatedPointer?.Invoke(this);
 				}
 			}
 		}
@@ -437,7 +464,8 @@ namespace LiveSplit.HollowKnight {
 
 				IntPtr ptr = Memory.Program.FindSignatures(pattern)[0];
 				if (ptr != IntPtr.Zero) {
-					Version = version;
+					FileInfo info = new FileInfo(Path.Combine(Path.GetDirectoryName(Memory.Program.MainModule.FileName), @"hollow_knight_Data\Managed\Assembly-CSharp.dll"));
+					Version = (MemVersion)info.Length;
 					return ptr;
 				}
 			}

@@ -106,68 +106,35 @@ namespace LiveSplit.Memory {
 
 			return invalid ? string.Empty : sb.ToString();
 		}
-		public static void Write(this Process targetProcess, IntPtr address, int value, params int[] offsets) {
+		public static void Write<T>(this Process targetProcess, IntPtr address, T value, params int[] offsets) where T : struct {
 			if (targetProcess == null || targetProcess.HasExited) { return; }
 
 			int last = OffsetAddress(targetProcess, ref address, offsets);
-			byte[] buffer = BitConverter.GetBytes(value);
-			int bytesWritten;
-			WinAPI.WriteProcessMemory(targetProcess.Handle, address + last, buffer, 4, out bytesWritten);
-		}
-		public static void Write(this Process targetProcess, IntPtr address, long value, params int[] offsets) {
-			if (targetProcess == null || targetProcess.HasExited) { return; }
+			byte[] buffer = null;
+			if (typeof(T) == typeof(bool)) {
+				buffer = BitConverter.GetBytes(Convert.ToBoolean(value));
+			} else if (typeof(T) == typeof(byte)) {
+				buffer = BitConverter.GetBytes(Convert.ToByte(value));
+			} else if (typeof(T) == typeof(int)) {
+				buffer = BitConverter.GetBytes(Convert.ToInt32(value));
+			} else if (typeof(T) == typeof(uint)) {
+				buffer = BitConverter.GetBytes(Convert.ToUInt32(value));
+			} else if (typeof(T) == typeof(short)) {
+				buffer = BitConverter.GetBytes(Convert.ToInt16(value));
+			} else if (typeof(T) == typeof(ushort)) {
+				buffer = BitConverter.GetBytes(Convert.ToUInt16(value));
+			} else if (typeof(T) == typeof(long)) {
+				buffer = BitConverter.GetBytes(Convert.ToInt64(value));
+			} else if (typeof(T) == typeof(ulong)) {
+				buffer = BitConverter.GetBytes(Convert.ToUInt64(value));
+			} else if (typeof(T) == typeof(float)) {
+				buffer = BitConverter.GetBytes(Convert.ToSingle(value));
+			} else if (typeof(T) == typeof(double)) {
+				buffer = BitConverter.GetBytes(Convert.ToDouble(value));
+			}
 
-			int last = OffsetAddress(targetProcess, ref address, offsets);
-			byte[] buffer = BitConverter.GetBytes(value);
 			int bytesWritten;
-			WinAPI.WriteProcessMemory(targetProcess.Handle, address + last, buffer, 8, out bytesWritten);
-		}
-		public static void Write(this Process targetProcess, IntPtr address, byte value, params int[] offsets) {
-			if (targetProcess == null || targetProcess.HasExited) { return; }
-
-			int last = OffsetAddress(targetProcess, ref address, offsets);
-			byte[] buffer = new byte[] { value };
-			int bytesWritten;
-			WinAPI.WriteProcessMemory(targetProcess.Handle, address + last, buffer, 1, out bytesWritten);
-		}
-		public static void Write(this Process targetProcess, IntPtr address, short value, params int[] offsets) {
-			if (targetProcess == null || targetProcess.HasExited) { return; }
-
-			int last = OffsetAddress(targetProcess, ref address, offsets);
-			byte[] buffer = BitConverter.GetBytes(value);
-			int bytesWritten;
-			WinAPI.WriteProcessMemory(targetProcess.Handle, address + last, buffer, 2, out bytesWritten);
-		}
-		public static void Write(this Process targetProcess, IntPtr address, float value, params int[] offsets) {
-			if (targetProcess == null || targetProcess.HasExited) { return; }
-
-			int last = OffsetAddress(targetProcess, ref address, offsets);
-			byte[] buffer = BitConverter.GetBytes(value);
-			int bytesWritten;
-			WinAPI.WriteProcessMemory(targetProcess.Handle, address + last, buffer, 4, out bytesWritten);
-		}
-		public static void Write(this Process targetProcess, IntPtr address, double value, params int[] offsets) {
-			if (targetProcess == null || targetProcess.HasExited) { return; }
-
-			int last = OffsetAddress(targetProcess, ref address, offsets);
-			byte[] buffer = BitConverter.GetBytes(value);
-			int bytesWritten;
-			WinAPI.WriteProcessMemory(targetProcess.Handle, address + last, buffer, 8, out bytesWritten);
-		}
-		public static void Write(this Process targetProcess, IntPtr address, bool value, params int[] offsets) {
-			if (targetProcess == null || targetProcess.HasExited) { return; }
-
-			int last = OffsetAddress(targetProcess, ref address, offsets);
-			byte[] buffer = new byte[] { value ? (byte)1 : (byte)0 };
-			int bytesWritten;
-			WinAPI.WriteProcessMemory(targetProcess.Handle, address + last, buffer, 1, out bytesWritten);
-		}
-		public static void Write(this Process targetProcess, IntPtr address, byte[] data, params int[] offsets) {
-			if (targetProcess == null || targetProcess.HasExited) { return; }
-
-			int last = OffsetAddress(targetProcess, ref address, offsets);
-			int bytesWritten;
-			WinAPI.WriteProcessMemory(targetProcess.Handle, address + last, data, data.Length, out bytesWritten);
+			WinAPI.WriteProcessMemory(targetProcess.Handle, address + last, buffer, buffer.Length, out bytesWritten);
 		}
 		private static int OffsetAddress(this Process targetProcess, ref IntPtr address, params int[] offsets) {
 			bool is64bit = Is64Bit(targetProcess);
