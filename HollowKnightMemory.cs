@@ -21,7 +21,7 @@ namespace LiveSplit.HollowKnight {
 
 		private void UpdatedPointer(ProgramPointer pointer) {
 			if (pointer == gameManager) {
-				if (pointer.Version == MemVersion.V1026) {
+				if (pointer.Version == MemVersion.V1026 || pointer.Version == MemVersion.V1031) {
 					uiManager = 0x88;
 					inputHandler = 0x6c;
 					cameraCtrl = 0x78;
@@ -179,7 +179,7 @@ namespace LiveSplit.HollowKnight {
 		public UIState UIState() {
 			//GameManager._instance.uiManager.uiState
 			int ui = gameManager.Read<int>(0x0, uiManager, uiState);
-			if (gameManager.Version == MemVersion.V1026 && ui >= 2) {
+			if (uiState == 0x128 && ui >= 2) {
 				ui += 2;
 			}
 			return (UIState)ui;
@@ -369,7 +369,8 @@ namespace LiveSplit.HollowKnight {
 		None,
 		V1,
 		V1006 = 2552320,
-		V1026 = 2563072
+		V1026 = 2563072,
+		V1031 = 2567680
 	}
 	public enum MemPointer {
 		GameManager,
