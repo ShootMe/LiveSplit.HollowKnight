@@ -7,13 +7,13 @@ using System.Xml;
 namespace LiveSplit.HollowKnight {
 	public partial class HollowKnightSettings : UserControl {
 		public List<SplitName> Splits { get; private set; }
-		public bool ShowMapDisplay { get; set; }
-		public bool RainbowDash { get; set; }
+		public bool OldGameTime { get; set; }
 		private bool isLoading;
 		public HollowKnightSettings() {
 			isLoading = true;
 			InitializeComponent();
 
+			OldGameTime = false;
 			Splits = new List<SplitName>();
 			isLoading = false;
 		}
@@ -44,16 +44,17 @@ namespace LiveSplit.HollowKnight {
 
 				flowMain.Controls.Add(setting);
 			}
+			chkOldGameTime.Checked = OldGameTime;
 
 			isLoading = false;
 			this.flowMain.ResumeLayout(true);
 		}
 		private void AddHandlers(HollowKnightSplitSettings setting) {
-			setting.cboName.SelectedIndexChanged += new EventHandler(cboName_SelectedIndexChanged);
+			setting.cboName.SelectedIndexChanged += new EventHandler(ControlChanged);
 			setting.btnRemove.Click += new EventHandler(btnRemove_Click);
 		}
 		private void RemoveHandlers(HollowKnightSplitSettings setting) {
-			setting.cboName.SelectedIndexChanged -= cboName_SelectedIndexChanged;
+			setting.cboName.SelectedIndexChanged -= ControlChanged;
 			setting.btnRemove.Click -= btnRemove_Click;
 		}
 		public void btnRemove_Click(object sender, EventArgs e) {
@@ -67,7 +68,7 @@ namespace LiveSplit.HollowKnight {
 			}
 			UpdateSplits();
 		}
-		public void cboName_SelectedIndexChanged(object sender, EventArgs e) {
+		public void ControlChanged(object sender, EventArgs e) {
 			UpdateSplits();
 		}
 		public void UpdateSplits() {
@@ -83,6 +84,8 @@ namespace LiveSplit.HollowKnight {
 					}
 				}
 			}
+
+			OldGameTime = chkOldGameTime.Checked;
 		}
 		public XmlNode UpdateSettings(XmlDocument document) {
 			XmlElement xmlSettings = document.CreateElement("Settings");
@@ -96,16 +99,24 @@ namespace LiveSplit.HollowKnight {
 
 				xmlSplits.AppendChild(xmlSplit);
 			}
+
+			XmlElement xmlGameTime = document.CreateElement("OldGameTime");
+			xmlGameTime.InnerText = OldGameTime.ToString();
+			xmlSettings.AppendChild(xmlGameTime);
+
 			return xmlSettings;
 		}
 		public void SetSettings(XmlNode settings) {
 			Splits.Clear();
-			XmlNodeList splitNodes = settings.SelectNodes("//Splits/Split");
+			XmlNodeList splitNodes = settings.SelectNodes(".//Splits/Split");
 			foreach (XmlNode splitNode in splitNodes) {
 				string splitDescription = splitNode.InnerText;
 				SplitName split = HollowKnightSplitSettings.GetSplitName(splitDescription);
 				Splits.Add(split);
 			}
+
+			XmlNode gameTime = settings.SelectSingleNode(".//OldGameTime");
+			OldGameTime = gameTime == null || string.IsNullOrEmpty(gameTime.InnerText) ? false : bool.Parse(gameTime.InnerText);
 		}
 		private void btnAddSplit_Click(object sender, EventArgs e) {
 			HollowKnightSplitSettings setting = new HollowKnightSplitSettings();

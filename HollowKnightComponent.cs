@@ -210,7 +210,12 @@ namespace LiveSplit.HollowKnight {
 				}
 
 				GameState gameState = mem.GameState();
-				Model.CurrentState.IsGameTimePaused = gameState == GameState.LOADING || (!string.IsNullOrEmpty(nextScene) && nextScene != sceneName);
+				if (!settings.OldGameTime) {
+					Model.CurrentState.IsGameTimePaused = gameState == GameState.LOADING || (!string.IsNullOrEmpty(nextScene) && nextScene != sceneName);
+				} else {
+					Model.CurrentState.IsGameTimePaused = gameState == GameState.ENTERING_LEVEL || gameState == GameState.EXITING_LEVEL || gameState == GameState.LOADING || (!string.IsNullOrEmpty(nextScene) && nextScene != sceneName);
+				}
+
 			}
 
 			HandleSplit(shouldSplit);
