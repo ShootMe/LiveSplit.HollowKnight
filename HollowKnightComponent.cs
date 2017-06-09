@@ -18,7 +18,7 @@ namespace LiveSplit.HollowKnight {
 #endif
 		public string ComponentName { get { return "Hollow Knight Autosplitter"; } }
 		public IDictionary<string, Action> ContextMenuControls { get { return null; } }
-		internal static string[] keys = { "CurrentSplit", "State", "GameState", "SceneName", "Charms", "CameraMode", "MenuState", "UIState", "AcceptingInput", "MapZone", "NextSceneName" };
+		internal static string[] keys = { "CurrentSplit", "State", "GameState", "SceneName", "Charms", "CameraMode", "MenuState", "UIState", "AcceptingInput", "MapZone", "NextSceneName", "ActorState" };
 		private HollowKnightMemory mem;
 		private int currentSplit = -1, state = 0, lastLogCheck = 0;
 		private bool hasLog = false;
@@ -243,8 +243,7 @@ namespace LiveSplit.HollowKnight {
 
 			if (hasLog || !Console.IsOutputRedirected) {
 				if (mem.UIState() == UIState.PLAYING) {
-					byte[] playerData = mem.GetPlayerData();
-					pdata.UpdateData(mem.Program, playerData, WriteLogWithTime);
+					pdata.UpdateData(mem, WriteLogWithTime);
 				}
 
 				string prev = "", curr = "";
@@ -263,6 +262,7 @@ namespace LiveSplit.HollowKnight {
 						case "MenuState": curr = mem.MenuState().ToString(); break;
 						case "UIState": curr = mem.UIState().ToString(); break;
 						case "AcceptingInput": curr = mem.AcceptingInput().ToString(); break;
+						case "ActorState": curr = mem.HeroActorState().ToString(); break;
 						default: curr = ""; break;
 					}
 

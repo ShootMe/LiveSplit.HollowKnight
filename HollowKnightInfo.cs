@@ -73,7 +73,7 @@ namespace LiveSplit.HollowKnight {
 					target = TargetMode.FOLLOW_HERO;
 					Memory.SetCameraTargetMode(target);
 				}
-				lblTargetMode.Text = "Target Mode: " + target.ToString();
+				lblTargetMode.Text = "Target Mode: " + target.ToString().PadRight(15, ' ') + "State: " + Memory.HeroActorState().ToString();
 
 				PointF position = Memory.GetCameraTarget();
 				lblPosition.Text = "Position: " + position.X.ToString("0.00") + ", " + position.Y.ToString("0.00");
