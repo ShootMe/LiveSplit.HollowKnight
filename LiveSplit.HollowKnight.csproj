@@ -110,6 +110,8 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="HollowKnight.ico" />
+    <EmbeddedResource Include="PlayerData\Original.txt" />
+    <EmbeddedResource Include="PlayerData\V1032.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />
