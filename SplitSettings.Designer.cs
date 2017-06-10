@@ -1,5 +1,5 @@
 ﻿namespace LiveSplit.HollowKnight {
-	partial class HollowKnightSplitSettings {
+	partial class SplitSettings {
 		/// <summary> 
 		/// Required designer variable.
 		/// </summary>
@@ -24,10 +24,12 @@
 		/// </summary>
 		private void InitializeComponent() {
 			this.components = new System.ComponentModel.Container();
-			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(HollowKnightSplitSettings));
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SplitSettings));
 			this.btnRemove = new System.Windows.Forms.Button();
 			this.cboName = new System.Windows.Forms.ComboBox();
 			this.ToolTips = new System.Windows.Forms.ToolTip(this.components);
+			this.btnMoveUp = new System.Windows.Forms.Button();
+			this.btnMoveDown = new System.Windows.Forms.Button();
 			this.SuspendLayout();
 			// 
 			// btnRemove
@@ -49,16 +51,41 @@
 			this.cboName.TabIndex = 0;
 			this.cboName.SelectedIndexChanged += new System.EventHandler(this.cboName_SelectedIndexChanged);
 			// 
-			// HollowKnightSplitSettings
+			// btnMoveUp
+			// 
+			this.btnMoveUp.BackgroundImage = global::LiveSplit.HollowKnight.Properties.Resources.up32;
+			this.btnMoveUp.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+			this.btnMoveUp.ForeColor = System.Drawing.SystemColors.ControlText;
+			this.btnMoveUp.Location = new System.Drawing.Point(287, 2);
+			this.btnMoveUp.Name = "btnMoveUp";
+			this.btnMoveUp.Size = new System.Drawing.Size(26, 23);
+			this.btnMoveUp.TabIndex = 5;
+			this.ToolTips.SetToolTip(this.btnMoveUp, "Remove this setting");
+			this.btnMoveUp.UseVisualStyleBackColor = true;
+			// 
+			// btnMoveDown
+			// 
+			this.btnMoveDown.BackgroundImage = global::LiveSplit.HollowKnight.Properties.Resources.down32;
+			this.btnMoveDown.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+			this.btnMoveDown.Location = new System.Drawing.Point(319, 2);
+			this.btnMoveDown.Name = "btnMoveDown";
+			this.btnMoveDown.Size = new System.Drawing.Size(26, 23);
+			this.btnMoveDown.TabIndex = 6;
+			this.ToolTips.SetToolTip(this.btnMoveDown, "Remove this setting");
+			this.btnMoveDown.UseVisualStyleBackColor = true;
+			// 
+			// SplitSettings
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.AutoSize = true;
+			this.Controls.Add(this.btnMoveDown);
+			this.Controls.Add(this.btnMoveUp);
 			this.Controls.Add(this.btnRemove);
 			this.Controls.Add(this.cboName);
 			this.Margin = new System.Windows.Forms.Padding(0);
-			this.Name = "HollowKnightSplitSettings";
-			this.Size = new System.Drawing.Size(298, 28);
+			this.Name = "SplitSettings";
+			this.Size = new System.Drawing.Size(350, 29);
 			this.ResumeLayout(false);
 
 		}
@@ -67,5 +94,7 @@
 		public System.Windows.Forms.Button btnRemove;
 		public System.Windows.Forms.ComboBox cboName;
 		private System.Windows.Forms.ToolTip ToolTips;
+		public System.Windows.Forms.Button btnMoveUp;
+		public System.Windows.Forms.Button btnMoveDown;
 	}
 }
