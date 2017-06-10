@@ -5,8 +5,8 @@ using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
 namespace LiveSplit.HollowKnight {
-	public partial class HollowKnightInfo : Form {
-		public HollowKnightMemory Memory { get; set; }
+	public partial class Info : Form {
+		public Memory Memory { get; set; }
 		private HashSet<EnemyInfo> enemyInfo = new HashSet<EnemyInfo>();
 		private EnemyInfo currentEnemy = new EnemyInfo();
 		private bool changed = false;
@@ -17,16 +17,16 @@ namespace LiveSplit.HollowKnight {
 			try {
 				Application.EnableVisualStyles();
 				Application.SetCompatibleTextRenderingDefault(false);
-				Application.Run(new HollowKnightInfo());
+				Application.Run(new Info());
 			} catch (Exception ex) {
 				Console.WriteLine(ex.ToString());
 			}
 		}
-		public HollowKnightInfo() {
+		public Info() {
 			this.DoubleBuffered = true;
 			InitializeComponent();
 			Text = "Hollow Knight Info " + Assembly.GetExecutingAssembly().GetName().Version.ToString();
-			Memory = new HollowKnightMemory();
+			Memory = new Memory();
 			Thread t = new Thread(UpdateLoop);
 			t.IsBackground = true;
 			t.Start();

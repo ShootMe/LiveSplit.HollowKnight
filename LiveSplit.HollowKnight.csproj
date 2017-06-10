@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>LiveSplit.HollowKnight</RootNamespace>
     <AssemblyName>LiveSplit.HollowKnight</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -52,9 +52,15 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="LiveSplit.Core">
-      <HintPath>..\..\LiveSplit\LiveSplit.Core.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Assembly-CSharp">
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Hollow Knight\hollow_knight_Data\Managed\Assembly-CSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Assembly-CSharp-firstpass">
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Hollow Knight\hollow_knight_Data\Managed\Assembly-CSharp-firstpass.dll</HintPath>
+    </Reference>
+    <Reference Include="LiveSplit.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\LiveSplit\LiveSplit\bin\Debug\LiveSplit.Core.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -62,6 +68,15 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="UnityEngine">
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Hollow Knight\hollow_knight_Data\Managed\UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.Networking">
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Hollow Knight\hollow_knight_Data\Managed\UnityEngine.Networking.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Hollow Knight\hollow_knight_Data\Managed\UnityEngine.UI.dll</HintPath>
+    </Reference>
     <Reference Include="UpdateManager, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\LiveSplit\UpdateManager.dll</HintPath>
@@ -69,39 +84,56 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="HollowKnightComponent.cs" />
-    <Compile Include="HollowKnightFactory.cs" />
-    <Compile Include="HollowKnightInfo.cs">
+    <Compile Include="ComboBoxItem.cs" />
+    <Compile Include="Component.cs" />
+    <Compile Include="Factory.cs" />
+    <Compile Include="Info.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="HollowKnightInfo.Designer.cs">
-      <DependentUpon>HollowKnightInfo.cs</DependentUpon>
+    <Compile Include="Info.Designer.cs">
+      <DependentUpon>Info.cs</DependentUpon>
     </Compile>
-    <Compile Include="HollowKnightMemory.cs" />
+    <Compile Include="Memory.cs" />
     <Compile Include="MemoryReader.cs" />
-    <Compile Include="HollowKnightSettings.cs">
+    <Compile Include="Settings.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="HollowKnightSettings.Designer.cs">
-      <DependentUpon>HollowKnightSettings.cs</DependentUpon>
+    <Compile Include="Settings.Designer.cs">
+      <DependentUpon>Settings.cs</DependentUpon>
     </Compile>
-    <Compile Include="HollowKnightSplitSettings.cs">
+    <Compile Include="SplitSettings.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="HollowKnightSplitSettings.Designer.cs">
-      <DependentUpon>HollowKnightSplitSettings.cs</DependentUpon>
+    <Compile Include="SplitSettings.Designer.cs">
+      <DependentUpon>SplitSettings.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="SplitInfo.cs" />
+    <Compile Include="SplitName.cs" />
+    <Compile Include="ToolTipAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="HollowKnightInfo.resx">
-      <DependentUpon>HollowKnightInfo.cs</DependentUpon>
+    <EmbeddedResource Include="Info.resx">
+      <DependentUpon>Info.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="HollowKnightSettings.resx">
-      <DependentUpon>HollowKnightSettings.cs</DependentUpon>
+    <EmbeddedResource Include="Settings.resx">
+      <DependentUpon>Settings.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="HollowKnightSplitSettings.resx">
-      <DependentUpon>HollowKnightSplitSettings.cs</DependentUpon>
+    <EmbeddedResource Include="SplitSettings.resx">
+      <DependentUpon>SplitSettings.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -109,14 +141,20 @@
     <Content Include="Components\LiveSplit.HollowKnight.Updates.xml">
       <SubType>Designer</SubType>
     </Content>
+    <None Include="up32.png" />
+    <None Include="down32.png" />
     <Content Include="HollowKnight.ico" />
+    <None Include="Resources\Icon1.ico" />
+    <None Include="Resources\UpARrow.bmp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy $(TargetPath) $(ProjectDir)Components\$(TargetFileName)</PostBuildEvent>
+    <PostBuildEvent>copy $(TargetPath) $(ProjectDir)Components\$(TargetFileName)
+copy $(TargetPath) C:\Users\zpstu\Documents\Projects\LiveSplit\LiveSplit\bin\Debug\Components\$(TargetFileName)
+copy C:\Users\zpstu\Documents\Projects\LiveSplit.HollowKnight\bin\LiveSplit.HollowKnight.pdb C:\Users\zpstu\Documents\Projects\LiveSplit\LiveSplit\bin\Debug\Components\LiveSplit.HollowKnight.pdb</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

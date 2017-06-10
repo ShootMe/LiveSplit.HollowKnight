@@ -9,16 +9,16 @@ namespace LiveSplit.Memory {
 		public static T Read<T>(this Process targetProcess, IntPtr address, params int[] offsets) where T : struct {
 			if (targetProcess == null || targetProcess.HasExited || address == IntPtr.Zero) { return default(T); }
 
-			int last = OffsetAddress(targetProcess, ref address, offsets);
+			var last = OffsetAddress(targetProcess, ref address, offsets);
 
 			Type type = typeof(T);
 			type = (type.IsEnum ? Enum.GetUnderlyingType(type) : type);
 
-			int count = (type == typeof(bool)) ? 1 : Marshal.SizeOf(type);
-			byte[] buffer = Read(targetProcess, address + last, count);
+			var count = (type == typeof(bool)) ? 1 : Marshal.SizeOf(type);
+			var buffer = Read(targetProcess, address + last, count);
 
-			object obj = ResolveToType(buffer, type);
-			return (T)((object)obj);
+			var obj = ResolveToType(buffer, type);
+			return (T)obj;
 		}
 		private static object ResolveToType(byte[] bytes, Type type) {
 			if (type == typeof(int)) {

@@ -1,5 +1,5 @@
 ﻿namespace LiveSplit.HollowKnight {
-	partial class HollowKnightInfo {
+	partial class Info {
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
@@ -23,7 +23,7 @@
 		/// the contents of this method with the code editor.
 		/// </summary>
 		private void InitializeComponent() {
-			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(HollowKnightInfo));
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Info));
 			this.chkShowEnemyHP = new System.Windows.Forms.CheckBox();
 			this.lblNote = new System.Windows.Forms.Label();
 			this.lblSceneName = new System.Windows.Forms.Label();

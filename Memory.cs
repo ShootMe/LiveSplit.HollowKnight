@@ -6,14 +6,14 @@ using System.Drawing;
 using System.IO;
 using System.Text;
 namespace LiveSplit.HollowKnight {
-	public partial class HollowKnightMemory {
+	public partial class Memory {
 		public Process Program { get; set; }
 		public bool IsHooked { get; set; } = false;
 		private DateTime lastHooked;
 		private ProgramPointer gameManager, playmakerFSM;
 		private int uiManager, inputHandler, cameraCtrl, gameState, heroController, camTarget, camMode, menuState, uiState;
 
-		public HollowKnightMemory() {
+		public Memory() {
 			lastHooked = DateTime.MinValue;
 			gameManager = new ProgramPointer(this, MemPointer.GameManager) { AutoDeref = false, UpdatedPointer = UpdatedPointer };
 			playmakerFSM = new ProgramPointer(this, MemPointer.PlaymakerFSM) { AutoDeref = false, UpdatedPointer = UpdatedPointer };
@@ -384,14 +384,14 @@ namespace LiveSplit.HollowKnight {
 			}},
 		};
 		private IntPtr pointer;
-		public HollowKnightMemory Memory { get; set; }
+		public Memory Memory { get; set; }
 		public MemPointer Name { get; set; }
 		public MemVersion Version { get; set; }
 		public bool AutoDeref { get; set; }
 		public Action<ProgramPointer> UpdatedPointer { get; set; }
 		private int lastID;
 		private DateTime lastTry;
-		public ProgramPointer(HollowKnightMemory memory, MemPointer pointer) {
+		public ProgramPointer(Memory memory, MemPointer pointer) {
 			this.Memory = memory;
 			this.Name = pointer;
 			this.AutoDeref = true;
@@ -589,7 +589,7 @@ namespace LiveSplit.HollowKnight {
 		public int HP { get; set; }
 		public int HPIndex { get; set; }
 
-		public int UpdateHP(HollowKnightMemory mem) {
+		public int UpdateHP(Memory mem) {
 			int hp = HP;
 			if (Pointer != 0) {
 				HP = mem.Program.Read<int>((IntPtr)Pointer, 0x10 + HPIndex * 4, 0x14);
@@ -600,7 +600,7 @@ namespace LiveSplit.HollowKnight {
 			return (int)Pointer;
 		}
 		public override bool Equals(object obj) {
-			return obj != null && (obj is EnemyInfo) && ((EnemyInfo)obj).Pointer == this.Pointer;
+			return obj != null && (obj is EnemyInfo enemyInfo) && enemyInfo.Pointer == this.Pointer;
 		}
 	}
 	public class EntityInfo {

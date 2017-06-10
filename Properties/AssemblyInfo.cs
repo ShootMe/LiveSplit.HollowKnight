@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("LiveSplit.HollowKnight")]
-[assembly: AssemblyCopyright("Copyright ©  2016")]
+[assembly: AssemblyCopyright("Copyright © 2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]
@@ -15,5 +15,5 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyVersion("1.7.5.0")]
 [assembly: AssemblyFileVersion("1.7.5.0")]
 #if !Info
-[assembly: ComponentFactory(typeof(HollowKnightFactory))]
+[assembly: ComponentFactory(typeof(Factory))]
 #endif
