@@ -1,36 +1,12 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Reflection;
-using System.Windows.Forms;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
 namespace LiveSplit.HollowKnight {
-	public partial class HollowKnightSplitSettings : UserControl {
-		public string Split = "";
-		public HollowKnightSplitSettings() {
-			InitializeComponent();
-		}
-		private void cboName_SelectedIndexChanged(object sender, EventArgs e) {
-			string splitDescription = cboName.SelectedValue.ToString();
-			SplitName split = GetSplitName(splitDescription);
-			Split = split.ToString();
-
-			MemberInfo info = typeof(SplitName).GetMember(split.ToString())[0];
-			DescriptionAttribute description = (DescriptionAttribute)info.GetCustomAttributes(typeof(DescriptionAttribute), false)[0];
-			ToolTipAttribute tooltip = (ToolTipAttribute)info.GetCustomAttributes(typeof(ToolTipAttribute), false)[0];
-			ToolTips.SetToolTip(cboName, tooltip.ToolTip);
-		}
-		public static SplitName GetSplitName(string text) {
-			foreach (SplitName split in Enum.GetValues(typeof(SplitName))) {
-				string name = split.ToString();
-				MemberInfo info = typeof(SplitName).GetMember(name)[0];
-				DescriptionAttribute description = (DescriptionAttribute)info.GetCustomAttributes(typeof(DescriptionAttribute), false)[0];
-
-				if (name.Equals(text, StringComparison.OrdinalIgnoreCase) || description.Description.Equals(text, StringComparison.OrdinalIgnoreCase)) {
-					return split;
-				}
-			}
-			return SplitName.ForgottenCrossroads;
-		}
-	}
+	[Obsolete("Pattern matching against SplitInfo instead of using Reflection + Attributes is faster. Please use SplitInfo.", true)]
 	public enum SplitName {
 		[Description("Abyss Shriek (Skill)"), ToolTip("Splits when obtaining Abyss Shriek (Shadow Scream)")]
 		AbyssShriek,
@@ -315,11 +291,5 @@ namespace LiveSplit.HollowKnight {
 		NotchSalubra3,
 		[Description("Salubra 4 (Charm Notch)"), ToolTip("Splits when obtaining the fourth charm notch from Salubra")]
 		NotchSalubra4,
-	}
-	public class ToolTipAttribute : Attribute {
-		public string ToolTip { get; set; }
-		public ToolTipAttribute(string text) {
-			ToolTip = text;
-		}
 	}
 }
