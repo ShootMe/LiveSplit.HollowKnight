@@ -1,5 +1,5 @@
 ﻿namespace LiveSplit.HollowKnight {
-	partial class HollowKnightSettings {
+	partial class Settings {
 		/// <summary> 
 		/// Required designer variable.
 		/// </summary>
