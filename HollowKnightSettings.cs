@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing;
 using System.Reflection;
 using System.Windows.Forms;
 using System.Xml;
@@ -149,6 +150,29 @@ namespace LiveSplit.HollowKnight {
 					string text = setting.cboName.Text;
 					setting.cboName.DataSource = GetAvailableSplits();
 					setting.cboName.Text = text;
+				}
+			}
+		}
+		private void flowMain_DragDrop(object sender, DragEventArgs e) {
+			UpdateSplits();
+		}
+		private void flowMain_DragEnter(object sender, DragEventArgs e) {
+			e.Effect = DragDropEffects.Move;
+		}
+		private void flowMain_DragOver(object sender, DragEventArgs e) {
+			HollowKnightSplitSettings data = (HollowKnightSplitSettings)e.Data.GetData(typeof(HollowKnightSplitSettings));
+			FlowLayoutPanel destination = (FlowLayoutPanel)sender;
+			Point p = destination.PointToClient(new Point(e.X, e.Y));
+			var item = destination.GetChildAtPoint(p);
+			int index = destination.Controls.GetChildIndex(item, false);
+			if (index == 0) {
+				e.Effect = DragDropEffects.None;
+			} else {
+				e.Effect = DragDropEffects.Move;
+				int oldIndex = destination.Controls.GetChildIndex(data);
+				if (oldIndex != index) {
+					destination.Controls.SetChildIndex(data, index);
+					destination.Invalidate();
 				}
 			}
 		}

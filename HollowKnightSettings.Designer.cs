@@ -46,6 +46,7 @@
 			// 
 			// flowMain
 			// 
+			this.flowMain.AllowDrop = true;
 			this.flowMain.AutoSize = true;
 			this.flowMain.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
 			this.flowMain.Controls.Add(this.flowOptions);
@@ -57,6 +58,9 @@
 			this.flowMain.Size = new System.Drawing.Size(433, 27);
 			this.flowMain.TabIndex = 0;
 			this.flowMain.WrapContents = false;
+			this.flowMain.DragDrop += new System.Windows.Forms.DragEventHandler(this.flowMain_DragDrop);
+			this.flowMain.DragEnter += new System.Windows.Forms.DragEventHandler(this.flowMain_DragEnter);
+			this.flowMain.DragOver += new System.Windows.Forms.DragEventHandler(this.flowMain_DragOver);
 			// 
 			// flowOptions
 			// 

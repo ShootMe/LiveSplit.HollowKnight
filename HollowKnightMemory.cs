@@ -704,7 +704,7 @@ namespace LiveSplit.HollowKnight {
 		}
 	}
 	public class PlayerData {
-		public static Dictionary<string, PlayerKey> Data = new Dictionary<string, PlayerKey>();
+		public static Dictionary<string, PlayerKey> Data = new Dictionary<string, PlayerKey>(StringComparer.OrdinalIgnoreCase);
 		public static int DataLength;
 
 		public PlayerData() { }
