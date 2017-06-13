@@ -347,7 +347,7 @@ namespace LiveSplit.HollowKnight {
 		killedGhostGalien,
 		killedHollowKnight,
 		killedFinalBoss,
-		killedFlaseKnight,
+		killedFalseKnight,
 		falseKnightDreamDefeated,
 		mawlekDefeated,
 		collectorDefeated,

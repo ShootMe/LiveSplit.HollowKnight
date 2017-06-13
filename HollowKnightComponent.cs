@@ -93,7 +93,7 @@ namespace LiveSplit.HollowKnight {
 							case SplitName.DungDefender: shouldSplit = mem.PlayerData<bool>(Offset.killedDungDefender); break;
 							case SplitName.ElderHu: shouldSplit = mem.PlayerData<bool>(Offset.killedGhostHu); break;
 							case SplitName.FailedKnight: shouldSplit = mem.PlayerData<bool>(Offset.falseKnightDreamDefeated); break;
-							case SplitName.FalseKnight: shouldSplit = mem.PlayerData<bool>(Offset.killedFlaseKnight); break;
+							case SplitName.FalseKnight: shouldSplit = mem.PlayerData<bool>(Offset.killedFalseKnight); break;
 							case SplitName.Flukemarm: shouldSplit = mem.PlayerData<bool>(Offset.killedFlukeMother); break;
 							case SplitName.Flukenest: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_11); break;
 							case SplitName.FogCanyon: shouldSplit = mem.PlayerData<bool>(Offset.visitedFogCanyon); break;
