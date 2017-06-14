@@ -213,7 +213,7 @@ namespace LiveSplit.HollowKnight {
 				if (!settings.OldGameTime) {
 					Model.CurrentState.IsGameTimePaused = gameState == GameState.LOADING || (!string.IsNullOrEmpty(nextScene) && nextScene != sceneName);
 				} else {
-					Model.CurrentState.IsGameTimePaused = gameState == GameState.ENTERING_LEVEL || gameState == GameState.EXITING_LEVEL || gameState == GameState.LOADING || (!string.IsNullOrEmpty(nextScene) && nextScene != sceneName);
+					Model.CurrentState.IsGameTimePaused = ((gameState == GameState.PLAYING || gameState == GameState.ENTERING_LEVEL) && mem.UIState() != UIState.PLAYING) || (gameState != GameState.PLAYING && !mem.AcceptingInput()) || gameState == GameState.EXITING_LEVEL || gameState == GameState.LOADING || mem.HeroTransitionState() == HeroTransitionState.WAITING_TO_ENTER_LEVEL || ((!string.IsNullOrEmpty(nextScene) || sceneName == "_test_charms") && nextScene != sceneName);
 				}
 
 			}

@@ -53,9 +53,9 @@ namespace LiveSplit.HollowKnight {
 				this.Invoke((Action)UpdateValues);
 			} else {
 				lblCameraMode.Text = "Camera Mode: " + Memory.CameraMode().ToString();
-				lblGameState.Text = "Game State: " + Memory.GameState().ToString();
-				lblMenuState.Text = "Menu State: " + Memory.MenuState().ToString();
-				lblUIState.Text = "UI State: " + Memory.UIState().ToString();
+				lblGameState.Text = "Game State: " + Memory.GameState().ToString().PadRight(15, ' ') + "Accepting: " + Memory.AcceptingInput().ToString();
+				lblMenuState.Text = "Hero State: " + Memory.HeroTransitionState().ToString();
+				lblUIState.Text = "UI State: " + Memory.UIState().ToString().PadRight(15, ' ') + "Menu State: " + Memory.MenuState().ToString();
 
 				string scene = Memory.SceneName();
 				if (lastScene != scene) {
@@ -65,7 +65,7 @@ namespace LiveSplit.HollowKnight {
 					Memory.UpdateGeoCounter(false, 0);
 					lastScene = scene;
 				}
-				lblSceneName.Text = "Scene: " + scene;
+				lblSceneName.Text = "Scene: " + scene + " Next: " + Memory.NextSceneName();
 
 				TargetMode target = Memory.GetCameraTargetMode();
 				if (chkCameraTarget.Checked && target != TargetMode.FOLLOW_HERO) {
@@ -146,6 +146,18 @@ namespace LiveSplit.HollowKnight {
 		private void chkCameraTarget_CheckedChanged(object sender, EventArgs e) {
 			if (!chkCameraTarget.Checked) {
 				Memory.SetCameraTargetMode(lastTargetMode);
+			}
+		}
+		private void chkLockZoom_CheckedChanged(object sender, EventArgs e) {
+			if (!chkLockZoom.Checked) {
+				Memory.SetCameraZoom(1f);
+				zoomValue.Value = 200;
+			}
+			zoomValue.Enabled = chkLockZoom.Checked;
+		}
+		private void zoomValue_Scroll(object sender, EventArgs e) {
+			if (chkLockZoom.Checked) {
+				Memory.SetCameraZoom(zoomValue.Value / 200f);
 			}
 		}
 	}

@@ -50,6 +50,10 @@ namespace LiveSplit.HollowKnight {
 			//GameManger._instance.playerData
 			return gameManager.ReadBytes(length, 0x0, 0x30, 0x0);
 		}
+		public void SetCameraZoom(float zoom) {
+			//GameManger._instance.gameCams.tk2dCam.zoomFactor
+			gameManager.Write<float>(zoom, 0x0, 0x20, 0x40, 0x48);
+		}
 		public PointF GetCameraTarget() {
 			//GameManger._instance.cameraCtrl.camTarget.destination
 			float x = gameManager.Read<float>(0x0, cameraCtrl, camTarget, 0x24);
@@ -197,6 +201,10 @@ namespace LiveSplit.HollowKnight {
 		public ActorStates HeroActorState() {
 			//GameManager._instance.heroCtrl.actor_state
 			return (ActorStates)gameManager.Read<int>(0x0, heroController, 0x374);
+		}
+		public HeroTransitionState HeroTransitionState() {
+			//GameManager._instance.heroCtrl.transitionState
+			return (HeroTransitionState)gameManager.Read<int>(0x0, heroController, 0x37c);
 		}
 		public string SceneName() {
 			//GameManager._instance.sceneName
@@ -509,6 +517,13 @@ namespace LiveSplit.HollowKnight {
 		NO_INPUT,
 		PREVIOUS
 	}
+	public enum HeroTransitionState {
+		WAITING_TO_TRANSITION,
+		EXITING_SCENE,
+		WAITING_TO_ENTER_LEVEL,
+		ENTERING_SCENE,
+		DROPPING_DOWN
+	}
 	public enum MapZone {
 		NONE,
 		TEST_AREA,
@@ -599,9 +614,9 @@ namespace LiveSplit.HollowKnight {
 	}
 	public enum UIState {
 		INACTIVE,
-		MAIN_MENU_HOME,
-		MAIN_MENU_OPTIONS,
-		MAIN_MENU_PROFILES,
+		MENU_HOME,
+		MENU_OPTIONS,
+		MENU_PROFILES,
 		LOADING,
 		CUTSCENE,
 		PLAYING,
