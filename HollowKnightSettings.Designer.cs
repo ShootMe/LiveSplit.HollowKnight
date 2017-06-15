@@ -29,7 +29,6 @@
 			this.lblSort = new System.Windows.Forms.Label();
 			this.rdType = new System.Windows.Forms.RadioButton();
 			this.rdAlpha = new System.Windows.Forms.RadioButton();
-			this.chkOldGameTime = new System.Windows.Forms.CheckBox();
 			this.flowMain.SuspendLayout();
 			this.flowOptions.SuspendLayout();
 			this.SuspendLayout();
@@ -55,7 +54,7 @@
 			this.flowMain.Location = new System.Drawing.Point(0, 0);
 			this.flowMain.Margin = new System.Windows.Forms.Padding(0);
 			this.flowMain.Name = "flowMain";
-			this.flowMain.Size = new System.Drawing.Size(433, 27);
+			this.flowMain.Size = new System.Drawing.Size(318, 27);
 			this.flowMain.TabIndex = 0;
 			this.flowMain.WrapContents = false;
 			this.flowMain.DragDrop += new System.Windows.Forms.DragEventHandler(this.flowMain_DragDrop);
@@ -69,11 +68,10 @@
 			this.flowOptions.Controls.Add(this.lblSort);
 			this.flowOptions.Controls.Add(this.rdType);
 			this.flowOptions.Controls.Add(this.rdAlpha);
-			this.flowOptions.Controls.Add(this.chkOldGameTime);
 			this.flowOptions.Location = new System.Drawing.Point(0, 0);
 			this.flowOptions.Margin = new System.Windows.Forms.Padding(0);
 			this.flowOptions.Name = "flowOptions";
-			this.flowOptions.Size = new System.Drawing.Size(433, 27);
+			this.flowOptions.Size = new System.Drawing.Size(318, 27);
 			this.flowOptions.TabIndex = 0;
 			// 
 			// lblSort
@@ -109,17 +107,6 @@
 			this.rdAlpha.UseVisualStyleBackColor = true;
 			this.rdAlpha.CheckedChanged += new System.EventHandler(this.radio_CheckedChanged);
 			// 
-			// chkOldGameTime
-			// 
-			this.chkOldGameTime.AutoSize = true;
-			this.chkOldGameTime.Location = new System.Drawing.Point(321, 3);
-			this.chkOldGameTime.Name = "chkOldGameTime";
-			this.chkOldGameTime.Size = new System.Drawing.Size(109, 17);
-			this.chkOldGameTime.TabIndex = 4;
-			this.chkOldGameTime.Text = "\"Old\" Game Time";
-			this.chkOldGameTime.UseVisualStyleBackColor = true;
-			this.chkOldGameTime.CheckedChanged += new System.EventHandler(this.ControlChanged);
-			// 
 			// HollowKnightSettings
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -130,7 +117,7 @@
 			this.Controls.Add(this.flowMain);
 			this.Margin = new System.Windows.Forms.Padding(0);
 			this.Name = "HollowKnightSettings";
-			this.Size = new System.Drawing.Size(433, 27);
+			this.Size = new System.Drawing.Size(318, 27);
 			this.Load += new System.EventHandler(this.Settings_Load);
 			this.flowMain.ResumeLayout(false);
 			this.flowMain.PerformLayout();
@@ -148,6 +135,5 @@
 		private System.Windows.Forms.Label lblSort;
 		private System.Windows.Forms.RadioButton rdType;
 		private System.Windows.Forms.RadioButton rdAlpha;
-		private System.Windows.Forms.CheckBox chkOldGameTime;
 	}
 }

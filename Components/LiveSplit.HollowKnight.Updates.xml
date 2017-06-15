@@ -1,5 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <updates>
+	<update version="2.0.0">
+		<files>
+			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+		</files>
+		<changelog>
+			<change>
+				No more "old" game time checkbox in layout settings, it is now the only game timer.
+			</change>
+		</changelog>
+	</update>
 	<update version="1.9.6">
 		<files>
 			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
