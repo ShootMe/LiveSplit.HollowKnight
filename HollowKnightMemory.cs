@@ -23,7 +23,12 @@ namespace LiveSplit.HollowKnight {
 
 		private void UpdatedPointer(ProgramPointer pointer) {
 			if (pointer == gameManager) {
-				if (ProgramPointer.Version == MemVersion.V1026 || ProgramPointer.Version == MemVersion.V1031 || ProgramPointer.Version == MemVersion.V1032) {
+				int len = gameManager.Read<int>(0x0, 0x68, 0x2c, 0x1c, 0x8);
+
+				if (len != 7) {
+					string ver = gameManager.Read(0x0, 0x6c, 0x2c, 0x1c);
+					Version version = new Version(ver);
+
 					uiManager = 0x88;
 					inputHandler = 0x6c;
 					cameraCtrl = 0x78;
@@ -32,7 +37,11 @@ namespace LiveSplit.HollowKnight {
 					camTarget = 0x24;
 					camMode = 0x3c;
 					menuState = 0x12c;
-					uiState = 0x128;
+					if (version.Build < 3 || version.Revision < 4) {
+						uiState = 0x128;
+					} else {
+						uiState = 0x12c;
+					}
 				} else {
 					uiManager = 0x84;
 					inputHandler = 0x68;
@@ -91,6 +100,18 @@ namespace LiveSplit.HollowKnight {
 			gameManager.Write(geo, 0x0, heroController, offset, 0x2c);
 			//GameManger._instance.heroCtrl.geoCounter.addRollerState
 			gameManager.Write(2, 0x0, heroController, offset, 0x3c);
+		}
+		public void EnableDebug(bool enable) {
+			//inputHandler.onScreenDebugInfo.showFPS
+			gameManager.Write(enable, 0x0, inputHandler, 0x2c, 0x7c);
+			//inputHandler.onScreenDebugInfo.showInfo
+			gameManager.Write(enable, 0x0, inputHandler, 0x2c, 0x7d);
+			//inputHandler.onScreenDebugInfo.showInput
+			gameManager.Write(enable, 0x0, inputHandler, 0x2c, 0x7e);
+			//inputHandler.onScreenDebugInfo.showLoadingTime
+			gameManager.Write(enable, 0x0, inputHandler, 0x2c, 0x7f);
+			//inputHandler.onScreenDebugInfo.showTFR
+			gameManager.Write(enable, 0x0, inputHandler, 0x2c, 0x80);
 		}
 		public void SetPlayerData(Offset offset, int value) {
 			//GameManger._instance.playerData.(offset)
@@ -185,7 +206,7 @@ namespace LiveSplit.HollowKnight {
 		public UIState UIState() {
 			//GameManager._instance.uiManager.uiState
 			int ui = gameManager.Read<int>(0x0, uiManager, uiState);
-			if (uiState == 0x128 && ui >= 2) {
+			if (uiState != 0x124 && ui >= 2) {
 				ui += 2;
 			}
 			return (UIState)ui;
@@ -628,10 +649,15 @@ namespace LiveSplit.HollowKnight {
 		public int HP { get; set; }
 		public int HPIndex { get; set; }
 
-		public int UpdateHP(HollowKnightMemory mem) {
+		public int UpdateHP(HollowKnightMemory mem, int newHP = -1) {
 			int hp = HP;
 			if (Pointer != 0) {
-				HP = mem.Program.Read<int>((IntPtr)Pointer, 0x10 + HPIndex * 4, 0x14);
+				if (newHP > 0) {
+					HP = newHP;
+					mem.Program.Write<int>((IntPtr)Pointer, newHP, 0x10 + HPIndex * 4, 0x14);
+				} else {
+					HP = mem.Program.Read<int>((IntPtr)Pointer, 0x10 + HPIndex * 4, 0x14);
+				}
 			}
 			return hp;
 		}

@@ -9,7 +9,7 @@ namespace LiveSplit.HollowKnight {
 		public HollowKnightMemory Memory { get; set; }
 		private HashSet<EnemyInfo> enemyInfo = new HashSet<EnemyInfo>();
 		private EnemyInfo currentEnemy = new EnemyInfo();
-		private bool changed = false;
+		private bool changed = false, showDebug = false;
 		private string lastScene = null;
 		private DateTime lastCheck = DateTime.MinValue;
 		private TargetMode lastTargetMode = TargetMode.FOLLOW_HERO;
@@ -52,20 +52,25 @@ namespace LiveSplit.HollowKnight {
 			if (this.InvokeRequired) {
 				this.Invoke((Action)UpdateValues);
 			} else {
-				lblCameraMode.Text = "Camera Mode: " + Memory.CameraMode().ToString();
-				lblGameState.Text = "Game State: " + Memory.GameState().ToString().PadRight(15, ' ') + "Accepting: " + Memory.AcceptingInput().ToString();
-				lblMenuState.Text = "Hero State: " + Memory.HeroTransitionState().ToString();
-				lblUIState.Text = "UI State: " + Memory.UIState().ToString().PadRight(15, ' ') + "Menu State: " + Memory.MenuState().ToString();
+				string sceneName = Memory.SceneName();
+				string nextScene = Memory.NextSceneName();
+				GameState gameState = Memory.GameState();
+				UIState uiState = Memory.UIState();
+				bool acceptingInput = Memory.AcceptingInput();
 
-				string scene = Memory.SceneName();
-				if (lastScene != scene) {
+				lblCameraMode.Text = "Camera Mode: " + Memory.CameraMode().ToString();
+				lblGameState.Text = "Game State: " + gameState.ToString().PadRight(15, ' ') + "Accepting: " + acceptingInput.ToString();
+				lblMenuState.Text = "Hero State: " + Memory.HeroTransitionState().ToString();
+				lblUIState.Text = "UI State: " + uiState.ToString().PadRight(15, ' ') + "Menu State: " + Memory.MenuState().ToString();
+
+				if (lastScene != sceneName) {
 					enemyInfo.Clear();
 					currentEnemy.Pointer = 0;
 					currentEnemy.HP = 0;
 					Memory.UpdateGeoCounter(false, 0);
-					lastScene = scene;
+					lastScene = sceneName;
 				}
-				lblSceneName.Text = "Scene: " + scene + " Next: " + Memory.NextSceneName();
+				lblSceneName.Text = "Scene: " + sceneName + " Next: " + nextScene;
 
 				TargetMode target = Memory.GetCameraTargetMode();
 				if (chkCameraTarget.Checked && target != TargetMode.FOLLOW_HERO) {
@@ -112,11 +117,13 @@ namespace LiveSplit.HollowKnight {
 				}
 			}
 
+			int oldHP = 0;
 			foreach (EnemyInfo info in enemyInfo) {
-				int oldHP = info.UpdateHP(Memory);
+				oldHP = info.UpdateHP(Memory);
 				if (oldHP != info.HP && info.HP < 5000 && info.HP > 0) {
 					currentEnemy = info;
 					changed = true;
+					break;
 				}
 			}
 
@@ -126,6 +133,9 @@ namespace LiveSplit.HollowKnight {
 			}
 
 			if (changed) {
+				if (chkEnemyInvincible.Checked && currentEnemy.HP > 0) {
+					currentEnemy.UpdateHP(Memory, oldHP);
+				}
 				Memory.UpdateGeoCounter(true, currentEnemy.HP < 0 ? 0 : currentEnemy.HP);
 				changed = false;
 			}
@@ -134,6 +144,7 @@ namespace LiveSplit.HollowKnight {
 			if (!chkShowEnemyHP.Checked) {
 				Memory.UpdateGeoCounter(false, 0);
 			}
+			chkEnemyInvincible.Enabled = chkShowEnemyHP.Checked;
 		}
 		private void btnEnablePause_Click(object sender, EventArgs e) {
 			Memory.SetPlayerData(Offset.disablePause, false);
@@ -159,6 +170,10 @@ namespace LiveSplit.HollowKnight {
 			if (chkLockZoom.Checked) {
 				Memory.SetCameraZoom(zoomValue.Value / 200f);
 			}
+		}
+		private void btnDebugInfo_Click(object sender, EventArgs e) {
+			showDebug = !showDebug;
+			Memory.EnableDebug(showDebug);
 		}
 	}
 }

@@ -40,6 +40,8 @@
 			this.chkCameraTarget = new System.Windows.Forms.CheckBox();
 			this.chkLockZoom = new System.Windows.Forms.CheckBox();
 			this.zoomValue = new System.Windows.Forms.TrackBar();
+			this.chkEnemyInvincible = new System.Windows.Forms.CheckBox();
+			this.btnDebugInfo = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.zoomValue)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -200,7 +202,7 @@
 			this.chkLockZoom.Location = new System.Drawing.Point(174, 231);
 			this.chkLockZoom.Name = "chkLockZoom";
 			this.chkLockZoom.Size = new System.Drawing.Size(59, 20);
-			this.chkLockZoom.TabIndex = 13;
+			this.chkLockZoom.TabIndex = 16;
 			this.chkLockZoom.Text = "Zoom";
 			this.chkLockZoom.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			this.chkLockZoom.UseVisualStyleBackColor = true;
@@ -214,11 +216,34 @@
 			this.zoomValue.Minimum = 28;
 			this.zoomValue.Name = "zoomValue";
 			this.zoomValue.Size = new System.Drawing.Size(232, 45);
-			this.zoomValue.TabIndex = 14;
+			this.zoomValue.TabIndex = 17;
 			this.zoomValue.TickFrequency = 5;
 			this.zoomValue.TickStyle = System.Windows.Forms.TickStyle.TopLeft;
 			this.zoomValue.Value = 200;
 			this.zoomValue.Scroll += new System.EventHandler(this.zoomValue_Scroll);
+			// 
+			// chkEnemyInvincible
+			// 
+			this.chkEnemyInvincible.AutoSize = true;
+			this.chkEnemyInvincible.Enabled = false;
+			this.chkEnemyInvincible.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.chkEnemyInvincible.Location = new System.Drawing.Point(369, 152);
+			this.chkEnemyInvincible.Name = "chkEnemyInvincible";
+			this.chkEnemyInvincible.Size = new System.Drawing.Size(195, 20);
+			this.chkEnemyInvincible.TabIndex = 13;
+			this.chkEnemyInvincible.Text = "Make Enemy Invincible";
+			this.chkEnemyInvincible.UseVisualStyleBackColor = true;
+			// 
+			// btnDebugInfo
+			// 
+			this.btnDebugInfo.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.btnDebugInfo.Location = new System.Drawing.Point(369, 173);
+			this.btnDebugInfo.Name = "btnDebugInfo";
+			this.btnDebugInfo.Size = new System.Drawing.Size(154, 27);
+			this.btnDebugInfo.TabIndex = 14;
+			this.btnDebugInfo.Text = "Toggle Debug Info";
+			this.btnDebugInfo.UseVisualStyleBackColor = true;
+			this.btnDebugInfo.Click += new System.EventHandler(this.btnDebugInfo_Click);
 			// 
 			// HollowKnightInfo
 			// 
@@ -226,6 +251,8 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(598, 271);
 			this.Controls.Add(this.lblNote);
+			this.Controls.Add(this.btnDebugInfo);
+			this.Controls.Add(this.chkEnemyInvincible);
 			this.Controls.Add(this.chkLockZoom);
 			this.Controls.Add(this.zoomValue);
 			this.Controls.Add(this.chkCameraTarget);
@@ -270,5 +297,7 @@
 		private System.Windows.Forms.CheckBox chkCameraTarget;
 		private System.Windows.Forms.CheckBox chkLockZoom;
 		private System.Windows.Forms.TrackBar zoomValue;
+		private System.Windows.Forms.CheckBox chkEnemyInvincible;
+		private System.Windows.Forms.Button btnDebugInfo;
 	}
 }
