@@ -163,11 +163,13 @@ namespace LiveSplit.HollowKnight {
 			if (!chkLockZoom.Checked) {
 				Memory.SetCameraZoom(1f);
 				zoomValue.Value = 200;
+				chkLockZoom.Text = "Zoom (1.00)";
 			}
 			zoomValue.Enabled = chkLockZoom.Checked;
 		}
 		private void zoomValue_Scroll(object sender, EventArgs e) {
 			if (chkLockZoom.Checked) {
+				chkLockZoom.Text = "Zoom (" + (zoomValue.Value / 200f).ToString("0.00") + ")";
 				Memory.SetCameraZoom(zoomValue.Value / 200f);
 			}
 		}

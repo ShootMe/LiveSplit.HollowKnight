@@ -82,7 +82,7 @@
 			// 
 			this.lblUIState.AutoSize = true;
 			this.lblUIState.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lblUIState.Location = new System.Drawing.Point(38, 9);
+			this.lblUIState.Location = new System.Drawing.Point(37, 9);
 			this.lblUIState.Name = "lblUIState";
 			this.lblUIState.Size = new System.Drawing.Size(80, 16);
 			this.lblUIState.TabIndex = 1;
@@ -201,9 +201,9 @@
 			this.chkLockZoom.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.chkLockZoom.Location = new System.Drawing.Point(174, 231);
 			this.chkLockZoom.Name = "chkLockZoom";
-			this.chkLockZoom.Size = new System.Drawing.Size(59, 20);
+			this.chkLockZoom.Size = new System.Drawing.Size(115, 20);
 			this.chkLockZoom.TabIndex = 16;
-			this.chkLockZoom.Text = "Zoom";
+			this.chkLockZoom.Text = "Zoom (1.00)";
 			this.chkLockZoom.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			this.chkLockZoom.UseVisualStyleBackColor = true;
 			this.chkLockZoom.CheckedChanged += new System.EventHandler(this.chkLockZoom_CheckedChanged);
@@ -211,7 +211,7 @@
 			// zoomValue
 			// 
 			this.zoomValue.Enabled = false;
-			this.zoomValue.Location = new System.Drawing.Point(242, 231);
+			this.zoomValue.Location = new System.Drawing.Point(281, 231);
 			this.zoomValue.Maximum = 400;
 			this.zoomValue.Minimum = 28;
 			this.zoomValue.Name = "zoomValue";

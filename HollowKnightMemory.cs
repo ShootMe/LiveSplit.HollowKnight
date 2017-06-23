@@ -36,11 +36,12 @@ namespace LiveSplit.HollowKnight {
 					heroController = 0x7c;
 					camTarget = 0x24;
 					camMode = 0x3c;
-					menuState = 0x12c;
 					if (version.Build < 3 || version.Revision < 4) {
 						uiState = 0x128;
+						menuState = 0x12c;
 					} else {
 						uiState = 0x12c;
+						menuState = 0x130;
 					}
 				} else {
 					uiManager = 0x84;
