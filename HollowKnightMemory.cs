@@ -403,7 +403,8 @@ namespace LiveSplit.HollowKnight {
 		defeatedMegaBeamMiner,
 		defeatedMegaBeamMiner2,
 		gotShadeCharm,
-		disablePause
+		disablePause,
+		mrMushroomState
 	}
 	public enum MemVersion {
 		None,

@@ -219,6 +219,21 @@ namespace LiveSplit.HollowKnight {
 		[Description("Queens Station (Stag Staion)"), ToolTip("Splits when obtaining Queens Station Stag Staion")]
 		QueensStationStation,
 
+		[Description("Mr. Mushroom 1 (Spot)"), ToolTip("Splits when talking to Mr. Mushroom")]
+		MrMushroom1,
+		[Description("Mr. Mushroom 2 (Spot)"), ToolTip("Splits when talking to Mr. Mushroom")]
+		MrMushroom2,
+		[Description("Mr. Mushroom 3 (Spot)"), ToolTip("Splits when talking to Mr. Mushroom")]
+		MrMushroom3,
+		[Description("Mr. Mushroom 4 (Spot)"), ToolTip("Splits when talking to Mr. Mushroom")]
+		MrMushroom4,
+		[Description("Mr. Mushroom 5 (Spot)"), ToolTip("Splits when talking to Mr. Mushroom")]
+		MrMushroom5,
+		[Description("Mr. Mushroom 6 (Spot)"), ToolTip("Splits when talking to Mr. Mushroom")]
+		MrMushroom6,
+		[Description("Mr. Mushroom 7 (Spot)"), ToolTip("Splits when talking to Mr. Mushroom")]
+		MrMushroom7,
+
 		[Description("City Of Tears (Area)"), ToolTip("Splits when entering City Of Tears text first appears")]
 		CityOfTears,
 		[Description("Crystal Peak (Area)"), ToolTip("Splits when entering Crystal Peak text first appears")]
