@@ -25,9 +25,11 @@ namespace LiveSplit.HollowKnight {
 			if (pointer == gameManager) {
 				int len = gameManager.Read<int>(0x0, 0x68, 0x2c, 0x1c, 0x8);
 
+				Version version = null;
+
 				if (len != 7) {
 					string ver = gameManager.Read(0x0, 0x6c, 0x2c, 0x1c);
-					Version version = new Version(ver);
+					version = new Version(ver);
 
 					uiManager = 0x88;
 					inputHandler = 0x6c;
@@ -44,6 +46,9 @@ namespace LiveSplit.HollowKnight {
 						menuState = 0x130;
 					}
 				} else {
+					string ver = gameManager.Read(0x0, 0x68, 0x2c, 0x1c);
+					version = new Version(ver);
+
 					uiManager = 0x84;
 					inputHandler = 0x68;
 					cameraCtrl = 0x74;
@@ -54,6 +59,8 @@ namespace LiveSplit.HollowKnight {
 					menuState = 0x128;
 					uiState = 0x124;
 				}
+
+				HollowKnight.PlayerData.InitializeData(version);
 			}
 		}
 		public byte[] GetPlayerData(int length) {
@@ -484,7 +491,6 @@ namespace LiveSplit.HollowKnight {
 				if (Version == MemVersion.None) {
 					FileInfo info = new FileInfo(Path.Combine(Path.GetDirectoryName(Memory.Program.MainModule.FileName), @"hollow_knight_Data\Managed\Assembly-CSharp.dll"));
 					Version = (MemVersion)info.Length;
-					PlayerData.InitializeData();
 				}
 				pointer = GetVersionedFunctionPointer();
 				if (pointer != IntPtr.Zero) {
@@ -752,10 +758,11 @@ namespace LiveSplit.HollowKnight {
 
 		public PlayerData() { }
 
-		public static void InitializeData() {
+		public static void InitializeData(Version ver) {
 			Assembly asm = Assembly.GetExecutingAssembly();
-			Stream file = asm.GetManifestResourceStream("LiveSplit.HollowKnight.PlayerData." + ProgramPointer.Version.ToString() + ".txt");
-			if (file == null) {
+
+			Stream file = asm.GetManifestResourceStream("LiveSplit.HollowKnight.PlayerData.V1032.txt");
+			if (ver.Build < 3 || ver.Revision < 2) {
 				file = asm.GetManifestResourceStream("LiveSplit.HollowKnight.PlayerData.Original.txt");
 			}
 			if (file != null) {
