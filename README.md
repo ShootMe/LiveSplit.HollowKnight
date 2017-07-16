@@ -1,6 +1,9 @@
 # LiveSplit.HollowKnight
 Hollow Knight Autosplitter / Load Remover
 
+This fork should cause the autosplitter to start at the very start of the first scene, removing randomness due to load times from the first 5 - 8 seconds of a run,
+It should hopefully also prevent S+Q split bugs
+
 ## Setting up the autosplitter in LiveSplit
 - Go to the [releases](https://github.com/KayDeeTee/LiveSplit.HollowKnight/releases) section in this repository.
 - Download the latest LiveSplit.HollowKnight.dll
