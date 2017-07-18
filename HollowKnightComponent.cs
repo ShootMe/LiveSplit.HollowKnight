@@ -49,12 +49,13 @@ namespace LiveSplit.HollowKnight {
 #if !Info
 		private void HandleSplits() {
 			bool shouldSplit = false;
-
+			string nextScene = mem.NextSceneName();
+			string sceneName = mem.SceneName();
+			
 			if (currentSplit == -1) {
 				shouldSplit = nextScene.Equals("Tutorial_01", StringComparison.OrdinalIgnoreCase) && mem.GameState() == GameState.ENTERING_LEVEL;
 			} else if (Model.CurrentState.CurrentPhase == TimerPhase.Running) {
-				string nextScene = mem.NextSceneName();
-				string sceneName = mem.SceneName();
+				
 
 				if (currentSplit + 1 < Model.CurrentState.Run.Count) {
 					foreach (SplitName split in settings.Splits) {
