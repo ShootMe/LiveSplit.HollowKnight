@@ -49,17 +49,18 @@ namespace LiveSplit.HollowKnight {
 #if !Info
 		private void HandleSplits() {
 			bool shouldSplit = false;
-
+			string nextScene = mem.NextSceneName();
+			string sceneName = mem.SceneName();
+			
 			if (currentSplit == -1) {
-				shouldSplit = mem.MenuState() == MainMenuState.PLAY_MODE_MENU && mem.GameState() == GameState.MAIN_MENU && !mem.AcceptingInput();
+				shouldSplit = nextScene.Equals("Tutorial_01", StringComparison.OrdinalIgnoreCase) && mem.GameState() == GameState.ENTERING_LEVEL;
 			} else if (Model.CurrentState.CurrentPhase == TimerPhase.Running) {
-				string nextScene = mem.NextSceneName();
-				string sceneName = mem.SceneName();
+				
 
 				if (currentSplit + 1 < Model.CurrentState.Run.Count) {
 					foreach (SplitName split in settings.Splits) {
 						if (splitsDone.Contains(split)) { continue; }
-
+						if( mem.GameState() != GameState.PLAYING) { continue; }
 						switch (split) {
 							case SplitName.AbyssShriek: shouldSplit = mem.PlayerData<int>(Offset.screamLevel) == 2; break;
 							case SplitName.AspidHunter: shouldSplit = mem.PlayerData<int>(Offset.killsSpitter) == 17; break;
