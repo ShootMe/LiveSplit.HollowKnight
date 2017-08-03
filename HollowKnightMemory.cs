@@ -14,6 +14,7 @@ namespace LiveSplit.HollowKnight {
 		private DateTime lastHooked;
 		private ProgramPointer gameManager, playmakerFSM;
 		private int uiManager, inputHandler, cameraCtrl, gameState, heroController, camTarget, camMode, menuState, uiState;
+		private int geoCounter, heroAccepting, actorState, transistionState;
 
 		public HollowKnightMemory() {
 			lastHooked = DateTime.MinValue;
@@ -27,6 +28,17 @@ namespace LiveSplit.HollowKnight {
 
 				Version version = null;
 
+				heroAccepting = 0x457;
+				actorState = 0x374;
+				uiManager = 0x84;
+				inputHandler = 0x68;
+				cameraCtrl = 0x74;
+				gameState = 0x98;
+				heroController = 0x78;
+				camTarget = 0x28;
+				camMode = 0x40;
+				transistionState = 0x37c;
+
 				if (len != 7) {
 					string ver = gameManager.Read(0x0, 0x6c, 0x2c, 0x1c);
 					version = new Version(ver);
@@ -38,24 +50,26 @@ namespace LiveSplit.HollowKnight {
 					heroController = 0x7c;
 					camTarget = 0x24;
 					camMode = 0x3c;
-					if (version.Build < 3 || version.Revision < 4) {
+					geoCounter = version.Build > 0 ? 0x1dc : 0x1d4;
+
+					if (version.Minor == 0 && (version.Build < 3 || version.Revision < 4)) {
 						uiState = 0x128;
 						menuState = 0x12c;
-					} else {
+					} else if (version.Minor == 0) {
 						uiState = 0x12c;
 						menuState = 0x130;
+					} else {
+						uiState = 0x130;
+						menuState = 0x134;
+						heroAccepting = 0x45b;
+						actorState = 0x378;
+						transistionState = 0x380;
 					}
 				} else {
 					string ver = gameManager.Read(0x0, 0x68, 0x2c, 0x1c);
 					version = new Version(ver);
 
-					uiManager = 0x84;
-					inputHandler = 0x68;
-					cameraCtrl = 0x74;
-					gameState = 0x98;
-					heroController = 0x78;
-					camTarget = 0x28;
-					camMode = 0x40;
+					geoCounter = version.Build > 0 ? 0x1dc : 0x1d4;
 					menuState = 0x128;
 					uiState = 0x124;
 				}
@@ -90,24 +104,16 @@ namespace LiveSplit.HollowKnight {
 			return (CameraMode)gameManager.Read<int>(0x0, cameraCtrl, camMode);
 		}
 		public void UpdateGeoCounter(bool enable, int geo) {
-			int offset = 0x1d4;
-			//GameManger._instance.playerData.version
-			string ver = gameManager.Read(0x0, 0x30, 0x8);
-			if (string.IsNullOrEmpty(ver)) { return; }
-
-			Version version = new Version(ver);
-			if (version.Build > 0) { offset = 0x1dc; }
-
 			//GameManger._instance.heroCtrl.geoCounter.digitChangeTimer
-			gameManager.Write(-0.02f, 0x0, heroController, offset, 0x50);
+			gameManager.Write(-0.02f, 0x0, heroController, geoCounter, 0x50);
 			//GameManger._instance.heroCtrl.geoCounter.changePerTick
-			gameManager.Write(enable ? 0 : 1, 0x0, heroController, offset, 0x44);
+			gameManager.Write(enable ? 0 : 1, 0x0, heroController, geoCounter, 0x44);
 			//GameManger._instance.heroCtrl.geoCounter.addCounter
-			gameManager.Write(1, 0x0, heroController, offset, 0x34);
+			gameManager.Write(1, 0x0, heroController, geoCounter, 0x34);
 			//GameManger._instance.heroCtrl.geoCounter.counterCurrent
-			gameManager.Write(geo, 0x0, heroController, offset, 0x2c);
+			gameManager.Write(geo, 0x0, heroController, geoCounter, 0x2c);
 			//GameManger._instance.heroCtrl.geoCounter.addRollerState
-			gameManager.Write(2, 0x0, heroController, offset, 0x3c);
+			gameManager.Write(2, 0x0, heroController, geoCounter, 0x3c);
 		}
 		public void EnableDebug(bool enable) {
 			//inputHandler.onScreenDebugInfo.showFPS
@@ -225,15 +231,15 @@ namespace LiveSplit.HollowKnight {
 		}
 		public bool AcceptingInputHero() {
 			//GameManager._instance.heroCtrl.acceptingInput
-			return gameManager.Read<bool>(0x0, heroController, 0x457);
+			return gameManager.Read<bool>(0x0, heroController, heroAccepting);
 		}
 		public ActorStates HeroActorState() {
 			//GameManager._instance.heroCtrl.actor_state
-			return (ActorStates)gameManager.Read<int>(0x0, heroController, 0x374);
+			return (ActorStates)gameManager.Read<int>(0x0, heroController, actorState);
 		}
 		public HeroTransitionState HeroTransitionState() {
 			//GameManager._instance.heroCtrl.transitionState
-			return (HeroTransitionState)gameManager.Read<int>(0x0, heroController, 0x37c);
+			return (HeroTransitionState)gameManager.Read<int>(0x0, heroController, transistionState);
 		}
 		public string SceneName() {
 			//GameManager._instance.sceneName
@@ -761,10 +767,13 @@ namespace LiveSplit.HollowKnight {
 		public static void InitializeData(Version ver) {
 			Assembly asm = Assembly.GetExecutingAssembly();
 
-			Stream file = asm.GetManifestResourceStream("LiveSplit.HollowKnight.PlayerData.V1032.txt");
-			if (ver.Build < 3 || ver.Revision < 2) {
+			Stream file = asm.GetManifestResourceStream("LiveSplit.HollowKnight.PlayerData.V1114.txt");
+			if (ver.Minor == 0 && (ver.Build < 3 || ver.Revision < 2)) {
 				file = asm.GetManifestResourceStream("LiveSplit.HollowKnight.PlayerData.Original.txt");
+			} else if(ver.Minor == 0) {
+				file = asm.GetManifestResourceStream("LiveSplit.HollowKnight.PlayerData.V1032.txt");
 			}
+
 			if (file != null) {
 				Data.Clear();
 
