@@ -148,6 +148,8 @@ namespace LiveSplit.HollowKnight {
 		Galien,
 		[Description("Gorb (Boss)"), ToolTip("Splits when killing Gorb")]
 		Gorb,
+		[Description("Grey Prince Zote (Boss)"), ToolTip("Splits when killing Grey Prince")]
+		GreyPrince,
 		[Description("Gruz Mother (Boss)"), ToolTip("Splits when killing Gruz Mother")]
 		GruzMother,
 		[Description("Hollow Knight - Dream Nail (Boss)"), ToolTip("Splits when going into the dream world for Hollow Knight to fight Radiance")]
@@ -180,6 +182,8 @@ namespace LiveSplit.HollowKnight {
 		Uumuu,
 		[Description("Watcher Knight (Boss)"), ToolTip("Splits when killing Watcher Knight")]
 		BlackKnight,
+		[Description("White Defender (Boss)"), ToolTip("Splits when killing White Defender")]
+		WhiteDefender,
 		[Description("Xero (Boss)"), ToolTip("Splits when killing Xero")]
 		Xero,
 
