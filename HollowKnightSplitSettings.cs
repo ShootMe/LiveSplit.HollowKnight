@@ -69,6 +69,8 @@ namespace LiveSplit.HollowKnight {
 		DreamNail,
 		[Description("Dream Nail - Awoken (Skill)"), ToolTip("Splits when Awkening the Dream Nail")]
 		DreamNail2,
+		[Description("Dream Gate (Skill)"), ToolTip("Splits when obtaining Dream Gate")]
+		DreamGate,
 		[Description("Great Slash (Skill)"), ToolTip("Splits when obtaining Great Slash (Nail Art)")]
 		GreatSlash,
 		[Description("Howling Wraiths (Skill)"), ToolTip("Splits when obtaining Howling Wraiths (Scream)")]

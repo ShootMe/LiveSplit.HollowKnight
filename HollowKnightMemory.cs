@@ -419,7 +419,8 @@ namespace LiveSplit.HollowKnight {
 		disablePause,
 		mrMushroomState,
 		killedWhiteDefender,
-		killedGreyPrince
+		killedGreyPrince,
+		hasDreamGate
 	}
 	public enum MemVersion {
 		None,
