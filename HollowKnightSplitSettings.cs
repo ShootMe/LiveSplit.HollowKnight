@@ -248,6 +248,8 @@ namespace LiveSplit.HollowKnight {
 		Deepnest,
 		[Description("Deepnest Spa (Area)"), ToolTip("Splits when entering the Deepnest Spa area with bench")]
 		DeepnestSpa,
+		[Description("Dirtmouth (Area)"), ToolTip("Splits when entering Dirtmouth text first appears")]
+		Dirtmouth,
 		[Description("Fog Canyon (Area)"), ToolTip("Splits when entering Fog Canyon text first appears")]
 		FogCanyon,
 		[Description("Forgotten Crossroads (Area)"), ToolTip("Splits when entering Forgotten Crossroads text first appears")]
@@ -357,6 +359,11 @@ namespace LiveSplit.HollowKnight {
 		NotchSalubra3,
 		[Description("Salubra 4 (Charm Notch)"), ToolTip("Splits when obtaining the fourth charm notch from Salubra")]
 		NotchSalubra4,
+
+		[Description("Relic Dealer Lemm (NPC)"), ToolTip("Splits when talking to Lemm for the first time")]
+		Lemm1,
+		[Description("Relic Dealer Lemm Shop (NPC)"), ToolTip("Splits when talking to Lemm in the shop for the first time")]
+		Lemm2,
 	}
 	public class ToolTipAttribute : Attribute {
 		public string ToolTip { get; set; }

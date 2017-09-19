@@ -398,6 +398,7 @@ namespace LiveSplit.HollowKnight {
 		mageLordDreamDefeated,
 		infectedKnightDreamDefeated,
 		isInvincible,
+		visitedDirtmouth,
 		visitedCrossroads,
 		visitedGreenpath,
 		visitedFungus,
@@ -420,7 +421,9 @@ namespace LiveSplit.HollowKnight {
 		mrMushroomState,
 		killedWhiteDefender,
 		killedGreyPrince,
-		hasDreamGate
+		hasDreamGate,
+		metRelicDealer,
+		metRelicDealerShop
 	}
 	public enum MemVersion {
 		None,

@@ -55,8 +55,6 @@ namespace LiveSplit.HollowKnight {
 			if (currentSplit == -1) {
 				shouldSplit = nextScene.Equals("Tutorial_01", StringComparison.OrdinalIgnoreCase) && mem.GameState() == GameState.ENTERING_LEVEL;
 			} else if (Model.CurrentState.CurrentPhase == TimerPhase.Running) {
-
-
 				if (currentSplit + 1 < Model.CurrentState.Run.Count) {
 					foreach (SplitName split in settings.Splits) {
 						if (splitsDone.Contains(split)) { continue; }
@@ -88,6 +86,7 @@ namespace LiveSplit.HollowKnight {
 							case SplitName.DefendersCrest: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_10); break;
 							case SplitName.DescendingDark: shouldSplit = mem.PlayerData<int>(Offset.quakeLevel) == 2; break;
 							case SplitName.DesolateDive: shouldSplit = mem.PlayerData<int>(Offset.quakeLevel) == 1; break;
+							case SplitName.Dirtmouth: shouldSplit = mem.PlayerData<bool>(Offset.visitedDirtmouth); break;
 							case SplitName.DreamNail: shouldSplit = mem.PlayerData<bool>(Offset.hasDreamNail); break;
 							case SplitName.DreamNail2: shouldSplit = mem.PlayerData<bool>(Offset.dreamNailUpgraded); break;
 							case SplitName.DreamGate: shouldSplit = mem.PlayerData<bool>(Offset.hasDreamGate); break;
@@ -129,6 +128,8 @@ namespace LiveSplit.HollowKnight {
 							case SplitName.KingsBrand: shouldSplit = mem.PlayerData<bool>(Offset.hasKingsBrand); break;
 							case SplitName.Kingsoul: shouldSplit = mem.PlayerData<int>(Offset.charmCost_36) == 5; break;
 							case SplitName.KingsStationStation: shouldSplit = mem.PlayerData<bool>(Offset.openedRuins2); break;
+							case SplitName.Lemm1: shouldSplit = mem.PlayerData<bool>(Offset.metRelicDealer); break;
+							case SplitName.Lemm2: shouldSplit = mem.PlayerData<bool>(Offset.metRelicDealerShop); break;
 							case SplitName.LifebloodCore: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_9); break;
 							case SplitName.LifebloodHeart: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_8); break;
 							case SplitName.Longnail: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_18); break;
