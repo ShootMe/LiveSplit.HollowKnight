@@ -27,6 +27,28 @@ namespace LiveSplit.HollowKnight {
 		private HashSet<SplitName> splitsDone = new HashSet<SplitName>();
 		private static string LOGFILE = "_HollowKnight.log";
 		private PlayerData pdata = new PlayerData();
+#if !Info
+		public HollowKnightComponent(LiveSplitState state) {
+			mem = new HollowKnightMemory();
+			settings = new HollowKnightSettings();
+			foreach (string key in keys) {
+				currentValues[key] = "";
+			}
+
+			if (state != null) {
+				Model = new TimerModel() { CurrentState = state };
+				Model.InitializeGameTime();
+				Model.CurrentState.IsGameTimePaused = true;
+				state.OnReset += OnReset;
+				state.OnPause += OnPause;
+				state.OnResume += OnResume;
+				state.OnStart += OnStart;
+				state.OnSplit += OnSplit;
+				state.OnUndoSplit += OnUndoSplit;
+				state.OnSkipSplit += OnSkipSplit;
+			}
+		}
+#else
 		public HollowKnightComponent() {
 			mem = new HollowKnightMemory();
 			settings = new HollowKnightSettings();
@@ -34,6 +56,7 @@ namespace LiveSplit.HollowKnight {
 				currentValues[key] = "";
 			}
 		}
+#endif
 
 		public void GetValues() {
 			if (!mem.HookProcess()) { return; }
@@ -59,6 +82,7 @@ namespace LiveSplit.HollowKnight {
 					foreach (SplitName split in settings.Splits) {
 						if (splitsDone.Contains(split)) { continue; }
 						if (mem.GameState() != GameState.PLAYING) { continue; }
+
 						switch (split) {
 							case SplitName.AbyssShriek: shouldSplit = mem.PlayerData<int>(Offset.screamLevel) == 2; break;
 							case SplitName.AspidHunter: shouldSplit = mem.PlayerData<int>(Offset.killsSpitter) == 17; break;
@@ -304,17 +328,17 @@ namespace LiveSplit.HollowKnight {
 
 #if !Info
 		public void Update(IInvalidator invalidator, LiveSplitState lvstate, float width, float height, LayoutMode mode) {
-			if (Model == null) {
-				Model = new TimerModel() { CurrentState = lvstate };
-				Model.InitializeGameTime();
-				Model.CurrentState.IsGameTimePaused = true;
-				lvstate.OnReset += OnReset;
-				lvstate.OnPause += OnPause;
-				lvstate.OnResume += OnResume;
-				lvstate.OnStart += OnStart;
-				lvstate.OnSplit += OnSplit;
-				lvstate.OnUndoSplit += OnUndoSplit;
-				lvstate.OnSkipSplit += OnSkipSplit;
+			//Remove duplicate autosplitter componenets
+			IList<ILayoutComponent> components = lvstate.Layout.LayoutComponents;
+			bool hasAutosplitter = false;
+			for (int i = components.Count - 1; i >= 0; i--) {
+				ILayoutComponent component = components[i];
+				if (component.Component is HollowKnightComponent) {
+					if ((invalidator == null && width == 0 && height == 0) || hasAutosplitter) {
+						components.Remove(component);
+					}
+					hasAutosplitter = true;
+				}
 			}
 
 			GetValues();

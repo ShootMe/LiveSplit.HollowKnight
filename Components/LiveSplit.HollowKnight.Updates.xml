@@ -1,5 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <updates>
+	<update version="2.3.8">
+		<files>
+			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+		</files>
+		<changelog>
+			<change>
+				Update for Grimm Troupe
+			</change>
+		</changelog>
+	</update>
 	<update version="2.3.7">
 		<files>
 			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
