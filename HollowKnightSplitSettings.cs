@@ -103,13 +103,37 @@ namespace LiveSplit.HollowKnight {
 		[Description("Tram Pass (Item)"), ToolTip("Splits when obtaining the Tram Pass")]
 		TramPass,
 
-		[Description("Mask 1 (Upgrade)"), ToolTip("Splits when getting first full Mask upgrade (6 HP)")]
+		[Description("Mask Fragment 1 (Fragment)"), ToolTip("Splits when getting 1st Mask fragment")]
+		MaskFragment1,
+		[Description("Mask Fragment 2 (Fragment)"), ToolTip("Splits when getting 2nd Mask fragment")]
+		MaskFragment2,
+		[Description("Mask Fragment 3 (Fragment)"), ToolTip("Splits when getting 3rd Mask fragment")]
+		MaskFragment3,
+		[Description("Mask Fragment 4 (Upgrade)"), ToolTip("Splits when getting 4th Mask fragment (6 HP)")]
 		Mask1,
-		[Description("Mask 2 (Upgrade)"), ToolTip("Splits when getting second full Mask upgrade (7 HP)")]
+		[Description("Mask Fragment 5 (Fragment)"), ToolTip("Splits when getting 5th Mask fragment")]
+		MaskFragment5,
+		[Description("Mask Fragment 6 (Fragment)"), ToolTip("Splits when getting 6th Mask fragment")]
+		MaskFragment6,
+		[Description("Mask Fragment 7 (Fragment)"), ToolTip("Splits when getting 7th Mask fragment")]
+		MaskFragment7,
+		[Description("Mask Fragment 8 (Upgrade)"), ToolTip("Splits when getting 8th Mask fragment (7 HP)")]
 		Mask2,
-		[Description("Mask 3 (Upgrade)"), ToolTip("Splits when getting third full Mask upgrade (8 HP)")]
+		[Description("Mask Fragment 9 (Fragment)"), ToolTip("Splits when getting 9th Mask fragment")]
+		MaskFragment9,
+		[Description("Mask Fragment 10 (Fragment)"), ToolTip("Splits when getting 10th Mask fragment")]
+		MaskFragment10,
+		[Description("Mask Fragment 11 (Fragment)"), ToolTip("Splits when getting 11th Mask fragment")]
+		MaskFragment11,
+		[Description("Mask Fragment 12 (Upgrade)"), ToolTip("Splits when getting 12th Mask fragment (8 HP)")]
 		Mask3,
-		[Description("Mask 4 (Upgrade)"), ToolTip("Splits when getting fourth full Mask upgrade (9 HP)")]
+		[Description("Mask Fragment 13 (Fragment)"), ToolTip("Splits when getting 13th Mask fragment")]
+		MaskFragment13,
+		[Description("Mask Fragment 14 (Fragment)"), ToolTip("Splits when getting 14th Mask fragment")]
+		MaskFragment14,
+		[Description("Mask Fragment 15 (Fragment)"), ToolTip("Splits when getting 15th Mask fragment")]
+		MaskFragment15,
+		[Description("Mask Fragment 16 (Upgrade)"), ToolTip("Splits when getting 16th Mask fragment (9 HP)")]
 		Mask4,
 		[Description("Nail 1 (Upgrade)"), ToolTip("Splits when getting Nail Upgrade 1")]
 		NailUpgrade1,
@@ -119,11 +143,23 @@ namespace LiveSplit.HollowKnight {
 		NailUpgrade3,
 		[Description("Nail 4 (Upgrade)"), ToolTip("Splits when getting Pure Nail (Upgrade 4)")]
 		NailUpgrade4,
-		[Description("Vessel 1 (Upgrade)"), ToolTip("Splits when getting first full Vessel upgrade (1 extra MP)")]
+		[Description("Vessel Fragment 1 (Fragment)"), ToolTip("Splits when getting 1st Vessel fragment")]
+		VesselFragment1,
+		[Description("Vessel Fragment 2 (Fragment)"), ToolTip("Splits when getting 2nd Vessel fragment")]
+		VesselFragment2,
+		[Description("Vessel Fragment 3 (Upgrade)"), ToolTip("Splits when getting 3rd Vessel fragment (1 extra MP)")]
 		Vessel1,
-		[Description("Vessel 2 (Upgrade)"), ToolTip("Splits when getting second full Vessel upgrade (2 extra MP)")]
+		[Description("Vessel Fragment 4 (Fragment)"), ToolTip("Splits when getting 4th Vessel fragment")]
+		VesselFragment4,
+		[Description("Vessel Fragment 5 (Fragment)"), ToolTip("Splits when getting 5th Vessel fragment")]
+		VesselFragment5,
+		[Description("Vessel Fragment 6 (Upgrade)"), ToolTip("Splits when getting 6th Vessel fragment (2 extra MP)")]
 		Vessel2,
-		[Description("Vessel 3 (Upgrade)"), ToolTip("Splits when getting third full Vessel upgrade (3 extra MP)")]
+		[Description("Vessel Fragment 7 (Fragment)"), ToolTip("Splits when getting 7th Vessel fragment")]
+		VesselFragment7,
+		[Description("Vessel Fragment 8 (Fragment)"), ToolTip("Splits when getting 8th Vessel fragment")]
+		VesselFragment8,
+		[Description("Vessel Fragment 9 (Upgrade)"), ToolTip("Splits when getting 9th Vessel fragment (3 extra MP)")]
 		Vessel3,
 
 		[Description("Broken Vessel (Boss)"), ToolTip("Splits when killing Broken Vessel")]
@@ -170,6 +206,8 @@ namespace LiveSplit.HollowKnight {
 		Marmu,
 		[Description("Mega Moss Charger (Boss)"), ToolTip("Splits when killing Mega Moss Charger")]
 		MegaMossCharger,
+		[Description("Nightmare King Grimm (Boss)"), ToolTip("Splits when killing Nightmare King Grimm")]
+		NightmareKingGrimm,
 		[Description("No Eyes (Boss)"), ToolTip("Splits when killing No Eyes")]
 		NoEyes,
 		[Description("Nosk (Boss)"), ToolTip("Splits when killing Nosk")]
@@ -180,6 +218,8 @@ namespace LiveSplit.HollowKnight {
 		SoulTyrant,
 		[Description("Traitor Lord (Boss)"), ToolTip("Splits when killing Traitor Lord")]
 		TraitorLord,
+		[Description("Troupe Master Grimm (Boss)"), ToolTip("Splits when killing Troupe Master Grimm")]
+		TroupeMasterGrimm,
 		[Description("Uumuu (Boss)"), ToolTip("Splits when killing Uumuu")]
 		Uumuu,
 		[Description("Watcher Knight (Boss)"), ToolTip("Splits when killing Watcher Knight")]
@@ -195,6 +235,10 @@ namespace LiveSplit.HollowKnight {
 		Lurien,
 		[Description("Monomon the Teacher (Dreamer)"), ToolTip("Splits when you see the mask for Monomon (After killing Uumuu)")]
 		Monomon,
+		[Description("Nightmare Lantern (Event)"), ToolTip("Splits when activating the Nightmare Lantern")]
+		NightmareLantern,
+		[Description("Nightmare Lantern Destroyed (Event)"), ToolTip("Splits when destroying the Nightmare Lantern")]
+		NightmareLanternDestroyed,
 		[Description("Seer Departs (Event)"), ToolTip("Splits when the Seer Departs after bringing back 2400 essence")]
 		SeerDeparts,
 
@@ -281,6 +325,8 @@ namespace LiveSplit.HollowKnight {
 		DeepFocus,
 		[Description("Defenders Crest (Charm)"), ToolTip("Splits when obtaining the Defenders Crest charm")]
 		DefendersCrest,
+		[Description("Dreamshield (Charm)"), ToolTip("Splits when obtaining the Dreamshield charm")]
+		Dreamshield,
 		[Description("Dream Wielder (Charm)"), ToolTip("Splits when obtaining the Dream Wielder charm")]
 		DreamWielder,
 		[Description("Flukenest (Charm)"), ToolTip("Splits when obtaining the Flukenest charm")]
@@ -297,6 +343,8 @@ namespace LiveSplit.HollowKnight {
 		GatheringSwarm,
 		[Description("Glowing Womb (Charm)"), ToolTip("Splits when obtaining the Glowing Womb charm")]
 		GlowingWomb,
+		[Description("Grimmchild (Charm)"), ToolTip("Splits when obtaining the Grimmchild charm")]
+		Grimmchild,
 		[Description("Grubberfly's Elegy (Charm)"), ToolTip("Splits when obtaining the Grubberfly's Elegy charm")]
 		GrubberflysElegy,
 		[Description("Grubsong (Charm)"), ToolTip("Splits when obtaining the Grubsong charm")]
@@ -337,6 +385,8 @@ namespace LiveSplit.HollowKnight {
 		SpellTwister,
 		[Description("Spore Shroom (Charm)"), ToolTip("Splits when obtaining the Spore Shroom charm")]
 		SporeShroom,
+		[Description("Sprintmaster (Charm)"), ToolTip("Splits when obtaining the Sprintmaster charm")]
+		Sprintmaster,
 		[Description("Stalwart Shell (Charm)"), ToolTip("Splits when obtaining Stalwart Shell charm")]
 		StalwartShell,
 		[Description("Steady Body (Charm)"), ToolTip("Splits when obtaining the Steady Body charm")]
@@ -347,6 +397,8 @@ namespace LiveSplit.HollowKnight {
 		VoidHeart,
 		[Description("Wayward Compass (Charm)"), ToolTip("Splits when obtaining Wayward Compass charm")]
 		WaywardCompass,
+		[Description("Weaversong (Charm)"), ToolTip("Splits when obtaining the Weaversong charm")]
+		Weaversong,
 		[Description("Shrumal Ogres (Charm Notch)"), ToolTip("Splits when obtaining the charm notch after defeating the Shrumal Ogres")]
 		NotchShrumalOgres,
 		[Description("Fog Canyon (Charm Notch)"), ToolTip("Splits when obtaining the charm notch in Fog Canyon")]
