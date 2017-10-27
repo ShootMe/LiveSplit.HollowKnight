@@ -416,6 +416,7 @@ namespace LiveSplit.HollowKnight {
 		killedGrimm,
 		killedNightmareGrimm,
 		killedBindingSeal,
+		grimmChildLevel,
 		nightmareLanternLit,
 		destroyedNightmareLantern,
 		flamesCollected,

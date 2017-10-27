@@ -345,6 +345,12 @@ namespace LiveSplit.HollowKnight {
 		GlowingWomb,
 		[Description("Grimmchild (Charm)"), ToolTip("Splits when obtaining the Grimmchild charm")]
 		Grimmchild,
+		[Description("Grimmchild Lvl 2 (Charm)"), ToolTip("Splits when obtaining the Grimmchild Lvl 2 charm")]
+		Grimmchild2,
+		[Description("Grimmchild Lvl 3 (Charm)"), ToolTip("Splits when obtaining the Grimmchild Lvl 3 charm")]
+		Grimmchild3,
+		[Description("Grimmchild Lvl 4 (Charm)"), ToolTip("Splits when obtaining the Grimmchild Lvl 4 charm")]
+		Grimmchild4,
 		[Description("Grubberfly's Elegy (Charm)"), ToolTip("Splits when obtaining the Grubberfly's Elegy charm")]
 		GrubberflysElegy,
 		[Description("Grubsong (Charm)"), ToolTip("Splits when obtaining the Grubsong charm")]
