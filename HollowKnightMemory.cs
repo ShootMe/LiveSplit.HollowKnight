@@ -18,13 +18,13 @@ namespace LiveSplit.HollowKnight {
 
 		public HollowKnightMemory() {
 			lastHooked = DateTime.MinValue;
-			gameManager = new ProgramPointer(this, MemPointer.GameManager) { AutoDeref = true, UpdatedPointer = UpdatedPointer };
-			playmakerFSM = new ProgramPointer(this, MemPointer.PlaymakerFSM) { AutoDeref = true, UpdatedPointer = UpdatedPointer };
+			gameManager = new ProgramPointer(this, MemPointer.GameManager) { AutoDeref = false, UpdatedPointer = UpdatedPointer };
+			playmakerFSM = new ProgramPointer(this, MemPointer.PlaymakerFSM) { AutoDeref = false, UpdatedPointer = UpdatedPointer };
 		}
 
 		private void UpdatedPointer(ProgramPointer pointer) {
 			if (pointer == gameManager) {
-				int len = gameManager.Read<int>(0x68, 0x2c, 0x1c, 0x8);
+				int len = gameManager.Read<int>(0x0, 0x68, 0x2c, 0x1c, 0x8);
 
 				Version version = null;
 
@@ -46,7 +46,7 @@ namespace LiveSplit.HollowKnight {
 				geoCounter = 0x1dc;
 
 				if (len != 7) {
-					string ver = gameManager.Read(0x6c, 0x2c, 0x1c);
+					string ver = gameManager.Read(0x0, 0x6c, 0x2c, 0x1c);
 					version = new Version(ver);
 
 					uiManager = 0x88;
@@ -83,7 +83,7 @@ namespace LiveSplit.HollowKnight {
 						geoCounter = 0x1e4;
 					}
 				} else {
-					string ver = gameManager.Read(0x68, 0x2c, 0x1c);
+					string ver = gameManager.Read(0x0, 0x68, 0x2c, 0x1c);
 					version = new Version(ver);
 
 					geoCounter = version.Build > 0 ? 0x1dc : 0x1d4;
@@ -96,66 +96,66 @@ namespace LiveSplit.HollowKnight {
 		}
 		public byte[] GetPlayerData(int length) {
 			//GameManger._instance.playerData
-			return gameManager.ReadBytes(length, 0x30, 0x0);
+			return gameManager.ReadBytes(length, 0x0, 0x30, 0x0);
 		}
 		public void SetCameraZoom(float zoom) {
 			//GameManger._instance.gameCams.tk2dCam.zoomFactor
-			gameManager.Write<float>(zoom, 0x20, 0x40, 0x48);
+			gameManager.Write<float>(zoom, 0x0, 0x20, 0x40, 0x48);
 		}
 		public PointF GetCameraTarget() {
 			//GameManger._instance.cameraCtrl.camTarget.destination
-			float x = gameManager.Read<float>(cameraCtrl, camTarget, 0x24);
-			float y = gameManager.Read<float>(cameraCtrl, camTarget, 0x28);
+			float x = gameManager.Read<float>(0x0, cameraCtrl, camTarget, 0x24);
+			float y = gameManager.Read<float>(0x0, cameraCtrl, camTarget, 0x28);
 			return new PointF(x, y);
 		}
 		public TargetMode GetCameraTargetMode() {
 			//GameManger._instance.cameraCtrl.camTarget.mode
-			return (TargetMode)gameManager.Read<int>(cameraCtrl, camTarget, 0x20);
+			return (TargetMode)gameManager.Read<int>(0x0, cameraCtrl, camTarget, 0x20);
 		}
 		public void SetCameraTargetMode(TargetMode mode) {
 			//GameManger._instance.cameraCtrl.camTarget.mode
-			gameManager.Write((int)mode, cameraCtrl, camTarget, 0x20);
+			gameManager.Write((int)mode, 0x0, cameraCtrl, camTarget, 0x20);
 		}
 		public CameraMode CameraMode() {
 			//GameManager._instance.cameraCtrl.mode
-			return (CameraMode)gameManager.Read<int>(cameraCtrl, camMode);
+			return (CameraMode)gameManager.Read<int>(0x0, cameraCtrl, camMode);
 		}
 		public void UpdateGeoCounter(bool enable, int geo) {
 			//GameManger._instance.heroCtrl.geoCounter.digitChangeTimer
-			gameManager.Write(-0.02f, heroController, geoCounter, 0x50);
+			gameManager.Write(-0.02f, 0x0, heroController, geoCounter, 0x50);
 			//GameManger._instance.heroCtrl.geoCounter.changePerTick
-			gameManager.Write(enable ? 0 : 1, heroController, geoCounter, 0x44);
+			gameManager.Write(enable ? 0 : 1, 0x0, heroController, geoCounter, 0x44);
 			//GameManger._instance.heroCtrl.geoCounter.addCounter
-			gameManager.Write(1, heroController, geoCounter, 0x34);
+			gameManager.Write(1, 0x0, heroController, geoCounter, 0x34);
 			//GameManger._instance.heroCtrl.geoCounter.counterCurrent
-			gameManager.Write(geo, heroController, geoCounter, 0x2c);
+			gameManager.Write(geo, 0x0, heroController, geoCounter, 0x2c);
 			//GameManger._instance.heroCtrl.geoCounter.addRollerState
-			gameManager.Write(2, heroController, geoCounter, 0x3c);
+			gameManager.Write(2, 0x0, heroController, geoCounter, 0x3c);
 		}
 		public void EnableDebug(bool enable) {
 			//inputHandler.onScreenDebugInfo.showFPS
-			gameManager.Write(enable, inputHandler, 0x2c, 0x7c);
+			gameManager.Write(enable, 0x0, inputHandler, 0x2c, 0x7c);
 			//inputHandler.onScreenDebugInfo.showInfo
-			gameManager.Write(enable, inputHandler, 0x2c, 0x7d);
+			gameManager.Write(enable, 0x0, inputHandler, 0x2c, 0x7d);
 			//inputHandler.onScreenDebugInfo.showInput
-			gameManager.Write(enable, inputHandler, 0x2c, 0x7e);
+			gameManager.Write(enable, 0x0, inputHandler, 0x2c, 0x7e);
 			//inputHandler.onScreenDebugInfo.showLoadingTime
-			gameManager.Write(enable, inputHandler, 0x2c, 0x7f);
+			gameManager.Write(enable, 0x0, inputHandler, 0x2c, 0x7f);
 			//inputHandler.onScreenDebugInfo.showTFR
-			gameManager.Write(enable, inputHandler, 0x2c, 0x80);
+			gameManager.Write(enable, 0x0, inputHandler, 0x2c, 0x80);
 		}
 		public void SetPlayerData(Offset offset, int value) {
 			//GameManger._instance.playerData.(offset)
-			gameManager.Write(value, 0x30, HollowKnight.PlayerData.GetOffset(offset));
+			gameManager.Write(value, 0x0, 0x30, HollowKnight.PlayerData.GetOffset(offset));
 		}
 		public void SetPlayerData(Offset offset, bool value) {
 			//GameManger._instance.playerData.(offset)
-			gameManager.Write(value, 0x30, HollowKnight.PlayerData.GetOffset(offset));
+			gameManager.Write(value, 0x0, 0x30, HollowKnight.PlayerData.GetOffset(offset));
 		}
 		public List<EnemyInfo> GetEnemyInfo() {
 			List<EnemyInfo> enemies = new List<EnemyInfo>();
-			int size = playmakerFSM.Read<int>(0xc);
-			IntPtr basePointer = (IntPtr)playmakerFSM.Read<uint>(0x8);
+			int size = playmakerFSM.Read<int>(0x0, 0xc);
+			IntPtr basePointer = (IntPtr)playmakerFSM.Read<uint>(0x0, 0x8);
 			for (int x = 0; x < size; x++) {
 				IntPtr fsmPtr = (IntPtr)Program.Read<uint>(basePointer, 0x10 + x * 4, 0xc);
 				if (fsmPtr == IntPtr.Zero) { continue; }
@@ -185,9 +185,9 @@ namespace LiveSplit.HollowKnight {
 		}
 		public List<EntityInfo> GetEntityInfo() {
 			List<EntityInfo> entities = new List<EntityInfo>();
-			int size = playmakerFSM.Read<int>(0xc);
+			int size = playmakerFSM.Read<int>(0x0, 0xc);
 			for (int x = 0; x < size; x++) {
-				IntPtr fsmPtr = (IntPtr)playmakerFSM.Read<uint>(0x8, 0x10 + x * 4, 0xc);
+				IntPtr fsmPtr = (IntPtr)playmakerFSM.Read<uint>(0x0, 0x8, 0x10 + x * 4, 0xc);
 				if (fsmPtr == IntPtr.Zero) { continue; }
 				string fsm = Program.Read((IntPtr)Program.Read<uint>(fsmPtr, 0x14));
 
@@ -224,19 +224,19 @@ namespace LiveSplit.HollowKnight {
 		}
 		public T PlayerData<T>(Offset offset) where T : struct {
 			//GameManger._instance.playerData.(offset)
-			return gameManager.Read<T>(0x30, HollowKnight.PlayerData.GetOffset(offset));
+			return gameManager.Read<T>(0x0, 0x30, HollowKnight.PlayerData.GetOffset(offset));
 		}
 		public GameState GameState() {
 			//GameManager._instance.gameState
-			return (GameState)gameManager.Read<int>(gameState);
+			return (GameState)gameManager.Read<int>(0x0, gameState);
 		}
 		public MainMenuState MenuState() {
 			//GameManager._instance.uiManager.menuState
-			return (MainMenuState)gameManager.Read<int>(uiManager, menuState);
+			return (MainMenuState)gameManager.Read<int>(0x0, uiManager, menuState);
 		}
 		public UIState UIState() {
 			//GameManager._instance.uiManager.uiState
-			int ui = gameManager.Read<int>(uiManager, uiState);
+			int ui = gameManager.Read<int>(0x0, uiManager, uiState);
 			if (uiState != 0x124 && ui >= 2) {
 				ui += 2;
 			}
@@ -244,33 +244,33 @@ namespace LiveSplit.HollowKnight {
 		}
 		public bool AcceptingInput() {
 			//GameManager._instance.InputHandler.acceptingInput
-			return gameManager.Read<bool>(inputHandler, 0x58);
+			return gameManager.Read<bool>(0x0, inputHandler, 0x58);
 		}
 		public bool AcceptingInputHero() {
 			//GameManager._instance.heroCtrl.acceptingInput
-			return gameManager.Read<bool>(heroController, heroAccepting);
+			return gameManager.Read<bool>(0x0, heroController, heroAccepting);
 		}
 		public ActorStates HeroActorState() {
 			//GameManager._instance.heroCtrl.actor_state
-			return (ActorStates)gameManager.Read<int>(heroController, actorState);
+			return (ActorStates)gameManager.Read<int>(0x0, heroController, actorState);
 		}
 		public HeroTransitionState HeroTransitionState() {
 			//GameManager._instance.heroCtrl.transitionState
-			return (HeroTransitionState)gameManager.Read<int>(heroController, transistionState);
+			return (HeroTransitionState)gameManager.Read<int>(0x0, heroController, transistionState);
 		}
 		public string SceneName() {
 			//GameManager._instance.sceneName
-			return gameManager.Read(0xc);
+			return gameManager.Read(0x0, 0xc);
 		}
 		public string NextSceneName() {
 			//GameManager._instance.nextSceneName
-			return gameManager.Read(0x10);
+			return gameManager.Read(0x0, 0x10);
 		}
 		public int CharmCount() {
 			//GameManager._instance.playerData.charms
 			int count = 0;
 			for (int i = 0x38a; i <= 0x4a1; i += 7) {
-				count += gameManager.Read<bool>(0x30, i) ? 1 : 0;
+				count += gameManager.Read<bool>(0x0, 0x30, i) ? 1 : 0;
 				if ((i & 1) != 0) {
 					i++;
 				}
