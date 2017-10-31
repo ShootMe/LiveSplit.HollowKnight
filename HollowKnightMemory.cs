@@ -803,13 +803,15 @@ namespace LiveSplit.HollowKnight {
 		public static void InitializeData(Version ver) {
 			Assembly asm = Assembly.GetExecutingAssembly();
 
-			Stream file = asm.GetManifestResourceStream("LiveSplit.HollowKnight.PlayerData.V1211.txt");
+			Stream file = asm.GetManifestResourceStream("LiveSplit.HollowKnight.PlayerData.V1214.txt");
 			if (ver.Minor == 0 && (ver.Build < 3 || ver.Revision < 2)) {
 				file = asm.GetManifestResourceStream("LiveSplit.HollowKnight.PlayerData.Original.txt");
 			} else if (ver.Minor == 0) {
 				file = asm.GetManifestResourceStream("LiveSplit.HollowKnight.PlayerData.V1032.txt");
 			} else if (ver.Minor == 1) {
 				file = asm.GetManifestResourceStream("LiveSplit.HollowKnight.PlayerData.V1114.txt");
+			} else if (ver.Minor == 2 && ver.Build == 1 && ver.Revision < 4) {
+				file = asm.GetManifestResourceStream("LiveSplit.HollowKnight.PlayerData.V1211.txt");
 			}
 
 			if (file != null) {
