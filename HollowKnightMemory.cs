@@ -287,6 +287,8 @@ namespace LiveSplit.HollowKnight {
 			}
 
 			if (Program == null || Program.HasExited) {
+				gameManager.ResetPointer();
+				playmakerFSM.ResetPointer();
 				IsHooked = false;
 			}
 
@@ -489,6 +491,11 @@ namespace LiveSplit.HollowKnight {
 			lastTry = DateTime.MinValue;
 		}
 
+		public void ResetPointer() {
+			lastID = -1;
+			pointer = IntPtr.Zero;
+			Version = MemVersion.None;
+		}
 		public IntPtr Value {
 			get {
 				GetPointer();
