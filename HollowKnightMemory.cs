@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Text;
 namespace LiveSplit.HollowKnight {
 	public partial class HollowKnightMemory {
@@ -487,6 +488,17 @@ namespace LiveSplit.HollowKnight {
 			this.Memory = memory;
 			this.Name = pointer;
 			this.AutoDeref = true;
+
+            //This shows up if the Modding API is installed.  In this case the pointer for GameManager is slightly off.
+		    if (File.Exists(Path.Combine(Path.GetDirectoryName(Memory.Program.MainModule.FileName),@"hollow_knight_Data\Managed\Assembly-CSharp.xml")))
+		    {
+                Log("Modding API Detected, using API Signature for GameManager");
+		        foreach (KeyValuePair<MemVersion, Dictionary<MemPointer, string>> pattern in funcPatterns)
+		        {
+		            pattern.Value[MemPointer.GameManager] = "558BEC5783EC048B7D088B05????????83EC086A0050E8????????83C41085C07423B8????????893883EC0C57E8????????83C41083EC0C57393FE8????????83C410EB3F8B05";
+		        }
+		    }
+
 			lastID = memory.Program == null ? -1 : memory.Program.Id;
 			lastTry = DateTime.MinValue;
 		}
