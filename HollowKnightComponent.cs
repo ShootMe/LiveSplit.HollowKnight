@@ -7,11 +7,12 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 using System.Xml;
 namespace LiveSplit.HollowKnight {
 #if !Info
-	public class HollowKnightComponent : IComponent {
+	public class HollowKnightComponent : Loggable, IComponent {
 		public TimerModel Model { get; set; }
 #else
 	public class HollowKnightComponent {
@@ -335,21 +336,15 @@ namespace LiveSplit.HollowKnight {
 				}
 			}
 		}
-		private void WriteLog(string data) {
-			if (hasLog || !Console.IsOutputRedirected) {
-				if (!Console.IsOutputRedirected) {
-					Console.WriteLine(data);
-				}
-				if (hasLog) {
-					using (StreamWriter wr = new StreamWriter(LOGFILE, true)) {
-						wr.WriteLine(data);
-					}
-				}
+		private void WriteLog(string data, [CallerMemberName] string name = null) {
+			if (!Console.IsOutputRedirected) {
+				Console.WriteLine(data);
 			}
-		}
-		private void WriteLogWithTime(string data) {
+		    Log(data, name);
+        }
+        private void WriteLogWithTime(string data, [CallerMemberName] string name = null) {
 #if !Info
-			WriteLog(DateTime.Now.ToString(@"HH\:mm\:ss.fff") + (Model != null && Model.CurrentState.CurrentTime.RealTime.HasValue ? " | " + Model.CurrentState.CurrentTime.RealTime.Value.ToString("G").Substring(3, 11) : "") + ": " + data);
+			WriteLog(DateTime.Now.ToString(@"HH\:mm\:ss.fff") + (Model != null && Model.CurrentState.CurrentTime.RealTime.HasValue ? " | " + Model.CurrentState.CurrentTime.RealTime.Value.ToString("G").Substring(3, 11) : "") + ": " + data, name);
 #else
 			WriteLog(DateTime.Now.ToString(@"HH\:mm\:ss.fff") + ": " + data);
 #endif

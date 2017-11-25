@@ -9,7 +9,7 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
 namespace LiveSplit.HollowKnight {
-	public partial class HollowKnightMemory {
+	public partial class HollowKnightMemory :Loggable {
 		public Process Program { get; set; }
 		public bool IsHooked { get; set; } = false;
 		private DateTime lastHooked;
@@ -17,7 +17,10 @@ namespace LiveSplit.HollowKnight {
 		private int uiManager, inputHandler, cameraCtrl, gameState, heroController, camTarget, camMode, menuState, uiState;
 		private int geoCounter, heroAccepting, actorState, transistionState;
 
-		public HollowKnightMemory() {
+
+		public HollowKnightMemory()
+		{
+            LogDebug("Constructing");
 			lastHooked = DateTime.MinValue;
 			gameManager = new ProgramPointer(this, MemPointer.GameManager) { AutoDeref = false, UpdatedPointer = UpdatedPointer };
 			playmakerFSM = new ProgramPointer(this, MemPointer.PlaymakerFSM) { AutoDeref = false, UpdatedPointer = UpdatedPointer };
@@ -25,6 +28,7 @@ namespace LiveSplit.HollowKnight {
 
 		private void UpdatedPointer(ProgramPointer pointer) {
 			if (pointer == gameManager) {
+                
 				int len = gameManager.Read<int>(0x0, 0x68, 0x2c, 0x1c, 0x8);
 
 				Version version = null;
@@ -469,7 +473,10 @@ namespace LiveSplit.HollowKnight {
 		GameManager,
 		PlaymakerFSM
 	}
-	public class ProgramPointer {
+
+    public class ProgramPointer : Loggable
+    {
+
 		private static Dictionary<MemVersion, Dictionary<MemPointer, string>> funcPatterns = new Dictionary<MemVersion, Dictionary<MemPointer, string>>() {
 			{MemVersion.None, new Dictionary<MemPointer, string>() {
 				{MemPointer.GameManager, "558BEC5783EC048B7D088B05????????83EC086A0050E8????????83C41085C07421B8????????893883EC0C57E8????????83C41083EC0C57E8????????83C410EB3D8B05" },
@@ -484,7 +491,9 @@ namespace LiveSplit.HollowKnight {
 		public Action<ProgramPointer> UpdatedPointer { get; set; }
 		private int lastID;
 		private DateTime lastTry;
-		public ProgramPointer(HollowKnightMemory memory, MemPointer pointer) {
+		public ProgramPointer(HollowKnightMemory memory, MemPointer pointer)
+		{
+            LogDebug("Creating Program pointer for " + pointer);
 			this.Memory = memory;
 			this.Name = pointer;
 			this.AutoDeref = true;
@@ -571,12 +580,16 @@ namespace LiveSplit.HollowKnight {
 		private IntPtr GetVersionedFunctionPointer() {
 			foreach (MemVersion version in Enum.GetValues(typeof(MemVersion))) {
 				Dictionary<MemPointer, string> patterns = null;
-				if (!funcPatterns.TryGetValue(version, out patterns)) { continue; }
+			    LogDebug("Looking for version:" + version);
+                if (!funcPatterns.TryGetValue(version, out patterns)) { continue; }
 
-				string pattern = null;
+			    LogDebug("Looking in patterns:" + string.Join(",",patterns.Keys));
+                string pattern = null;
 				if (!patterns.TryGetValue(Name, out pattern)) { continue; }
 
-				IntPtr ptr = Memory.Program.FindSignatures(pattern)[0];
+			    LogDebug("Looking for pattern:" + pattern);
+                IntPtr ptr = Memory.Program.FindSignatures(pattern)[0];
+                
 				if (ptr != IntPtr.Zero) {
 					return ptr;
 				}
@@ -857,7 +870,7 @@ namespace LiveSplit.HollowKnight {
 			}
 			return 0;
 		}
-		public void UpdateData(HollowKnightMemory mem, Action<string> logWriter) {
+		public void UpdateData(HollowKnightMemory mem, Action<string, string> logWriter, [CallerMemberName] string name = null) {
 			if (ProgramPointer.Version == MemVersion.None) { return; }
 
 			Process program = mem.Program;
@@ -906,7 +919,7 @@ namespace LiveSplit.HollowKnight {
 					}
 				}
 				if (changed && oldValue != null && logWriter != null) {
-					logWriter(key.ToString(oldValue));
+					logWriter(key.ToString(oldValue), name);
 				}
 			}
 		}
