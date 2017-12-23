@@ -58,6 +58,7 @@ namespace LiveSplit.HollowKnight {
 				UIState uiState = Memory.UIState();
 				bool acceptingInput = Memory.AcceptingInput();
 
+				Text = "Hollow Knight Info " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + " Game: " + Memory.VersionNumber();
 				lblCameraMode.Text = "Camera Mode: " + Memory.CameraMode().ToString();
 				lblGameState.Text = "Game State: " + gameState.ToString().PadRight(15, ' ') + "Accepting: " + acceptingInput.ToString();
 				lblMenuState.Text = "Hero State: " + Memory.HeroTransitionState().ToString();
@@ -119,7 +120,7 @@ namespace LiveSplit.HollowKnight {
 
 			int oldHP = 0;
 			foreach (EnemyInfo info in enemyInfo) {
-				oldHP = info.UpdateHP(Memory);
+				oldHP = info.UpdateHP(Memory.Program);
 				if (oldHP != info.HP && info.HP < 5000 && info.HP > 0) {
 					currentEnemy = info;
 					changed = true;
@@ -134,7 +135,7 @@ namespace LiveSplit.HollowKnight {
 
 			if (changed) {
 				if (chkEnemyInvincible.Checked && currentEnemy.HP > 0) {
-					currentEnemy.UpdateHP(Memory, oldHP);
+					currentEnemy.UpdateHP(Memory.Program, oldHP);
 				}
 				Memory.UpdateGeoCounter(true, currentEnemy.HP < 0 ? 0 : currentEnemy.HP);
 				changed = false;

@@ -66,6 +66,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EnemyInfo.cs" />
+    <Compile Include="Enums.cs" />
     <Compile Include="HollowKnightComponent.cs" />
     <Compile Include="HollowKnightFactory.cs" />
     <Compile Include="HollowKnightInfo.cs">

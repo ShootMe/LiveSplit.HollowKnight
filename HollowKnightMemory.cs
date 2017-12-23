@@ -6,25 +6,32 @@ using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Reflection;
-using System.Text;
+using System.Threading;
 namespace LiveSplit.HollowKnight {
 	public partial class HollowKnightMemory {
+		private ProgramPointer gameManager, playmakerFSM;
 		public Process Program { get; set; }
 		public bool IsHooked { get; set; } = false;
 		private DateTime lastHooked;
-		private ProgramPointer gameManager, playmakerFSM;
 		private int uiManager, inputHandler, cameraCtrl, gameState, heroController, camTarget, camMode, menuState, uiState;
 		private int geoCounter, heroAccepting, actorState, transistionState;
+		private string lastVersion;
 
 		public HollowKnightMemory() {
 			lastHooked = DateTime.MinValue;
-			gameManager = new ProgramPointer(this, MemPointer.GameManager) { AutoDeref = false, UpdatedPointer = UpdatedPointer };
-			playmakerFSM = new ProgramPointer(this, MemPointer.PlaymakerFSM) { AutoDeref = false, UpdatedPointer = UpdatedPointer };
+			gameManager = new ProgramPointer(false,
+				new ProgramSignature(PointerVersion.Normal, "83C41083EC0C57E8????????83C410EB3D8B05", 19),
+				new ProgramSignature(PointerVersion.API, "83C41083EC0C57393FE8????????83C410EB3F8B05", 21)
+			) { UpdatedPointer = UpdatedPointer };
+			playmakerFSM = new ProgramPointer(false, new ProgramSignature(PointerVersion.Normal, "558BEC5783EC048B7D088B05????????83EC0857503900E8????????83C4108B470C85C074238B470C8BC83909", 12));
 		}
 
+		public string VersionNumber() {
+			return lastVersion;
+		}
 		private void UpdatedPointer(ProgramPointer pointer) {
 			if (pointer == gameManager) {
-				int len = gameManager.Read<int>(0x0, 0x68, 0x2c, 0x1c, 0x8);
+				int len = gameManager.Read<int>(Program, 0x0, 0x68, 0x2c, 0x1c, 0x8);
 
 				Version version = null;
 
@@ -46,8 +53,15 @@ namespace LiveSplit.HollowKnight {
 				geoCounter = 0x1dc;
 
 				if (len != 7) {
-					string ver = gameManager.Read(0x0, 0x6c, 0x2c, 0x1c);
-					version = new Version(ver);
+					len = 40;
+					do {
+						lastVersion = gameManager.Read(Program, 0x0, 0x6c, 0x2c, 0x1c);
+						if (string.IsNullOrEmpty(lastVersion)) {
+							Thread.Sleep(50);
+						}
+					} while (string.IsNullOrEmpty(lastVersion) && len-- > 0);
+
+					version = new Version(lastVersion);
 
 					uiManager = 0x88;
 					inputHandler = 0x6c;
@@ -83,8 +97,15 @@ namespace LiveSplit.HollowKnight {
 						geoCounter = 0x1e4;
 					}
 				} else {
-					string ver = gameManager.Read(0x0, 0x68, 0x2c, 0x1c);
-					version = new Version(ver);
+					len = 40;
+					do {
+						lastVersion = gameManager.Read(Program, 0x0, 0x68, 0x2c, 0x1c);
+						if (string.IsNullOrEmpty(lastVersion)) {
+							Thread.Sleep(50);
+						}
+					} while (string.IsNullOrEmpty(lastVersion) && len-- > 0);
+
+					version = new Version(lastVersion);
 
 					geoCounter = version.Build > 0 ? 0x1dc : 0x1d4;
 					menuState = 0x128;
@@ -96,66 +117,66 @@ namespace LiveSplit.HollowKnight {
 		}
 		public byte[] GetPlayerData(int length) {
 			//GameManger._instance.playerData
-			return gameManager.ReadBytes(length, 0x0, 0x30, 0x0);
+			return gameManager.ReadBytes(Program, length, 0x0, 0x30, 0x0);
 		}
 		public void SetCameraZoom(float zoom) {
 			//GameManger._instance.gameCams.tk2dCam.zoomFactor
-			gameManager.Write<float>(zoom, 0x0, 0x20, 0x40, 0x48);
+			gameManager.Write<float>(Program, zoom, 0x0, 0x20, 0x40, 0x48);
 		}
 		public PointF GetCameraTarget() {
 			//GameManger._instance.cameraCtrl.camTarget.destination
-			float x = gameManager.Read<float>(0x0, cameraCtrl, camTarget, 0x24);
-			float y = gameManager.Read<float>(0x0, cameraCtrl, camTarget, 0x28);
+			float x = gameManager.Read<float>(Program, 0x0, cameraCtrl, camTarget, 0x24);
+			float y = gameManager.Read<float>(Program, 0x0, cameraCtrl, camTarget, 0x28);
 			return new PointF(x, y);
 		}
 		public TargetMode GetCameraTargetMode() {
 			//GameManger._instance.cameraCtrl.camTarget.mode
-			return (TargetMode)gameManager.Read<int>(0x0, cameraCtrl, camTarget, 0x20);
+			return (TargetMode)gameManager.Read<int>(Program, 0x0, cameraCtrl, camTarget, 0x20);
 		}
 		public void SetCameraTargetMode(TargetMode mode) {
 			//GameManger._instance.cameraCtrl.camTarget.mode
-			gameManager.Write((int)mode, 0x0, cameraCtrl, camTarget, 0x20);
+			gameManager.Write(Program, (int)mode, 0x0, cameraCtrl, camTarget, 0x20);
 		}
 		public CameraMode CameraMode() {
 			//GameManager._instance.cameraCtrl.mode
-			return (CameraMode)gameManager.Read<int>(0x0, cameraCtrl, camMode);
+			return (CameraMode)gameManager.Read<int>(Program, 0x0, cameraCtrl, camMode);
 		}
 		public void UpdateGeoCounter(bool enable, int geo) {
 			//GameManger._instance.heroCtrl.geoCounter.digitChangeTimer
-			gameManager.Write(-0.02f, 0x0, heroController, geoCounter, 0x50);
+			gameManager.Write(Program, -0.02f, 0x0, heroController, geoCounter, 0x50);
 			//GameManger._instance.heroCtrl.geoCounter.changePerTick
-			gameManager.Write(enable ? 0 : 1, 0x0, heroController, geoCounter, 0x44);
+			gameManager.Write(Program, enable ? 0 : 1, 0x0, heroController, geoCounter, 0x44);
 			//GameManger._instance.heroCtrl.geoCounter.addCounter
-			gameManager.Write(1, 0x0, heroController, geoCounter, 0x34);
+			gameManager.Write(Program, 1, 0x0, heroController, geoCounter, 0x34);
 			//GameManger._instance.heroCtrl.geoCounter.counterCurrent
-			gameManager.Write(geo, 0x0, heroController, geoCounter, 0x2c);
+			gameManager.Write(Program, geo, 0x0, heroController, geoCounter, 0x2c);
 			//GameManger._instance.heroCtrl.geoCounter.addRollerState
-			gameManager.Write(2, 0x0, heroController, geoCounter, 0x3c);
+			gameManager.Write(Program, 2, 0x0, heroController, geoCounter, 0x3c);
 		}
 		public void EnableDebug(bool enable) {
 			//inputHandler.onScreenDebugInfo.showFPS
-			gameManager.Write(enable, 0x0, inputHandler, 0x2c, 0x7c);
+			gameManager.Write(Program, enable, 0x0, inputHandler, 0x2c, 0x7c);
 			//inputHandler.onScreenDebugInfo.showInfo
-			gameManager.Write(enable, 0x0, inputHandler, 0x2c, 0x7d);
+			gameManager.Write(Program, enable, 0x0, inputHandler, 0x2c, 0x7d);
 			//inputHandler.onScreenDebugInfo.showInput
-			gameManager.Write(enable, 0x0, inputHandler, 0x2c, 0x7e);
+			gameManager.Write(Program, enable, 0x0, inputHandler, 0x2c, 0x7e);
 			//inputHandler.onScreenDebugInfo.showLoadingTime
-			gameManager.Write(enable, 0x0, inputHandler, 0x2c, 0x7f);
+			gameManager.Write(Program, enable, 0x0, inputHandler, 0x2c, 0x7f);
 			//inputHandler.onScreenDebugInfo.showTFR
-			gameManager.Write(enable, 0x0, inputHandler, 0x2c, 0x80);
+			gameManager.Write(Program, enable, 0x0, inputHandler, 0x2c, 0x80);
 		}
 		public void SetPlayerData(Offset offset, int value) {
 			//GameManger._instance.playerData.(offset)
-			gameManager.Write(value, 0x0, 0x30, HollowKnight.PlayerData.GetOffset(offset));
+			gameManager.Write(Program, value, 0x0, 0x30, HollowKnight.PlayerData.GetOffset(offset));
 		}
 		public void SetPlayerData(Offset offset, bool value) {
 			//GameManger._instance.playerData.(offset)
-			gameManager.Write(value, 0x0, 0x30, HollowKnight.PlayerData.GetOffset(offset));
+			gameManager.Write(Program, value, 0x0, 0x30, HollowKnight.PlayerData.GetOffset(offset));
 		}
 		public List<EnemyInfo> GetEnemyInfo() {
 			List<EnemyInfo> enemies = new List<EnemyInfo>();
-			int size = playmakerFSM.Read<int>(0x0, 0xc);
-			IntPtr basePointer = (IntPtr)playmakerFSM.Read<uint>(0x0, 0x8);
+			int size = playmakerFSM.Read<int>(Program, 0x0, 0xc);
+			IntPtr basePointer = (IntPtr)playmakerFSM.Read<uint>(Program, 0x0, 0x8);
 			for (int x = 0; x < size; x++) {
 				IntPtr fsmPtr = (IntPtr)Program.Read<uint>(basePointer, 0x10 + x * 4, 0xc);
 				if (fsmPtr == IntPtr.Zero) { continue; }
@@ -185,9 +206,9 @@ namespace LiveSplit.HollowKnight {
 		}
 		public List<EntityInfo> GetEntityInfo() {
 			List<EntityInfo> entities = new List<EntityInfo>();
-			int size = playmakerFSM.Read<int>(0x0, 0xc);
+			int size = playmakerFSM.Read<int>(Program, 0x0, 0xc);
 			for (int x = 0; x < size; x++) {
-				IntPtr fsmPtr = (IntPtr)playmakerFSM.Read<uint>(0x0, 0x8, 0x10 + x * 4, 0xc);
+				IntPtr fsmPtr = (IntPtr)playmakerFSM.Read<uint>(Program, 0x0, 0x8, 0x10 + x * 4, 0xc);
 				if (fsmPtr == IntPtr.Zero) { continue; }
 				string fsm = Program.Read((IntPtr)Program.Read<uint>(fsmPtr, 0x14));
 
@@ -224,72 +245,72 @@ namespace LiveSplit.HollowKnight {
 		}
 		public T PlayerData<T>(Offset offset) where T : struct {
 			//GameManger._instance.playerData.(offset)
-			return gameManager.Read<T>(0x0, 0x30, HollowKnight.PlayerData.GetOffset(offset));
+			return gameManager.Read<T>(Program, 0x0, 0x30, HollowKnight.PlayerData.GetOffset(offset));
 		}
 		public GameState GameState() {
 			//GameManager._instance.gameState
-			return (GameState)gameManager.Read<int>(0x0, gameState);
+			return (GameState)gameManager.Read<int>(Program, 0x0, gameState);
 		}
 		public MainMenuState MenuState() {
 			//GameManager._instance.uiManager.menuState
-			return (MainMenuState)gameManager.Read<int>(0x0, uiManager, menuState);
+			return (MainMenuState)gameManager.Read<int>(Program, 0x0, uiManager, menuState);
 		}
 		public UIState UIState() {
 			//GameManager._instance.uiManager.uiState
-			int ui = gameManager.Read<int>(0x0, uiManager, uiState);
+			int ui = gameManager.Read<int>(Program, 0x0, uiManager, uiState);
 			if (uiState != 0x124 && ui >= 2) {
 				ui += 2;
 			}
 			return (UIState)ui;
 		}
 		public bool AcceptingInput() {
+			if (gameManager.Pointer != IntPtr.Zero && gameManager.Read<uint>(Program) == 0) {
+				gameManager.ResetPointer();
+			}
 			//GameManager._instance.InputHandler.acceptingInput
-			return gameManager.Read<bool>(0x0, inputHandler, 0x58);
+			return gameManager.Read<bool>(Program, 0x0, inputHandler, 0x58);
 		}
 		public bool AcceptingInputHero() {
 			//GameManager._instance.heroCtrl.acceptingInput
-			return gameManager.Read<bool>(0x0, heroController, heroAccepting);
+			return gameManager.Read<bool>(Program, 0x0, heroController, heroAccepting);
 		}
 		public ActorStates HeroActorState() {
 			//GameManager._instance.heroCtrl.actor_state
-			return (ActorStates)gameManager.Read<int>(0x0, heroController, actorState);
+			return (ActorStates)gameManager.Read<int>(Program, 0x0, heroController, actorState);
 		}
 		public HeroTransitionState HeroTransitionState() {
 			//GameManager._instance.heroCtrl.transitionState
-			return (HeroTransitionState)gameManager.Read<int>(0x0, heroController, transistionState);
+			return (HeroTransitionState)gameManager.Read<int>(Program, 0x0, heroController, transistionState);
 		}
 		public string SceneName() {
 			//GameManager._instance.sceneName
-			return gameManager.Read(0x0, 0xc);
+			return gameManager.Read(Program, 0x0, 0xc);
 		}
 		public string NextSceneName() {
 			//GameManager._instance.nextSceneName
-			return gameManager.Read(0x0, 0x10);
+			return gameManager.Read(Program, 0x0, 0x10);
 		}
 		public int CharmCount() {
 			//GameManager._instance.playerData.charms
 			int count = 0;
 			for (int i = 0x38a; i <= 0x4a1; i += 7) {
-				count += gameManager.Read<bool>(0x0, 0x30, i) ? 1 : 0;
+				count += gameManager.Read<bool>(Program, 0x0, 0x30, i) ? 1 : 0;
 				if ((i & 1) != 0) {
 					i++;
 				}
 			}
 			return count;
 		}
-
 		public bool HookProcess() {
 			if ((Program == null || Program.HasExited) && DateTime.Now > lastHooked.AddSeconds(1)) {
 				lastHooked = DateTime.Now;
 				Process[] processes = Process.GetProcessesByName("Hollow_Knight");
 				Program = processes.Length == 0 ? null : processes[0];
-				IsHooked = true;
 			}
 
-			if (Program == null || Program.HasExited) {
-				gameManager.ResetPointer();
-				playmakerFSM.ResetPointer();
-				IsHooked = false;
+			IsHooked = Program != null && !Program.HasExited;
+			if (!IsHooked) {
+				lastVersion = null;
 			}
 
 			return IsHooked;
@@ -300,507 +321,129 @@ namespace LiveSplit.HollowKnight {
 			}
 		}
 	}
-	public enum Offset : int {
-		health,
-		maxHealthBase,
-		MPCharge,
-		MPReserveMax,
-		mapZone,
-		nailDamage,
-		fireballLevel,
-		quakeLevel,
-		screamLevel,
-		hasCyclone,
-		hasDashSlash,
-		hasUpwardSlash,
-		hasDreamNail,
-		dreamNailUpgraded,
-		hasDash,
-		hasWallJump,
-		hasSuperDash,
-		hasShadowDash,
-		hasAcidArmour,
-		hasDoubleJump,
-		hasLantern,
-		hasTramPass,
-		hasLoveKey,
-		hasKingsBrand,
-		ore,
-		simpleKeys,
-		notchShroomOgres,
-		notchFogCanyon,
-		lurienDefeated,
-		hegemolDefeated,
-		monomonDefeated,
-		visitedDeepnestSpa,
-		zoteRescuedBuzzer,
-		zoteRescuedDeepnest,
-		mothDeparted,
-		salubraNotch1,
-		salubraNotch2,
-		salubraNotch3,
-		salubraNotch4,
-		nailSmithUpgrades,
-		colosseumBronzeCompleted,
-		colosseumSilverCompleted,
-		colosseumGoldCompleted,
-		openedCrossroads,
-		openedRuins2,
-		openedFungalWastes,
-		openedDeepnest,
-		gotCharm_1,
-		gotCharm_2,
-		gotCharm_3,
-		gotCharm_4,
-		gotCharm_5,
-		gotCharm_6,
-		gotCharm_7,
-		gotCharm_8,
-		gotCharm_9,
-		gotCharm_10,
-		gotCharm_11,
-		gotCharm_12,
-		gotCharm_13,
-		gotCharm_14,
-		gotCharm_15,
-		gotCharm_16,
-		gotCharm_17,
-		gotCharm_18,
-		gotCharm_19,
-		gotCharm_20,
-		gotCharm_21,
-		gotCharm_22,
-		gotCharm_23,
-		gotCharm_24,
-		gotCharm_25,
-		gotCharm_26,
-		gotCharm_27,
-		gotCharm_28,
-		gotCharm_29,
-		gotCharm_30,
-		gotCharm_31,
-		gotCharm_32,
-		gotCharm_33,
-		gotCharm_34,
-		gotCharm_35,
-		gotCharm_36,
-		gotCharm_37,
-		gotCharm_38,
-		gotCharm_39,
-		gotCharm_40,
-		charmCost_36,
-		killsSpitter,
-		killedBigFly,
-		killedMawlek,
-		killedMossKnight,
-		killedInfectedKnight,
-		killedMegaJellyfish,
-		killsMushroomBrawler,
-		killedBlackKnight,
-		killedMageLord,
-		killedFlukeMother,
-		killedDungDefender,
-		killsMegaBeamMiner,
-		killedMimicSpider,
-		killedHornet,
-		killedTraitorLord,
-		killedGhostAladar,
-		killedGhostXero,
-		killedGhostHu,
-		killedGhostMarmu,
-		killedGhostNoEyes,
-		killedGhostMarkoth,
-		killedGhostGalien,
-		killedHollowKnight,
-		killedFinalBoss,
-		killedFalseKnight,
-		falseKnightDreamDefeated,
-		killedGrimm,
-		killedNightmareGrimm,
-		killedBindingSeal,
-		grimmChildLevel,
-		nightmareLanternLit,
-		destroyedNightmareLantern,
-		flamesCollected,
-		heartPieces,
-		vesselFragments,
-		mawlekDefeated,
-		collectorDefeated,
-		hornetOutskirtsDefeated,
-		mageLordDreamDefeated,
-		infectedKnightDreamDefeated,
-		isInvincible,
-		visitedDirtmouth,
-		visitedCrossroads,
-		visitedGreenpath,
-		visitedFungus,
-		visitedHive,
-		visitedRuins,
-		visitedMines,
-		visitedRoyalGardens,
-		visitedFogCanyon,
-		visitedDeepnest,
-		visitedRestingGrounds,
-		visitedWaterways,
-		visitedWhitePalace,
-		crossroadsInfected,
-		megaMossChargerDefeated,
-		defeatedMantisLords,
-		defeatedMegaBeamMiner,
-		defeatedMegaBeamMiner2,
-		gotShadeCharm,
-		disablePause,
-		mrMushroomState,
-		killedWhiteDefender,
-		killedGreyPrince,
-		hasDreamGate,
-		metRelicDealer,
-		metRelicDealerShop
-	}
-	public enum MemVersion {
-		None,
+	public enum PointerVersion {
+		Normal,
 		API
 	}
-	public enum MemPointer {
-		GameManager,
-		PlaymakerFSM
+	public class ProgramSignature {
+		public PointerVersion Version { get; set; }
+		public string Signature { get; set; }
+		public int Offset { get; set; }
+		public ProgramSignature(PointerVersion version, string signature, int offset) {
+			Version = version;
+			Signature = signature;
+			Offset = offset;
+		}
+		public override string ToString() {
+			return Version.ToString() + " - " + Signature;
+		}
 	}
 	public class ProgramPointer {
-		private static Dictionary<MemVersion, Dictionary<MemPointer, string>> funcPatterns = new Dictionary<MemVersion, Dictionary<MemPointer, string>>() {
-			{MemVersion.None, new Dictionary<MemPointer, string>() {
-				{MemPointer.GameManager, "558BEC5783EC048B7D088B05????????83EC086A0050E8????????83C41085C07421B8????????893883EC0C57E8????????83C41083EC0C57E8????????83C410EB3D8B05" },
-				{MemPointer.PlaymakerFSM, "558BEC5783EC048B7D088B05????????83EC0857503900E8????????83C4108B470C85C074238B470C8BC83909|-33" }
-			}},
-			{MemVersion.API, new Dictionary<MemPointer, string>() {
-				{MemPointer.GameManager, "558BEC5783EC048B7D088B05????????83EC086A0050E8????????83C41085C07423B8????????893883EC0C57E8????????83C41083EC0C57393FE8????????83C410EB3F8B05" },
-			}},
-		};
-		private IntPtr pointer;
-		public HollowKnightMemory Memory { get; set; }
-		public MemPointer Name { get; set; }
-		public static MemVersion Version { get; set; }
-		public bool AutoDeref { get; set; }
-		public Action<ProgramPointer> UpdatedPointer { get; set; }
 		private int lastID;
 		private DateTime lastTry;
-		public ProgramPointer(HollowKnightMemory memory, MemPointer pointer) {
-			this.Memory = memory;
-			this.Name = pointer;
-			this.AutoDeref = true;
-			lastID = memory.Program == null ? -1 : memory.Program.Id;
+		private ProgramSignature[] signatures;
+		private int[] offsets;
+		private bool is64bit;
+		public IntPtr Pointer { get; private set; }
+		public PointerVersion Version { get; private set; }
+		public bool AutoDeref { get; private set; }
+		public Action<ProgramPointer> UpdatedPointer { get; set; }
+
+		public ProgramPointer(bool autoDeref, params ProgramSignature[] signatures) {
+			AutoDeref = autoDeref;
+			this.signatures = signatures;
+			lastID = -1;
+			lastTry = DateTime.MinValue;
+		}
+		public ProgramPointer(bool autoDeref, params int[] offsets) {
+			AutoDeref = autoDeref;
+			this.offsets = offsets;
+			lastID = -1;
 			lastTry = DateTime.MinValue;
 		}
 
-		public void ResetPointer() {
-			lastID = -1;
-			pointer = IntPtr.Zero;
-			Version = MemVersion.None;
+		public T Read<T>(Process program, params int[] offsets) where T : struct {
+			GetPointer(program);
+			return program.Read<T>(Pointer, offsets);
 		}
-		public IntPtr Value {
-			get {
-				GetPointer();
-				return pointer;
-			}
-		}
-		public T Read<T>(params int[] offsets) where T : struct {
-			return Memory.Program.Read<T>(Value, offsets);
-		}
-		public byte[] ReadBytes(int count, params int[] offsets) {
-			return Memory.Program.Read(Value, count, offsets);
-		}
-		public string Read(params int[] offsets) {
-			if (!Memory.IsHooked) { return string.Empty; }
-
-			bool is64bit = Memory.Program.Is64Bit();
-			IntPtr p = IntPtr.Zero;
+		public string Read(Process program, params int[] offsets) {
+			GetPointer(program);
 			if (is64bit) {
-				p = (IntPtr)Memory.Program.Read<ulong>(Value, offsets);
-			} else {
-				p = (IntPtr)Memory.Program.Read<uint>(Value, offsets);
+				return program.Read((IntPtr)program.Read<ulong>(Pointer, offsets), true);
 			}
-			return Memory.Program.Read(p, is64bit);
+			return program.Read((IntPtr)program.Read<uint>(Pointer, offsets), false);
 		}
-		public void Write<T>(T value, params int[] offsets) where T : struct {
-			Memory.Program.Write<T>(Value, value, offsets);
+		public byte[] ReadBytes(Process program, int length, params int[] offsets) {
+			GetPointer(program);
+			return program.Read(Pointer, length, offsets);
 		}
-		private void GetPointer() {
-			if (!Memory.IsHooked) {
-				pointer = IntPtr.Zero;
-				Version = MemVersion.None;
-				return;
+		public void Write<T>(Process program, T value, params int[] offsets) where T : struct {
+			GetPointer(program);
+			program.Write<T>(Pointer, value, offsets);
+		}
+		public void Write(Process program, byte[] value, params int[] offsets) {
+			GetPointer(program);
+			program.Write(Pointer, value, offsets);
+		}
+		public void ResetPointer() {
+			Pointer = IntPtr.Zero;
+			lastID = -1;
+		}
+		public IntPtr GetPointer(Process program) {
+			if ((program?.HasExited).GetValueOrDefault(true)) {
+				Pointer = IntPtr.Zero;
+				lastID = -1;
+				return Pointer;
+			} else if (program.Id != lastID) {
+				Pointer = IntPtr.Zero;
+				lastID = program.Id;
 			}
 
-			if (Memory.Program.Id != lastID) {
-				pointer = IntPtr.Zero;
-				Version = MemVersion.None;
-				lastID = Memory.Program.Id;
-			}
-			if (pointer == IntPtr.Zero && DateTime.Now > lastTry.AddSeconds(1)) {
+			if (Pointer == IntPtr.Zero && DateTime.Now > lastTry.AddSeconds(1)) {
 				lastTry = DateTime.Now;
-				if (Version == MemVersion.None) {
-					FileInfo info = new FileInfo(Path.Combine(Path.GetDirectoryName(Memory.Program.MainModule.FileName), @"hollow_knight_Data\Managed\Assembly-CSharp.dll"));
-					Version = (MemVersion)info.Length;
-				}
-				pointer = GetVersionedFunctionPointer();
-				if (pointer != IntPtr.Zero) {
-					bool is64bit = Memory.Program.Is64Bit();
-					pointer = (IntPtr)Memory.Program.Read<uint>(pointer);
+
+				Pointer = GetVersionedFunctionPointer(program);
+				if (Pointer != IntPtr.Zero) {
+					is64bit = program.Is64Bit();
+					Pointer = (IntPtr)program.Read<uint>(Pointer);
 					if (AutoDeref) {
 						if (is64bit) {
-							pointer = (IntPtr)Memory.Program.Read<ulong>(pointer);
+							Pointer = (IntPtr)program.Read<ulong>(Pointer);
 						} else {
-							pointer = (IntPtr)Memory.Program.Read<uint>(pointer);
+							Pointer = (IntPtr)program.Read<uint>(Pointer);
 						}
 					}
 					UpdatedPointer?.Invoke(this);
 				}
 			}
+			return Pointer;
 		}
-		private IntPtr GetVersionedFunctionPointer() {
-			foreach (MemVersion version in Enum.GetValues(typeof(MemVersion))) {
-				Dictionary<MemPointer, string> patterns = null;
-				if (!funcPatterns.TryGetValue(version, out patterns)) { continue; }
+		private IntPtr GetVersionedFunctionPointer(Process program) {
+			if (signatures != null) {
+				MemorySearcher searcher = new MemorySearcher();
+				searcher.MemoryFilter = delegate (MemInfo info) {
+					return (info.State & 0x1000) != 0 && (info.Protect & 0x40) != 0 && (info.Protect & 0x100) == 0;
+				};
+				for (int i = 0; i < signatures.Length; i++) {
+					ProgramSignature signature = signatures[i];
 
-				string pattern = null;
-				if (!patterns.TryGetValue(Name, out pattern)) { continue; }
-
-				IntPtr ptr = Memory.Program.FindSignatures(pattern)[0];
+					IntPtr ptr = searcher.FindSignature(program, signature.Signature);
+					if (ptr != IntPtr.Zero) {
+						Version = signature.Version;
+						return ptr + signature.Offset;
+					}
+				}
+			} else {
+				IntPtr ptr = (IntPtr)program.Read<uint>(program.MainModule.BaseAddress, offsets);
 				if (ptr != IntPtr.Zero) {
 					return ptr;
 				}
 			}
-			Version = MemVersion.None;
+
 			return IntPtr.Zero;
 		}
 	}
-	public enum GameState {
-		INACTIVE,
-		MAIN_MENU,
-		LOADING,
-		ENTERING_LEVEL,
-		PLAYING,
-		PAUSED,
-		EXITING_LEVEL,
-		CUTSCENE,
-		PRIMER
-	}
-	public enum ActorStates {
-		GROUNDED,
-		IDLE,
-		RUNNING,
-		AIRBORNE,
-		WALL_SLIDING,
-		HARD_LANDING,
-		DASH_LANDING,
-		NO_INPUT,
-		PREVIOUS
-	}
-	public enum HeroTransitionState {
-		WAITING_TO_TRANSITION,
-		EXITING_SCENE,
-		WAITING_TO_ENTER_LEVEL,
-		ENTERING_SCENE,
-		DROPPING_DOWN
-	}
-	public enum MapZone {
-		NONE,
-		TEST_AREA,
-		KINGS_PASS,
-		CLIFFS,
-		TOWN,
-		CROSSROADS,
-		GREEN_PATH,
-		ROYAL_GARDENS,
-		FOG_CANYON,
-		WASTES,
-		DEEPNEST,
-		HIVE,
-		BONE_FOREST,
-		PALACE_GROUNDS,
-		MINES,
-		RESTING_GROUNDS,
-		CITY,
-		DREAM_WORLD,
-		COLOSSEUM,
-		ABYSS,
-		ROYAL_QUARTER,
-		WHITE_PALACE,
-		SHAMAN_TEMPLE,
-		WATERWAYS,
-		QUEENS_STATION,
-		OUTSKIRTS,
-		KINGS_STATION,
-		MAGE_TOWER,
-		TRAM_UPPER,
-		TRAM_LOWER,
-		FINAL_BOSS,
-		SOUL_SOCIETY,
-		ACID_LAKE,
-		NOEYES_TEMPLE,
-		MONOMON_ARCHIVE,
-		MANTIS_VILLAGE,
-		RUINED_TRAMWAY,
-		DISTANT_VILLAGE,
-		ABYSS_DEEP,
-		ISMAS_GROVE,
-		WYRMSKIN,
-		LURIENS_TOWER,
-		LOVE_TOWER,
-		GLADE,
-		BLUE_LAKE,
-		PEAK,
-		JONI_GRAVE,
-		OVERGROWN_MOUND,
-		CRYSTAL_MOUND,
-		BEASTS_DEN
-	}
-	public enum CameraMode {
-		FROZEN,
-		FOLLOWING,
-		LOCKED,
-		PANNING,
-		FADEOUT,
-		FADEIN,
-		PREVIOUS
-	}
-	public enum TargetMode {
-		FOLLOW_HERO,
-		LOCK_ZONE,
-		BOSS,
-		FREE
-	}
-	public enum MainMenuState {
-		LOGO,
-		MAIN_MENU,
-		OPTIONS_MENU,
-		GAMEPAD_MENU,
-		KEYBOARD_MENU,
-		SAVE_PROFILES,
-		AUDIO_MENU,
-		VIDEO_MENU,
-		EXIT_PROMPT,
-		OVERSCAN_MENU,
-		GAME_OPTIONS_MENU,
-		ACHIEVEMENTS_MENU,
-		QUIT_GAME_PROMPT,
-		RESOLUTION_PROMPT,
-		BRIGHTNESS_MENU,
-		PAUSE_MENU,
-		PLAY_MODE_MENU,
-		EXTRAS_MENU,
-		REMAP_GAMEPAD_MENU
-	}
-	public enum UIState {
-		INACTIVE,
-		MENU_HOME,
-		MENU_OPTIONS,
-		MENU_PROFILES,
-		LOADING,
-		CUTSCENE,
-		PLAYING,
-		PAUSED,
-		OPTIONS
-	}
-	public class EnemyInfo {
-		public uint Pointer { get; set; }
-		public int HP { get; set; }
-		public int HPIndex { get; set; }
 
-		public int UpdateHP(HollowKnightMemory mem, int newHP = -1) {
-			int hp = HP;
-			if (Pointer != 0) {
-				if (newHP > 0) {
-					HP = newHP;
-					mem.Program.Write<int>((IntPtr)Pointer, newHP, 0x10 + HPIndex * 4, 0x14);
-				} else {
-					HP = mem.Program.Read<int>((IntPtr)Pointer, 0x10 + HPIndex * 4, 0x14);
-				}
-			}
-			return hp;
-		}
-		public override int GetHashCode() {
-			return (int)Pointer;
-		}
-		public override bool Equals(object obj) {
-			return obj != null && (obj is EnemyInfo) && ((EnemyInfo)obj).Pointer == this.Pointer;
-		}
-	}
-	public class EntityInfo {
-		public string Name { get; set; }
-		public uint Pointer { get; set; }
-		public List<KeyValuePair<string, float>> FloatVars { get; set; } = new List<KeyValuePair<string, float>>();
-		public List<KeyValuePair<string, int>> IntVars { get; set; } = new List<KeyValuePair<string, int>>();
-		public List<KeyValuePair<string, bool>> BoolVars { get; set; } = new List<KeyValuePair<string, bool>>();
-		public List<KeyValuePair<string, string>> StringVars { get; set; } = new List<KeyValuePair<string, string>>();
-		public List<KeyValuePair<string, PointF>> VectorVars { get; set; } = new List<KeyValuePair<string, PointF>>();
-		public List<KeyValuePair<string, int>> ObjVars { get; set; } = new List<KeyValuePair<string, int>>();
-
-		public int Count { get { return FloatVars.Count + IntVars.Count + BoolVars.Count + StringVars.Count + VectorVars.Count + ObjVars.Count; } }
-		public override int GetHashCode() {
-			return (int)Pointer;
-		}
-		public bool Same(EntityInfo info) {
-			return info.Pointer == this.Pointer;
-		}
-		public override string ToString() {
-			StringBuilder sb = new StringBuilder();
-			sb.AppendLine(Name);
-			for (int i = 0; i < FloatVars.Count; i++) {
-				sb.Append("    ").Append(FloatVars[i].Key).Append(" = ").AppendLine(FloatVars[i].Value.ToString());
-			}
-			for (int i = 0; i < VectorVars.Count; i++) {
-				sb.Append("    ").Append(VectorVars[i].Key).Append(" = ").AppendLine(VectorVars[i].Value.ToString());
-			}
-			for (int i = 0; i < IntVars.Count; i++) {
-				sb.Append("    ").Append(IntVars[i].Key).Append(" = ").AppendLine(IntVars[i].Value.ToString());
-			}
-			for (int i = 0; i < BoolVars.Count; i++) {
-				sb.Append("    ").Append(BoolVars[i].Key).Append(" = ").AppendLine(BoolVars[i].Value.ToString());
-			}
-			for (int i = 0; i < StringVars.Count; i++) {
-				sb.Append("    ").Append(StringVars[i].Key).Append(" = ").AppendLine(StringVars[i].Value.ToString());
-			}
-			for (int i = 0; i < ObjVars.Count; i++) {
-				sb.Append("    ").Append(ObjVars[i].Key).Append(" = [").Append(ObjVars[i].Value.ToString()).AppendLine("]");
-			}
-			return sb.ToString();
-		}
-		public override bool Equals(object obj) {
-			EntityInfo info = obj as EntityInfo;
-			if (info == null || info.Count != this.Count) { return false; }
-
-			if (this.FloatVars.Count != info.FloatVars.Count) { return false; }
-			for (int i = 0; i < FloatVars.Count; i++) {
-				if (FloatVars[i].Value != info.FloatVars[i].Value) { return false; }
-			}
-
-			if (this.VectorVars.Count != info.VectorVars.Count) { return false; }
-			for (int i = 0; i < VectorVars.Count; i++) {
-				if (VectorVars[i].Value != info.VectorVars[i].Value) { return false; }
-			}
-
-			if (this.IntVars.Count != info.IntVars.Count) { return false; }
-			for (int i = 0; i < IntVars.Count; i++) {
-				if (IntVars[i].Value != info.IntVars[i].Value) { return false; }
-			}
-
-			if (this.BoolVars.Count != info.BoolVars.Count) { return false; }
-			for (int i = 0; i < BoolVars.Count; i++) {
-				if (BoolVars[i].Value != info.BoolVars[i].Value) { return false; }
-			}
-
-			if (this.StringVars.Count != info.StringVars.Count) { return false; }
-			for (int i = 0; i < StringVars.Count; i++) {
-				if (StringVars[i].Value != info.StringVars[i].Value) { return false; }
-			}
-
-			if (this.ObjVars.Count != info.ObjVars.Count) { return false; }
-			for (int i = 0; i < ObjVars.Count; i++) {
-				if (ObjVars[i].Value != info.ObjVars[i].Value) { return false; }
-			}
-			return true;
-		}
-	}
 	public class PlayerData {
 		public static Dictionary<string, PlayerKey> Data = new Dictionary<string, PlayerKey>(StringComparer.OrdinalIgnoreCase);
 		public static int DataLength;
@@ -846,8 +489,6 @@ namespace LiveSplit.HollowKnight {
 			return 0;
 		}
 		public void UpdateData(HollowKnightMemory mem, Action<string> logWriter) {
-			if (ProgramPointer.Version == MemVersion.None) { return; }
-
 			Process program = mem.Program;
 			byte[] playerData = mem.GetPlayerData(DataLength);
 			foreach (KeyValuePair<string, PlayerKey> pair in Data) {

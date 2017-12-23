@@ -74,6 +74,14 @@ namespace LiveSplit.Memory {
 			int length = Read<int>(targetProcess, address, is64bit ? 0x10 : 0x8);
 			return Encoding.Unicode.GetString(Read(targetProcess, address + (is64bit ? 0x14 : 0xc), 2 * length));
 		}
+		public static string Read(this Process targetProcess, IntPtr address, bool is64bit = false, params int[] offsets) {
+			if (targetProcess == null || targetProcess.HasExited || address == IntPtr.Zero) { return string.Empty; }
+
+			int last = OffsetAddress(targetProcess, ref address, offsets);
+
+			int length = Read<int>(targetProcess, address + last, is64bit ? 0x10 : 0x8);
+			return Encoding.Unicode.GetString(Read(targetProcess, address + last + (is64bit ? 0x14 : 0xc), 2 * length));
+		}
 		public static string ReadAscii(this Process targetProcess, IntPtr address) {
 			if (targetProcess == null || targetProcess.HasExited || address == IntPtr.Zero) { return string.Empty; }
 
@@ -136,6 +144,13 @@ namespace LiveSplit.Memory {
 			int bytesWritten;
 			WinAPI.WriteProcessMemory(targetProcess.Handle, address + last, buffer, buffer.Length, out bytesWritten);
 		}
+		public static void Write(this Process targetProcess, IntPtr address, byte[] value, params int[] offsets) {
+			if (targetProcess == null || targetProcess.HasExited) { return; }
+
+			int last = OffsetAddress(targetProcess, ref address, offsets);
+			int bytesWritten;
+			WinAPI.WriteProcessMemory(targetProcess.Handle, address + last, value, value.Length, out bytesWritten);
+		}
 		private static int OffsetAddress(this Process targetProcess, ref IntPtr address, params int[] offsets) {
 			bool is64bit = Is64Bit(targetProcess);
 			byte[] buffer = new byte[is64bit ? 8 : 4];
@@ -149,104 +164,6 @@ namespace LiveSplit.Memory {
 				}
 			}
 			return offsets.Length > 0 ? offsets[offsets.Length - 1] : 0;
-		}
-
-		public static IntPtr[] FindSignatures(this Process targetProcess, params string[] searchStrings) {
-			IntPtr[] returnAddresses = new IntPtr[searchStrings.Length];
-			MemorySignature[] byteCodes = new MemorySignature[searchStrings.Length];
-			for (int i = 0; i < searchStrings.Length; i++) {
-				byteCodes[i] = GetSignature(searchStrings[i]);
-			}
-
-			long minAddress = 65536;
-			long maxAddress = Is64Bit(targetProcess) ? 140737488289791L : 2147418111L;
-			uint memInfoSize = (uint)Marshal.SizeOf(typeof(MemInfo));
-			MemInfo memInfo;
-
-			int foundAddresses = 0;
-			while (minAddress < maxAddress && foundAddresses < searchStrings.Length) {
-				WinAPI.VirtualQueryEx(targetProcess.Handle, (IntPtr)minAddress, out memInfo, memInfoSize);
-				long regionSize = (long)memInfo.RegionSize;
-				if (regionSize <= 0) { break; }
-
-				if ((memInfo.Protect & 0x40) != 0 && (memInfo.Type & 0x20000) != 0 && memInfo.State == 0x1000) {
-					byte[] buffer = new byte[regionSize];
-
-					int bytesRead = 0;
-					if (WinAPI.ReadProcessMemory(targetProcess.Handle, memInfo.BaseAddress, buffer, (int)regionSize, out bytesRead)) {
-						for (int i = 0; i < searchStrings.Length; i++) {
-							if (returnAddresses[i] == IntPtr.Zero) {
-								if (SearchMemory(buffer, byteCodes[i], (IntPtr)minAddress, ref returnAddresses[i])) {
-									foundAddresses++;
-								}
-							}
-						}
-					}
-				}
-
-				minAddress += regionSize;
-			}
-
-			return returnAddresses;
-		}
-		public static List<IntPtr> FindAllSignatures(this Process targetProcess, string searchString, long minAddress = 65536, long maxAddress = 140737488289791L) {
-			List<IntPtr> returnAddresses = new List<IntPtr>();
-			MemorySignature byteCode = GetSignature(searchString);
-
-			if (!Is64Bit(targetProcess) && maxAddress > 2147418111L) {
-				maxAddress = 2147418111L;
-			}
-			uint memInfoSize = (uint)Marshal.SizeOf(typeof(MemInfo));
-			MemInfo memInfo;
-
-			while (minAddress < maxAddress) {
-				WinAPI.VirtualQueryEx(targetProcess.Handle, (IntPtr)minAddress, out memInfo, memInfoSize);
-				long regionSize = (long)memInfo.RegionSize;
-				if (regionSize <= 0) { break; }
-
-				if ((memInfo.Protect & 0x40) != 0 && (memInfo.Type & 0x20000) != 0 && memInfo.State == 0x1000) {
-					byte[] buffer = new byte[regionSize];
-
-					int bytesRead = 0;
-					if (WinAPI.ReadProcessMemory(targetProcess.Handle, memInfo.BaseAddress, buffer, (int)regionSize, out bytesRead)) {
-						SearchAllMemory(buffer, byteCode, memInfo.BaseAddress, (int)(minAddress - (long)memInfo.BaseAddress), maxAddress, returnAddresses);
-					}
-				}
-
-				minAddress += regionSize;
-			}
-
-			return returnAddresses;
-		}
-		private static void SearchAllMemory(byte[] buffer, MemorySignature byteCode, IntPtr currentAddress, int offset, long maxAddress, List<IntPtr> foundAddresses) {
-			byte[] bytes = byteCode.byteCode;
-			byte[] wild = byteCode.wildCards;
-			for (int i = offset, j = 0; i <= buffer.Length - bytes.Length; i++) {// && (long)currentAddress + i + bytes.Length - byteCode.offset < maxAddress
-				int k = i;
-				while (j < bytes.Length && (wild[j] == 1 || buffer[k] == bytes[j])) {
-					k++; j++;
-				}
-				if (j == bytes.Length) {
-					foundAddresses.Add(currentAddress + i + bytes.Length + byteCode.offset);
-				}
-				j = 0;
-			}
-		}
-		private static bool SearchMemory(byte[] buffer, MemorySignature byteCode, IntPtr currentAddress, ref IntPtr foundAddress) {
-			byte[] bytes = byteCode.byteCode;
-			byte[] wild = byteCode.wildCards;
-			for (int i = 0, j = 0; i <= buffer.Length - bytes.Length; i++) {
-				int k = i;
-				while (j < bytes.Length && (wild[j] == 1 || buffer[k] == bytes[j])) {
-					k++; j++;
-				}
-				if (j == bytes.Length) {
-					foundAddress = currentAddress + i + bytes.Length + byteCode.offset;
-					return true;
-				}
-				j = 0;
-			}
-			return false;
 		}
 		public static bool Is64Bit(this Process process) {
 			if (process == null || process.HasExited) { return false; }
@@ -302,64 +219,11 @@ namespace LiveSplit.Memory {
 			ModuleCache.Add(key, list.ToArray());
 			return list.ToArray();
 		}
-		private static MemorySignature GetSignature(string searchString) {
-			int offsetIndex = searchString.IndexOf("|");
-			offsetIndex = offsetIndex < 0 ? searchString.Length : offsetIndex;
-
-			if (offsetIndex % 2 != 0) {
-				Console.WriteLine(searchString + " is of odd length.");
-				return null;
-			}
-
-			byte[] byteCode = new byte[offsetIndex / 2];
-			byte[] wildCards = new byte[offsetIndex / 2];
-			for (int i = 0, j = 0; i < offsetIndex; i++) {
-				byte temp = (byte)(((int)searchString[i] - 0x30) & 0x1F);
-				byteCode[j] |= temp > 0x09 ? (byte)(temp - 7) : temp;
-				if (searchString[i] == '?') {
-					wildCards[j] = 1;
-				}
-				if ((i & 1) == 1) {
-					j++;
-				} else {
-					byteCode[j] <<= 4;
-				}
-			}
-			int offset = 0;
-			if (offsetIndex < searchString.Length) {
-				int.TryParse(searchString.Substring(offsetIndex + 1), out offset);
-			}
-			return new MemorySignature(byteCode, wildCards, offset);
-		}
-		private class MemorySignature {
-			public byte[] byteCode;
-			public byte[] wildCards;
-			public int offset;
-
-			public MemorySignature(byte[] byteCode, byte[] wildCards, int offset) {
-				this.byteCode = byteCode;
-				this.wildCards = wildCards;
-				this.offset = offset;
-			}
-		}
-
-		[StructLayout(LayoutKind.Sequential)]
-		public struct MemInfo {
-			public IntPtr BaseAddress;
-			public IntPtr AllocationBase;
-			public uint AllocationProtect;
-			public IntPtr RegionSize;
-			public uint State;
-			public uint Protect;
-			public uint Type;
-		}
 		private static class WinAPI {
 			[DllImport("kernel32.dll", SetLastError = true)]
 			public static extern bool ReadProcessMemory(IntPtr hProcess, IntPtr lpBaseAddress, [Out] byte[] lpBuffer, int dwSize, out int lpNumberOfBytesRead);
 			[DllImport("kernel32.dll", SetLastError = true)]
 			public static extern bool WriteProcessMemory(IntPtr hProcess, IntPtr lpBaseAddress, [Out] byte[] lpBuffer, int dwSize, out int lpNumberOfBytesWritten);
-			[DllImport("kernel32.dll", SetLastError = true)]
-			public static extern int VirtualQueryEx(IntPtr hProcess, IntPtr lpAddress, out MemInfo lpBuffer, uint dwLength);
 			[DllImport("kernel32.dll", SetLastError = true)]
 			[return: MarshalAs(UnmanagedType.Bool)]
 			public static extern bool IsWow64Process(IntPtr hProcess, [MarshalAs(UnmanagedType.Bool)] out bool wow64Process);
@@ -391,5 +255,157 @@ namespace LiveSplit.Memory {
 		public IntPtr BaseAddress;
 		public uint ModuleSize;
 		public IntPtr EntryPoint;
+	}
+	[StructLayout(LayoutKind.Sequential)]
+	public struct MemInfo {
+		public IntPtr BaseAddress;
+		public IntPtr AllocationBase;
+		public uint AllocationProtect;
+		public IntPtr RegionSize;
+		public uint State;
+		public uint Protect;
+		public uint Type;
+	}
+	public class MemorySearcher {
+		[DllImport("kernel32.dll", SetLastError = true)]
+		public static extern bool ReadProcessMemory(IntPtr hProcess, IntPtr lpBaseAddress, [Out] byte[] lpBuffer, uint size, out int lpNumberOfBytesRead);
+		[DllImport("kernel32.dll", SetLastError = true)]
+		private static extern int VirtualQueryEx(IntPtr hProcess, IntPtr lpAddress, out MemInfo lpBuffer, int dwLength);
+
+		private List<MemInfo> memoryInfo;
+		public Func<MemInfo, bool> MemoryFilter = delegate (MemInfo info) {
+			return (info.State & 0x1000) != 0 && (info.Protect & 0x100) == 0;
+		};
+
+		public IntPtr FindSignature(Process process, string signature) {
+			byte[] pattern;
+			bool[] mask;
+			GetSignature(signature, out pattern, out mask);
+			GetMemoryInfo(process.Handle);
+
+			for (int i = 0; i < memoryInfo.Count; i++) {
+				MemInfo info = memoryInfo[i];
+				byte[] buff = new byte[(uint)info.RegionSize];
+				int bytesRead;
+				ReadProcessMemory(process.Handle, info.BaseAddress, buff, (uint)info.RegionSize, out bytesRead);
+
+				int result = ScanMemory(buff, pattern, mask);
+				if (result != int.MinValue) {
+					return info.BaseAddress + result;
+				}
+			}
+			return IntPtr.Zero;
+		}
+		public List<IntPtr> FindSignatures(Process process, string signature) {
+			byte[] pattern;
+			bool[] mask;
+			GetSignature(signature, out pattern, out mask);
+			GetMemoryInfo(process.Handle);
+
+			List<IntPtr> pointers = new List<IntPtr>();
+			for (int i = 0; i < memoryInfo.Count; i++) {
+				MemInfo info = memoryInfo[i];
+				byte[] buff = new byte[(uint)info.RegionSize];
+				int bytesRead;
+				ReadProcessMemory(process.Handle, info.BaseAddress, buff, (uint)info.RegionSize, out bytesRead);
+
+				ScanMemory(pointers, info, buff, pattern, mask);
+			}
+			return pointers;
+		}
+		private void GetMemoryInfo(IntPtr pHandle) {
+			if (memoryInfo != null) { return; }
+
+			memoryInfo = new List<MemInfo>();
+			IntPtr current = (IntPtr)65536;
+			while (true) {
+				MemInfo memInfo = new MemInfo();
+				int dump = VirtualQueryEx(pHandle, current, out memInfo, Marshal.SizeOf(memInfo));
+				if (dump == 0) { break; }
+
+				long regionSize = (long)memInfo.RegionSize;
+				if (regionSize <= 0 || (int)regionSize != regionSize) { break; }
+
+				if (MemoryFilter(memInfo)) {
+					memoryInfo.Add(memInfo);
+				}
+
+				current = memInfo.BaseAddress + (int)regionSize;
+			}
+		}
+		private int ScanMemory(byte[] data, byte[] search, bool[] mask) {
+			int[] offsets = GetCharacterOffsets(search, mask);
+			int current = 0;
+			int end = search.Length - 1;
+			while (current <= data.Length - search.Length) {
+				for (int i = end; data[current + i] == search[i] || mask[i]; i--) {
+					if (i == 0) {
+						return current;
+					}
+				}
+				int offset = offsets[data[current + end]];
+				if (offset < 0) {
+					offset = offsets[256];
+				}
+				current += offset;
+			}
+			return int.MinValue;
+		}
+		private void ScanMemory(List<IntPtr> pointers, MemInfo info, byte[] data, byte[] search, bool[] mask) {
+			int[] offsets = GetCharacterOffsets(search, mask);
+			int current = 0;
+			int end = search.Length - 1;
+			while (current <= data.Length - search.Length) {
+				for (int i = end; data[current + i] == search[i] || mask[i]; i--) {
+					if (i == 0) {
+						pointers.Add(info.BaseAddress + current);
+						break;
+					}
+				}
+				int offset = offsets[data[current + end]];
+				if (offset < 0) {
+					offset = offsets[256];
+				}
+				current += offset;
+			}
+		}
+		private int[] GetCharacterOffsets(byte[] search, bool[] mask) {
+			int[] offsets = new int[257];
+			int end = search.Length - 1;
+			for (int i = 0; i < 256; i++) {
+				offsets[i] = -1;
+			}
+			for (int i = 0; i < end; i++) {
+				if (!mask[i]) {
+					offsets[search[i]] = end - i;
+				} else {
+					offsets[256] = end - i;
+				}
+			}
+			if (offsets[256] == 0) {
+				offsets[256] = search.Length;
+			}
+			return offsets;
+		}
+		private void GetSignature(string searchString, out byte[] pattern, out bool[] mask) {
+			int length = searchString.Length >> 1;
+			pattern = new byte[length];
+			mask = new bool[length];
+
+			length <<= 1;
+			for (int i = 0, j = 0; i < length; i++) {
+				byte temp = (byte)(((int)searchString[i] - 0x30) & 0x1F);
+				pattern[j] |= temp > 0x09 ? (byte)(temp - 7) : temp;
+				if (searchString[i] == '?') {
+					mask[j] = true;
+					pattern[j] = 0;
+				}
+				if ((i & 1) == 1) {
+					j++;
+				} else {
+					pattern[j] <<= 4;
+				}
+			}
+		}
 	}
 }
