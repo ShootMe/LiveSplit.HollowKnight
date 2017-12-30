@@ -6,8 +6,12 @@ using System.Text;
 namespace LiveSplit.Memory {
 	public static class MemoryReader {
 		private static Dictionary<int, Module64[]> ModuleCache = new Dictionary<int, Module64[]>();
+		public static bool is64Bit;
+		public static void Update64Bit(Process program) {
+			is64Bit = program.Is64Bit();
+		}
 		public static T Read<T>(this Process targetProcess, IntPtr address, params int[] offsets) where T : struct {
-			if (targetProcess == null || targetProcess.HasExited || address == IntPtr.Zero) { return default(T); }
+			if (targetProcess == null || address == IntPtr.Zero) { return default(T); }
 
 			int last = OffsetAddress(targetProcess, ref address, offsets);
 
@@ -52,7 +56,7 @@ namespace LiveSplit.Memory {
 		}
 		public static byte[] Read(this Process targetProcess, IntPtr address, int numBytes) {
 			byte[] buffer = new byte[numBytes];
-			if (targetProcess == null || targetProcess.HasExited || address == IntPtr.Zero) { return buffer; }
+			if (targetProcess == null || address == IntPtr.Zero) { return buffer; }
 
 			int bytesRead;
 			WinAPI.ReadProcessMemory(targetProcess.Handle, address, buffer, numBytes, out bytesRead);
@@ -60,7 +64,7 @@ namespace LiveSplit.Memory {
 		}
 		public static byte[] Read(this Process targetProcess, IntPtr address, int numBytes, params int[] offsets) {
 			byte[] buffer = new byte[numBytes];
-			if (targetProcess == null || targetProcess.HasExited || address == IntPtr.Zero) { return buffer; }
+			if (targetProcess == null || address == IntPtr.Zero) { return buffer; }
 
 			int last = OffsetAddress(targetProcess, ref address, offsets);
 
@@ -68,22 +72,22 @@ namespace LiveSplit.Memory {
 			WinAPI.ReadProcessMemory(targetProcess.Handle, address + last, buffer, numBytes, out bytesRead);
 			return buffer;
 		}
-		public static string Read(this Process targetProcess, IntPtr address, bool is64bit = false) {
-			if (targetProcess == null || targetProcess.HasExited || address == IntPtr.Zero) { return string.Empty; }
+		public static string Read(this Process targetProcess, IntPtr address) {
+			if (targetProcess == null || address == IntPtr.Zero) { return string.Empty; }
 
-			int length = Read<int>(targetProcess, address, is64bit ? 0x10 : 0x8);
-			return Encoding.Unicode.GetString(Read(targetProcess, address + (is64bit ? 0x14 : 0xc), 2 * length));
+			int length = Read<int>(targetProcess, address, is64Bit ? 0x10 : 0x8);
+			return Encoding.Unicode.GetString(Read(targetProcess, address + (is64Bit ? 0x14 : 0xc), 2 * length));
 		}
-		public static string Read(this Process targetProcess, IntPtr address, bool is64bit = false, params int[] offsets) {
-			if (targetProcess == null || targetProcess.HasExited || address == IntPtr.Zero) { return string.Empty; }
+		public static string Read(this Process targetProcess, IntPtr address, params int[] offsets) {
+			if (targetProcess == null || address == IntPtr.Zero) { return string.Empty; }
 
 			int last = OffsetAddress(targetProcess, ref address, offsets);
 
-			int length = Read<int>(targetProcess, address + last, is64bit ? 0x10 : 0x8);
-			return Encoding.Unicode.GetString(Read(targetProcess, address + last + (is64bit ? 0x14 : 0xc), 2 * length));
+			int length = Read<int>(targetProcess, address + last, is64Bit ? 0x10 : 0x8);
+			return Encoding.Unicode.GetString(Read(targetProcess, address + last + (is64Bit ? 0x14 : 0xc), 2 * length));
 		}
 		public static string ReadAscii(this Process targetProcess, IntPtr address) {
-			if (targetProcess == null || targetProcess.HasExited || address == IntPtr.Zero) { return string.Empty; }
+			if (targetProcess == null || address == IntPtr.Zero) { return string.Empty; }
 
 			StringBuilder sb = new StringBuilder();
 			byte[] data = new byte[128];
@@ -115,7 +119,7 @@ namespace LiveSplit.Memory {
 			return invalid ? string.Empty : sb.ToString();
 		}
 		public static void Write<T>(this Process targetProcess, IntPtr address, T value, params int[] offsets) where T : struct {
-			if (targetProcess == null || targetProcess.HasExited) { return; }
+			if (targetProcess == null || address == IntPtr.Zero) { return; }
 
 			int last = OffsetAddress(targetProcess, ref address, offsets);
 			byte[] buffer = null;
@@ -145,19 +149,18 @@ namespace LiveSplit.Memory {
 			WinAPI.WriteProcessMemory(targetProcess.Handle, address + last, buffer, buffer.Length, out bytesWritten);
 		}
 		public static void Write(this Process targetProcess, IntPtr address, byte[] value, params int[] offsets) {
-			if (targetProcess == null || targetProcess.HasExited) { return; }
+			if (targetProcess == null || address == IntPtr.Zero) { return; }
 
 			int last = OffsetAddress(targetProcess, ref address, offsets);
 			int bytesWritten;
 			WinAPI.WriteProcessMemory(targetProcess.Handle, address + last, value, value.Length, out bytesWritten);
 		}
 		private static int OffsetAddress(this Process targetProcess, ref IntPtr address, params int[] offsets) {
-			bool is64bit = Is64Bit(targetProcess);
-			byte[] buffer = new byte[is64bit ? 8 : 4];
+			byte[] buffer = new byte[is64Bit ? 8 : 4];
 			int bytesWritten;
 			for (int i = 0; i < offsets.Length - 1; i++) {
 				WinAPI.ReadProcessMemory(targetProcess.Handle, address + offsets[i], buffer, buffer.Length, out bytesWritten);
-				if (is64bit) {
+				if (is64Bit) {
 					address = (IntPtr)BitConverter.ToUInt64(buffer, 0);
 				} else {
 					address = (IntPtr)BitConverter.ToUInt32(buffer, 0);
@@ -166,7 +169,7 @@ namespace LiveSplit.Memory {
 			return offsets.Length > 0 ? offsets[offsets.Length - 1] : 0;
 		}
 		public static bool Is64Bit(this Process process) {
-			if (process == null || process.HasExited) { return false; }
+			if (process == null) { return false; }
 			bool flag;
 			WinAPI.IsWow64Process(process.Handle, out flag);
 			return Environment.Is64BitOperatingSystem && !flag;

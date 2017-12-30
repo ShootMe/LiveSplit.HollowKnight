@@ -19,11 +19,11 @@ namespace LiveSplit.HollowKnight {
 
 		public HollowKnightMemory() {
 			lastHooked = DateTime.MinValue;
-			gameManager = new ProgramPointer(false,
+			gameManager = new ProgramPointer(AutoDeref.Single,
 				new ProgramSignature(PointerVersion.Normal, "83C41083EC0C57E8????????83C410EB3D8B05", 19),
 				new ProgramSignature(PointerVersion.API, "83C41083EC0C57393FE8????????83C410EB3F8B05", 21)
 			) { UpdatedPointer = UpdatedPointer };
-			playmakerFSM = new ProgramPointer(false, new ProgramSignature(PointerVersion.Normal, "558BEC5783EC048B7D088B05????????83EC0857503900E8????????83C4108B470C85C074238B470C8BC83909", 12));
+			playmakerFSM = new ProgramPointer(AutoDeref.Single, new ProgramSignature(PointerVersion.Normal, "558BEC5783EC048B7D088B05????????83EC0857503900E8????????83C4108B470C85C074238B470C8BC83909", 12));
 		}
 
 		public string VersionNumber() {
@@ -264,9 +264,6 @@ namespace LiveSplit.HollowKnight {
 			return (UIState)ui;
 		}
 		public bool AcceptingInput() {
-			if (gameManager.Pointer != IntPtr.Zero && gameManager.Read<uint>(Program) == 0) {
-				gameManager.ResetPointer();
-			}
 			//GameManager._instance.InputHandler.acceptingInput
 			return gameManager.Read<bool>(Program, 0x0, inputHandler, 0x58);
 		}
@@ -302,13 +299,16 @@ namespace LiveSplit.HollowKnight {
 			return count;
 		}
 		public bool HookProcess() {
-			if ((Program == null || Program.HasExited) && DateTime.Now > lastHooked.AddSeconds(1)) {
+			if (DateTime.Now > lastHooked.AddSeconds(1) && (Program == null || Program.HasExited)) {
 				lastHooked = DateTime.Now;
 				Process[] processes = Process.GetProcessesByName("Hollow_Knight");
 				Program = processes.Length == 0 ? null : processes[0];
+				if (Program != null) {
+					MemoryReader.Update64Bit(Program);
+				}
 			}
 
-			IsHooked = Program != null && !Program.HasExited;
+			IsHooked = Program != null;
 			if (!IsHooked) {
 				lastVersion = null;
 			}
@@ -324,6 +324,11 @@ namespace LiveSplit.HollowKnight {
 	public enum PointerVersion {
 		Normal,
 		API
+	}
+	public enum AutoDeref {
+		None,
+		Single,
+		Double
 	}
 	public class ProgramSignature {
 		public PointerVersion Version { get; set; }
@@ -343,19 +348,18 @@ namespace LiveSplit.HollowKnight {
 		private DateTime lastTry;
 		private ProgramSignature[] signatures;
 		private int[] offsets;
-		private bool is64bit;
 		public IntPtr Pointer { get; private set; }
 		public PointerVersion Version { get; private set; }
-		public bool AutoDeref { get; private set; }
+		public AutoDeref AutoDeref { get; private set; }
 		public Action<ProgramPointer> UpdatedPointer { get; set; }
 
-		public ProgramPointer(bool autoDeref, params ProgramSignature[] signatures) {
+		public ProgramPointer(AutoDeref autoDeref, params ProgramSignature[] signatures) {
 			AutoDeref = autoDeref;
 			this.signatures = signatures;
 			lastID = -1;
 			lastTry = DateTime.MinValue;
 		}
-		public ProgramPointer(bool autoDeref, params int[] offsets) {
+		public ProgramPointer(AutoDeref autoDeref, params int[] offsets) {
 			AutoDeref = autoDeref;
 			this.offsets = offsets;
 			lastID = -1;
@@ -368,10 +372,7 @@ namespace LiveSplit.HollowKnight {
 		}
 		public string Read(Process program, params int[] offsets) {
 			GetPointer(program);
-			if (is64bit) {
-				return program.Read((IntPtr)program.Read<ulong>(Pointer, offsets), true);
-			}
-			return program.Read((IntPtr)program.Read<uint>(Pointer, offsets), false);
+			return program.Read((IntPtr)program.Read<uint>(Pointer, offsets));
 		}
 		public byte[] ReadBytes(Process program, int length, params int[] offsets) {
 			GetPointer(program);
@@ -385,12 +386,8 @@ namespace LiveSplit.HollowKnight {
 			GetPointer(program);
 			program.Write(Pointer, value, offsets);
 		}
-		public void ResetPointer() {
-			Pointer = IntPtr.Zero;
-			lastID = -1;
-		}
 		public IntPtr GetPointer(Process program) {
-			if ((program?.HasExited).GetValueOrDefault(true)) {
+			if (program == null) {
 				Pointer = IntPtr.Zero;
 				lastID = -1;
 				return Pointer;
@@ -404,13 +401,14 @@ namespace LiveSplit.HollowKnight {
 
 				Pointer = GetVersionedFunctionPointer(program);
 				if (Pointer != IntPtr.Zero) {
-					is64bit = program.Is64Bit();
-					Pointer = (IntPtr)program.Read<uint>(Pointer);
-					if (AutoDeref) {
-						if (is64bit) {
-							Pointer = (IntPtr)program.Read<ulong>(Pointer);
-						} else {
-							Pointer = (IntPtr)program.Read<uint>(Pointer);
+					if (AutoDeref != AutoDeref.None) {
+						Pointer = (IntPtr)program.Read<uint>(Pointer);
+						if (AutoDeref == AutoDeref.Double) {
+							if (MemoryReader.is64Bit) {
+								Pointer = (IntPtr)program.Read<ulong>(Pointer);
+							} else {
+								Pointer = (IntPtr)program.Read<uint>(Pointer);
+							}
 						}
 					}
 					UpdatedPointer?.Invoke(this);
