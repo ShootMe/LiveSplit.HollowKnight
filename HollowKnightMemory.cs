@@ -14,7 +14,7 @@ namespace LiveSplit.HollowKnight {
 		public bool IsHooked { get; set; } = false;
 		private DateTime lastHooked;
 		private int uiManager, inputHandler, cameraCtrl, gameState, heroController, camTarget, camMode, menuState, uiState;
-		private int geoCounter, heroAccepting, actorState, transistionState;
+		private int geoCounter, heroAccepting, actorState, transistionState, camTeleport;
 		private string lastVersion;
 
 		public HollowKnightMemory() {
@@ -45,6 +45,7 @@ namespace LiveSplit.HollowKnight {
 				//CameraController
 				camTarget = 0x28;
 				camMode = 0x40;
+				camTeleport = 0x4b;
 
 				//HeroController
 				heroAccepting = 0x457;
@@ -70,6 +71,7 @@ namespace LiveSplit.HollowKnight {
 					heroController = 0x7c;
 					camTarget = 0x24;
 					camMode = 0x3c;
+					camTeleport = 0x47;
 					geoCounter = version.Build > 0 ? 0x1dc : 0x1d4;
 
 					if (version.Minor == 0 && (version.Build < 3 || version.Revision < 4)) {
@@ -122,6 +124,10 @@ namespace LiveSplit.HollowKnight {
 		public void SetCameraZoom(float zoom) {
 			//GameManger._instance.gameCams.tk2dCam.zoomFactor
 			gameManager.Write<float>(Program, zoom, 0x0, 0x20, 0x40, 0x48);
+		}
+		public bool CameraTeleporting() {
+			//GameManger._instance.cameraCtrl.teleporting
+			return gameManager.Read<bool>(Program, 0x0, cameraCtrl, camTeleport);
 		}
 		public PointF GetCameraTarget() {
 			//GameManger._instance.cameraCtrl.camTarget.destination

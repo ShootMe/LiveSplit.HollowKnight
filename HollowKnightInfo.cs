@@ -179,4 +179,25 @@ namespace LiveSplit.HollowKnight {
 			Memory.EnableDebug(showDebug);
 		}
 	}
+	public partial class HollowKnightConsoleInfo {
+		public static void Main(string[] args) {
+			try {
+				Thread t = new Thread(UpdateLoop);
+				t.IsBackground = true;
+				t.Start();
+				Application.Run();
+			} catch (Exception ex) {
+				Console.WriteLine(ex.ToString());
+			}
+		}
+		private static void UpdateLoop() {
+			HollowKnightComponent component = new HollowKnightComponent(null);
+			while (true) {
+				try {
+					component.GetValues();
+					Thread.Sleep(12);
+				} catch { }
+			}
+		}
+	}
 }

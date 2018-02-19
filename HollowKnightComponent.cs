@@ -18,7 +18,7 @@ namespace LiveSplit.HollowKnight {
 #endif
 		public string ComponentName { get { return "Hollow Knight Autosplitter"; } }
 		public IDictionary<string, Action> ContextMenuControls { get { return null; } }
-		internal static string[] keys = { "CurrentSplit", "State", "GameState", "SceneName", "Charms", "CameraMode", "MenuState", "UIState", "AcceptingInput", "MapZone", "NextSceneName", "ActorState" };
+		internal static string[] keys = { "CurrentSplit", "State", "GameState", "SceneName", "Charms", "CameraMode", "MenuState", "UIState", "AcceptingInput", "MapZone", "NextSceneName", "ActorState", "Loading", "Transition", "Teleporting", "LookFor" };
 		private HollowKnightMemory mem;
 		private int currentSplit = -1, state = 0, lastLogCheck = 0;
 		private bool hasLog = false;
@@ -27,6 +27,8 @@ namespace LiveSplit.HollowKnight {
 		private HashSet<SplitName> splitsDone = new HashSet<SplitName>();
 		private static string LOGFILE = "_HollowKnight.log";
 		private PlayerData pdata = new PlayerData();
+		private GameState lastGameState;
+		private bool lookForTeleporting;
 #if !Info
 		public HollowKnightComponent(LiveSplitState state) {
 			mem = new HollowKnightMemory();
@@ -78,10 +80,11 @@ namespace LiveSplit.HollowKnight {
 			if (currentSplit == -1) {
 				shouldSplit = nextScene.Equals("Tutorial_01", StringComparison.OrdinalIgnoreCase) && mem.GameState() == GameState.ENTERING_LEVEL;
 			} else if (Model.CurrentState.CurrentPhase == TimerPhase.Running) {
+				GameState gameState = mem.GameState();
+
 				if (currentSplit + 1 < Model.CurrentState.Run.Count) {
 					foreach (SplitName split in settings.Splits) {
-						if (splitsDone.Contains(split)) { continue; }
-						if (mem.GameState() != GameState.PLAYING) { continue; }
+						if (splitsDone.Contains(split) || gameState != GameState.PLAYING) { continue; }
 
 						switch (split) {
 							case SplitName.AbyssShriek: shouldSplit = mem.PlayerData<int>(Offset.screamLevel) == 2; break;
@@ -274,9 +277,19 @@ namespace LiveSplit.HollowKnight {
 					shouldSplit = nextScene.StartsWith("Cinematic_Ending", StringComparison.OrdinalIgnoreCase);
 				}
 
-				GameState gameState = mem.GameState();
 				UIState uiState = mem.UIState();
-				Model.CurrentState.IsGameTimePaused = ((gameState == GameState.PLAYING || gameState == GameState.ENTERING_LEVEL) && uiState != UIState.PLAYING) || (gameState != GameState.PLAYING && !mem.AcceptingInput()) || gameState == GameState.EXITING_LEVEL || gameState == GameState.LOADING || mem.HeroTransitionState() == HeroTransitionState.WAITING_TO_ENTER_LEVEL || (uiState != UIState.PLAYING && uiState != UIState.PAUSED && (!string.IsNullOrEmpty(nextScene) || sceneName == "_test_charms") && nextScene != sceneName);
+				bool loadingMenu = (string.IsNullOrEmpty(nextScene) && sceneName != "Menu_Title") || (nextScene == "Menu_Title" && sceneName != "Menu_Title");
+				if (gameState == GameState.PLAYING && lastGameState == GameState.MAIN_MENU) {
+					lookForTeleporting = true;
+				}
+				bool teleporting = mem.CameraTeleporting();
+				if (lookForTeleporting && (teleporting || (gameState != GameState.PLAYING && gameState != GameState.ENTERING_LEVEL))) {
+					lookForTeleporting = false;
+				}
+
+				Model.CurrentState.IsGameTimePaused = (gameState == GameState.PLAYING && teleporting) || lookForTeleporting || ((gameState == GameState.PLAYING || gameState == GameState.ENTERING_LEVEL) && uiState != UIState.PLAYING) || (gameState != GameState.PLAYING && !mem.AcceptingInput()) || gameState == GameState.EXITING_LEVEL || gameState == GameState.LOADING || mem.HeroTransitionState() == HeroTransitionState.WAITING_TO_ENTER_LEVEL || (uiState != UIState.PLAYING && (uiState != UIState.PAUSED || loadingMenu) && (!string.IsNullOrEmpty(nextScene) || sceneName == "_test_charms" || loadingMenu) && nextScene != sceneName);
+
+				lastGameState = gameState;
 			}
 
 			HandleSplit(shouldSplit);
@@ -324,6 +337,17 @@ namespace LiveSplit.HollowKnight {
 						case "UIState": curr = mem.UIState().ToString(); break;
 						case "AcceptingInput": curr = mem.AcceptingInput().ToString(); break;
 						case "ActorState": curr = mem.HeroActorState().ToString(); break;
+						case "Loading":
+							GameState gameState = mem.GameState();
+							UIState uiState = mem.UIState();
+							string nextScene = mem.NextSceneName();
+							string sceneName = mem.SceneName();
+							bool loadingMenu = (string.IsNullOrEmpty(nextScene) && sceneName != "Menu_Title") || (nextScene == "Menu_Title" && sceneName != "Menu_Title");
+							curr = ((gameState == GameState.PLAYING && mem.CameraTeleporting()) || lookForTeleporting || ((gameState == GameState.PLAYING || gameState == GameState.ENTERING_LEVEL) && uiState != UIState.PLAYING) || (gameState != GameState.PLAYING && !mem.AcceptingInput()) || gameState == GameState.EXITING_LEVEL || gameState == GameState.LOADING || mem.HeroTransitionState() == HeroTransitionState.WAITING_TO_ENTER_LEVEL || (uiState != UIState.PLAYING && (uiState != UIState.PAUSED || loadingMenu) && (!string.IsNullOrEmpty(nextScene) || sceneName == "_test_charms" || loadingMenu) && nextScene != sceneName)).ToString();
+							break;
+						case "Transition": curr = mem.HeroTransitionState().ToString(); break;
+						case "Teleporting": curr = mem.CameraTeleporting().ToString(); break;
+						case "LookFor": curr = lookForTeleporting.ToString(); break;
 						default: curr = ""; break;
 					}
 
@@ -376,6 +400,7 @@ namespace LiveSplit.HollowKnight {
 		public void OnReset(object sender, TimerPhase e) {
 			currentSplit = -1;
 			state = 0;
+			lookForTeleporting = false;
 			Model.CurrentState.IsGameTimePaused = true;
 			splitsDone.Clear();
 			WriteLog("---------Reset----------------------------------");
@@ -389,7 +414,8 @@ namespace LiveSplit.HollowKnight {
 		public void OnStart(object sender, EventArgs e) {
 			currentSplit = 0;
 			state = 0;
-			Model.CurrentState.IsGameTimePaused = false;
+			Model.CurrentState.IsGameTimePaused = true;
+			Model.CurrentState.SetGameTime(TimeSpan.FromSeconds(0));
 			splitsDone.Clear();
 			WriteLog("---------New Game-------------------------------");
 		}
