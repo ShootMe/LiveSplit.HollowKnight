@@ -422,6 +422,8 @@ namespace LiveSplit.HollowKnight {
 		Lemm1,
 		[Description("Relic Dealer Lemm Shop (NPC)"), ToolTip("Splits when talking to Lemm in the shop for the first time")]
 		Lemm2,
+		[Description("Elderbug Flower Quest (NPC)"), ToolTip("Splits when giving the flower to the Elderbug")]
+		ElderbugFlower,
 	}
 	public class ToolTipAttribute : Attribute {
 		public string ToolTip { get; set; }

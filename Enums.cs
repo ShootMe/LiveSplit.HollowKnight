@@ -157,7 +157,8 @@ namespace LiveSplit.HollowKnight {
 		killedGreyPrince,
 		hasDreamGate,
 		metRelicDealer,
-		metRelicDealerShop
+		metRelicDealerShop,
+		elderbugGaveFlower
 	}
 	public enum GameState {
 		INACTIVE,
