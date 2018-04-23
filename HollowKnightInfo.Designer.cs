@@ -55,6 +55,7 @@
 			this.chkShowEnemyHP.TabIndex = 8;
 			this.chkShowEnemyHP.Text = "Show Enemy HP in Geo Counter";
 			this.chkShowEnemyHP.UseVisualStyleBackColor = true;
+			this.chkShowEnemyHP.Visible = false;
 			this.chkShowEnemyHP.CheckedChanged += new System.EventHandler(this.chkShowEnemyHP_CheckedChanged);
 			// 
 			// lblNote
@@ -233,6 +234,7 @@
 			this.chkEnemyInvincible.TabIndex = 13;
 			this.chkEnemyInvincible.Text = "Make Enemy Invincible";
 			this.chkEnemyInvincible.UseVisualStyleBackColor = true;
+			this.chkEnemyInvincible.Visible = false;
 			// 
 			// btnDebugInfo
 			// 

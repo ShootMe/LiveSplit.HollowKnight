@@ -179,6 +179,7 @@ namespace LiveSplit.HollowKnight {
 			Memory.EnableDebug(showDebug);
 		}
 	}
+#if !Info
 	public partial class HollowKnightConsoleInfo {
 		public static void Main(string[] args) {
 			try {
@@ -200,4 +201,5 @@ namespace LiveSplit.HollowKnight {
 			}
 		}
 	}
+#endif
 }

@@ -82,7 +82,7 @@ namespace LiveSplit.HollowKnight {
 			} else if (Model.CurrentState.CurrentPhase == TimerPhase.Running) {
 				GameState gameState = mem.GameState();
 
-				if (currentSplit + 1 < Model.CurrentState.Run.Count) {
+				if (currentSplit + 1 < Model.CurrentState.Run.Count || (currentSplit + 1 == Model.CurrentState.Run.Count && settings.Splits[settings.Splits.Count - 1] == SplitName.ElderbugFlower)) {
 					foreach (SplitName split in settings.Splits) {
 						if (splitsDone.Contains(split) || gameState != GameState.PLAYING) { continue; }
 
@@ -331,7 +331,6 @@ namespace LiveSplit.HollowKnight {
 						case "GameState": curr = mem.GameState().ToString(); break;
 						case "SceneName": curr = mem.SceneName(); break;
 						case "NextSceneName": curr = mem.NextSceneName(); break;
-						case "Charms": curr = mem.CharmCount().ToString(); break;
 						case "MapZone": curr = ((MapZone)mem.PlayerData<int>(Offset.mapZone)).ToString(); break;
 						case "CameraMode": curr = mem.CameraMode().ToString(); break;
 						case "MenuState": curr = mem.MenuState().ToString(); break;

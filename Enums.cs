@@ -275,7 +275,8 @@ namespace LiveSplit.HollowKnight {
 		PAUSE_MENU,
 		PLAY_MODE_MENU,
 		EXTRAS_MENU,
-		REMAP_GAMEPAD_MENU
+		REMAP_GAMEPAD_MENU,
+		EXTRAS_CONTENT_MENU
 	}
 	public enum UIState {
 		INACTIVE,

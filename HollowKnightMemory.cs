@@ -14,8 +14,8 @@ namespace LiveSplit.HollowKnight {
 		public bool IsHooked { get; set; } = false;
 		private DateTime lastHooked;
 		private int uiManager, inputHandler, cameraCtrl, gameState, heroController, camTarget, camMode, menuState, uiState;
-		private int geoCounter, heroAccepting, actorState, transistionState, camTeleport;
-		private string lastVersion;
+		private int geoCounter, heroAccepting, actorState, transistionState, camTeleport, playerData, debugInfo;
+		private Version lastVersion;
 
 		public HollowKnightMemory() {
 			lastHooked = DateTime.MinValue;
@@ -27,20 +27,18 @@ namespace LiveSplit.HollowKnight {
 		}
 
 		public string VersionNumber() {
-			return lastVersion;
+			return lastVersion.ToString();
 		}
 		private void UpdatedPointer(ProgramPointer pointer) {
 			if (pointer == gameManager) {
-				int len = gameManager.Read<int>(Program, 0x0, 0x68, 0x2c, 0x1c, 0x8);
-
-				Version version = null;
-
 				//GameManager
+				playerData = 0x30;
 				uiManager = 0x84;
 				inputHandler = 0x68;
 				cameraCtrl = 0x74;
 				gameState = 0x98;
 				heroController = 0x78;
+				debugInfo = 0x2c;
 
 				//CameraController
 				camTarget = 0x28;
@@ -53,76 +51,112 @@ namespace LiveSplit.HollowKnight {
 				transistionState = 0x37c;
 				geoCounter = 0x1dc;
 
+				int len = gameManager.Read<int>(Program, 0x0, inputHandler, debugInfo, 0x1c, 0x8);
+				string version = null;
+
 				if (len != 7) {
-					len = 40;
-					do {
-						lastVersion = gameManager.Read(Program, 0x0, 0x6c, 0x2c, 0x1c);
-						if (string.IsNullOrEmpty(lastVersion)) {
-							Thread.Sleep(50);
-						}
-					} while (string.IsNullOrEmpty(lastVersion) && len-- > 0);
-
-					version = new Version(lastVersion);
-
-					uiManager = 0x88;
 					inputHandler = 0x6c;
+					uiManager = 0x88;
 					cameraCtrl = 0x78;
 					gameState = 0x9c;
 					heroController = 0x7c;
 					camTarget = 0x24;
 					camMode = 0x3c;
 					camTeleport = 0x47;
-					geoCounter = version.Build > 0 ? 0x1dc : 0x1d4;
 
-					if (version.Minor == 0 && (version.Build < 3 || version.Revision < 4)) {
-						uiState = 0x128;
-						menuState = 0x12c;
-					} else if (version.Minor == 0) {
-						uiState = 0x12c;
-						menuState = 0x130;
-					} else if (version.Minor == 1) {
-						uiState = 0x130;
-						menuState = 0x134;
-						heroAccepting = 0x45b;
-						actorState = 0x378;
-						transistionState = 0x380;
+					len = gameManager.Read<int>(Program, 0x0, inputHandler, debugInfo, 0x1c, 0x8);
+					if (len != 7) {
+						playerData = 0x60;
+						uiManager = 0x4c;
+						inputHandler = 0x20;
+						cameraCtrl = 0x3c;
+						gameState = 0xb4;
+						heroController = 0x40;
+						debugInfo = 0x30;
+
+						camMode = 0x38;
+						camTeleport = 0x43;
+
+						heroAccepting = 0x497;
+						actorState = 0x3b0;
+						transistionState = 0x3b8;
+						geoCounter = 0x120;
+
+						uiState = 0x148;
+						menuState = 0x14c;
+
+						do {
+							version = gameManager.Read(Program, 0x0, inputHandler, debugInfo, 0x1c);
+							if (string.IsNullOrEmpty(version)) {
+								Thread.Sleep(50);
+							}
+						} while (string.IsNullOrEmpty(version) && len-- > 0);
+
+						lastVersion = new Version(version);
 					} else {
-						uiState = 0x130;
-						menuState = 0x134;
-						uiManager = 0x8c;
-						cameraCtrl = 0x7c;
-						gameState = 0xa0;
-						heroController = 0x80;
-						heroAccepting = 0x46b;
-						actorState = 0x388;
-						transistionState = 0x390;
-						geoCounter = 0x1e4;
+						do {
+							version = gameManager.Read(Program, 0x0, inputHandler, debugInfo, 0x1c);
+							if (string.IsNullOrEmpty(version)) {
+								Thread.Sleep(50);
+							}
+						} while (string.IsNullOrEmpty(version) && len-- > 0);
+
+						lastVersion = new Version(version);
+						geoCounter = lastVersion.Build > 0 ? 0x1dc : 0x1d4;
+
+						if (lastVersion.Minor == 0 && (lastVersion.Build < 3 || lastVersion.Revision < 4)) {
+							uiState = 0x128;
+							menuState = 0x12c;
+						} else if (lastVersion.Minor == 0) {
+							uiState = 0x12c;
+							menuState = 0x130;
+						} else if (lastVersion.Minor == 1) {
+							uiState = 0x130;
+							menuState = 0x134;
+							heroAccepting = 0x45b;
+							actorState = 0x378;
+							transistionState = 0x380;
+						} else {
+							uiState = 0x130;
+							menuState = 0x134;
+							uiManager = 0x8c;
+							cameraCtrl = 0x7c;
+							gameState = 0xa0;
+							heroController = 0x80;
+							heroAccepting = 0x46b;
+							actorState = 0x388;
+							transistionState = 0x390;
+							geoCounter = 0x1e4;
+						}
 					}
 				} else {
 					len = 40;
 					do {
-						lastVersion = gameManager.Read(Program, 0x0, 0x68, 0x2c, 0x1c);
-						if (string.IsNullOrEmpty(lastVersion)) {
+						version = gameManager.Read(Program, 0x0, inputHandler, debugInfo, 0x1c);
+						if (string.IsNullOrEmpty(version)) {
 							Thread.Sleep(50);
 						}
-					} while (string.IsNullOrEmpty(lastVersion) && len-- > 0);
+					} while (string.IsNullOrEmpty(version) && len-- > 0);
 
-					version = new Version(lastVersion);
+					lastVersion = new Version(version);
 
-					geoCounter = version.Build > 0 ? 0x1dc : 0x1d4;
+					geoCounter = lastVersion.Build > 0 ? 0x1dc : 0x1d4;
 					menuState = 0x128;
 					uiState = 0x124;
 				}
 
-				HollowKnight.PlayerData.InitializeData(version);
+				HollowKnight.PlayerData.InitializeData(lastVersion);
 			}
 		}
 		public byte[] GetPlayerData(int length) {
 			//GameManger._instance.playerData
-			return gameManager.ReadBytes(Program, length, 0x0, 0x30, 0x0);
+			return gameManager.ReadBytes(Program, length, 0x0, playerData, 0x0);
 		}
 		public void SetCameraZoom(float zoom) {
 			//GameManger._instance.gameCams.tk2dCam.zoomFactor
+			if (lastVersion.Minor == 3) {
+				gameManager.Write<float>(Program, zoom, 0x0, 0x24, 0x48, 0x48);
+			}
 			gameManager.Write<float>(Program, zoom, 0x0, 0x20, 0x40, 0x48);
 		}
 		public bool CameraTeleporting() {
@@ -161,23 +195,23 @@ namespace LiveSplit.HollowKnight {
 		}
 		public void EnableDebug(bool enable) {
 			//inputHandler.onScreenDebugInfo.showFPS
-			gameManager.Write(Program, enable, 0x0, inputHandler, 0x2c, 0x7c);
+			gameManager.Write(Program, enable, 0x0, inputHandler, debugInfo, 0x7c);
 			//inputHandler.onScreenDebugInfo.showInfo
-			gameManager.Write(Program, enable, 0x0, inputHandler, 0x2c, 0x7d);
+			gameManager.Write(Program, enable, 0x0, inputHandler, debugInfo, 0x7d);
 			//inputHandler.onScreenDebugInfo.showInput
-			gameManager.Write(Program, enable, 0x0, inputHandler, 0x2c, 0x7e);
+			gameManager.Write(Program, enable, 0x0, inputHandler, debugInfo, 0x7e);
 			//inputHandler.onScreenDebugInfo.showLoadingTime
-			gameManager.Write(Program, enable, 0x0, inputHandler, 0x2c, 0x7f);
+			gameManager.Write(Program, enable, 0x0, inputHandler, debugInfo, 0x7f);
 			//inputHandler.onScreenDebugInfo.showTFR
-			gameManager.Write(Program, enable, 0x0, inputHandler, 0x2c, 0x80);
+			gameManager.Write(Program, enable, 0x0, inputHandler, debugInfo, 0x80);
 		}
 		public void SetPlayerData(Offset offset, int value) {
 			//GameManger._instance.playerData.(offset)
-			gameManager.Write(Program, value, 0x0, 0x30, HollowKnight.PlayerData.GetOffset(offset));
+			gameManager.Write(Program, value, 0x0, playerData, HollowKnight.PlayerData.GetOffset(offset));
 		}
 		public void SetPlayerData(Offset offset, bool value) {
 			//GameManger._instance.playerData.(offset)
-			gameManager.Write(Program, value, 0x0, 0x30, HollowKnight.PlayerData.GetOffset(offset));
+			gameManager.Write(Program, value, 0x0, playerData, HollowKnight.PlayerData.GetOffset(offset));
 		}
 		public List<EnemyInfo> GetEnemyInfo() {
 			List<EnemyInfo> enemies = new List<EnemyInfo>();
@@ -251,7 +285,7 @@ namespace LiveSplit.HollowKnight {
 		}
 		public T PlayerData<T>(Offset offset) where T : struct {
 			//GameManger._instance.playerData.(offset)
-			return gameManager.Read<T>(Program, 0x0, 0x30, HollowKnight.PlayerData.GetOffset(offset));
+			return gameManager.Read<T>(Program, 0x0, playerData, HollowKnight.PlayerData.GetOffset(offset));
 		}
 		public GameState GameState() {
 			//GameManager._instance.gameState
@@ -271,6 +305,9 @@ namespace LiveSplit.HollowKnight {
 		}
 		public bool AcceptingInput() {
 			//GameManager._instance.InputHandler.acceptingInput
+			if (lastVersion.Minor == 3) {
+				return gameManager.Read<bool>(Program, 0x0, inputHandler, 0x5c);
+			}
 			return gameManager.Read<bool>(Program, 0x0, inputHandler, 0x58);
 		}
 		public bool AcceptingInputHero() {
@@ -293,28 +330,18 @@ namespace LiveSplit.HollowKnight {
 			//GameManager._instance.nextSceneName
 			return gameManager.Read(Program, 0x0, 0x10);
 		}
-		public int CharmCount() {
-			//GameManager._instance.playerData.charms
-			int count = 0;
-			for (int i = 0x38a; i <= 0x4a1; i += 7) {
-				count += gameManager.Read<bool>(Program, 0x0, 0x30, i) ? 1 : 0;
-				if ((i & 1) != 0) {
-					i++;
-				}
-			}
-			return count;
-		}
 		public bool HookProcess() {
-			if (DateTime.Now > lastHooked.AddSeconds(1) && (Program == null || Program.HasExited)) {
+			IsHooked = Program != null && !Program.HasExited;
+			if (!IsHooked && DateTime.Now > lastHooked.AddSeconds(1)) {
 				lastHooked = DateTime.Now;
 				Process[] processes = Process.GetProcessesByName("Hollow_Knight");
 				Program = processes.Length == 0 ? null : processes[0];
-				if (Program != null) {
+				if (Program != null && !Program.HasExited) {
 					MemoryReader.Update64Bit(Program);
+					IsHooked = true;
 				}
 			}
 
-			IsHooked = Program != null;
 			if (!IsHooked) {
 				lastVersion = null;
 			}
@@ -457,7 +484,7 @@ namespace LiveSplit.HollowKnight {
 		public static void InitializeData(Version ver) {
 			Assembly asm = Assembly.GetExecutingAssembly();
 
-			Stream file = asm.GetManifestResourceStream("LiveSplit.HollowKnight.PlayerData.V1214.txt");
+			Stream file = asm.GetManifestResourceStream("LiveSplit.HollowKnight.PlayerData.V1315.txt");
 			if (ver.Minor == 0 && (ver.Build < 3 || ver.Revision < 2)) {
 				file = asm.GetManifestResourceStream("LiveSplit.HollowKnight.PlayerData.Original.txt");
 			} else if (ver.Minor == 0) {
@@ -466,6 +493,8 @@ namespace LiveSplit.HollowKnight {
 				file = asm.GetManifestResourceStream("LiveSplit.HollowKnight.PlayerData.V1114.txt");
 			} else if (ver.Minor == 2 && ver.Build == 1 && ver.Revision < 4) {
 				file = asm.GetManifestResourceStream("LiveSplit.HollowKnight.PlayerData.V1211.txt");
+			} else if (ver.Minor == 2 && ((ver.Build == 1 && ver.Revision >= 4) || ver.Build > 1)) {
+				file = asm.GetManifestResourceStream("LiveSplit.HollowKnight.PlayerData.V1214.txt");
 			}
 
 			if (file != null) {
