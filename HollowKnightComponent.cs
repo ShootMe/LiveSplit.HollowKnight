@@ -82,7 +82,7 @@ namespace LiveSplit.HollowKnight {
 			} else if (Model.CurrentState.CurrentPhase == TimerPhase.Running) {
 				GameState gameState = mem.GameState();
 
-				if (currentSplit + 1 < Model.CurrentState.Run.Count || (currentSplit + 1 == Model.CurrentState.Run.Count && settings.Splits[settings.Splits.Count - 1] == SplitName.ElderbugFlower)) {
+				if (currentSplit + 1 < Model.CurrentState.Run.Count || (currentSplit + 1 == Model.CurrentState.Run.Count && (settings.Splits[settings.Splits.Count - 1] == SplitName.ElderbugFlower || settings.Splits[settings.Splits.Count - 1] == SplitName.ZoteKilled))) {
 					foreach (SplitName split in settings.Splits) {
 						if (splitsDone.Contains(split) || gameState != GameState.PLAYING) { continue; }
 
@@ -267,6 +267,7 @@ namespace LiveSplit.HollowKnight {
 							case SplitName.Xero: shouldSplit = mem.PlayerData<bool>(Offset.killedGhostXero); break;
 							case SplitName.Zote1: shouldSplit = mem.PlayerData<bool>(Offset.zoteRescuedBuzzer); break;
 							case SplitName.Zote2: shouldSplit = mem.PlayerData<bool>(Offset.zoteRescuedDeepnest); break;
+							case SplitName.ZoteKilled: shouldSplit = mem.PlayerData<bool>(Offset.killedZote); break;
 						}
 
 						if (shouldSplit) {

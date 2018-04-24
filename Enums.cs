@@ -37,6 +37,7 @@ namespace LiveSplit.HollowKnight {
 		visitedDeepnestSpa,
 		zoteRescuedBuzzer,
 		zoteRescuedDeepnest,
+		killedZote,
 		mothDeparted,
 		salubraNotch1,
 		salubraNotch2,

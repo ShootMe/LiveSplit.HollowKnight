@@ -259,6 +259,8 @@ namespace LiveSplit.HollowKnight {
 		Zote1,
 		[Description("Zote Rescued Deepnest (Mini Boss)"), ToolTip("Splits when rescuing Zote in Deepnest")]
 		Zote2,
+		[Description("Zote Killed Colosseum (Mini Boss)"), ToolTip("Splits when killing Zote in the Colosseum")]
+		ZoteKilled,
 
 		[Description("Distant Village (Stag Staion)"), ToolTip("Splits when obtaining Distant Village Stag Station")]
 		DeepnestStation,
