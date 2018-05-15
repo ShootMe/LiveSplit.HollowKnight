@@ -1,5 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <updates>
+	<update version="2.5.4">
+		<files>
+			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+		</files>
+		<changelog>
+			<change> Switch triggers for Great Slash and Dash Slash splits, so they split on the correct event </change>
+		</changelog>
+	</update>
 	<update version="2.5.3">
 		<files>
 			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
