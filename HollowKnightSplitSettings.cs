@@ -251,6 +251,8 @@ namespace LiveSplit.HollowKnight {
 
 		[Description("Aspid Hunter (Mini Boss)"), ToolTip("Splits when killing the final Aspid Hunter")]
 		AspidHunter,
+		[Description("God Tamer (Mini Boss)"), ToolTip("Splits when killing the God Tamer")]
+		GodTamer,
 		[Description("Moss Knight (Mini Boss)"), ToolTip("Splits when killing Moss Knight")]
 		MossKnight,
 		[Description("Shrumal Ogre (Mini Boss)"), ToolTip("Splits when killing the final Shrumal Ogre")]

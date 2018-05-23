@@ -160,7 +160,8 @@ namespace LiveSplit.HollowKnight {
 		metRelicDealer,
 		metRelicDealerShop,
 		elderbugGaveFlower,
-		brettaRescued
+		brettaRescued,
+		killedLobsterLancer
 	}
 	public enum GameState {
 		INACTIVE,
