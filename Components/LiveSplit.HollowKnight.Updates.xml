@@ -1,5 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <updates>
+	<update version="2.5.7">
+		<files>
+			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+		</files>
+		<changelog>
+			<change> Added Brumm flame split </change>
+		</changelog>
+	</update>
 	<update version="2.5.6">
 		<files>
 			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>

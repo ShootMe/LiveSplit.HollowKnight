@@ -430,6 +430,8 @@ namespace LiveSplit.HollowKnight {
 		ElderbugFlower,
 		[Description("Bretta Rescued (NPC)"), ToolTip("Splits when saving Bretta")]
 		BrettaRescued,
+		[Description("Brumm Flame (NPC)"), ToolTip("Splits when collecting Brumm's flame in Deepnest")]
+		BrummFlame
 	}
 	public class ToolTipAttribute : Attribute {
 		public string ToolTip { get; set; }
