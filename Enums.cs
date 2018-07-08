@@ -162,7 +162,7 @@ namespace LiveSplit.HollowKnight {
 		elderbugGaveFlower,
 		brettaRescued,
 		killedLobsterLancer,
-        gotBrummsFlame
+		gotBrummsFlame
 	}
 	public enum GameState {
 		INACTIVE,
