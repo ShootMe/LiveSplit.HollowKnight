@@ -162,7 +162,21 @@ namespace LiveSplit.HollowKnight {
 		elderbugGaveFlower,
 		brettaRescued,
 		killedLobsterLancer,
-		gotBrummsFlame
+		gotBrummsFlame,
+		killedNailsage,
+		killedPaintmaster,
+		killedNailBros,
+		killedHollowKnightPrime,
+		visitedGodhome,
+		visitedAbyss,
+		gotLurkerKey,
+		hasGodfinder,
+		hasSlykey,
+		bossDoorStateTier1,
+		bossDoorStateTier2,
+		bossDoorStateTier3,
+		bossDoorStateTier4,
+		bossDoorStateTier5
 	}
 	public enum GameState {
 		INACTIVE,
@@ -243,7 +257,9 @@ namespace LiveSplit.HollowKnight {
 		JONI_GRAVE,
 		OVERGROWN_MOUND,
 		CRYSTAL_MOUND,
-		BEASTS_DEN
+		BEASTS_DEN,
+		GODS_GLORY,
+		GODSEEKER_WASTE
 	}
 	public enum CameraMode {
 		FROZEN,
@@ -280,7 +296,9 @@ namespace LiveSplit.HollowKnight {
 		PLAY_MODE_MENU,
 		EXTRAS_MENU,
 		REMAP_GAMEPAD_MENU,
-		EXTRAS_CONTENT_MENU
+		EXTRAS_CONTENT_MENU,
+		ENGAGE_MENU,
+		NO_SAVE_MENU
 	}
 	public enum UIState {
 		INACTIVE,

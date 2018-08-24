@@ -90,16 +90,22 @@ namespace LiveSplit.HollowKnight {
 		[Description("Vengeful Spirit (Skill)"), ToolTip("Splits when obtaining Vengeful Spirit")]
 		VengefulSpirit,
 
+		[Description("God Tuner (Item)"), ToolTip("Splits when obtaining the God Tuner")]
+		GodTuner,
 		[Description("Kings Brand (Item)"), ToolTip("Splits when obtaining the Kings Brand")]
 		KingsBrand,
 		[Description("Love Key (Item)"), ToolTip("Splits when obtaining the Love Key")]
 		LoveKey,
 		[Description("Lumafly Lantern (Item)"), ToolTip("Splits when obtaining the Lumafly Lantern")]
 		LumaflyLantern,
+		[Description("Pale Lurker Key (Item)"), ToolTip("Splits when obtaining the Simple Key from the Pale Lurker")]
+		PaleLurkerKey,
 		[Description("Pale Ore - First (Item)"), ToolTip("Splits when obtaining the first Pale Ore")]
 		PaleOre,
 		[Description("Simple Key - First (Item)"), ToolTip("Splits when obtaining the first Simple Key")]
 		SimpleKey,
+		[Description("Sly Key (Item)"), ToolTip("Splits when obtaining the Simple Key from Sly")]
+		SlyKey,
 		[Description("Tram Pass (Item)"), ToolTip("Splits when obtaining the Tram Pass")]
 		TramPass,
 
@@ -178,12 +184,14 @@ namespace LiveSplit.HollowKnight {
 		ElderHu,
 		[Description("False Knight (Boss)"), ToolTip("Splits when killing False Knight")]
 		FalseKnight,
-		[Description("Failed Knight (Boss)"), ToolTip("Splits when killing Failed Knight (False Knight Dream)")]
+		[Description("Failed Champion (Boss)"), ToolTip("Splits when killing Failed Champion (False Knight Dream)")]
 		FailedKnight,
 		[Description("Flukemarm (Boss)"), ToolTip("Splits when killing Flukemarm")]
 		Flukemarm,
 		[Description("Galien (Boss)"), ToolTip("Splits when killing Galien")]
 		Galien,
+		[Description("God Tamer (Boss)"), ToolTip("Splits when killing the God Tamer")]
+		GodTamer,
 		[Description("Gorb (Boss)"), ToolTip("Splits when killing Gorb")]
 		Gorb,
 		[Description("Grey Prince Zote (Boss)"), ToolTip("Splits when killing Grey Prince")]
@@ -204,6 +212,8 @@ namespace LiveSplit.HollowKnight {
 		Markoth,
 		[Description("Marmu (Boss)"), ToolTip("Splits when killing Marmu")]
 		Marmu,
+		[Description("Mato & Oro Nail Bros (Boss)"), ToolTip("Splits when killing the Nail Bros (Pantheon)")]
+		MatoOroNailBros,
 		[Description("Mega Moss Charger (Boss)"), ToolTip("Splits when killing Mega Moss Charger")]
 		MegaMossCharger,
 		[Description("Nightmare King Grimm (Boss)"), ToolTip("Splits when killing Nightmare King Grimm")]
@@ -212,6 +222,12 @@ namespace LiveSplit.HollowKnight {
 		NoEyes,
 		[Description("Nosk (Boss)"), ToolTip("Splits when killing Nosk")]
 		Nosk,
+		[Description("Pure Vessel (Boss)"), ToolTip("Splits when killing Pure Vessel")]
+		PureVessel,
+		[Description("Sheo Paintmaster (Boss)"), ToolTip("Splits when killing Sheo (Pantheon)")]
+		SheoPaintmaster,
+		[Description("Sly (Boss)"), ToolTip("Splits when killing Nailsage Sly (Pantheon)")]
+		SlyNailsage,
 		[Description("Soul Master (Boss)"), ToolTip("Splits when killing Soul Master")]
 		SoulMaster,
 		[Description("Soul Tyrant (Boss)"), ToolTip("Splits when killing Soul Tyrant (Soul Master Dream)")]
@@ -248,11 +264,19 @@ namespace LiveSplit.HollowKnight {
 		ColosseumSilver,
 		[Description("Colosseum Fight 3 (Trial)"), ToolTip("Splits when beating the third Colosseum trial")]
 		ColosseumGold,
+		[Description("Pantheon 1 (Trial)"), ToolTip("Splits when beating the first Pantheon")]
+		Pantheon1,
+		[Description("Pantheon 2 (Trial)"), ToolTip("Splits when beating the second Pantheon")]
+		Pantheon2,
+		[Description("Pantheon 3 (Trial)"), ToolTip("Splits when beating the third Pantheon")]
+		Pantheon3,
+		[Description("Pantheon 4 (Trial)"), ToolTip("Splits when beating the fourth Pantheon")]
+		Pantheon4,
+		[Description("Pantheon 5 (Trial)"), ToolTip("Splits when beating the fifth Pantheon")]
+		Pantheon5,
 
 		[Description("Aspid Hunter (Mini Boss)"), ToolTip("Splits when killing the final Aspid Hunter")]
 		AspidHunter,
-		[Description("God Tamer (Mini Boss)"), ToolTip("Splits when killing the God Tamer")]
-		GodTamer,
 		[Description("Moss Knight (Mini Boss)"), ToolTip("Splits when killing Moss Knight")]
 		MossKnight,
 		[Description("Shrumal Ogre (Mini Boss)"), ToolTip("Splits when killing the final Shrumal Ogre")]
@@ -288,6 +312,8 @@ namespace LiveSplit.HollowKnight {
 		[Description("Mr. Mushroom 7 (Spot)"), ToolTip("Splits when talking to Mr. Mushroom")]
 		MrMushroom7,
 
+		[Description("Abyss (Area)"), ToolTip("Splits when entering Abyss text first appears")]
+		Abyss,
 		[Description("City Of Tears (Area)"), ToolTip("Splits when entering City Of Tears text first appears")]
 		CityOfTears,
 		[Description("Crystal Peak (Area)"), ToolTip("Splits when entering Crystal Peak text first appears")]
@@ -304,6 +330,8 @@ namespace LiveSplit.HollowKnight {
 		ForgottenCrossroads,
 		[Description("Fungal Wastes (Area)"), ToolTip("Splits when entering Fungal Wastes text first appears")]
 		FungalWastes,
+		[Description("Godhome (Area)"), ToolTip("Splits when entering Godhome text first appears")]
+		Godhome,
 		[Description("Greenpath (Area)"), ToolTip("Splits when entering Greenpath text first appears")]
 		Greenpath,
 		[Description("Hive (Area)"), ToolTip("Splits when entering Hive text first appears")]

@@ -93,6 +93,17 @@ namespace LiveSplit.HollowKnight {
 						} while (string.IsNullOrEmpty(version) && len-- > 0);
 
 						lastVersion = new Version(version);
+
+						if (lastVersion.Minor > 3) {
+							gameState = 0xb8;
+
+							heroAccepting = 0x4b3;
+							actorState = 0x3cc;
+							transistionState = 0x3d4;
+
+							uiState = 0x154;
+							menuState = 0x158;
+						}
 					} else {
 						do {
 							version = gameManager.Read(Program, 0x0, inputHandler, debugInfo, 0x1c);
@@ -285,7 +296,16 @@ namespace LiveSplit.HollowKnight {
 		}
 		public T PlayerData<T>(Offset offset) where T : struct {
 			//GameManger._instance.playerData.(offset)
-			return gameManager.Read<T>(Program, 0x0, playerData, HollowKnight.PlayerData.GetOffset(offset));
+			switch (offset) {
+				case Offset.bossDoorStateTier1:
+				case Offset.bossDoorStateTier2:
+				case Offset.bossDoorStateTier3:
+				case Offset.bossDoorStateTier4:
+				case Offset.bossDoorStateTier5:
+					return gameManager.Read<T>(Program, 0x0, playerData, HollowKnight.PlayerData.GetOffset(offset), 0xa);
+				default:
+					return gameManager.Read<T>(Program, 0x0, playerData, HollowKnight.PlayerData.GetOffset(offset));
+			}
 		}
 		public GameState GameState() {
 			//GameManager._instance.gameState
@@ -305,7 +325,7 @@ namespace LiveSplit.HollowKnight {
 		}
 		public bool AcceptingInput() {
 			//GameManager._instance.InputHandler.acceptingInput
-			if (lastVersion.Minor == 3) {
+			if (lastVersion.Minor >= 3) {
 				return gameManager.Read<bool>(Program, 0x0, inputHandler, 0x5c);
 			}
 			return gameManager.Read<bool>(Program, 0x0, inputHandler, 0x58);
@@ -484,7 +504,7 @@ namespace LiveSplit.HollowKnight {
 		public static void InitializeData(Version ver) {
 			Assembly asm = Assembly.GetExecutingAssembly();
 
-			Stream file = asm.GetManifestResourceStream("LiveSplit.HollowKnight.PlayerData.V1315.txt");
+			Stream file = asm.GetManifestResourceStream("LiveSplit.HollowKnight.PlayerData.V1424.txt");
 			if (ver.Minor == 0 && (ver.Build < 3 || ver.Revision < 2)) {
 				file = asm.GetManifestResourceStream("LiveSplit.HollowKnight.PlayerData.Original.txt");
 			} else if (ver.Minor == 0) {
@@ -495,6 +515,8 @@ namespace LiveSplit.HollowKnight {
 				file = asm.GetManifestResourceStream("LiveSplit.HollowKnight.PlayerData.V1211.txt");
 			} else if (ver.Minor == 2 && ((ver.Build == 1 && ver.Revision >= 4) || ver.Build > 1)) {
 				file = asm.GetManifestResourceStream("LiveSplit.HollowKnight.PlayerData.V1214.txt");
+			} else if (ver.Minor == 3) {
+				file = asm.GetManifestResourceStream("LiveSplit.HollowKnight.PlayerData.V1315.txt");
 			}
 
 			if (file != null) {
@@ -549,6 +571,7 @@ namespace LiveSplit.HollowKnight {
 					case "Int16": key.Value = BitConverter.ToInt16(playerData, key.Index); break;
 					case "Int64": key.Value = BitConverter.ToInt64(playerData, key.Index); break;
 					case "String": key.Value = program.Read((IntPtr)BitConverter.ToUInt32(playerData, key.Index)); break;
+					case "Completion": key.Value = program.Read<bool>((IntPtr)BitConverter.ToUInt32(playerData, key.Index), 0xa); break;
 					case "Byte": key.Value = playerData[key.Index]; break;
 					case "Boolean": key.Value = playerData[key.Index] == 1; break;
 					default: key.Value = BitConverter.ToInt32(playerData, key.Index); break;
@@ -562,6 +585,7 @@ namespace LiveSplit.HollowKnight {
 						case "Int16": changed = (short)oldValue != (short)key.Value; break;
 						case "Int64": changed = (long)oldValue != (long)key.Value; break;
 						case "String": changed = (string)oldValue != (string)key.Value; break;
+						case "Completion": changed = (bool)oldValue != (bool)key.Value; break;
 						case "Byte": changed = (byte)oldValue != (byte)key.Value; break;
 						case "Boolean": changed = (bool)oldValue != (bool)key.Value; break;
 						default: changed = (int)oldValue != (int)key.Value; break;

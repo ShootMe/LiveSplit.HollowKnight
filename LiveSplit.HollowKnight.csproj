@@ -109,6 +109,7 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="HollowKnight.ico" />
+    <EmbeddedResource Include="PlayerData\V1424.txt" />
     <EmbeddedResource Include="PlayerData\V1315.txt" />
     <EmbeddedResource Include="PlayerData\V1214.txt" />
     <EmbeddedResource Include="PlayerData\V1211.txt" />
