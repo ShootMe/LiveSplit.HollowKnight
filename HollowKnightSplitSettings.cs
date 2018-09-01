@@ -212,8 +212,6 @@ namespace LiveSplit.HollowKnight {
 		Markoth,
 		[Description("Marmu (Boss)"), ToolTip("Splits when killing Marmu")]
 		Marmu,
-		[Description("Mato & Oro Nail Bros (Boss)"), ToolTip("Splits when killing the Nail Bros (Pantheon)")]
-		MatoOroNailBros,
 		[Description("Mega Moss Charger (Boss)"), ToolTip("Splits when killing Mega Moss Charger")]
 		MegaMossCharger,
 		[Description("Nightmare King Grimm (Boss)"), ToolTip("Splits when killing Nightmare King Grimm")]
@@ -222,11 +220,13 @@ namespace LiveSplit.HollowKnight {
 		NoEyes,
 		[Description("Nosk (Boss)"), ToolTip("Splits when killing Nosk")]
 		Nosk,
+		[Description("Oro & Mato Nail Bros (Boss)"), ToolTip("Splits when killing the Nail Bros (Pantheon)")]
+		MatoOroNailBros,
 		[Description("Pure Vessel (Boss)"), ToolTip("Splits when killing Pure Vessel")]
 		PureVessel,
 		[Description("Sheo Paintmaster (Boss)"), ToolTip("Splits when killing Sheo (Pantheon)")]
 		SheoPaintmaster,
-		[Description("Sly (Boss)"), ToolTip("Splits when killing Nailsage Sly (Pantheon)")]
+		[Description("Sly Nailsage (Boss)"), ToolTip("Splits when killing Nailsage Sly (Pantheon)")]
 		SlyNailsage,
 		[Description("Soul Master (Boss)"), ToolTip("Splits when killing Soul Master")]
 		SoulMaster,
@@ -244,6 +244,95 @@ namespace LiveSplit.HollowKnight {
 		WhiteDefender,
 		[Description("Xero (Boss)"), ToolTip("Splits when killing Xero")]
 		Xero,
+
+		[Description("Vengefly King (Pantheon)"), ToolTip("Splits after killing Vengefly King in Pantheon 1")]
+		VengeflyKingP,
+		[Description("Gruz Mother (Pantheon)"), ToolTip("Splits after killing Gruz Mother in Pantheon 1")]
+		GruzMotherP,
+		[Description("False Knight (Pantheon)"), ToolTip("Splits after killing False Knight in Pantheon 1")]
+		FalseKnightP,
+		[Description("Massive Moss Charger (Pantheon)"), ToolTip("Splits after killing Massive Moss Charger in Pantheon 1")]
+		MassiveMossChargerP,
+		[Description("Hornet 1 (Pantheon)"), ToolTip("Splits after killing Hornet 1 in Pantheon 1")]
+		Hornet1P,
+		[Description("Gorb (Pantheon)"), ToolTip("Splits after killing Gorb in Pantheon 1")]
+		GorbP,
+		[Description("Dung Defender (Pantheon)"), ToolTip("Splits after killing Dung Defender in Pantheon 1")]
+		DungDefenderP,
+		[Description("Soul Warrior (Pantheon)"), ToolTip("Splits after killing Soul Warrior in Pantheon 1")]
+		SoulWarriorP,
+		[Description("Brooding Mawlek (Pantheon)"), ToolTip("Splits after killing Brooding Mawlek in Pantheon 1")]
+		BroodingMawlekP,
+		[Description("Oro & Mato Nail Bros (Pantheon)"), ToolTip("Splits after killing Oro & Mato in Pantheon 1")]
+		OroMatoNailBrosP,
+
+		[Description("Xero (Pantheon)"), ToolTip("Splits after killing Xero in Pantheon 2")]
+		XeroP,
+		[Description("Crystal Guardian (Pantheon)"), ToolTip("Splits after killing Crystal Guardian in Pantheon 2")]
+		CrystalGuardianP,
+		[Description("Soul Master (Pantheon)"), ToolTip("Splits after killing Soul Master in Pantheon 2")]
+		SoulMasterP,
+		[Description("Oblobbles (Pantheon)"), ToolTip("Splits after killing Oblobbles in Pantheon 2")]
+		OblobblesP,
+		[Description("Mantis Lords (Pantheon)"), ToolTip("Splits after killing Mantis Lords in Pantheon 2")]
+		MantisLordsP,
+		[Description("Marmu (Pantheon)"), ToolTip("Splits after killing Marmu in Pantheon 2")]
+		MarmuP,
+		[Description("Nosk (Pantheon)"), ToolTip("Splits after killing Nosk in Pantheon 2")]
+		NoskP,
+		[Description("Flukemarm (Pantheon)"), ToolTip("Splits after killing Flukemarm in Pantheon 2")]
+		FlukemarmP,
+		[Description("Broken Vessel (Pantheon)"), ToolTip("Splits after killing Broken Vessel in Pantheon 2")]
+		BrokenVesselP,
+		[Description("Sheo Paintmaster (Pantheon)"), ToolTip("Splits after killing Sheo Paintmaster in Pantheon 2")]
+		SheoPaintmasterP,
+
+		[Description("Hive Knight (Pantheon)"), ToolTip("Splits after killing Hive Knight in Pantheon 3")]
+		HiveKnightP,
+		[Description("Elder Hu (Pantheon)"), ToolTip("Splits after killing Elder Hu in Pantheon 3")]
+		ElderHuP,
+		[Description("Collector (Pantheon)"), ToolTip("Splits after killing The Collector in Pantheon 3")]
+		CollectorP,
+		[Description("God Tamer (Pantheon)"), ToolTip("Splits after killing God Tamer in Pantheon 3")]
+		GodTamerP,
+		[Description("Troupe Master Grimm (Pantheon)"), ToolTip("Splits after killing Troupe Master Grimm in Pantheon 3")]
+		TroupeMasterGrimmP,
+		[Description("Galien (Pantheon)"), ToolTip("Splits after killing Galien in Pantheon 3")]
+		GalienP,
+		[Description("Grey Prince Zote (Pantheon)"), ToolTip("Splits after killing Grey Prince Zote in Pantheon 3")]
+		GreyPrinceZoteP,
+		[Description("Uumuu (Pantheon)"), ToolTip("Splits after killing Uumuu in Pantheon 3")]
+		UumuuP,
+		[Description("Hornet 2 (Pantheon)"), ToolTip("Splits after killing Hornet 2 in Pantheon 3")]
+		Hornet2P,
+		[Description("Sly Nailsage (Pantheon)"), ToolTip("Splits after killing Sly Nailsage in Pantheon 3")]
+		SlyP,
+
+		[Description("Enraged Guardian (Pantheon)"), ToolTip("Splits after killing Enraged Guardian in Pantheon 4")]
+		EnragedGuardianP,
+		[Description("Lost Kin (Pantheon)"), ToolTip("Splits after killing Lost Kin in Pantheon 4")]
+		LostKinP,
+		[Description("No Eyes (Pantheon)"), ToolTip("Splits after killing No Eyes in Pantheon 4")]
+		NoEyesP,
+		[Description("Traitor Lord (Pantheon)"), ToolTip("Splits after killing Traitor Lord in Pantheon 4")]
+		TraitorLordP,
+		[Description("White Defender (Pantheon)"), ToolTip("Splits after killing White Defender in Pantheon 4")]
+		WhiteDefenderP,
+		[Description("Failed Champion (Pantheon)"), ToolTip("Splits after killing Failed Champion in Pantheon 4")]
+		FailedChampionP,
+		[Description("Markoth (Pantheon)"), ToolTip("Splits after killing Markoth in Pantheon 4")]
+		MarkothP,
+		[Description("Watcher Knights (Pantheon)"), ToolTip("Splits after killing Watcher Knights in Pantheon 4")]
+		WatcherKnightsP,
+		[Description("Soul Tyrant (Pantheon)"), ToolTip("Splits after killing Soul Tyrant in Pantheon 4")]
+		SoulTyrantP,
+		[Description("Pure Vessel (Pantheon)"), ToolTip("Splits after killing Pure Vessel in Pantheon 4")]
+		PureVesselP,
+
+		[Description("Nosk Hornet (Pantheon)"), ToolTip("Splits after killing Nosk Hornet in Pantheon 5")]
+		NoskHornetP,
+		[Description("Nightmare King Grimm (Pantheon)"), ToolTip("Splits after killing Nightmare King Grimm in Pantheon 5")]
+		NightmareKingGrimmP,
 
 		[Description("Herrah the Beast (Dreamer)"), ToolTip("Splits when you see the mask for Herrah (In Spider Area)")]
 		Hegemol,

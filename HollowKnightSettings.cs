@@ -8,6 +8,7 @@ using System.Xml;
 namespace LiveSplit.HollowKnight {
 	public partial class HollowKnightSettings : UserControl {
 		public List<SplitName> Splits { get; private set; }
+		public bool Ordered { get; set; }
 		private bool isLoading;
 		public HollowKnightSettings() {
 			isLoading = true;
@@ -31,6 +32,8 @@ namespace LiveSplit.HollowKnight {
 			for (int i = flowMain.Controls.Count - 1; i > 0; i--) {
 				flowMain.Controls.RemoveAt(i);
 			}
+
+			chkOrdered.Checked = Ordered;
 
 			foreach (SplitName split in Splits) {
 				MemberInfo info = typeof(SplitName).GetMember(split.ToString())[0];
@@ -72,6 +75,8 @@ namespace LiveSplit.HollowKnight {
 		public void UpdateSplits() {
 			if (isLoading) return;
 
+			Ordered = chkOrdered.Checked;
+
 			Splits.Clear();
 			foreach (Control c in flowMain.Controls) {
 				if (c is HollowKnightSplitSettings) {
@@ -86,6 +91,10 @@ namespace LiveSplit.HollowKnight {
 		public XmlNode UpdateSettings(XmlDocument document) {
 			XmlElement xmlSettings = document.CreateElement("Settings");
 
+			XmlElement xmlOrdered = document.CreateElement("Ordered");
+			xmlOrdered.InnerText = Ordered.ToString();
+			xmlSettings.AppendChild(xmlOrdered);
+
 			XmlElement xmlSplits = document.CreateElement("Splits");
 			xmlSettings.AppendChild(xmlSplits);
 
@@ -99,6 +108,13 @@ namespace LiveSplit.HollowKnight {
 			return xmlSettings;
 		}
 		public void SetSettings(XmlNode settings) {
+			XmlNode orderedNode = settings.SelectSingleNode(".//Ordered");
+			bool isOrdered = false;
+			if (orderedNode != null) {
+				bool.TryParse(orderedNode.InnerText, out isOrdered);
+			}
+			Ordered = isOrdered;
+
 			Splits.Clear();
 			XmlNodeList splitNodes = settings.SelectNodes(".//Splits/Split");
 			foreach (XmlNode splitNode in splitNodes) {
