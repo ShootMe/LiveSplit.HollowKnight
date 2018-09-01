@@ -79,10 +79,11 @@ namespace LiveSplit.HollowKnight {
 
 			if (currentSplit == -1) {
 				shouldSplit = (nextScene.Equals("Tutorial_01", StringComparison.OrdinalIgnoreCase) && mem.GameState() == GameState.ENTERING_LEVEL) || nextScene == "GG_Vengefly_V" || nextScene == "GG_Boss_Door_Entrance";
-			} else if (Model.CurrentState.CurrentPhase == TimerPhase.Running) {
+			} else if (Model.CurrentState.CurrentPhase == TimerPhase.Running && settings.Splits.Count > 0) {
 				GameState gameState = mem.GameState();
+				SplitName finalSplit = settings.Splits[settings.Splits.Count - 1];
 
-				if (currentSplit + 1 < Model.CurrentState.Run.Count || (currentSplit + 1 == Model.CurrentState.Run.Count && settings.Splits.Count > 0 && (settings.Splits[settings.Splits.Count - 1] == SplitName.ElderbugFlower || settings.Splits[settings.Splits.Count - 1] == SplitName.ZoteKilled))) {
+				if (currentSplit + 1 < Model.CurrentState.Run.Count || (currentSplit + 1 == Model.CurrentState.Run.Count && (finalSplit == SplitName.ElderbugFlower || finalSplit == SplitName.ZoteKilled))) {
 					if (!settings.Ordered) {
 						foreach (SplitName split in settings.Splits) {
 							if (splitsDone.Contains(split) || gameState != GameState.PLAYING) { continue; }
@@ -99,7 +100,7 @@ namespace LiveSplit.HollowKnight {
 						shouldSplit = CheckSplit(split, nextScene, sceneName);
 					}
 				} else {
-					shouldSplit = nextScene.StartsWith("Cinematic_Ending", StringComparison.OrdinalIgnoreCase);
+					shouldSplit = nextScene.StartsWith("Cinematic_Ending", StringComparison.OrdinalIgnoreCase) || nextScene == "GG_End_Sequence";
 				}
 
 				UIState uiState = mem.UIState();
