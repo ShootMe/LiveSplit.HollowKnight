@@ -1,5 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <updates>
+	<update version="2.6.3">
+		<files>
+			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+		</files>
+		<changelog>
+			<change> Fix Sly and Pure Vessel splits </change>
+		</changelog>
+	</update>
 	<update version="2.6.2">
 		<files>
 			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>

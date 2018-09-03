@@ -353,7 +353,7 @@ namespace LiveSplit.HollowKnight {
 				case SplitName.GreyPrinceZoteP: shouldSplit = sceneName.StartsWith("GG_Grey_Prince_Zote") && (nextScene.StartsWith("GG_Uumuu") || nextScene.StartsWith("GG_Failed_Champion")); break;
 				case SplitName.UumuuP: shouldSplit = sceneName.StartsWith("GG_Uumuu") && (nextScene.StartsWith("GG_Hornet_2") || nextScene.StartsWith("GG_Nosk_Hornet")); break;
 				case SplitName.Hornet2P: shouldSplit = sceneName.StartsWith("GG_Hornet_2") && (nextScene == "GG_Engine" || nextScene == "GG_Spa"); break;
-				case SplitName.SlyP: shouldSplit = sceneName.StartsWith("GG_Sly") && (nextScene == "GG_End_Sequence" || sceneName.StartsWith("GG_Hornet_2")); break;
+				case SplitName.SlyP: shouldSplit = sceneName.StartsWith("GG_Sly") && (nextScene == "GG_End_Sequence" || nextScene.StartsWith("GG_Hornet_2")); break;
 
 				case SplitName.EnragedGuardianP: shouldSplit = sceneName.StartsWith("GG_Crystal_Guardian_2") && nextScene.StartsWith("GG_Lost_Kin"); break;
 				case SplitName.LostKinP: shouldSplit = sceneName.StartsWith("GG_Lost_Kin") && nextScene.StartsWith("GG_Ghost_No_Eyes"); break;
@@ -364,7 +364,7 @@ namespace LiveSplit.HollowKnight {
 				case SplitName.MarkothP: shouldSplit = sceneName.StartsWith("GG_Ghost_Markoth") && (nextScene.StartsWith("GG_Watcher_Knights") || nextScene.StartsWith("GG_Grey_Prince_Zote")); break;
 				case SplitName.WatcherKnightsP: shouldSplit = sceneName.StartsWith("GG_Watcher_Knights") && (nextScene.StartsWith("GG_Soul_Tyrant") || nextScene.StartsWith("GG_Uumuu")); break;
 				case SplitName.SoulTyrantP: shouldSplit = sceneName.StartsWith("GG_Soul_Tyrant") && (nextScene == "GG_Engine_Prime" || nextScene.StartsWith("GG_Ghost_Markoth")); break;
-				case SplitName.PureVesselP: shouldSplit = sceneName.StartsWith("GG_Hollow_Knight") && (nextScene == "GG_End_Sequence" || sceneName.StartsWith("GG_Radiance")); break;
+				case SplitName.PureVesselP: shouldSplit = sceneName.StartsWith("GG_Hollow_Knight") && (nextScene == "GG_End_Sequence" || nextScene.StartsWith("GG_Radiance")); break;
 
 				case SplitName.NoskHornetP: shouldSplit = sceneName.StartsWith("GG_Nosk_Hornet") && nextScene.StartsWith("GG_Sly"); break;
 				case SplitName.NightmareKingGrimmP: shouldSplit = sceneName.StartsWith("GG_Grimm_Nightmare") && nextScene == "GG_Spa"; break;
