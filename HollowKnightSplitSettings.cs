@@ -363,9 +363,13 @@ namespace LiveSplit.HollowKnight {
 		Pantheon4,
 		[Description("Pantheon 5 (Trial)"), ToolTip("Splits when beating the fifth Pantheon")]
 		Pantheon5,
+		[Description("Path of Pain (Completed)"), ToolTip("Splits when completing the Path of Pain section in White Palace")]
+		PathOfPain,
 
 		[Description("Aspid Hunter (Mini Boss)"), ToolTip("Splits when killing the final Aspid Hunter")]
 		AspidHunter,
+		[Description("Husk Miner (Killed)"), ToolTip("Splits when killing a Husk Miner")]
+		HuskMiner,
 		[Description("Moss Knight (Mini Boss)"), ToolTip("Splits when killing Moss Knight")]
 		MossKnight,
 		[Description("Shrumal Ogre (Mini Boss)"), ToolTip("Splits when killing the final Shrumal Ogre")]
