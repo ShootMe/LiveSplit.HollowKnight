@@ -241,6 +241,7 @@ namespace LiveSplit.HollowKnight {
 				int infoSize = Program.Read<int>((IntPtr)info.Pointer, 0xc);
 				if (infoSize == 0) { continue; }
 
+				info.HPIndex = -1;
 				for (int i = 0; i < infoSize; i++) {
 					fsmLength = Program.Read<int>((IntPtr)info.Pointer, 0x10 + i * 4, 0x8, 0x8);
 					fsmChar = Program.Read<byte>((IntPtr)info.Pointer, 0x10 + i * 4, 0x8, 0xc);
@@ -250,7 +251,9 @@ namespace LiveSplit.HollowKnight {
 					info.HP = Program.Read<int>((IntPtr)info.Pointer, 0x10 + i * 4, 0x14);
 				}
 
-				enemies.Add(info);
+				if (info.HPIndex >= 0) {
+					enemies.Add(info);
+				}
 			}
 
 			return enemies;

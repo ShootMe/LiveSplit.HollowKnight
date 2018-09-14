@@ -202,7 +202,7 @@ namespace LiveSplit.HollowKnight {
 				case SplitName.IsmasTear: shouldSplit = mem.PlayerData<bool>(Offset.hasAcidArmour); break;
 				case SplitName.JonisBlessing: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_27); break;
 				case SplitName.KingsBrand: shouldSplit = mem.PlayerData<bool>(Offset.hasKingsBrand); break;
-				case SplitName.Kingsoul: shouldSplit = mem.PlayerData<int>(Offset.charmCost_36) == 5; break;
+				case SplitName.Kingsoul: shouldSplit = mem.PlayerData<int>(Offset.charmCost_36) == 5 && mem.PlayerData<int>(Offset.royalCharmState) == 3; break;
 				case SplitName.KingsStationStation: shouldSplit = mem.PlayerData<bool>(Offset.openedRuins2); break;
 				case SplitName.Lemm1: shouldSplit = mem.PlayerData<bool>(Offset.metRelicDealer); break;
 				case SplitName.Lemm2: shouldSplit = mem.PlayerData<bool>(Offset.metRelicDealerShop); break;
