@@ -179,7 +179,9 @@ namespace LiveSplit.HollowKnight {
 		bossDoorStateTier5,
 		newDataBindingSeal,
 		killedZombieMiner,
-		royalCharmState
+		royalCharmState,
+		visitedOutskirts,
+		seenColosseumTitle
 	}
 	public enum GameState {
 		INACTIVE,
