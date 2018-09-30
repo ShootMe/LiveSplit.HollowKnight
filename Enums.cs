@@ -181,7 +181,10 @@ namespace LiveSplit.HollowKnight {
 		killedZombieMiner,
 		royalCharmState,
 		visitedOutskirts,
-		seenColosseumTitle
+		seenColosseumTitle,
+		littleFoolMet,
+		killedHunterMark,
+		salubraBlessing
 	}
 	public enum GameState {
 		INACTIVE,

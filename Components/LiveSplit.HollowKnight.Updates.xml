@@ -7,6 +7,9 @@
 		<changelog>
 			<change> Added Kingdom's Edge (Area) split </change>
 			<change> Added Colosseum (Area) split </change>
+			<change> Added Little Fool (NPC) split </change>
+			<change> Added Hunter's Mark split </change>
+			<change> Added Salubra's Blessing split </change>
 			<change> Allow ending timer on husk miner (Myla) split </change>
 		</changelog>
 	</update>

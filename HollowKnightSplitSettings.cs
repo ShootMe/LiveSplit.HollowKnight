@@ -92,6 +92,8 @@ namespace LiveSplit.HollowKnight {
 
 		[Description("God Tuner (Item)"), ToolTip("Splits when obtaining the God Tuner")]
 		GodTuner,
+		[Description("Hunter's Mark (Item)"), ToolTip("Splits when obtaining the Hunter's Mark")]
+		HuntersMark,
 		[Description("Kings Brand (Item)"), ToolTip("Splits when obtaining the Kings Brand")]
 		KingsBrand,
 		[Description("Love Key (Item)"), ToolTip("Splits when obtaining the Love Key")]
@@ -102,6 +104,8 @@ namespace LiveSplit.HollowKnight {
 		PaleLurkerKey,
 		[Description("Pale Ore - First (Item)"), ToolTip("Splits when obtaining the first Pale Ore")]
 		PaleOre,
+		[Description("Salubra's Blessing (Item)"), ToolTip("Splits when obtaining Salubra's Blessing")]
+		SalubrasBlessing,
 		[Description("Simple Key - First (Item)"), ToolTip("Splits when obtaining the first Simple Key")]
 		SimpleKey,
 		[Description("Sly Key (Item)"), ToolTip("Splits when obtaining the Simple Key from Sly")]
@@ -556,7 +560,9 @@ namespace LiveSplit.HollowKnight {
 		[Description("Bretta Rescued (NPC)"), ToolTip("Splits when saving Bretta")]
 		BrettaRescued,
 		[Description("Brumm Flame (NPC)"), ToolTip("Splits when collecting Brumm's flame in Deepnest")]
-		BrummFlame
+		BrummFlame,
+		[Description("Little Fool (NPC)"), ToolTip("Splits when talking to the Little Fool for the first time")]
+		LittleFool
 	}
 	public class ToolTipAttribute : Attribute {
 		public string ToolTip { get; set; }
