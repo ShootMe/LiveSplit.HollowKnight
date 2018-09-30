@@ -1,5 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <updates>
+	<update version="2.6.6">
+		<files>
+			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+		</files>
+		<changelog>
+			<change> Added Kingdom's Edge (Area) split </change>
+			<change> Added Colosseum (Area) split </change>
+			<change> Added Little Fool (NPC) split </change>
+			<change> Added Hunter's Mark split </change>
+			<change> Added Salubra's Blessing split </change>
+			<change> Allow ending timer on husk miner (Myla) split </change>
+		</changelog>
+	</update>
 	<update version="2.6.5">
 		<files>
 			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>

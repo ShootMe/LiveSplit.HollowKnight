@@ -83,7 +83,7 @@ namespace LiveSplit.HollowKnight {
 				GameState gameState = mem.GameState();
 				SplitName finalSplit = settings.Splits[settings.Splits.Count - 1];
 
-				if (currentSplit + 1 < Model.CurrentState.Run.Count || (currentSplit + 1 == Model.CurrentState.Run.Count && (finalSplit == SplitName.ElderbugFlower || finalSplit == SplitName.ZoteKilled))) {
+				if (currentSplit + 1 < Model.CurrentState.Run.Count || (currentSplit + 1 == Model.CurrentState.Run.Count && (finalSplit == SplitName.ElderbugFlower || finalSplit == SplitName.ZoteKilled || finalSplit == SplitName.HuskMiner))) {
 					if (!settings.Ordered) {
 						foreach (SplitName split in settings.Splits) {
 							if (splitsDone.Contains(split) || gameState != GameState.PLAYING) { continue; }
@@ -134,6 +134,7 @@ namespace LiveSplit.HollowKnight {
 				case SplitName.BroodingMawlek: shouldSplit = mem.PlayerData<bool>(Offset.killedMawlek); break;
 				case SplitName.CityOfTears: shouldSplit = mem.PlayerData<bool>(Offset.visitedRuins); break;
 				case SplitName.Collector: shouldSplit = mem.PlayerData<bool>(Offset.collectorDefeated); break;
+				case SplitName.Colosseum: shouldSplit = mem.PlayerData<bool>(Offset.seenColosseumTitle); break;
 				case SplitName.ColosseumBronze: shouldSplit = mem.PlayerData<bool>(Offset.colosseumBronzeCompleted); break;
 				case SplitName.ColosseumGold: shouldSplit = mem.PlayerData<bool>(Offset.colosseumGoldCompleted); break;
 				case SplitName.ColosseumSilver: shouldSplit = mem.PlayerData<bool>(Offset.colosseumSilverCompleted); break;
@@ -197,10 +198,12 @@ namespace LiveSplit.HollowKnight {
 				case SplitName.Hornet1: shouldSplit = mem.PlayerData<bool>(Offset.killedHornet); break;
 				case SplitName.Hornet2: shouldSplit = mem.PlayerData<bool>(Offset.hornetOutskirtsDefeated); break;
 				case SplitName.HowlingWraiths: shouldSplit = mem.PlayerData<int>(Offset.screamLevel) == 1; break;
+				case SplitName.HuntersMark: shouldSplit = mem.PlayerData<bool>(Offset.killedHunterMark); break;
 				case SplitName.HuskMiner: shouldSplit = mem.PlayerData<bool>(Offset.killedZombieMiner); break;
 				case SplitName.InfectedCrossroads: shouldSplit = mem.PlayerData<bool>(Offset.crossroadsInfected) && mem.PlayerData<bool>(Offset.visitedCrossroads); break;
 				case SplitName.IsmasTear: shouldSplit = mem.PlayerData<bool>(Offset.hasAcidArmour); break;
 				case SplitName.JonisBlessing: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_27); break;
+				case SplitName.KingdomsEdge: shouldSplit = mem.PlayerData<bool>(Offset.visitedOutskirts); break;
 				case SplitName.KingsBrand: shouldSplit = mem.PlayerData<bool>(Offset.hasKingsBrand); break;
 				case SplitName.Kingsoul: shouldSplit = mem.PlayerData<int>(Offset.charmCost_36) == 5 && mem.PlayerData<int>(Offset.royalCharmState) == 3; break;
 				case SplitName.KingsStationStation: shouldSplit = mem.PlayerData<bool>(Offset.openedRuins2); break;
@@ -208,6 +211,7 @@ namespace LiveSplit.HollowKnight {
 				case SplitName.Lemm2: shouldSplit = mem.PlayerData<bool>(Offset.metRelicDealerShop); break;
 				case SplitName.LifebloodCore: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_9); break;
 				case SplitName.LifebloodHeart: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_8); break;
+				case SplitName.LittleFool: shouldSplit = mem.PlayerData<bool>(Offset.littleFoolMet); break;
 				case SplitName.Longnail: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_18); break;
 				case SplitName.LostKin: shouldSplit = mem.PlayerData<bool>(Offset.infectedKnightDreamDefeated); break;
 				case SplitName.LoveKey: shouldSplit = mem.PlayerData<bool>(Offset.hasLoveKey); break;
@@ -279,6 +283,7 @@ namespace LiveSplit.HollowKnight {
 				case SplitName.QuickFocus: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_7); break;
 				case SplitName.RestingGrounds: shouldSplit = mem.PlayerData<bool>(Offset.visitedRestingGrounds); break;
 				case SplitName.RoyalWaterways: shouldSplit = mem.PlayerData<bool>(Offset.visitedWaterways); break;
+				case SplitName.SalubrasBlessing: shouldSplit = mem.PlayerData<bool>(Offset.salubraBlessing); break;
 				case SplitName.SeerDeparts: shouldSplit = mem.PlayerData<bool>(Offset.mothDeparted); break;
 				case SplitName.ShadeCloak: shouldSplit = mem.PlayerData<bool>(Offset.hasShadowDash); break;
 				case SplitName.ShadeSoul: shouldSplit = mem.PlayerData<int>(Offset.fireballLevel) == 2; break;
