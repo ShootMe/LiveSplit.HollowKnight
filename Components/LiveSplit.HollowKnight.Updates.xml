@@ -1,5 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <updates>
+	<update version="2.6.7">
+		<files>
+			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+		</files>
+		<changelog>
+			<change> Fixed vessel fragment autosplits </change>
+			<change> Fixed mask shard autosplits </change>
+			<change> Fixed Pure Vessel (Pantheon) autosplit </change>
+		</changelog>
+	</update>
 	<update version="2.6.6">
 		<files>
 			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
