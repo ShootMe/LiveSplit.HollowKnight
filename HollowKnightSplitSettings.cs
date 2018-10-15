@@ -350,6 +350,10 @@ namespace LiveSplit.HollowKnight {
 		NightmareLanternDestroyed,
 		[Description("Seer Departs (Event)"), ToolTip("Splits when the Seer Departs after bringing back 2400 essence")]
 		SeerDeparts,
+		[Description("Watcher Knights Chandelier (Event)"), ToolTip("Splits when dropping the chandelier on one of the watcher knights")]
+		WatcherChandelier,
+		[Description("Beasts Den Trap Bench (Event)"), ToolTip("Splits when getting the trap bench in Beasts Den")]
+		BeastsDenTrapBench,
 
 		[Description("Colosseum Fight 1 (Trial)"), ToolTip("Splits when beating the first Colosseum trial")]
 		ColosseumBronze,
@@ -385,13 +389,13 @@ namespace LiveSplit.HollowKnight {
 		[Description("Zote Killed Colosseum (Mini Boss)"), ToolTip("Splits when killing Zote in the Colosseum")]
 		ZoteKilled,
 
-		[Description("Distant Village (Stag Staion)"), ToolTip("Splits when obtaining Distant Village Stag Station")]
+		[Description("Distant Village (Stag Station)"), ToolTip("Splits when obtaining Distant Village Stag Station")]
 		DeepnestStation,
-		[Description("Forgotten Crossroads (Stag Staion)"), ToolTip("Splits when opening the Forgotten Crossroads Stag Station")]
+		[Description("Forgotten Crossroads (Stag Station)"), ToolTip("Splits when opening the Forgotten Crossroads Stag Station")]
 		CrossroadsStation,
-		[Description("Kings Station (Stag Staion)"), ToolTip("Splits when obtaining Kings Station Stag Station")]
+		[Description("Kings Station (Stag Station)"), ToolTip("Splits when obtaining Kings Station Stag Station")]
 		KingsStationStation,
-		[Description("Queens Station (Stag Staion)"), ToolTip("Splits when obtaining Queens Station Stag Staion")]
+		[Description("Queens Station (Stag Station)"), ToolTip("Splits when obtaining Queens Station Stag Staion")]
 		QueensStationStation,
 
 		[Description("Mr. Mushroom 1 (Spot)"), ToolTip("Splits when talking to Mr. Mushroom")]

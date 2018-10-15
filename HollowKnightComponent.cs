@@ -127,6 +127,7 @@ namespace LiveSplit.HollowKnight {
 				case SplitName.AbyssShriek: shouldSplit = mem.PlayerData<int>(Offset.screamLevel) == 2; break;
 				case SplitName.AspidHunter: shouldSplit = mem.PlayerData<int>(Offset.killsSpitter) == 17; break;
 				case SplitName.BaldurShell: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_5); break;
+				case SplitName.BeastsDenTrapBench: shouldSplit = mem.PlayerData<bool>(Offset.spiderCapture); break;
 				case SplitName.BlackKnight: shouldSplit = mem.PlayerData<bool>(Offset.killedBlackKnight); break;
 				case SplitName.BrettaRescued: shouldSplit = mem.PlayerData<bool>(Offset.brettaRescued); break;
 				case SplitName.BrummFlame: shouldSplit = mem.PlayerData<bool>(Offset.gotBrummsFlame); break;
@@ -320,6 +321,7 @@ namespace LiveSplit.HollowKnight {
 				case SplitName.VesselFragment8: shouldSplit = mem.PlayerData<int>(Offset.vesselFragments) == 8 || (mem.PlayerData<int>(Offset.MPReserveMax) == 66 && mem.PlayerData<int>(Offset.vesselFragments) == 2); break;
 				case SplitName.Vessel3: shouldSplit = mem.PlayerData<int>(Offset.MPReserveMax) == 99; break;
 				case SplitName.VoidHeart: shouldSplit = mem.PlayerData<bool>(Offset.gotShadeCharm); break;
+				case SplitName.WatcherChandelier: shouldSplit = mem.PlayerData<bool>(Offset.watcherChandelier); break;
 				case SplitName.WaywardCompass: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_2); break;
 				case SplitName.Weaversong: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_39); break;
 				case SplitName.WhiteDefender: shouldSplit = mem.PlayerData<bool>(Offset.killedWhiteDefender); break;
