@@ -186,7 +186,8 @@ namespace LiveSplit.HollowKnight {
 		killedHunterMark,
 		salubraBlessing,
 		watcherChandelier,
-		spiderCapture
+		spiderCapture,
+		unchainedHollowKnight
 	}
 	public enum GameState {
 		INACTIVE,
