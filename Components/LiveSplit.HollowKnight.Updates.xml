@@ -1,5 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <updates>
+	<update version="2.6.9">
+		<files>
+			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+		</files>
+		<changelog>
+			<change> Added Hollow Knight first scream split </change>
+		</changelog>
+	</update>
 	<update version="2.6.8">
 		<files>
 			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>

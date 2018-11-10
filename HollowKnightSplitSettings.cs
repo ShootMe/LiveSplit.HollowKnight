@@ -354,6 +354,8 @@ namespace LiveSplit.HollowKnight {
 		WatcherChandelier,
 		[Description("Beasts Den Trap Bench (Event)"), ToolTip("Splits when getting the trap bench in Beasts Den")]
 		BeastsDenTrapBench,
+		[Description("Hollow Knight Scream (Event)"), ToolTip("Splits at the end of the first Hollow Knight scream after the chains are broken")]
+		UnchainedHollowKnight,
 
 		[Description("Colosseum Fight 1 (Trial)"), ToolTip("Splits when beating the first Colosseum trial")]
 		ColosseumBronze,
