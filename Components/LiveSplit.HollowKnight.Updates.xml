@@ -1,5 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <updates>
+	<update version="2.6.10">
+		<files>
+			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+		</files>
+		<changelog>
+			<change> Added 1.0.0.6 support </change>
+			<change> Added King's Pass split </change>
+		</changelog>
+	</update>
 	<update version="2.6.9">
 		<files>
 			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>

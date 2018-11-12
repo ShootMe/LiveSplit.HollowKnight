@@ -83,7 +83,7 @@ namespace LiveSplit.HollowKnight {
 				GameState gameState = mem.GameState();
 				SplitName finalSplit = settings.Splits[settings.Splits.Count - 1];
 
-				if (currentSplit + 1 < Model.CurrentState.Run.Count || (currentSplit + 1 == Model.CurrentState.Run.Count && (finalSplit == SplitName.ElderbugFlower || finalSplit == SplitName.ZoteKilled || finalSplit == SplitName.HuskMiner))) {
+				if (currentSplit + 1 < Model.CurrentState.Run.Count || (currentSplit + 1 == Model.CurrentState.Run.Count && (finalSplit == SplitName.ElderbugFlower || finalSplit == SplitName.ZoteKilled || finalSplit == SplitName.HuskMiner || finalSplit == SplitName.KingsPass))) {
 					if (!settings.Ordered) {
 						foreach (SplitName split in settings.Splits) {
 							if (splitsDone.Contains(split) || gameState != GameState.PLAYING) { continue; }
@@ -331,7 +331,9 @@ namespace LiveSplit.HollowKnight {
 				case SplitName.Zote1: shouldSplit = mem.PlayerData<bool>(Offset.zoteRescuedBuzzer); break;
 				case SplitName.Zote2: shouldSplit = mem.PlayerData<bool>(Offset.zoteRescuedDeepnest); break;
 				case SplitName.ZoteKilled: shouldSplit = mem.PlayerData<bool>(Offset.killedZote); break;
-
+				
+				case SplitName.KingsPass: shouldSplit = sceneName.StartsWith("Tutorial_01") && nextScene.StartsWith("Town"); break;
+				
 				case SplitName.VengeflyKingP: shouldSplit = sceneName.StartsWith("GG_Vengefly") && nextScene.StartsWith("GG_Gruz_Mother"); break;
 				case SplitName.GruzMotherP: shouldSplit = sceneName.StartsWith("GG_Gruz_Mother") && nextScene.StartsWith("GG_False_Knight"); break;
 				case SplitName.FalseKnightP: shouldSplit = sceneName.StartsWith("GG_False_Knight") && nextScene.StartsWith("GG_Mega_Moss_Charger"); break;

@@ -397,7 +397,7 @@ namespace LiveSplit.HollowKnight {
 		CrossroadsStation,
 		[Description("Kings Station (Stag Station)"), ToolTip("Splits when obtaining Kings Station Stag Station")]
 		KingsStationStation,
-		[Description("Queens Station (Stag Station)"), ToolTip("Splits when obtaining Queens Station Stag Staion")]
+		[Description("Queens Station (Stag Station)"), ToolTip("Splits when obtaining Queens Station Stag Station")]
 		QueensStationStation,
 
 		[Description("Mr. Mushroom 1 (Spot)"), ToolTip("Splits when talking to Mr. Mushroom")]
@@ -448,13 +448,15 @@ namespace LiveSplit.HollowKnight {
 		[Description("Queens Gardens (Area)"), ToolTip("Splits when entering Queen's Gardens text first appears")]
 		QueensGardens,
 		[Description("Resting Grounds (Area)"), ToolTip("Splits when entering Resting Grounds text first appears")]
-		RestingGrounds,
+		RESTING_GROUNDS,
 		[Description("Royal Waterways (Area)"), ToolTip("Splits when entering Royal Waterways text first appears")]
 		RoyalWaterways,
 		[Description("Teachers Archive (Area)"), ToolTip("Splits when entering Teachers Archive for the first time")]
 		TeachersArchive,
 		[Description("White Palace (Area)"), ToolTip("Splits when entering White Palace text for the first time")]
 		WhitePalace,
+		[Description("King's Pass (Area)"), ToolTip("Splits when leaving King's pass")]
+		KingsPass,
 
 		[Description("Baldur Shell (Charm)"), ToolTip("Splits when obtaining the Baldur Shell charm")]
 		BaldurShell,
