@@ -83,7 +83,7 @@ namespace LiveSplit.HollowKnight {
 				GameState gameState = mem.GameState();
 				SplitName finalSplit = settings.Splits[settings.Splits.Count - 1];
 
-				if (currentSplit + 1 < Model.CurrentState.Run.Count || (currentSplit + 1 == Model.CurrentState.Run.Count && (finalSplit == SplitName.ElderbugFlower || finalSplit == SplitName.ZoteKilled || finalSplit == SplitName.HuskMiner || finalSplit == SplitName.KingsPass))) {
+				if (currentSplit + 1 < Model.CurrentState.Run.Count || (currentSplit + 1 == Model.CurrentState.Run.Count && (finalSplit == SplitName.ElderbugFlower || finalSplit == SplitName.ZoteKilled || finalSplit == SplitName.HuskMiner || finalSplit == SplitName.KingsPass || finalSplit == SplitName.GreatHopper))) {
 					if (!settings.Ordered) {
 						foreach (SplitName split in settings.Splits) {
 							if (splitsDone.Contains(split) || gameState != GameState.PLAYING) { continue; }
@@ -189,6 +189,7 @@ namespace LiveSplit.HollowKnight {
 				case SplitName.Grimmchild4: shouldSplit = mem.PlayerData<int>(Offset.grimmChildLevel) == 4; break;
 				case SplitName.GrubberflysElegy: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_35); break;
 				case SplitName.Grubsong: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_3); break;
+				case SplitName.GreatHopper: shouldSplit = mem.PlayerData<bool>(Offset.killedGiantHopper); break;
 				case SplitName.GreyPrince: shouldSplit = mem.PlayerData<bool>(Offset.killedGreyPrince); break;
 				case SplitName.GruzMother: shouldSplit = mem.PlayerData<bool>(Offset.killedBigFly); break;
 				case SplitName.HeavyBlow: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_15); break;

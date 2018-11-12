@@ -7,6 +7,7 @@
 		<changelog>
 			<change> Added 1.0.0.6 support </change>
 			<change> Added King's Pass split </change>
+			<change> Added Great Hopper split </change>
 		</changelog>
 	</update>
 	<update version="2.6.9">

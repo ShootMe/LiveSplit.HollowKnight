@@ -380,6 +380,8 @@ namespace LiveSplit.HollowKnight {
 		AspidHunter,
 		[Description("Husk Miner (Killed)"), ToolTip("Splits when killing a Husk Miner")]
 		HuskMiner,
+		[Description("Great Hopper (Killed)"), ToolTip("Splits when killing a Great Hopper")]
+		GreatHopper,
 		[Description("Moss Knight (Mini Boss)"), ToolTip("Splits when killing Moss Knight")]
 		MossKnight,
 		[Description("Shrumal Ogre (Mini Boss)"), ToolTip("Splits when killing the final Shrumal Ogre")]
@@ -448,7 +450,7 @@ namespace LiveSplit.HollowKnight {
 		[Description("Queens Gardens (Area)"), ToolTip("Splits when entering Queen's Gardens text first appears")]
 		QueensGardens,
 		[Description("Resting Grounds (Area)"), ToolTip("Splits when entering Resting Grounds text first appears")]
-		RESTING_GROUNDS,
+		RestingGrounds,
 		[Description("Royal Waterways (Area)"), ToolTip("Splits when entering Royal Waterways text first appears")]
 		RoyalWaterways,
 		[Description("Teachers Archive (Area)"), ToolTip("Splits when entering Teachers Archive for the first time")]
