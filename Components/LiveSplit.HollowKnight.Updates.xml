@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <updates>
-	<update version="2.6.10">
+	<update version="2.7.0">
 		<files>
 			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
 		</files>
