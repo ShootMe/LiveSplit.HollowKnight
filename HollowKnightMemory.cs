@@ -154,6 +154,15 @@ namespace LiveSplit.HollowKnight {
 					geoCounter = lastVersion.Build > 0 ? 0x1dc : 0x1d4;
 					menuState = 0x128;
 					uiState = 0x124;
+					
+					if (lastVersion.Major == 1 && 
+					    lastVersion.Minor == 0 && 
+					    lastVersion.Build == 0 && 
+					    lastVersion.Revision == 6) 
+					{
+						transistionState = 0x36c;
+					}
+
 				}
 
 				HollowKnight.PlayerData.InitializeData(lastVersion);

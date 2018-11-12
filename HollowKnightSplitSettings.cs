@@ -380,6 +380,8 @@ namespace LiveSplit.HollowKnight {
 		AspidHunter,
 		[Description("Husk Miner (Killed)"), ToolTip("Splits when killing a Husk Miner")]
 		HuskMiner,
+		[Description("Great Hopper (Killed)"), ToolTip("Splits when killing a Great Hopper")]
+		GreatHopper,
 		[Description("Moss Knight (Mini Boss)"), ToolTip("Splits when killing Moss Knight")]
 		MossKnight,
 		[Description("Shrumal Ogre (Mini Boss)"), ToolTip("Splits when killing the final Shrumal Ogre")]
@@ -397,7 +399,7 @@ namespace LiveSplit.HollowKnight {
 		CrossroadsStation,
 		[Description("Kings Station (Stag Station)"), ToolTip("Splits when obtaining Kings Station Stag Station")]
 		KingsStationStation,
-		[Description("Queens Station (Stag Station)"), ToolTip("Splits when obtaining Queens Station Stag Staion")]
+		[Description("Queens Station (Stag Station)"), ToolTip("Splits when obtaining Queens Station Stag Station")]
 		QueensStationStation,
 
 		[Description("Mr. Mushroom 1 (Spot)"), ToolTip("Splits when talking to Mr. Mushroom")]
@@ -455,6 +457,8 @@ namespace LiveSplit.HollowKnight {
 		TeachersArchive,
 		[Description("White Palace (Area)"), ToolTip("Splits when entering White Palace text for the first time")]
 		WhitePalace,
+		[Description("King's Pass (Area)"), ToolTip("Splits when leaving King's pass")]
+		KingsPass,
 
 		[Description("Baldur Shell (Charm)"), ToolTip("Splits when obtaining the Baldur Shell charm")]
 		BaldurShell,
