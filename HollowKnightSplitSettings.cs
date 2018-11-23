@@ -382,6 +382,8 @@ namespace LiveSplit.HollowKnight {
 		HuskMiner,
 		[Description("Great Hopper (Killed)"), ToolTip("Splits when killing a Great Hopper")]
 		GreatHopper,
+		[Description("Gorgeous Husk (Killed)"), ToolTip("Splits when killing Gorgeous Husk")]
+		GorgeousHusk,
 		[Description("Moss Knight (Mini Boss)"), ToolTip("Splits when killing Moss Knight")]
 		MossKnight,
 		[Description("Shrumal Ogre (Mini Boss)"), ToolTip("Splits when killing the final Shrumal Ogre")]
