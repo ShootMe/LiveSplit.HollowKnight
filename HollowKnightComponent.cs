@@ -190,6 +190,7 @@ namespace LiveSplit.HollowKnight {
 				case SplitName.GrubberflysElegy: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_35); break;
 				case SplitName.Grubsong: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_3); break;
 				case SplitName.GreatHopper: shouldSplit = mem.PlayerData<bool>(Offset.killedGiantHopper); break;
+				case SplitName.GorgeousHusk: shouldSplit = mem.PlayerData<bool>(Offset.killedGorgeousHusk); break;
 				case SplitName.GreyPrince: shouldSplit = mem.PlayerData<bool>(Offset.killedGreyPrince); break;
 				case SplitName.GruzMother: shouldSplit = mem.PlayerData<bool>(Offset.killedBigFly); break;
 				case SplitName.HeavyBlow: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_15); break;
