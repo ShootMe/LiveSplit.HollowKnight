@@ -6,6 +6,7 @@
 		</files>
 		<changelog>
 			<change> Added Gorgeous Husk split </change>
+			<change> Added Spirit Glade Door split (splits upon having the seer open the door) </change>
 		</changelog>
 	</update>
 	<update version="2.6.9">

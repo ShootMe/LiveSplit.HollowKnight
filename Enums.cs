@@ -189,7 +189,8 @@ namespace LiveSplit.HollowKnight {
 		spiderCapture,
 		unchainedHollowKnight,
 		killedGiantHopper,
-		killedGorgeousHusk
+		killedGorgeousHusk,
+		gladeDoorOpened
 	}
 	public enum GameState {
 		INACTIVE,
