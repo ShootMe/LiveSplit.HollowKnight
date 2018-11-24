@@ -1,5 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <updates>
+	<update version="2.7.1">
+		<files>
+			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+		</files>
+		<changelog>
+			<change> Added Gorgeous Husk split </change>
+			<change> Added Spirit Glade Door split (splits upon having the seer open the door) </change>
+		</changelog>
+	</update>
 	<update version="2.7.0">
 		<files>
 			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>

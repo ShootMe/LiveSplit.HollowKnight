@@ -350,6 +350,8 @@ namespace LiveSplit.HollowKnight {
 		NightmareLanternDestroyed,
 		[Description("Seer Departs (Event)"), ToolTip("Splits when the Seer Departs after bringing back 2400 essence")]
 		SeerDeparts,
+		[Description("Spirit Glade Door (Event)"), ToolTip("Splits when the Seer open Spirit Glade after bringing back 200 essence")]
+		SpiritGladeOpen,
 		[Description("Watcher Knights Chandelier (Event)"), ToolTip("Splits when dropping the chandelier on one of the watcher knights")]
 		WatcherChandelier,
 		[Description("Beasts Den Trap Bench (Event)"), ToolTip("Splits when getting the trap bench in Beasts Den")]
@@ -382,6 +384,8 @@ namespace LiveSplit.HollowKnight {
 		HuskMiner,
 		[Description("Great Hopper (Killed)"), ToolTip("Splits when killing a Great Hopper")]
 		GreatHopper,
+		[Description("Gorgeous Husk (Killed)"), ToolTip("Splits when killing Gorgeous Husk")]
+		GorgeousHusk,
 		[Description("Moss Knight (Mini Boss)"), ToolTip("Splits when killing Moss Knight")]
 		MossKnight,
 		[Description("Shrumal Ogre (Mini Boss)"), ToolTip("Splits when killing the final Shrumal Ogre")]
