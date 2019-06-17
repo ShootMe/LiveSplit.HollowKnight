@@ -32,6 +32,8 @@ namespace LiveSplit.HollowKnight {
 		private void UpdatedPointer(ProgramPointer pointer) {
 			if (pointer != gameManager) return;
 			
+			// 1028?
+			
 			//GameManager
 			playerData = 0x30;
 			uiManager = 0x84;
@@ -40,6 +42,7 @@ namespace LiveSplit.HollowKnight {
 			gameState = 0x98;
 			heroController = 0x78;
 			debugInfo = 0x2c;
+			tilemapDirty = 0xcf;
 
 			//CameraController
 			camTarget = 0x28;
@@ -56,6 +59,7 @@ namespace LiveSplit.HollowKnight {
 			string version;
 
 			if (len != 7) {
+				// before 1221 but after 1118
 				inputHandler = 0x6c;
 				uiManager = 0x88;
 				cameraCtrl = 0x78;
@@ -64,15 +68,18 @@ namespace LiveSplit.HollowKnight {
 				camTarget = 0x24;
 				camMode = 0x3c;
 				camTeleport = 0x47;
+				tilemapDirty = 0xd3;
 
 				len = gameManager.Read<int>(Program, 0x0, inputHandler, debugInfo, 0x1c, 0x8);
 				if (len != 7) {
+					// 1432/1315
 					playerData = 0x60;
 					uiManager = 0x4c;
 					inputHandler = 0x20;
 					cameraCtrl = 0x3c;
 					gameState = 0xb4;
 					heroController = 0x40;
+					tilemapDirty = 0xef;
 					debugInfo = 0x30;
 
 					camMode = 0x38;
@@ -96,6 +103,7 @@ namespace LiveSplit.HollowKnight {
 					lastVersion = new Version(version);
 
 					if (lastVersion.Minor > 3) {
+						// 1432
 						gameState = 0xb8;
 
 						heroAccepting = 0x4b3;
@@ -120,15 +128,18 @@ namespace LiveSplit.HollowKnight {
 						uiState = 0x128;
 						menuState = 0x12c;
 					} else if (lastVersion.Minor == 0) {
+						// 10??
 						uiState = 0x12c;
 						menuState = 0x130;
 					} else if (lastVersion.Minor == 1) {
+						// 1118?
 						uiState = 0x130;
 						menuState = 0x134;
 						heroAccepting = 0x45b;
 						actorState = 0x378;
 						transistionState = 0x380;
 					} else {
+						// 1221
 						uiState = 0x130;
 						menuState = 0x134;
 						uiManager = 0x8c;
@@ -151,7 +162,8 @@ namespace LiveSplit.HollowKnight {
 				} while (string.IsNullOrEmpty(version) && len-- > 0);
 
 				lastVersion = new Version(version);
-
+				
+				// 1006 yes/1118???
 				geoCounter = lastVersion.Build > 0 ? 0x1dc : 0x1d4;
 				menuState = 0x128;
 				uiState = 0x124;
@@ -162,6 +174,7 @@ namespace LiveSplit.HollowKnight {
 					lastVersion.Revision == 6) 
 				{
 					transistionState = 0x36c;
+					tilemapDirty = 0xcb;
 				}
 
 			}
@@ -362,20 +375,9 @@ namespace LiveSplit.HollowKnight {
 			//GameManager._instance.nextSceneName
 			return gameManager.Read(Program, 0x0, 0x10);
 		}
-		public bool TileMapDirty()
-		{
-			switch (VersionNumber())
-			{
-				case "1.0.2.8":
-				case "1.1.1.8":
-					return gameManager.Read<bool>(Program, 0x0, 0xcf);
-				case "1.2.2.1":
-					return gameManager.Read<bool>(Program, 0x0, 0x38);
-				case "1.4.3.2":
-					return gameManager.Read<bool>(Program, 0x0, 0xef);
-				default:
-					throw new InvalidOperationException("What patch is this?");
-			}
+		public bool TileMapDirty() {
+			//GameManager._instance.tileMapDirty
+			return gameManager.Read<bool>(Program, 0x0, tilemapDirty);
 		}
 		public bool HookProcess() {
 			IsHooked = Program != null && !Program.HasExited;
