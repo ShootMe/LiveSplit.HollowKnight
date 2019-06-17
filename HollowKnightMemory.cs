@@ -11,10 +11,10 @@ namespace LiveSplit.HollowKnight {
 	public partial class HollowKnightMemory {
 		private ProgramPointer gameManager, playmakerFSM;
 		public Process Program { get; set; }
-		public bool IsHooked { get; set; } = false;
+		public bool IsHooked { get; set; }
 		private DateTime lastHooked;
 		private int uiManager, inputHandler, cameraCtrl, gameState, heroController, camTarget, camMode, menuState, uiState;
-		private int geoCounter, heroAccepting, actorState, transistionState, camTeleport, playerData, debugInfo;
+		private int geoCounter, heroAccepting, actorState, transistionState, camTeleport, playerData, debugInfo, tilemapDirty;
 		private Version lastVersion;
 
 		public HollowKnightMemory() {
@@ -30,118 +30,62 @@ namespace LiveSplit.HollowKnight {
 			return lastVersion.ToString();
 		}
 		private void UpdatedPointer(ProgramPointer pointer) {
-			if (pointer == gameManager) {
-				//GameManager
-				playerData = 0x30;
-				uiManager = 0x84;
-				inputHandler = 0x68;
-				cameraCtrl = 0x74;
-				gameState = 0x98;
-				heroController = 0x78;
-				debugInfo = 0x2c;
+			if (pointer != gameManager) return;
+			
+			//GameManager
+			playerData = 0x30;
+			uiManager = 0x84;
+			inputHandler = 0x68;
+			cameraCtrl = 0x74;
+			gameState = 0x98;
+			heroController = 0x78;
+			debugInfo = 0x2c;
 
-				//CameraController
-				camTarget = 0x28;
-				camMode = 0x40;
-				camTeleport = 0x4b;
+			//CameraController
+			camTarget = 0x28;
+			camMode = 0x40;
+			camTeleport = 0x4b;
 
-				//HeroController
-				heroAccepting = 0x457;
-				actorState = 0x374;
-				transistionState = 0x37c;
-				geoCounter = 0x1dc;
+			//HeroController
+			heroAccepting = 0x457;
+			actorState = 0x374;
+			transistionState = 0x37c;
+			geoCounter = 0x1dc;
 
-				int len = gameManager.Read<int>(Program, 0x0, inputHandler, debugInfo, 0x1c, 0x8);
-				string version = null;
+			int len = gameManager.Read<int>(Program, 0x0, inputHandler, debugInfo, 0x1c, 0x8);
+			string version;
 
+			if (len != 7) {
+				inputHandler = 0x6c;
+				uiManager = 0x88;
+				cameraCtrl = 0x78;
+				gameState = 0x9c;
+				heroController = 0x7c;
+				camTarget = 0x24;
+				camMode = 0x3c;
+				camTeleport = 0x47;
+
+				len = gameManager.Read<int>(Program, 0x0, inputHandler, debugInfo, 0x1c, 0x8);
 				if (len != 7) {
-					inputHandler = 0x6c;
-					uiManager = 0x88;
-					cameraCtrl = 0x78;
-					gameState = 0x9c;
-					heroController = 0x7c;
-					camTarget = 0x24;
-					camMode = 0x3c;
-					camTeleport = 0x47;
+					playerData = 0x60;
+					uiManager = 0x4c;
+					inputHandler = 0x20;
+					cameraCtrl = 0x3c;
+					gameState = 0xb4;
+					heroController = 0x40;
+					debugInfo = 0x30;
 
-					len = gameManager.Read<int>(Program, 0x0, inputHandler, debugInfo, 0x1c, 0x8);
-					if (len != 7) {
-						playerData = 0x60;
-						uiManager = 0x4c;
-						inputHandler = 0x20;
-						cameraCtrl = 0x3c;
-						gameState = 0xb4;
-						heroController = 0x40;
-						debugInfo = 0x30;
+					camMode = 0x38;
+					camTeleport = 0x43;
 
-						camMode = 0x38;
-						camTeleport = 0x43;
+					heroAccepting = 0x497;
+					actorState = 0x3b0;
+					transistionState = 0x3b8;
+					geoCounter = 0x120;
 
-						heroAccepting = 0x497;
-						actorState = 0x3b0;
-						transistionState = 0x3b8;
-						geoCounter = 0x120;
+					uiState = 0x148;
+					menuState = 0x14c;
 
-						uiState = 0x148;
-						menuState = 0x14c;
-
-						do {
-							version = gameManager.Read(Program, 0x0, inputHandler, debugInfo, 0x1c);
-							if (string.IsNullOrEmpty(version)) {
-								Thread.Sleep(50);
-							}
-						} while (string.IsNullOrEmpty(version) && len-- > 0);
-
-						lastVersion = new Version(version);
-
-						if (lastVersion.Minor > 3) {
-							gameState = 0xb8;
-
-							heroAccepting = 0x4b3;
-							actorState = 0x3cc;
-							transistionState = 0x3d4;
-
-							uiState = 0x154;
-							menuState = 0x158;
-						}
-					} else {
-						do {
-							version = gameManager.Read(Program, 0x0, inputHandler, debugInfo, 0x1c);
-							if (string.IsNullOrEmpty(version)) {
-								Thread.Sleep(50);
-							}
-						} while (string.IsNullOrEmpty(version) && len-- > 0);
-
-						lastVersion = new Version(version);
-						geoCounter = lastVersion.Build > 0 ? 0x1dc : 0x1d4;
-
-						if (lastVersion.Minor == 0 && (lastVersion.Build < 3 || lastVersion.Revision < 4)) {
-							uiState = 0x128;
-							menuState = 0x12c;
-						} else if (lastVersion.Minor == 0) {
-							uiState = 0x12c;
-							menuState = 0x130;
-						} else if (lastVersion.Minor == 1) {
-							uiState = 0x130;
-							menuState = 0x134;
-							heroAccepting = 0x45b;
-							actorState = 0x378;
-							transistionState = 0x380;
-						} else {
-							uiState = 0x130;
-							menuState = 0x134;
-							uiManager = 0x8c;
-							cameraCtrl = 0x7c;
-							gameState = 0xa0;
-							heroController = 0x80;
-							heroAccepting = 0x46b;
-							actorState = 0x388;
-							transistionState = 0x390;
-							geoCounter = 0x1e4;
-						}
-					}
-				} else {
-					len = 40;
 					do {
 						version = gameManager.Read(Program, 0x0, inputHandler, debugInfo, 0x1c);
 						if (string.IsNullOrEmpty(version)) {
@@ -151,22 +95,78 @@ namespace LiveSplit.HollowKnight {
 
 					lastVersion = new Version(version);
 
-					geoCounter = lastVersion.Build > 0 ? 0x1dc : 0x1d4;
-					menuState = 0x128;
-					uiState = 0x124;
-					
-					if (lastVersion.Major == 1 && 
-					    lastVersion.Minor == 0 && 
-					    lastVersion.Build == 0 && 
-					    lastVersion.Revision == 6) 
-					{
-						transistionState = 0x36c;
-					}
+					if (lastVersion.Minor > 3) {
+						gameState = 0xb8;
 
+						heroAccepting = 0x4b3;
+						actorState = 0x3cc;
+						transistionState = 0x3d4;
+
+						uiState = 0x154;
+						menuState = 0x158;
+					}
+				} else {
+					do {
+						version = gameManager.Read(Program, 0x0, inputHandler, debugInfo, 0x1c);
+						if (string.IsNullOrEmpty(version)) {
+							Thread.Sleep(50);
+						}
+					} while (string.IsNullOrEmpty(version) && len-- > 0);
+
+					lastVersion = new Version(version);
+					geoCounter = lastVersion.Build > 0 ? 0x1dc : 0x1d4;
+
+					if (lastVersion.Minor == 0 && (lastVersion.Build < 3 || lastVersion.Revision < 4)) {
+						uiState = 0x128;
+						menuState = 0x12c;
+					} else if (lastVersion.Minor == 0) {
+						uiState = 0x12c;
+						menuState = 0x130;
+					} else if (lastVersion.Minor == 1) {
+						uiState = 0x130;
+						menuState = 0x134;
+						heroAccepting = 0x45b;
+						actorState = 0x378;
+						transistionState = 0x380;
+					} else {
+						uiState = 0x130;
+						menuState = 0x134;
+						uiManager = 0x8c;
+						cameraCtrl = 0x7c;
+						gameState = 0xa0;
+						heroController = 0x80;
+						heroAccepting = 0x46b;
+						actorState = 0x388;
+						transistionState = 0x390;
+						geoCounter = 0x1e4;
+					}
+				}
+			} else {
+				len = 40;
+				do {
+					version = gameManager.Read(Program, 0x0, inputHandler, debugInfo, 0x1c);
+					if (string.IsNullOrEmpty(version)) {
+						Thread.Sleep(50);
+					}
+				} while (string.IsNullOrEmpty(version) && len-- > 0);
+
+				lastVersion = new Version(version);
+
+				geoCounter = lastVersion.Build > 0 ? 0x1dc : 0x1d4;
+				menuState = 0x128;
+				uiState = 0x124;
+					
+				if (lastVersion.Major    == 1 && 
+					lastVersion.Minor    == 0 && 
+					lastVersion.Build    == 0 && 
+					lastVersion.Revision == 6) 
+				{
+					transistionState = 0x36c;
 				}
 
-				HollowKnight.PlayerData.InitializeData(lastVersion);
 			}
+
+			HollowKnight.PlayerData.InitializeData(lastVersion);
 		}
 		public byte[] GetPlayerData(int length) {
 			//GameManger._instance.playerData
@@ -361,6 +361,21 @@ namespace LiveSplit.HollowKnight {
 		public string NextSceneName() {
 			//GameManager._instance.nextSceneName
 			return gameManager.Read(Program, 0x0, 0x10);
+		}
+		public bool TileMapDirty()
+		{
+			switch (VersionNumber())
+			{
+				case "1.0.2.8":
+				case "1.1.1.8":
+					return gameManager.Read<bool>(Program, 0x0, 0xcf);
+				case "1.2.2.1":
+					return gameManager.Read<bool>(Program, 0x0, 0x38);
+				case "1.4.3.2":
+					return gameManager.Read<bool>(Program, 0x0, 0xef);
+				default:
+					throw new InvalidOperationException("What patch is this?");
+			}
 		}
 		public bool HookProcess() {
 			IsHooked = Program != null && !Program.HasExited;

@@ -71,7 +71,7 @@ namespace LiveSplit.HollowKnight {
 					Memory.UpdateGeoCounter(false, 0);
 					lastScene = sceneName;
 				}
-				lblSceneName.Text = "Scene: " + sceneName + " Next: " + nextScene;
+				lblSceneName.Text = "Scene: " + sceneName + " Next: " + nextScene + " tileMapDirty: " + Memory.TileMapDirty();
 
 				TargetMode target = Memory.GetCameraTargetMode();
 				if (chkCameraTarget.Checked && target != TargetMode.FOLLOW_HERO) {

@@ -113,7 +113,18 @@ namespace LiveSplit.HollowKnight {
 					lookForTeleporting = false;
 				}
 
-				Model.CurrentState.IsGameTimePaused = (gameState == GameState.PLAYING && teleporting) || lookForTeleporting || ((gameState == GameState.PLAYING || gameState == GameState.ENTERING_LEVEL) && uiState != UIState.PLAYING) || (gameState != GameState.PLAYING && !mem.AcceptingInput()) || gameState == GameState.EXITING_LEVEL || gameState == GameState.LOADING || mem.HeroTransitionState() == HeroTransitionState.WAITING_TO_ENTER_LEVEL || (uiState != UIState.PLAYING && (uiState != UIState.PAUSED || loadingMenu) && (!string.IsNullOrEmpty(nextScene) || sceneName == "_test_charms" || loadingMenu) && nextScene != sceneName);
+				Model.CurrentState.IsGameTimePaused = gameState == GameState.PLAYING && teleporting                                                      ||
+					lookForTeleporting                                                                                                                   ||
+					(gameState == GameState.PLAYING || gameState == GameState.ENTERING_LEVEL) && uiState != UIState.PLAYING                              ||
+					gameState != GameState.PLAYING && !mem.AcceptingInput()                                                                              ||
+					gameState                 == GameState.EXITING_LEVEL                                                                                 ||
+					gameState                 == GameState.LOADING                                                                                       ||
+					mem.HeroTransitionState() == HeroTransitionState.WAITING_TO_ENTER_LEVEL                                                              ||
+					uiState != UIState.PLAYING                                                       &&
+					(uiState != UIState.PAUSED                                       || loadingMenu) &&
+					(!string.IsNullOrEmpty(nextScene) || sceneName == "_test_charms" || loadingMenu) &&
+					nextScene != sceneName                                                                                                              ||
+					nextScene != sceneName && mem.TileMapDirty();
 
 				lastGameState = gameState;
 			}
