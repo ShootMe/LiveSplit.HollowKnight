@@ -251,7 +251,7 @@
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(598, 271);
+			this.ClientSize = new System.Drawing.Size(1000, 271);
 			this.Controls.Add(this.lblNote);
 			this.Controls.Add(this.btnDebugInfo);
 			this.Controls.Add(this.chkEnemyInvincible);
