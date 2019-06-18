@@ -31,9 +31,9 @@ namespace LiveSplit.HollowKnight {
 		}
 		private void UpdatedPointer(ProgramPointer pointer) {
 			if (pointer != gameManager) return;
-			
+
 			// 1028?
-			
+
 			//GameManager
 			playerData = 0x30;
 			uiManager = 0x84;
@@ -162,21 +162,19 @@ namespace LiveSplit.HollowKnight {
 				} while (string.IsNullOrEmpty(version) && len-- > 0);
 
 				lastVersion = new Version(version);
-				
+
 				// 1006 yes/1118???
 				geoCounter = lastVersion.Build > 0 ? 0x1dc : 0x1d4;
 				menuState = 0x128;
 				uiState = 0x124;
-					
-				if (lastVersion.Major    == 1 && 
-					lastVersion.Minor    == 0 && 
-					lastVersion.Build    == 0 && 
-					lastVersion.Revision == 6) 
-				{
+
+				if (lastVersion.Major == 1 &&
+					lastVersion.Minor == 0 &&
+					lastVersion.Build == 0 &&
+					lastVersion.Revision == 6) {
 					transistionState = 0x36c;
 					tilemapDirty = 0xcb;
 				}
-
 			}
 
 			HollowKnight.PlayerData.InitializeData(lastVersion);

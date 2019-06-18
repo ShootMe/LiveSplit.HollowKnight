@@ -64,7 +64,7 @@
 			this.lblNote.Font = new System.Drawing.Font("Courier New", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.lblNote.Location = new System.Drawing.Point(0, 0);
 			this.lblNote.Name = "lblNote";
-			this.lblNote.Size = new System.Drawing.Size(598, 271);
+			this.lblNote.Size = new System.Drawing.Size(584, 271);
 			this.lblNote.TabIndex = 0;
 			this.lblNote.Text = "Not available";
 			this.lblNote.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -251,7 +251,7 @@
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(1000, 271);
+			this.ClientSize = new System.Drawing.Size(584, 271);
 			this.Controls.Add(this.lblNote);
 			this.Controls.Add(this.btnDebugInfo);
 			this.Controls.Add(this.chkEnemyInvincible);
