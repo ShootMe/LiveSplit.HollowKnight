@@ -127,10 +127,12 @@ namespace LiveSplit.HollowKnight {
 					if (lastVersion.Minor == 0 && (lastVersion.Build < 3 || lastVersion.Revision < 4)) {
 						uiState = 0x128;
 						menuState = 0x12c;
+						tilemapDirty = 0xcf;
 					} else if (lastVersion.Minor == 0) {
 						// 10??
 						uiState = 0x12c;
 						menuState = 0x130;
+						tilemapDirty = 0xcf;
 					} else if (lastVersion.Minor == 1) {
 						// 1118?
 						uiState = 0x130;
