@@ -114,7 +114,7 @@ namespace LiveSplit.HollowKnight {
 				}
 
 				Model.CurrentState.IsGameTimePaused =
-					(gameState == GameState.PLAYING && teleporting)
+					(gameState == GameState.PLAYING && teleporting && !mem.HazardRespawning())
 					|| lookForTeleporting
 					|| ((gameState == GameState.PLAYING || gameState == GameState.ENTERING_LEVEL) && uiState != UIState.PLAYING)
 					|| (gameState != GameState.PLAYING && !mem.AcceptingInput())
