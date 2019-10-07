@@ -1,5 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <updates>
+	<update version="2.7.6">
+		<files>
+			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+		</files>
+		<changelog>
+			<change> Fixed bug where timer would pause during hazard respawns</change>
+		</changelog>
+	</update>
 	<update version="2.7.5">
 		<files>
 			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
