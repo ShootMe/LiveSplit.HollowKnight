@@ -14,7 +14,7 @@ namespace LiveSplit.HollowKnight {
         public bool IsHooked { get; set; }
         private DateTime lastHooked;
         private int uiManager, inputHandler, cameraCtrl, gameState, heroController, camTarget, camMode, menuState, uiState;
-        private int geoCounter, heroAccepting, actorState, transistionState, camTeleport, playerData, debugInfo, tilemapDirty, hazardRespawning;
+        private int geoCounter, heroAccepting, actorState, transistionState, camTeleport, playerData, debugInfo, tilemapDirty, cState;
         private Version lastVersion;
 
         public HollowKnightMemory() {
@@ -43,7 +43,6 @@ namespace LiveSplit.HollowKnight {
             heroController = 0x78;
             debugInfo = 0x2c;
             tilemapDirty = 0xcf;
-            hazardRespawning = tilemapDirty - 8;
 
             //CameraController
             camTarget = 0x28;
@@ -51,6 +50,7 @@ namespace LiveSplit.HollowKnight {
             camTeleport = 0x4b;
 
             //HeroController
+            cState = 0x108;
             heroAccepting = 0x457;
             actorState = 0x374;
             transistionState = 0x37c;
@@ -70,7 +70,6 @@ namespace LiveSplit.HollowKnight {
                 camMode = 0x3c;
                 camTeleport = 0x47;
                 tilemapDirty = 0xd3;
-                hazardRespawning = tilemapDirty - 8;
 
                 len = gameManager.Read<int>(Program, 0x0, inputHandler, debugInfo, 0x1c, 0x8);
                 if (len != 7) {
@@ -82,7 +81,6 @@ namespace LiveSplit.HollowKnight {
                     gameState = 0xb4;
                     heroController = 0x40;
                     tilemapDirty = 0xef;
-                    hazardRespawning = tilemapDirty - 8;
                     debugInfo = 0x30;
 
                     camMode = 0x38;
@@ -131,13 +129,11 @@ namespace LiveSplit.HollowKnight {
                         uiState = 0x128;
                         menuState = 0x12c;
                         tilemapDirty = 0xcf;
-                        hazardRespawning = tilemapDirty - 8;
                     } else if (lastVersion.Minor == 0) {
                         // 10??
                         uiState = 0x12c;
                         menuState = 0x130;
                         tilemapDirty = 0xcf;
-                        hazardRespawning = tilemapDirty - 8;
                     } else if (lastVersion.Minor == 1) {
                         // 1118?
                         uiState = 0x130;
@@ -153,6 +149,7 @@ namespace LiveSplit.HollowKnight {
                         cameraCtrl = 0x7c;
                         gameState = 0xa0;
                         heroController = 0x80;
+                        cState = 0x10C;
                         heroAccepting = 0x46b;
                         actorState = 0x388;
                         transistionState = 0x390;
@@ -179,9 +176,9 @@ namespace LiveSplit.HollowKnight {
                     lastVersion.Minor == 0 &&
                     lastVersion.Build == 0 &&
                     lastVersion.Revision == 6) {
+                    cState = 0x104;
                     transistionState = 0x36c;
                     tilemapDirty = 0xcb;
-                    hazardRespawning = tilemapDirty - 8;
                 }
             }
 
@@ -383,19 +380,21 @@ namespace LiveSplit.HollowKnight {
         }
         public bool UsesSceneTransitionRoutine() {
             /*
-			 * 1.3.1.5 and above swap from using LoadSceneAdditive to a SceneTransitionRoutine triggered
-			 * by BeginSceneTransitionRoutine, which doesn't set tilemapDirty back to false when you enter dnail
-			 * However, the early control glitch can only be performed on early patches so we can avoid this check entirely
-			 */
+             * 1.3.1.5 and above swap from using LoadSceneAdditive to a SceneTransitionRoutine triggered
+             * by BeginSceneTransitionRoutine, which doesn't set tilemapDirty back to false when you enter dnail
+             * However, the early control glitch can only be performed on early patches so we can avoid this check entirely
+             */
+             
             return lastVersion.Minor >= 3;
         }
         public bool TileMapDirty() {
             //GameManager._instance.tileMapDirty
             return gameManager.Read<bool>(Program, 0x0, tilemapDirty);
         }
-        public bool HazardRespawning() {
-            //GameManager._instance.hazardRespawningHero
-            return gameManager.Read<bool>(Program, 0x0, hazardRespawning);
+        public bool HazardRespawning()
+        {
+            //GameManager._instance.hero_ctrl.cState.hazardRespawning
+            return gameManager.Read<bool>(Program, 0x0, heroController, cState, 0x26);
         }
         public bool HookProcess() {
             IsHooked = Program != null && !Program.HasExited;
