@@ -384,15 +384,14 @@ namespace LiveSplit.HollowKnight {
              * by BeginSceneTransitionRoutine, which doesn't set tilemapDirty back to false when you enter dnail
              * However, the early control glitch can only be performed on early patches so we can avoid this check entirely
              */
-             
+
             return lastVersion.Minor >= 3;
         }
         public bool TileMapDirty() {
             //GameManager._instance.tileMapDirty
             return gameManager.Read<bool>(Program, 0x0, tilemapDirty);
         }
-        public bool HazardRespawning()
-        {
+        public bool HazardRespawning() {
             //GameManager._instance.hero_ctrl.cState.hazardRespawning
             return gameManager.Read<bool>(Program, 0x0, heroController, cState, 0x26);
         }

@@ -1,560 +1,560 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <updates>
-	<update version="2.7.7">
-		<files>
-			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
-		</files>
-		<changelog>
-			<change> Fixed bug where timer would no longer pause during normal respawns</change>
-		</changelog>
-	</update>
-	<update version="2.7.6">
-		<files>
-			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
-		</files>
-		<changelog>
-			<change> Fixed bug where timer would pause during hazard respawns</change>
-		</changelog>
-	</update>
-	<update version="2.7.5">
-		<files>
-			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
-		</files>
-		<changelog>
-			<change> Changed load removal to account for changed scene loading in post-lifeblood patches</change>
-		</changelog>
-	</update>
-	<update version="2.7.4">
-		<files>
-			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
-		</files>
-		<changelog>
-			<change> Fixed missing offset</change>
-		</changelog>
-	</update>
-	<update version="2.7.3">
-		<files>
-			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
-		</files>
-		<changelog>
-			<change> Updated load removal for new glitch </change>
-		</changelog>
-	</update>
-	<update version="2.7.2">
-		<files>
-			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
-		</files>
-		<changelog>
-			<change> Made PoP split able to end the timer</change>
-		</changelog>
-	</update>
-	<update version="2.7.1">
-		<files>
-			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
-		</files>
-		<changelog>
-			<change> Added Gorgeous Husk split </change>
-			<change> Added Spirit Glade Door split (splits upon having the seer open the door) </change>
-		</changelog>
-	</update>
-	<update version="2.7.0">
-		<files>
-			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
-		</files>
-		<changelog>
-			<change> Added 1.0.0.6 support </change>
-			<change> Added King's Pass split </change>
-			<change> Added Great Hopper split </change>
-		</changelog>
-	</update>
-	<update version="2.6.9">
-		<files>
-			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
-		</files>
-		<changelog>
-			<change> Added Hollow Knight first scream split </change>
-		</changelog>
-	</update>
-	<update version="2.6.8">
-		<files>
-			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
-		</files>
-		<changelog>
-			<change> Added Watcher Knights Chandelier split </change>
-			<change> Added Beasts Den Trap Bench split </change>
-		</changelog>
-	</update>
-	<update version="2.6.7">
-		<files>
-			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
-		</files>
-		<changelog>
-			<change> Fixed vessel fragment autosplits </change>
-			<change> Fixed mask shard autosplits </change>
-			<change> Fixed Pure Vessel (Pantheon) autosplit </change>
-		</changelog>
-	</update>
-	<update version="2.6.6">
-		<files>
-			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
-		</files>
-		<changelog>
-			<change> Added Kingdom's Edge (Area) split </change>
-			<change> Added Colosseum (Area) split </change>
-			<change> Added Little Fool (NPC) split </change>
-			<change> Added Hunter's Mark split </change>
-			<change> Added Salubra's Blessing split </change>
-			<change> Allow ending timer on husk miner (Myla) split </change>
-		</changelog>
-	</update>
-	<update version="2.6.5">
-		<files>
-			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
-		</files>
-		<changelog>
-			<change> Hopefully fix Kingsoul split on current patch </change>
-		</changelog>
-	</update>
-	<update version="2.6.4">
-		<files>
-			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
-		</files>
-		<changelog>
-			<change> Added Husk Miner and Path of Pain splits </change>
-		</changelog>
-	</update>
-	<update version="2.6.3">
-		<files>
-			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
-		</files>
-		<changelog>
-			<change> Fix Sly and Pure Vessel splits </change>
-		</changelog>
-	</update>
-	<update version="2.6.2">
-		<files>
-			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
-		</files>
-		<changelog>
-			<change> Fix ending splits in Pantheon ILs </change>
-		</changelog>
-	</update>
-	<update version="2.6.1">
-		<files>
-			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
-		</files>
-		<changelog>
-			<change> Added Splits for Pantheons and ability to autostart on Pantheon ILs </change>
-		</changelog>
-	</update>
-	<update version="2.6.0">
-		<files>
-			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
-		</files>
-		<changelog>
-			<change> Updated for version 1.4.2.4 </change>
-		</changelog>
-	</update>
-	<update version="2.5.7">
-		<files>
-			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
-		</files>
-		<changelog>
-			<change> Added Brumm flame split </change>
-		</changelog>
-	</update>
-	<update version="2.5.6">
-		<files>
-			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
-		</files>
-		<changelog>
-			<change> Added God Tamer split </change>
-		</changelog>
-	</update>
-	<update version="2.5.5">
-		<files>
-			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
-		</files>
-		<changelog>
-			<change> Added Bretta Rescued split </change>
-		</changelog>
-	</update>
-	<update version="2.5.4">
-		<files>
-			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
-		</files>
-		<changelog>
-			<change> Switch triggers for Great Slash and Dash Slash splits, so they split on the correct event </change>
-		</changelog>
-	</update>
-	<update version="2.5.3">
-		<files>
-			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
-		</files>
-		<changelog>
-			<change> Added Zote Killed split </change>
-		</changelog>
-	</update>
-	<update version="2.5.2">
-		<files>
-			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
-		</files>
-		<changelog>
-			<change> Update for 1.3.1.5 </change>
-			<change> If last split is Elderbug Flower it will stop splitting there so you don't need an extra one </change>
-		</changelog>
-	</update>
-	<update version="2.5.1">
-		<files>
-			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
-		</files>
-		<changelog>
-			<change> Added Elderbug Flower Quest split </change>
-		</changelog>
-	</update>
-	<update version="2.5.0">
-		<files>
-			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
-		</files>
-		<changelog>
-			<change> Changed how time is removed when exiting and loading back from menu </change>
-		</changelog>
-	</update>
-	<update version="2.4.8">
-		<files>
-			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
-		</files>
-		<changelog>
-			<change> More Performance Improvements </change>
-		</changelog>
-	</update>
-	<update version="2.4.7">
-		<files>
-			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
-		</files>
-		<changelog>
-			<change> Performance Improvements </change>
-		</changelog>
-	</update>
-	<update version="2.4.6">
-		<files>
-			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
-		</files>
-		<changelog>
-			<change> Performance Improvements </change>
-			<change> Fixed Pointer Issues Between Game Launches </change>
-		</changelog>
-	</update>
-	<update version="2.4.5">
-		<files>
-			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
-		</files>
-		<changelog>
-			<change> Added API pointer </change>
-		</changelog>
-	</update>
-	<update version="2.4.4">
-		<files>
-			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
-		</files>
-		<changelog>
-			<change> Hopefully fix timer issues between game closes / reopens </change>
-		</changelog>
-	</update>
-	<update version="2.4.3">
-		<files>
-			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
-		</files>
-		<changelog>
-			<change> Update for 1.2.1.4 </change>
-		</changelog>
-	</update>
-	<update version="2.4.2">
-		<files>
-			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
-		</files>
-		<changelog>
-			<change> Fix timer not starting on 2nd time through </change>
-		</changelog>
-	</update>
-	<update version="2.4.1">
-		<files>
-			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
-		</files>
-		<changelog>
-			<change> Added splits for Grimmchild levels </change>
-		</changelog>
-	</update>
-	<update version="2.4.0">
-		<files>
-			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
-		</files>
-		<changelog>
-			<change> Added splits for Grimm Troupe update </change>
-		</changelog>
-	</update>
-	<update version="2.3.8">
-		<files>
-			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
-		</files>
-		<changelog>
-			<change> Update for Grimm Troupe </change>
-		</changelog>
-	</update>
-	<update version="2.3.7">
-		<files>
-			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
-		</files>
-		<changelog>
-			<change> Added Dirtmouth split and Lemm splits </change>
-		</changelog>
-	</update>
-	<update version="2.3.6">
-		<files>
-			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
-		</files>
-		<changelog>
-			<change> Added Dreamgate split </change>
-		</changelog>
-	</update>
-	<update version="2.3.5">
-		<files>
-			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
-		</files>
-		<changelog>
-			<change> Added Grey Prince and White Defender boss splits </change>
-		</changelog>
-	</update>
-	<update version="2.3.0">
-		<files>
-			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
-		</files>
-		<changelog>
-			<change> Update for 1.1.1.4 </change>
-		</changelog>
-	</update>
-	<update version="2.2.5">
-		<files>
-			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
-		</files>
-		<changelog>
-			<change> Changed start timing method as requested by KDT. </change>
-		</changelog>
-	</update>
-	<update version="2.2.0">
-		<files>
-			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
-		</files>
-		<changelog>
-			<change> Hopefully fixed stopped timer when duping rooms. </change>
-		</changelog>
-	</update>
-	<update version="2.1.5">
-		<files>
-			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
-		</files>
-		<changelog>
-			<change> Fix some player data reading issues </change>
-		</changelog>
-	</update>
-	<update version="2.1.0">
-		<files>
-			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
-		</files>
-		<changelog>
-			<change> Add Mr Mushroom splits </change>
-		</changelog>
-	</update>
-	<update version="2.0.6">
-		<files>
-			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
-		</files>
-		<changelog>
-			<change> Fix for 1.0.3.4 </change>
-		</changelog>
-	</update>
-	<update version="2.0.5">
-		<files>
-			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
-		</files>
-		<changelog>
-			<change> Updated for 1.0.3.4 </change>
-		</changelog>
-	</update>
-	<update version="2.0.0">
-		<files>
-			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
-		</files>
-		<changelog>
-			<change> No more "old" game time checkbox in layout settings, it is now the only game timer. </change>
-		</changelog>
-	</update>
-	<update version="1.9.6">
-		<files>
-			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
-		</files>
-		<changelog>
-			<change> Changed "old" game time to be more accurate </change>
-		</changelog>
-	</update>
-	<update version="1.9.0">
-		<files>
-			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
-		</files>
-		<changelog>
-			<change> Fix for false knight split </change>
-		</changelog>
-	</update>
-	<update version="1.8.5">
-		<files>
-			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
-		</files>
-		<changelog>
-			<change> Fix for mantis claw split </change>
-		</changelog>
-	</update>
-	<update version="1.8.0">
-		<files>
-			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
-		</files>
-		<changelog>
-			<change> Update for 1.0.3.2 </change>
-		</changelog>
-	</update>
-	<update version="1.7.5">
-		<files>
-			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
-		</files>
-		<changelog>
-			<change> Added "Old" Game Time to settings for testing purposes </change>
-		</changelog>
-	</update>
-	<update version="1.7.0">
-		<files>
-			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
-		</files>
-		<changelog>
-			<change> Fixed for patch 1.0.3.1 </change>
-		</changelog>
-	</update>
-	<update version="1.6.5">
-		<files>
-			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
-		</files>
-		<changelog>
-			<change> Fixed for patch 1.0.2.6 </change>
-		</changelog>
-	</update>
-	<update version="1.6.0">
-		<files>
-			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
-		</files>
-		<changelog>
-			<change> Fixed Crystal Guardian 2, Brooding Mawlek, Hollow Knight for All Bosses. Added Zote Rescued 1 and 2, and first Simple Key </change>
-		</changelog>
-	</update>
-	<update version="1.5.5">
-		<files>
-			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
-		</files>
-		<changelog>
-			<change> Added splits for Notches, Flukemarm, and Love Key </change>
-		</changelog>
-	</update>
-	<update version="1.5.0">
-		<files>
-			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
-		</files>
-		<changelog>
-			<change> Fix memory reading to account for v1.0.1.1 </change>
-		</changelog>
-	</update>
-	<update version="1.4.6">
-		<files>
-			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
-		</files>
-		<changelog>
-			<change> Fixed Forgotten Crossroads (Area) split </change>
-		</changelog>
-	</update>
-	<update version="1.4.5">
-		<files>
-			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
-		</files>
-		<changelog>
-			<change> Added pale ore split </change>
-		</changelog>
-	</update>
-	<update version="1.4.0">
-		<files>
-			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
-		</files>
-		<changelog>
-			<change> Added more splits, and fixed ending game after killing true final boss </change>
-		</changelog>
-	</update>
-	<update version="1.3.5">
-		<files>
-			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
-		</files>
-		<changelog>
-			<change> Added more splits </change>
-		</changelog>
-	</update>
-	<update version="1.3.1">
-		<files>
-			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
-		</files>
-		<changelog>
-			<change> Fix typo causing splits all the time </change>
-		</changelog>
-	</update>
-	<update version="1.3.0">
-		<files>
-			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
-		</files>
-		<changelog>
-			<change> Added more splits </change>
-		</changelog>
-	</update>
-	<update version="1.2.5">
-		<files>
-			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
-		</files>
-		<changelog>
-			<change> Clean up in game timer a bit more when going between rooms </change>
-		</changelog>
-	</update>
-	<update version="1.2.0">
-		<files>
-			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
-		</files>
-		<changelog>
-			<change> Change when timer thinks game is "loading". Added Fragile Strength charm split </change>
-		</changelog>
-	</update>
-	<update version="1.1.5">
-		<files>
-			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
-		</files>
-		<changelog>
-			<change> Fix splits </change>
-		</changelog>
-	</update>
-	<update version="1.1.0">
-		<files>
-			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
-		</files>
-		<changelog>
-			<change> Setting fixes </change>
-		</changelog>
-	</update>
-	<update version="1.0.0">
-		<files>
-			<file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
-		</files>
-		<changelog>
-			<change> Initial Release </change>
-		</changelog>
-	</update>
+    <update version="2.7.7">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change> Fixed bug where timer would no longer pause during normal respawns</change>
+        </changelog>
+    </update>
+    <update version="2.7.6">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change> Fixed bug where timer would pause during hazard respawns</change>
+        </changelog>
+    </update>
+    <update version="2.7.5">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change> Changed load removal to account for changed scene loading in post-lifeblood patches</change>
+        </changelog>
+    </update>
+    <update version="2.7.4">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change> Fixed missing offset</change>
+        </changelog>
+    </update>
+    <update version="2.7.3">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change> Updated load removal for new glitch </change>
+        </changelog>
+    </update>
+    <update version="2.7.2">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change> Made PoP split able to end the timer</change>
+        </changelog>
+    </update>
+    <update version="2.7.1">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change> Added Gorgeous Husk split </change>
+            <change> Added Spirit Glade Door split (splits upon having the seer open the door) </change>
+        </changelog>
+    </update>
+    <update version="2.7.0">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change> Added 1.0.0.6 support </change>
+            <change> Added King's Pass split </change>
+            <change> Added Great Hopper split </change>
+        </changelog>
+    </update>
+    <update version="2.6.9">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change> Added Hollow Knight first scream split </change>
+        </changelog>
+    </update>
+    <update version="2.6.8">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change> Added Watcher Knights Chandelier split </change>
+            <change> Added Beasts Den Trap Bench split </change>
+        </changelog>
+    </update>
+    <update version="2.6.7">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change> Fixed vessel fragment autosplits </change>
+            <change> Fixed mask shard autosplits </change>
+            <change> Fixed Pure Vessel (Pantheon) autosplit </change>
+        </changelog>
+    </update>
+    <update version="2.6.6">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change> Added Kingdom's Edge (Area) split </change>
+            <change> Added Colosseum (Area) split </change>
+            <change> Added Little Fool (NPC) split </change>
+            <change> Added Hunter's Mark split </change>
+            <change> Added Salubra's Blessing split </change>
+            <change> Allow ending timer on husk miner (Myla) split </change>
+        </changelog>
+    </update>
+    <update version="2.6.5">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change> Hopefully fix Kingsoul split on current patch </change>
+        </changelog>
+    </update>
+    <update version="2.6.4">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change> Added Husk Miner and Path of Pain splits </change>
+        </changelog>
+    </update>
+    <update version="2.6.3">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change> Fix Sly and Pure Vessel splits </change>
+        </changelog>
+    </update>
+    <update version="2.6.2">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change> Fix ending splits in Pantheon ILs </change>
+        </changelog>
+    </update>
+    <update version="2.6.1">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change> Added Splits for Pantheons and ability to autostart on Pantheon ILs </change>
+        </changelog>
+    </update>
+    <update version="2.6.0">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change> Updated for version 1.4.2.4 </change>
+        </changelog>
+    </update>
+    <update version="2.5.7">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change> Added Brumm flame split </change>
+        </changelog>
+    </update>
+    <update version="2.5.6">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change> Added God Tamer split </change>
+        </changelog>
+    </update>
+    <update version="2.5.5">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change> Added Bretta Rescued split </change>
+        </changelog>
+    </update>
+    <update version="2.5.4">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change> Switch triggers for Great Slash and Dash Slash splits, so they split on the correct event </change>
+        </changelog>
+    </update>
+    <update version="2.5.3">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change> Added Zote Killed split </change>
+        </changelog>
+    </update>
+    <update version="2.5.2">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change> Update for 1.3.1.5 </change>
+            <change> If last split is Elderbug Flower it will stop splitting there so you don't need an extra one </change>
+        </changelog>
+    </update>
+    <update version="2.5.1">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change> Added Elderbug Flower Quest split </change>
+        </changelog>
+    </update>
+    <update version="2.5.0">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change> Changed how time is removed when exiting and loading back from menu </change>
+        </changelog>
+    </update>
+    <update version="2.4.8">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change> More Performance Improvements </change>
+        </changelog>
+    </update>
+    <update version="2.4.7">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change> Performance Improvements </change>
+        </changelog>
+    </update>
+    <update version="2.4.6">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change> Performance Improvements </change>
+            <change> Fixed Pointer Issues Between Game Launches </change>
+        </changelog>
+    </update>
+    <update version="2.4.5">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change> Added API pointer </change>
+        </changelog>
+    </update>
+    <update version="2.4.4">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change> Hopefully fix timer issues between game closes / reopens </change>
+        </changelog>
+    </update>
+    <update version="2.4.3">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change> Update for 1.2.1.4 </change>
+        </changelog>
+    </update>
+    <update version="2.4.2">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change> Fix timer not starting on 2nd time through </change>
+        </changelog>
+    </update>
+    <update version="2.4.1">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change> Added splits for Grimmchild levels </change>
+        </changelog>
+    </update>
+    <update version="2.4.0">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change> Added splits for Grimm Troupe update </change>
+        </changelog>
+    </update>
+    <update version="2.3.8">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change> Update for Grimm Troupe </change>
+        </changelog>
+    </update>
+    <update version="2.3.7">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change> Added Dirtmouth split and Lemm splits </change>
+        </changelog>
+    </update>
+    <update version="2.3.6">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change> Added Dreamgate split </change>
+        </changelog>
+    </update>
+    <update version="2.3.5">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change> Added Grey Prince and White Defender boss splits </change>
+        </changelog>
+    </update>
+    <update version="2.3.0">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change> Update for 1.1.1.4 </change>
+        </changelog>
+    </update>
+    <update version="2.2.5">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change> Changed start timing method as requested by KDT. </change>
+        </changelog>
+    </update>
+    <update version="2.2.0">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change> Hopefully fixed stopped timer when duping rooms. </change>
+        </changelog>
+    </update>
+    <update version="2.1.5">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change> Fix some player data reading issues </change>
+        </changelog>
+    </update>
+    <update version="2.1.0">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change> Add Mr Mushroom splits </change>
+        </changelog>
+    </update>
+    <update version="2.0.6">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change> Fix for 1.0.3.4 </change>
+        </changelog>
+    </update>
+    <update version="2.0.5">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change> Updated for 1.0.3.4 </change>
+        </changelog>
+    </update>
+    <update version="2.0.0">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change> No more "old" game time checkbox in layout settings, it is now the only game timer. </change>
+        </changelog>
+    </update>
+    <update version="1.9.6">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change> Changed "old" game time to be more accurate </change>
+        </changelog>
+    </update>
+    <update version="1.9.0">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change> Fix for false knight split </change>
+        </changelog>
+    </update>
+    <update version="1.8.5">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change> Fix for mantis claw split </change>
+        </changelog>
+    </update>
+    <update version="1.8.0">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change> Update for 1.0.3.2 </change>
+        </changelog>
+    </update>
+    <update version="1.7.5">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change> Added "Old" Game Time to settings for testing purposes </change>
+        </changelog>
+    </update>
+    <update version="1.7.0">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change> Fixed for patch 1.0.3.1 </change>
+        </changelog>
+    </update>
+    <update version="1.6.5">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change> Fixed for patch 1.0.2.6 </change>
+        </changelog>
+    </update>
+    <update version="1.6.0">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change> Fixed Crystal Guardian 2, Brooding Mawlek, Hollow Knight for All Bosses. Added Zote Rescued 1 and 2, and first Simple Key </change>
+        </changelog>
+    </update>
+    <update version="1.5.5">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change> Added splits for Notches, Flukemarm, and Love Key </change>
+        </changelog>
+    </update>
+    <update version="1.5.0">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change> Fix memory reading to account for v1.0.1.1 </change>
+        </changelog>
+    </update>
+    <update version="1.4.6">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change> Fixed Forgotten Crossroads (Area) split </change>
+        </changelog>
+    </update>
+    <update version="1.4.5">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change> Added pale ore split </change>
+        </changelog>
+    </update>
+    <update version="1.4.0">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change> Added more splits, and fixed ending game after killing true final boss </change>
+        </changelog>
+    </update>
+    <update version="1.3.5">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change> Added more splits </change>
+        </changelog>
+    </update>
+    <update version="1.3.1">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change> Fix typo causing splits all the time </change>
+        </changelog>
+    </update>
+    <update version="1.3.0">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change> Added more splits </change>
+        </changelog>
+    </update>
+    <update version="1.2.5">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change> Clean up in game timer a bit more when going between rooms </change>
+        </changelog>
+    </update>
+    <update version="1.2.0">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change> Change when timer thinks game is "loading". Added Fragile Strength charm split </change>
+        </changelog>
+    </update>
+    <update version="1.1.5">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change> Fix splits </change>
+        </changelog>
+    </update>
+    <update version="1.1.0">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change> Setting fixes </change>
+        </changelog>
+    </update>
+    <update version="1.0.0">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change> Initial Release </change>
+        </changelog>
+    </update>
 </updates>
