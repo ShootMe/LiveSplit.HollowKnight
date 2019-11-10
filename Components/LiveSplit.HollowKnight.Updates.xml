@@ -1,5 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <updates>
+    <update version="2.7.8">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change> Aluba autosplit</change>
+        </changelog>
+    </update>
     <update version="2.7.7">
         <files>
             <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>

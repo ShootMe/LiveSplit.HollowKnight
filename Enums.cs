@@ -187,7 +187,8 @@
         unchainedHollowKnight,
         killedGiantHopper,
         killedGorgeousHusk,
-        gladeDoorOpened
+        gladeDoorOpened,
+        killedLazyFlyer
     }
     public enum GameState {
         INACTIVE,
