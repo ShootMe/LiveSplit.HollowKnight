@@ -83,7 +83,7 @@ namespace LiveSplit.HollowKnight {
                 GameState gameState = mem.GameState();
                 SplitName finalSplit = settings.Splits[settings.Splits.Count - 1];
 
-                if (currentSplit + 1 < Model.CurrentState.Run.Count || (currentSplit + 1 == Model.CurrentState.Run.Count && (finalSplit == SplitName.ElderbugFlower || finalSplit == SplitName.ZoteKilled || finalSplit == SplitName.HuskMiner || finalSplit == SplitName.KingsPass || finalSplit == SplitName.GreatHopper || finalSplit == SplitName.PathOfPain))) {
+                if (currentSplit + 1 < Model.CurrentState.Run.Count || (currentSplit + 1 == Model.CurrentState.Run.Count && (finalSplit == SplitName.ElderbugFlower || finalSplit == SplitName.ZoteKilled || finalSplit == SplitName.HuskMiner || finalSplit == SplitName.KingsPass || finalSplit == SplitName.GreatHopper || finalSplit == SplitName.PathOfPain || finalSplit == SplitName.Aluba))) {
                     if (!settings.Ordered) {
                         foreach (SplitName split in settings.Splits) {
                             if (splitsDone.Contains(split) || gameState != GameState.PLAYING) { continue; }
@@ -137,6 +137,7 @@ namespace LiveSplit.HollowKnight {
             switch (split) {
                 case SplitName.Abyss: shouldSplit = mem.PlayerData<bool>(Offset.visitedAbyss); break;
                 case SplitName.AbyssShriek: shouldSplit = mem.PlayerData<int>(Offset.screamLevel) == 2; break;
+                case SplitName.Aluba: shouldSplit = mem.PlayerData<bool>(Offset.killedLazyFlyer); break;
                 case SplitName.AspidHunter: shouldSplit = mem.PlayerData<int>(Offset.killsSpitter) == 17; break;
                 case SplitName.BaldurShell: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_5); break;
                 case SplitName.BeastsDenTrapBench: shouldSplit = mem.PlayerData<bool>(Offset.spiderCapture); break;

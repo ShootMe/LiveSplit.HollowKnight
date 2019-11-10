@@ -380,6 +380,8 @@ namespace LiveSplit.HollowKnight {
 
         [Description("Aspid Hunter (Mini Boss)"), ToolTip("Splits when killing the final Aspid Hunter")]
         AspidHunter,
+        [Description("Aluba (Killed)"), ToolTip("Splits when killing an Aluba")]
+        Aluba,
         [Description("Husk Miner (Killed)"), ToolTip("Splits when killing a Husk Miner")]
         HuskMiner,
         [Description("Great Hopper (Killed)"), ToolTip("Splits when killing a Great Hopper")]
