@@ -188,7 +188,10 @@
         killedGiantHopper,
         killedGorgeousHusk,
         gladeDoorOpened,
-        killedLazyFlyer
+        killedLazyFlyer,
+        openedRuins1,
+        openedGreenpath,
+        hasWhiteKey
     }
     public enum GameState {
         INACTIVE,

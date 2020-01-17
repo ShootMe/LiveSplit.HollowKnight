@@ -176,6 +176,7 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.DungDefender: shouldSplit = mem.PlayerData<bool>(Offset.killedDungDefender); break;
                 case SplitName.ElderbugFlower: shouldSplit = mem.PlayerData<bool>(Offset.elderbugGaveFlower); break;
                 case SplitName.ElderHu: shouldSplit = mem.PlayerData<bool>(Offset.killedGhostHu); break;
+                case SplitName.ElegantKey: shouldSplit = mem.PlayerData<bool>(Offset.hasWhiteKey); break;
                 case SplitName.FailedKnight: shouldSplit = mem.PlayerData<bool>(Offset.falseKnightDreamDefeated); break;
                 case SplitName.FalseKnight: shouldSplit = mem.PlayerData<bool>(Offset.killedFalseKnight); break;
                 case SplitName.Flukemarm: shouldSplit = mem.PlayerData<bool>(Offset.killedFlukeMother); break;
@@ -197,6 +198,7 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.GorgeousHusk: shouldSplit = mem.PlayerData<bool>(Offset.killedGorgeousHusk); break;
                 case SplitName.GreatSlash: shouldSplit = mem.PlayerData<bool>(Offset.hasDashSlash); break;
                 case SplitName.Greenpath: shouldSplit = mem.PlayerData<bool>(Offset.visitedGreenpath); break;
+                case SplitName.GreenpathStation: shouldSplit = mem.PlayerData<bool>(Offset.openedGreenpath); break;
                 case SplitName.Grimmchild: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_40); break;
                 case SplitName.Grimmchild2: shouldSplit = mem.PlayerData<int>(Offset.grimmChildLevel) == 2; break;
                 case SplitName.Grimmchild3: shouldSplit = mem.PlayerData<int>(Offset.grimmChildLevel) == 3; break;
@@ -320,6 +322,7 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.Sprintmaster: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_37); break;
                 case SplitName.StalwartShell: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_4); break;
                 case SplitName.SteadyBody: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_14); break;
+                case SplitName.StoreroomsStation: shouldSplit = mem.PlayerData<bool>(Offset.openedRuins1); break;
                 case SplitName.TeachersArchive: shouldSplit = sceneName.Equals("Fungus3_archive", StringComparison.OrdinalIgnoreCase); break;
                 case SplitName.ThornsOfAgony: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_12); break;
                 case SplitName.TraitorLord: shouldSplit = mem.PlayerData<bool>(Offset.killedTraitorLord); break;

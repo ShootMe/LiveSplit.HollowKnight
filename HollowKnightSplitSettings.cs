@@ -98,6 +98,8 @@ namespace LiveSplit.HollowKnight {
         KingsBrand,
         [Description("Love Key (Item)"), ToolTip("Splits when obtaining the Love Key")]
         LoveKey,
+        [Description("Elegant Key (Item)"), ToolTip("Splits when obtaining the Elegant Key")]
+        ElegantKey,
         [Description("Lumafly Lantern (Item)"), ToolTip("Splits when obtaining the Lumafly Lantern")]
         LumaflyLantern,
         [Description("Pale Lurker Key (Item)"), ToolTip("Splits when obtaining the Simple Key from the Pale Lurker")]
@@ -405,6 +407,10 @@ namespace LiveSplit.HollowKnight {
         CrossroadsStation,
         [Description("Kings Station (Stag Station)"), ToolTip("Splits when obtaining Kings Station Stag Station")]
         KingsStationStation,
+        [Description("City Storerooms (Stag Station)"), ToolTip("Splits when obtaining City Storerooms Stag Station")]
+        StoreroomsStation,
+        [Description("Greenpath (Stag Station)"), ToolTip("Splits when obtaining Greenpath Stag Station")]
+        GreenpathStation,
         [Description("Queens Station (Stag Station)"), ToolTip("Splits when obtaining Queens Station Stag Station")]
         QueensStationStation,
 
