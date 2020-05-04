@@ -104,7 +104,7 @@ namespace LiveSplit.HollowKnight {
         LumaflyLantern,
         [Description("Pale Lurker Key (Item)"), ToolTip("Splits when obtaining the Simple Key from the Pale Lurker")]
         PaleLurkerKey,
-        [Description("Pale Ore - First (Item)"), ToolTip("Splits when obtaining the first Pale Ore")]
+        [Description("Pale Ore - Any (Item)"), ToolTip("Splits if you've obtained any Pale Ore")]
         PaleOre,
         [Description("Salubra's Blessing (Item)"), ToolTip("Splits when obtaining Salubra's Blessing")]
         SalubrasBlessing,
@@ -250,6 +250,8 @@ namespace LiveSplit.HollowKnight {
         WhiteDefender,
         [Description("Xero (Boss)"), ToolTip("Splits when killing Xero")]
         Xero,
+        [Description("Hive Knight (Boss)"), ToolTip("Splits when killing Hive Knight")]
+        HiveKnight,
 
         [Description("Vengefly King (Pantheon)"), ToolTip("Splits after killing Vengefly King in Pantheon 1")]
         VengeflyKingP,
@@ -584,7 +586,122 @@ namespace LiveSplit.HollowKnight {
         [Description("Brumm Flame (NPC)"), ToolTip("Splits when collecting Brumm's flame in Deepnest")]
         BrummFlame,
         [Description("Little Fool (NPC)"), ToolTip("Splits when talking to the Little Fool for the first time")]
-        LittleFool
+        LittleFool,
+        
+        [Description("Grimm Flame 1 (Flame)"), ToolTip("Splits after obtaining the first flame.")]
+        Flame1,
+        [Description("Grimm Flame 2 (Flame)"), ToolTip("Splits after obtaining the second flame.")]
+        Flame2,
+        [Description("Grimm Flame 3 (Flame)"), ToolTip("Splits after obtaining the third flame.")]
+        Flame3,
+        
+        [Description("Pale Ore 1 (Ore)"), ToolTip("Splits after obtaining the first pale ore.")]
+        Ore1,
+        [Description("Pale Ore 2 (Ore)"), ToolTip("Splits after obtaining the second pale ore.")]
+        Ore2,
+        [Description("Pale Ore 3 (Ore)"), ToolTip("Splits after obtaining the third pale ore.")]
+        Ore3,
+        [Description("Pale Ore 4 (Ore)"), ToolTip("Splits after obtaining the fourth pale ore.")]
+        Ore4,
+        [Description("Pale Ore 5 (Ore)"), ToolTip("Splits after obtaining the fifth pale ore.")]
+        Ore5,
+        [Description("Pale Ore 6 (Ore)"), ToolTip("Splits after obtaining the sixth pale ore.")]
+        Ore6,
+        
+        #region Grubs
+        [Description("Rescued Grub 1 (Grub)"), ToolTip("Splits when rescuing grub #1")]
+        Grub1,
+        [Description("Rescued Grub 2 (Grub)"), ToolTip("Splits when rescuing grub #2")]
+        Grub2,
+        [Description("Rescued Grub 3 (Grub)"), ToolTip("Splits when rescuing grub #3")]
+        Grub3,
+        [Description("Rescued Grub 4 (Grub)"), ToolTip("Splits when rescuing grub #4")]
+        Grub4,
+        [Description("Rescued Grub 5 (Grub)"), ToolTip("Splits when rescuing grub #5")]
+        Grub5,
+        [Description("Rescued Grub 6 (Grub)"), ToolTip("Splits when rescuing grub #6")]
+        Grub6,
+        [Description("Rescued Grub 7 (Grub)"), ToolTip("Splits when rescuing grub #7")]
+        Grub7,
+        [Description("Rescued Grub 8 (Grub)"), ToolTip("Splits when rescuing grub #8")]
+        Grub8,
+        [Description("Rescued Grub 9 (Grub)"), ToolTip("Splits when rescuing grub #9")]
+        Grub9,
+        [Description("Rescued Grub 10 (Grub)"), ToolTip("Splits when rescuing grub #10")]
+        Grub10,
+        [Description("Rescued Grub 11 (Grub)"), ToolTip("Splits when rescuing grub #11")]
+        Grub11,
+        [Description("Rescued Grub 12 (Grub)"), ToolTip("Splits when rescuing grub #12")]
+        Grub12,
+        [Description("Rescued Grub 13 (Grub)"), ToolTip("Splits when rescuing grub #13")]
+        Grub13,
+        [Description("Rescued Grub 14 (Grub)"), ToolTip("Splits when rescuing grub #14")]
+        Grub14,
+        [Description("Rescued Grub 15 (Grub)"), ToolTip("Splits when rescuing grub #15")]
+        Grub15,
+        [Description("Rescued Grub 16 (Grub)"), ToolTip("Splits when rescuing grub #16")]
+        Grub16,
+        [Description("Rescued Grub 17 (Grub)"), ToolTip("Splits when rescuing grub #17")]
+        Grub17,
+        [Description("Rescued Grub 18 (Grub)"), ToolTip("Splits when rescuing grub #18")]
+        Grub18,
+        [Description("Rescued Grub 19 (Grub)"), ToolTip("Splits when rescuing grub #19")]
+        Grub19,
+        [Description("Rescued Grub 20 (Grub)"), ToolTip("Splits when rescuing grub #20")]
+        Grub20,
+        [Description("Rescued Grub 21 (Grub)"), ToolTip("Splits when rescuing grub #21")]
+        Grub21,
+        [Description("Rescued Grub 22 (Grub)"), ToolTip("Splits when rescuing grub #22")]
+        Grub22,
+        [Description("Rescued Grub 23 (Grub)"), ToolTip("Splits when rescuing grub #23")]
+        Grub23,
+        [Description("Rescued Grub 24 (Grub)"), ToolTip("Splits when rescuing grub #24")]
+        Grub24,
+        [Description("Rescued Grub 25 (Grub)"), ToolTip("Splits when rescuing grub #25")]
+        Grub25,
+        [Description("Rescued Grub 26 (Grub)"), ToolTip("Splits when rescuing grub #26")]
+        Grub26,
+        [Description("Rescued Grub 27 (Grub)"), ToolTip("Splits when rescuing grub #27")]
+        Grub27,
+        [Description("Rescued Grub 28 (Grub)"), ToolTip("Splits when rescuing grub #28")]
+        Grub28,
+        [Description("Rescued Grub 29 (Grub)"), ToolTip("Splits when rescuing grub #29")]
+        Grub29,
+        [Description("Rescued Grub 30 (Grub)"), ToolTip("Splits when rescuing grub #30")]
+        Grub30,
+        [Description("Rescued Grub 31 (Grub)"), ToolTip("Splits when rescuing grub #31")]
+        Grub31,
+        [Description("Rescued Grub 32 (Grub)"), ToolTip("Splits when rescuing grub #32")]
+        Grub32,
+        [Description("Rescued Grub 33 (Grub)"), ToolTip("Splits when rescuing grub #33")]
+        Grub33,
+        [Description("Rescued Grub 34 (Grub)"), ToolTip("Splits when rescuing grub #34")]
+        Grub34,
+        [Description("Rescued Grub 35 (Grub)"), ToolTip("Splits when rescuing grub #35")]
+        Grub35,
+        [Description("Rescued Grub 36 (Grub)"), ToolTip("Splits when rescuing grub #36")]
+        Grub36,
+        [Description("Rescued Grub 37 (Grub)"), ToolTip("Splits when rescuing grub #37")]
+        Grub37,
+        [Description("Rescued Grub 38 (Grub)"), ToolTip("Splits when rescuing grub #38")]
+        Grub38,
+        [Description("Rescued Grub 39 (Grub)"), ToolTip("Splits when rescuing grub #39")]
+        Grub39,
+        [Description("Rescued Grub 40 (Grub)"), ToolTip("Splits when rescuing grub #40")]
+        Grub40,
+        [Description("Rescued Grub 41 (Grub)"), ToolTip("Splits when rescuing grub #41")]
+        Grub41,
+        [Description("Rescued Grub 42 (Grub)"), ToolTip("Splits when rescuing grub #42")]
+        Grub42,
+        [Description("Rescued Grub 43 (Grub)"), ToolTip("Splits when rescuing grub #43")]
+        Grub43,
+        [Description("Rescued Grub 44 (Grub)"), ToolTip("Splits when rescuing grub #44")]
+        Grub44,
+        [Description("Rescued Grub 45 (Grub)"), ToolTip("Splits when rescuing grub #45")]
+        Grub45,
+        [Description("Rescued Grub 46 (Grub)"), ToolTip("Splits when rescuing grub #46")]
+        Grub46,
+        #endregion
     }
     public class ToolTipAttribute : Attribute {
         public string ToolTip { get; set; }
