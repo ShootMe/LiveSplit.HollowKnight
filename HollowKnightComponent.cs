@@ -134,7 +134,7 @@ namespace LiveSplit.HollowKnight {
         }
         private bool CheckSplit(SplitName split, string nextScene, string sceneName) {
             bool shouldSplit = false;
-            
+
             switch (split) {
                 case SplitName.Abyss: shouldSplit = mem.PlayerData<bool>(Offset.visitedAbyss); break;
                 case SplitName.AbyssShriek: shouldSplit = mem.PlayerData<int>(Offset.screamLevel) == 2; break;
@@ -351,24 +351,23 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.Zote1: shouldSplit = mem.PlayerData<bool>(Offset.zoteRescuedBuzzer); break;
                 case SplitName.Zote2: shouldSplit = mem.PlayerData<bool>(Offset.zoteRescuedDeepnest); break;
                 case SplitName.ZoteKilled: shouldSplit = mem.PlayerData<bool>(Offset.killedZote); break;
-                
+
                 case SplitName.Flame1: shouldSplit = mem.PlayerData<int>(Offset.flamesCollected) == 1; break;
                 case SplitName.Flame2: shouldSplit = mem.PlayerData<int>(Offset.flamesCollected) == 2; break;
                 case SplitName.Flame3: shouldSplit = mem.PlayerData<int>(Offset.flamesCollected) == 3; break;
-                
+
                 case SplitName.HiveKnight: shouldSplit = mem.PlayerData<bool>(Offset.killedHiveKnight); break;
-                
+
                 case SplitName.Ore1:
                 case SplitName.Ore2:
                 case SplitName.Ore3:
                 case SplitName.Ore4:
                 case SplitName.Ore5:
                 case SplitName.Ore6:
-                {
                     int upgrades = mem.PlayerData<int>(Offset.nailSmithUpgrades);
                     int oreFromUpgrades = (upgrades * (upgrades - 1)) / 2;
                     int ore = oreFromUpgrades + mem.PlayerData<int>(Offset.ore);
-                    
+
                     switch (split) {
                         case SplitName.Ore1: shouldSplit = ore == 1; break;
                         case SplitName.Ore2: shouldSplit = ore == 2; break;
@@ -377,10 +376,9 @@ namespace LiveSplit.HollowKnight {
                         case SplitName.Ore5: shouldSplit = ore == 5; break;
                         case SplitName.Ore6: shouldSplit = ore == 6; break;
                     }
-                    
+
                     break;
-                }
-                
+
                 case SplitName.Grub1: shouldSplit = mem.PlayerData<int>(Offset.grubsCollected) == 1; break;
                 case SplitName.Grub2: shouldSplit = mem.PlayerData<int>(Offset.grubsCollected) == 2; break;
                 case SplitName.Grub3: shouldSplit = mem.PlayerData<int>(Offset.grubsCollected) == 3; break;
@@ -427,7 +425,7 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.Grub44: shouldSplit = mem.PlayerData<int>(Offset.grubsCollected) == 44; break;
                 case SplitName.Grub45: shouldSplit = mem.PlayerData<int>(Offset.grubsCollected) == 45; break;
                 case SplitName.Grub46: shouldSplit = mem.PlayerData<int>(Offset.grubsCollected) == 46; break;
-                
+
                 case SplitName.KingsPass: shouldSplit = sceneName.StartsWith("Tutorial_01") && nextScene.StartsWith("Town"); break;
 
                 case SplitName.VengeflyKingP: shouldSplit = sceneName.StartsWith("GG_Vengefly") && nextScene.StartsWith("GG_Gruz_Mother"); break;
@@ -565,19 +563,6 @@ namespace LiveSplit.HollowKnight {
 
 #if !Info
         public void Update(IInvalidator invalidator, LiveSplitState lvstate, float width, float height, LayoutMode mode) {
-            //Remove duplicate autosplitter componenets
-            IList<ILayoutComponent> components = lvstate.Layout.LayoutComponents;
-            bool hasAutosplitter = false;
-            for (int i = components.Count - 1; i >= 0; i--) {
-                ILayoutComponent component = components[i];
-                if (component.Component is HollowKnightComponent) {
-                    if ((invalidator == null && width == 0 && height == 0) || hasAutosplitter) {
-                        components.Remove(component);
-                    }
-                    hasAutosplitter = true;
-                }
-            }
-
             GetValues();
         }
 
@@ -629,6 +614,19 @@ namespace LiveSplit.HollowKnight {
         public float PaddingRight { get { return 0; } }
         public float PaddingTop { get { return 0; } }
         public float VerticalHeight { get { return 0; } }
-        public void Dispose() { }
+        public void Dispose() {
+#if !Info
+            if (Model != null) {
+                Model.CurrentState.OnReset -= OnReset;
+                Model.CurrentState.OnPause -= OnPause;
+                Model.CurrentState.OnResume -= OnResume;
+                Model.CurrentState.OnStart -= OnStart;
+                Model.CurrentState.OnSplit -= OnSplit;
+                Model.CurrentState.OnUndoSplit -= OnUndoSplit;
+                Model.CurrentState.OnSkipSplit -= OnSkipSplit;
+                Model = null;
+            }
+#endif
+        }
     }
 }

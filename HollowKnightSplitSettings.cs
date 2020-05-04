@@ -587,14 +587,14 @@ namespace LiveSplit.HollowKnight {
         BrummFlame,
         [Description("Little Fool (NPC)"), ToolTip("Splits when talking to the Little Fool for the first time")]
         LittleFool,
-        
+
         [Description("Grimm Flame 1 (Flame)"), ToolTip("Splits after obtaining the first flame.")]
         Flame1,
         [Description("Grimm Flame 2 (Flame)"), ToolTip("Splits after obtaining the second flame.")]
         Flame2,
         [Description("Grimm Flame 3 (Flame)"), ToolTip("Splits after obtaining the third flame.")]
         Flame3,
-        
+
         [Description("Pale Ore 1 (Ore)"), ToolTip("Splits after obtaining the first pale ore.")]
         Ore1,
         [Description("Pale Ore 2 (Ore)"), ToolTip("Splits after obtaining the second pale ore.")]
@@ -607,8 +607,7 @@ namespace LiveSplit.HollowKnight {
         Ore5,
         [Description("Pale Ore 6 (Ore)"), ToolTip("Splits after obtaining the sixth pale ore.")]
         Ore6,
-        
-        #region Grubs
+
         [Description("Rescued Grub 1 (Grub)"), ToolTip("Splits when rescuing grub #1")]
         Grub1,
         [Description("Rescued Grub 2 (Grub)"), ToolTip("Splits when rescuing grub #2")]
@@ -700,8 +699,7 @@ namespace LiveSplit.HollowKnight {
         [Description("Rescued Grub 45 (Grub)"), ToolTip("Splits when rescuing grub #45")]
         Grub45,
         [Description("Rescued Grub 46 (Grub)"), ToolTip("Splits when rescuing grub #46")]
-        Grub46,
-        #endregion
+        Grub46
     }
     public class ToolTipAttribute : Attribute {
         public string ToolTip { get; set; }

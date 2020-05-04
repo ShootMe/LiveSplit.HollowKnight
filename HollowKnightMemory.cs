@@ -1,5 +1,4 @@
-﻿using LiveSplit.Memory;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
@@ -9,7 +8,8 @@ using System.Reflection;
 using System.Threading;
 namespace LiveSplit.HollowKnight {
     public partial class HollowKnightMemory {
-        private ProgramPointer gameManager, playmakerFSM;
+        private ProgramPointer gameManager;
+        private ProgramPointer playmakerFSM;
         public Process Program { get; set; }
         public bool IsHooked { get; set; }
         private DateTime lastHooked;
@@ -19,21 +19,16 @@ namespace LiveSplit.HollowKnight {
 
         public HollowKnightMemory() {
             lastHooked = DateTime.MinValue;
-            gameManager = new ProgramPointer(AutoDeref.Single,
-                new ProgramSignature(PointerVersion.Normal, "83C41083EC0C57E8????????83C410EB3D8B05", 19),
-                new ProgramSignature(PointerVersion.API, "83C41083EC0C57393FE8????????83C410EB3F8B05", 21)
-            ) { UpdatedPointer = UpdatedPointer };
-            playmakerFSM = new ProgramPointer(AutoDeref.Single, new ProgramSignature(PointerVersion.Normal, "558BEC5783EC048B7D088B05????????83EC0857503900E8????????83C4108B470C85C074238B470C8BC83909", 12));
+            gameManager = new ProgramPointer(
+                new FindPointerSignature(PointerVersion.Normal, AutoDeref.Single, "83C41083EC0C57E8????????83C410EB3D8B05", 19),
+                new FindPointerSignature(PointerVersion.API, AutoDeref.Single, "83C41083EC0C57393FE8????????83C410EB3F8B05", 21)) { UpdatedPointer = UpdatedPointer };
+            playmakerFSM = new ProgramPointer(new FindPointerSignature(PointerVersion.Normal, AutoDeref.Single, "558BEC5783EC048B7D088B05????????83EC0857503900E8????????83C4108B470C85C074238B470C8BC83909", 12));
         }
 
         public string VersionNumber() {
             return lastVersion.ToString();
         }
         private void UpdatedPointer(ProgramPointer pointer) {
-            if (pointer != gameManager) return;
-
-            // 1028?
-
             //GameManager
             playerData = 0x30;
             uiManager = 0x84;
@@ -252,9 +247,9 @@ namespace LiveSplit.HollowKnight {
         public List<EnemyInfo> GetEnemyInfo() {
             List<EnemyInfo> enemies = new List<EnemyInfo>();
             int size = playmakerFSM.Read<int>(Program, 0x0, 0xc);
-            IntPtr basePointer = (IntPtr)playmakerFSM.Read<uint>(Program, 0x0, 0x8);
+            IntPtr basePointer = playmakerFSM.Read<IntPtr>(Program, 0x0, 0x8);
             for (int x = 0; x < size; x++) {
-                IntPtr fsmPtr = (IntPtr)Program.Read<uint>(basePointer, 0x10 + x * 4, 0xc);
+                IntPtr fsmPtr = Program.Read<IntPtr>(basePointer, 0x10 + x * 4, 0xc);
                 if (fsmPtr == IntPtr.Zero) { continue; }
                 int fsmLength = Program.Read<int>(fsmPtr, 0x14, 0x8);
                 byte fsmChar = Program.Read<byte>(fsmPtr, 0x14, 0xc);
@@ -287,9 +282,9 @@ namespace LiveSplit.HollowKnight {
             List<EntityInfo> entities = new List<EntityInfo>();
             int size = playmakerFSM.Read<int>(Program, 0x0, 0xc);
             for (int x = 0; x < size; x++) {
-                IntPtr fsmPtr = (IntPtr)playmakerFSM.Read<uint>(Program, 0x0, 0x8, 0x10 + x * 4, 0xc);
+                IntPtr fsmPtr = playmakerFSM.Read<IntPtr>(Program, 0x0, 0x8, 0x10 + x * 4, 0xc);
                 if (fsmPtr == IntPtr.Zero) { continue; }
-                string fsm = Program.Read((IntPtr)Program.Read<uint>(fsmPtr, 0x14));
+                string fsm = Program.ReadString(Program.Read<IntPtr>(fsmPtr, 0x14));
 
                 EntityInfo info = new EntityInfo();
                 info.Name = fsm;
@@ -300,14 +295,14 @@ namespace LiveSplit.HollowKnight {
                     if (infoSize == 0) { continue; }
 
                     for (int i = 0; i < infoSize; i++) {
-                        string fsmName = Program.Read((IntPtr)Program.Read<uint>((IntPtr)info.Pointer, j, 0x10 + i * 4, 0x8));
+                        string fsmName = Program.ReadString(Program.Read<IntPtr>((IntPtr)info.Pointer, j, 0x10 + i * 4, 0x8));
                         if (string.IsNullOrEmpty(fsmName)) { continue; }
 
                         switch (j) {
                             case 0x8: info.FloatVars.Add(new KeyValuePair<string, float>(fsmName, Program.Read<float>((IntPtr)info.Pointer, j, 0x10 + i * 4, 0x14))); break;
                             case 0xc: info.IntVars.Add(new KeyValuePair<string, int>(fsmName, Program.Read<int>((IntPtr)info.Pointer, j, 0x10 + i * 4, 0x14))); break;
                             case 0x10: info.BoolVars.Add(new KeyValuePair<string, bool>(fsmName, Program.Read<bool>((IntPtr)info.Pointer, j, 0x10 + i * 4, 0x14))); break;
-                            case 0x14: info.StringVars.Add(new KeyValuePair<string, string>(fsmName, Program.Read((IntPtr)Program.Read<int>((IntPtr)info.Pointer, j, 0x10 + i * 4, 0x14)))); break;
+                            case 0x14: info.StringVars.Add(new KeyValuePair<string, string>(fsmName, Program.ReadString(Program.Read<IntPtr>((IntPtr)info.Pointer, j, 0x10 + i * 4, 0x14)))); break;
                             case 0x18:
                             case 0x1c: info.VectorVars.Add(new KeyValuePair<string, PointF>(fsmName, new PointF(Program.Read<float>((IntPtr)info.Pointer, j, 0x10 + i * 4, 0x14), Program.Read<float>((IntPtr)info.Pointer, j, 0x10 + i * 4, 0x18)))); break;
                             default: info.ObjVars.Add(new KeyValuePair<string, int>(fsmName, Program.Read<int>((IntPtr)info.Pointer, j, 0x10 + i * 4, 0x14))); break;
@@ -322,7 +317,7 @@ namespace LiveSplit.HollowKnight {
 
             return entities;
         }
-        public T PlayerData<T>(Offset offset) where T : struct {
+        public T PlayerData<T>(Offset offset) where T : unmanaged {
             //GameManger._instance.playerData.(offset)
             switch (offset) {
                 case Offset.bossDoorStateTier1:
@@ -419,127 +414,6 @@ namespace LiveSplit.HollowKnight {
             }
         }
     }
-    public enum PointerVersion {
-        Normal,
-        API
-    }
-    public enum AutoDeref {
-        None,
-        Single,
-        Double
-    }
-    public class ProgramSignature {
-        public PointerVersion Version { get; set; }
-        public string Signature { get; set; }
-        public int Offset { get; set; }
-        public ProgramSignature(PointerVersion version, string signature, int offset) {
-            Version = version;
-            Signature = signature;
-            Offset = offset;
-        }
-        public override string ToString() {
-            return Version.ToString() + " - " + Signature;
-        }
-    }
-    public class ProgramPointer {
-        private int lastID;
-        private DateTime lastTry;
-        private ProgramSignature[] signatures;
-        private int[] offsets;
-        public IntPtr Pointer { get; private set; }
-        public PointerVersion Version { get; private set; }
-        public AutoDeref AutoDeref { get; private set; }
-        public Action<ProgramPointer> UpdatedPointer { get; set; }
-
-        public ProgramPointer(AutoDeref autoDeref, params ProgramSignature[] signatures) {
-            AutoDeref = autoDeref;
-            this.signatures = signatures;
-            lastID = -1;
-            lastTry = DateTime.MinValue;
-        }
-        public ProgramPointer(AutoDeref autoDeref, params int[] offsets) {
-            AutoDeref = autoDeref;
-            this.offsets = offsets;
-            lastID = -1;
-            lastTry = DateTime.MinValue;
-        }
-
-        public T Read<T>(Process program, params int[] offsets) where T : struct {
-            GetPointer(program);
-            return program.Read<T>(Pointer, offsets);
-        }
-        public string Read(Process program, params int[] offsets) {
-            GetPointer(program);
-            return program.Read((IntPtr)program.Read<uint>(Pointer, offsets));
-        }
-        public byte[] ReadBytes(Process program, int length, params int[] offsets) {
-            GetPointer(program);
-            return program.Read(Pointer, length, offsets);
-        }
-        public void Write<T>(Process program, T value, params int[] offsets) where T : struct {
-            GetPointer(program);
-            program.Write<T>(Pointer, value, offsets);
-        }
-        public void Write(Process program, byte[] value, params int[] offsets) {
-            GetPointer(program);
-            program.Write(Pointer, value, offsets);
-        }
-        public IntPtr GetPointer(Process program) {
-            if (program == null) {
-                Pointer = IntPtr.Zero;
-                lastID = -1;
-                return Pointer;
-            } else if (program.Id != lastID) {
-                Pointer = IntPtr.Zero;
-                lastID = program.Id;
-            }
-
-            if (Pointer == IntPtr.Zero && DateTime.Now > lastTry.AddSeconds(1)) {
-                lastTry = DateTime.Now;
-
-                Pointer = GetVersionedFunctionPointer(program);
-                if (Pointer != IntPtr.Zero) {
-                    if (AutoDeref != AutoDeref.None) {
-                        Pointer = (IntPtr)program.Read<uint>(Pointer);
-                        if (AutoDeref == AutoDeref.Double) {
-                            if (MemoryReader.is64Bit) {
-                                Pointer = (IntPtr)program.Read<ulong>(Pointer);
-                            } else {
-                                Pointer = (IntPtr)program.Read<uint>(Pointer);
-                            }
-                        }
-                    }
-                    UpdatedPointer?.Invoke(this);
-                }
-            }
-            return Pointer;
-        }
-        private IntPtr GetVersionedFunctionPointer(Process program) {
-            if (signatures != null) {
-                MemorySearcher searcher = new MemorySearcher();
-                searcher.MemoryFilter = delegate (MemInfo info) {
-                    return (info.State & 0x1000) != 0 && (info.Protect & 0x40) != 0 && (info.Protect & 0x100) == 0;
-                };
-                for (int i = 0; i < signatures.Length; i++) {
-                    ProgramSignature signature = signatures[i];
-
-                    IntPtr ptr = searcher.FindSignature(program, signature.Signature);
-                    if (ptr != IntPtr.Zero) {
-                        Version = signature.Version;
-                        return ptr + signature.Offset;
-                    }
-                }
-            } else {
-                IntPtr ptr = (IntPtr)program.Read<uint>(program.MainModule.BaseAddress, offsets);
-                if (ptr != IntPtr.Zero) {
-                    return ptr;
-                }
-            }
-
-            return IntPtr.Zero;
-        }
-    }
-
     public class PlayerData {
         public static Dictionary<string, PlayerKey> Data = new Dictionary<string, PlayerKey>(StringComparer.OrdinalIgnoreCase);
         public static int DataLength;
@@ -615,7 +489,7 @@ namespace LiveSplit.HollowKnight {
                     case "Single": key.Value = BitConverter.ToSingle(playerData, key.Index); break;
                     case "Int16": key.Value = BitConverter.ToInt16(playerData, key.Index); break;
                     case "Int64": key.Value = BitConverter.ToInt64(playerData, key.Index); break;
-                    case "String": key.Value = program.Read((IntPtr)BitConverter.ToUInt32(playerData, key.Index)); break;
+                    case "String": key.Value = program.ReadString((IntPtr)BitConverter.ToUInt32(playerData, key.Index)); break;
                     case "Completion": key.Value = program.Read<bool>((IntPtr)BitConverter.ToUInt32(playerData, key.Index), 0xa); break;
                     case "Byte": key.Value = playerData[key.Index]; break;
                     case "Boolean": key.Value = playerData[key.Index] == 1; break;
