@@ -134,6 +134,7 @@ namespace LiveSplit.HollowKnight {
         }
         private bool CheckSplit(SplitName split, string nextScene, string sceneName) {
             bool shouldSplit = false;
+            
             switch (split) {
                 case SplitName.Abyss: shouldSplit = mem.PlayerData<bool>(Offset.visitedAbyss); break;
                 case SplitName.AbyssShriek: shouldSplit = mem.PlayerData<int>(Offset.screamLevel) == 2; break;
@@ -350,7 +351,83 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.Zote1: shouldSplit = mem.PlayerData<bool>(Offset.zoteRescuedBuzzer); break;
                 case SplitName.Zote2: shouldSplit = mem.PlayerData<bool>(Offset.zoteRescuedDeepnest); break;
                 case SplitName.ZoteKilled: shouldSplit = mem.PlayerData<bool>(Offset.killedZote); break;
-
+                
+                case SplitName.Flame1: shouldSplit = mem.PlayerData<int>(Offset.flamesCollected) == 1; break;
+                case SplitName.Flame2: shouldSplit = mem.PlayerData<int>(Offset.flamesCollected) == 2; break;
+                case SplitName.Flame3: shouldSplit = mem.PlayerData<int>(Offset.flamesCollected) == 3; break;
+                
+                case SplitName.HiveKnight: shouldSplit = mem.PlayerData<bool>(Offset.killedHiveKnight); break;
+                
+                case SplitName.Ore1:
+                case SplitName.Ore2:
+                case SplitName.Ore3:
+                case SplitName.Ore4:
+                case SplitName.Ore5:
+                case SplitName.Ore6:
+                {
+                    int upgrades = mem.PlayerData<int>(Offset.nailSmithUpgrades);
+                    int oreFromUpgrades = (upgrades * (upgrades - 1)) / 2;
+                    int ore = oreFromUpgrades + mem.PlayerData<int>(Offset.ore);
+                    
+                    switch (split) {
+                        case SplitName.Ore1: shouldSplit = ore == 1; break;
+                        case SplitName.Ore2: shouldSplit = ore == 2; break;
+                        case SplitName.Ore3: shouldSplit = ore == 3; break;
+                        case SplitName.Ore4: shouldSplit = ore == 4; break;
+                        case SplitName.Ore5: shouldSplit = ore == 5; break;
+                        case SplitName.Ore6: shouldSplit = ore == 6; break;
+                    }
+                    
+                    break;
+                }
+                
+                case SplitName.Grub1: shouldSplit = mem.PlayerData<int>(Offset.grubsCollected) == 1; break;
+                case SplitName.Grub2: shouldSplit = mem.PlayerData<int>(Offset.grubsCollected) == 2; break;
+                case SplitName.Grub3: shouldSplit = mem.PlayerData<int>(Offset.grubsCollected) == 3; break;
+                case SplitName.Grub4: shouldSplit = mem.PlayerData<int>(Offset.grubsCollected) == 4; break;
+                case SplitName.Grub5: shouldSplit = mem.PlayerData<int>(Offset.grubsCollected) == 5; break;
+                case SplitName.Grub6: shouldSplit = mem.PlayerData<int>(Offset.grubsCollected) == 6; break;
+                case SplitName.Grub7: shouldSplit = mem.PlayerData<int>(Offset.grubsCollected) == 7; break;
+                case SplitName.Grub8: shouldSplit = mem.PlayerData<int>(Offset.grubsCollected) == 8; break;
+                case SplitName.Grub9: shouldSplit = mem.PlayerData<int>(Offset.grubsCollected) == 9; break;
+                case SplitName.Grub10: shouldSplit = mem.PlayerData<int>(Offset.grubsCollected) == 10; break;
+                case SplitName.Grub11: shouldSplit = mem.PlayerData<int>(Offset.grubsCollected) == 11; break;
+                case SplitName.Grub12: shouldSplit = mem.PlayerData<int>(Offset.grubsCollected) == 12; break;
+                case SplitName.Grub13: shouldSplit = mem.PlayerData<int>(Offset.grubsCollected) == 13; break;
+                case SplitName.Grub14: shouldSplit = mem.PlayerData<int>(Offset.grubsCollected) == 14; break;
+                case SplitName.Grub15: shouldSplit = mem.PlayerData<int>(Offset.grubsCollected) == 15; break;
+                case SplitName.Grub16: shouldSplit = mem.PlayerData<int>(Offset.grubsCollected) == 16; break;
+                case SplitName.Grub17: shouldSplit = mem.PlayerData<int>(Offset.grubsCollected) == 17; break;
+                case SplitName.Grub18: shouldSplit = mem.PlayerData<int>(Offset.grubsCollected) == 18; break;
+                case SplitName.Grub19: shouldSplit = mem.PlayerData<int>(Offset.grubsCollected) == 19; break;
+                case SplitName.Grub20: shouldSplit = mem.PlayerData<int>(Offset.grubsCollected) == 20; break;
+                case SplitName.Grub21: shouldSplit = mem.PlayerData<int>(Offset.grubsCollected) == 21; break;
+                case SplitName.Grub22: shouldSplit = mem.PlayerData<int>(Offset.grubsCollected) == 22; break;
+                case SplitName.Grub23: shouldSplit = mem.PlayerData<int>(Offset.grubsCollected) == 23; break;
+                case SplitName.Grub24: shouldSplit = mem.PlayerData<int>(Offset.grubsCollected) == 24; break;
+                case SplitName.Grub25: shouldSplit = mem.PlayerData<int>(Offset.grubsCollected) == 25; break;
+                case SplitName.Grub26: shouldSplit = mem.PlayerData<int>(Offset.grubsCollected) == 26; break;
+                case SplitName.Grub27: shouldSplit = mem.PlayerData<int>(Offset.grubsCollected) == 27; break;
+                case SplitName.Grub28: shouldSplit = mem.PlayerData<int>(Offset.grubsCollected) == 28; break;
+                case SplitName.Grub29: shouldSplit = mem.PlayerData<int>(Offset.grubsCollected) == 29; break;
+                case SplitName.Grub30: shouldSplit = mem.PlayerData<int>(Offset.grubsCollected) == 30; break;
+                case SplitName.Grub31: shouldSplit = mem.PlayerData<int>(Offset.grubsCollected) == 31; break;
+                case SplitName.Grub32: shouldSplit = mem.PlayerData<int>(Offset.grubsCollected) == 32; break;
+                case SplitName.Grub33: shouldSplit = mem.PlayerData<int>(Offset.grubsCollected) == 33; break;
+                case SplitName.Grub34: shouldSplit = mem.PlayerData<int>(Offset.grubsCollected) == 34; break;
+                case SplitName.Grub35: shouldSplit = mem.PlayerData<int>(Offset.grubsCollected) == 35; break;
+                case SplitName.Grub36: shouldSplit = mem.PlayerData<int>(Offset.grubsCollected) == 36; break;
+                case SplitName.Grub37: shouldSplit = mem.PlayerData<int>(Offset.grubsCollected) == 37; break;
+                case SplitName.Grub38: shouldSplit = mem.PlayerData<int>(Offset.grubsCollected) == 38; break;
+                case SplitName.Grub39: shouldSplit = mem.PlayerData<int>(Offset.grubsCollected) == 39; break;
+                case SplitName.Grub40: shouldSplit = mem.PlayerData<int>(Offset.grubsCollected) == 40; break;
+                case SplitName.Grub41: shouldSplit = mem.PlayerData<int>(Offset.grubsCollected) == 41; break;
+                case SplitName.Grub42: shouldSplit = mem.PlayerData<int>(Offset.grubsCollected) == 42; break;
+                case SplitName.Grub43: shouldSplit = mem.PlayerData<int>(Offset.grubsCollected) == 43; break;
+                case SplitName.Grub44: shouldSplit = mem.PlayerData<int>(Offset.grubsCollected) == 44; break;
+                case SplitName.Grub45: shouldSplit = mem.PlayerData<int>(Offset.grubsCollected) == 45; break;
+                case SplitName.Grub46: shouldSplit = mem.PlayerData<int>(Offset.grubsCollected) == 46; break;
+                
                 case SplitName.KingsPass: shouldSplit = sceneName.StartsWith("Tutorial_01") && nextScene.StartsWith("Town"); break;
 
                 case SplitName.VengeflyKingP: shouldSplit = sceneName.StartsWith("GG_Vengefly") && nextScene.StartsWith("GG_Gruz_Mother"); break;

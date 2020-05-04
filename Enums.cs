@@ -191,7 +191,9 @@
         killedLazyFlyer,
         openedRuins1,
         openedGreenpath,
-        hasWhiteKey
+        hasWhiteKey,
+        killedHiveKnight,
+        grubsCollected
     }
     public enum GameState {
         INACTIVE,

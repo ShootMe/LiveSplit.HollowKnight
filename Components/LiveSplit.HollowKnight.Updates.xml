@@ -1,5 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <updates>
+    <update version="2.8.0">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change> Splits for grubs, grimm flames, and hive knight.</change>
+        </changelog>
+    </update>
     <update version="2.7.9">
         <files>
             <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
