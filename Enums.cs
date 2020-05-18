@@ -193,7 +193,8 @@
         openedGreenpath,
         hasWhiteKey,
         killedHiveKnight,
-        grubsCollected
+        grubsCollected,
+        guardiansDefeated
     }
     public enum GameState {
         INACTIVE,

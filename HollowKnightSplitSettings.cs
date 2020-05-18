@@ -348,6 +348,12 @@ namespace LiveSplit.HollowKnight {
         Lurien,
         [Description("Monomon the Teacher (Dreamer)"), ToolTip("Splits when you see the mask for Monomon (After killing Uumuu)")]
         Monomon,
+        [Description("First Dreamer (Dreamer)"), ToolTip("Splits when you see the mask for the first dreamer killed")]
+        Dreamer1,
+        [Description("Second Dreamer (Dreamer)"), ToolTip("Splits when you see the mask for the second dreamer killed")]
+        Dreamer2,
+        [Description("Third Dreamer (Dreamer)"), ToolTip("Splits when you see the mask for the third dreamer killed")]
+        Dreamer3,
         [Description("Nightmare Lantern (Event)"), ToolTip("Splits when activating the Nightmare Lantern")]
         NightmareLantern,
         [Description("Nightmare Lantern Destroyed (Event)"), ToolTip("Splits when destroying the Nightmare Lantern")]
