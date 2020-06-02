@@ -125,7 +125,9 @@ namespace LiveSplit.HollowKnight {
                         && (uiState != UIState.PAUSED || loadingMenu)
                         && (!string.IsNullOrEmpty(nextScene) || sceneName == "_test_charms" || loadingMenu)
                         && nextScene != sceneName)
-                    || (nextScene != sceneName && mem.TileMapDirty() && !mem.UsesSceneTransitionRoutine());
+                    || ((nextScene != sceneName || (mem.HeroTransitionState() == HeroTransitionState.EXITING_SCENE && !mem.AcceptingInput()))
+                        && mem.TileMapDirty()
+                        && !mem.UsesSceneTransitionRoutine());
 
                 lastGameState = gameState;
             }
