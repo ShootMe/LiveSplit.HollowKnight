@@ -705,7 +705,38 @@ namespace LiveSplit.HollowKnight {
         [Description("Rescued Grub 45 (Grub)"), ToolTip("Splits when rescuing grub #45")]
         Grub45,
         [Description("Rescued Grub 46 (Grub)"), ToolTip("Splits when rescuing grub #46")]
-        Grub46
+        Grub46,
+
+        [Description("Whispering Root (Ancestral Mound)"), ToolTip("Splits upon completing the whispering root in the Ancestral Mound")]
+        TreeMound,
+        [Description("Whispering Root (City of Tears)"), ToolTip("Splits upon completing the whispering root in the City of Tears")]
+        TreeCity,
+        [Description("Whispering Root (Crystal Peak)"), ToolTip("Splits upon completing the whispering root in Crystal Peak")]
+        TreePeak,
+        [Description("Whispering Root (Deepnest)"), ToolTip("Splits upon completing the whispering root in Deepnest")]
+        TreeDeepnest,
+        [Description("Whispering Root (Forgotten Crossroads)"), ToolTip("Splits upon completing the whispering root in the Forgotten Crossroads")]
+        TreeCrossroads,
+        [Description("Whispering Root (Leg Eater)"), ToolTip("Splits upon completing the whispering root left from Leg Eater")]
+        TreeLegEater,
+        [Description("Whispering Root (Mantis Village)"), ToolTip("Splits upon completing the whispering root above the Mantis Village")]
+        TreeMantisVillage,
+        [Description("Whispering Root (Greenpath)"), ToolTip("Splits upon completing the whispering root in Greenpath")]
+        TreeGreenpath,
+        [Description("Whispering Root (Hive)"), ToolTip("Splits upon completing the whispering root in the Hive")]
+        TreeHive,
+        [Description("Whispering Root (Howling Cliifs)"), ToolTip("Splits upon completing the whispering root in the Howling Cliifs")]
+        TreeCliffs,
+        [Description("Whispering Root (Kingdom's Edge)"), ToolTip("Splits upon completing the whispering root in the Kingdom's Edge")]
+        TreeKingdomsEdge,
+        [Description("Whispering Root (Queen's Gardens)"), ToolTip("Splits upon completing the whispering root in the Queen's Gardens")]
+        TreeQueensGardens,
+        [Description("Whispering Root (Resting Grounds)"), ToolTip("Splits upon completing the whispering root in the Resting Grounds")]
+        TreeRestingGrounds,
+        [Description("Whispering Root (Royal Waterways)"), ToolTip("Splits upon completing the whispering root in the Royal Waterways")]
+        TreeWaterways,
+        [Description("Whispering Root (Spirits' Glade)"), ToolTip("Splits upon completing the whispering root in the Spirits' Glade")]
+        TreeGlade
     }
     public class ToolTipAttribute : Attribute {
         public string ToolTip { get; set; }
