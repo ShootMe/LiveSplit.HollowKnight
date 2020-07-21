@@ -1150,6 +1150,13 @@ a2f:visitedWhitePalace:Boolean
 a30:visitedCliffs:Boolean
 a31:visitedAbyssLower:Boolean
 a32:visitedMines10:Boolean
+34:scenesVisited:List<string>
+38:scenesMapped:List<string>
+3c:scenesEncounteredBench:List<string>
+40:scenesGrubRescued:List<string>
+44:scenesEncounteredCocoon:List<string>
+48:scenesEncounteredDreamPlant:List<string>
+4c:scenesEncounteredDreamPlantC:List<string>
 a33:hasMap:Boolean
 a34:mapAllRooms:Boolean
 a35:atMapPrompt:Boolean

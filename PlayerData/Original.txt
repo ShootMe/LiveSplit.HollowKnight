@@ -1121,6 +1121,13 @@ fc:shadeQuakeLevel:Int32
 9e0:visitedCliffs:Boolean
 9e1:visitedAbyssLower:Boolean
 9e2:visitedMines10:Boolean
+30:scenesVisited:List<string>
+34:scenesMapped:List<string>
+38:scenesEncounteredBench:List<string>
+3c:scenesGrubRescued:List<string>
+40:scenesEncounteredCocoon:List<string>
+44:scenesEncounteredDreamPlant:List<string>
+48:scenesEncounteredDreamPlantC:List<string>
 9e3:hasMap:Boolean
 9e4:mapAllRooms:Boolean
 9e5:atMapPrompt:Boolean
