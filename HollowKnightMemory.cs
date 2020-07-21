@@ -331,8 +331,7 @@ namespace LiveSplit.HollowKnight {
             }
         }
         public List<string> PlayerDataStringList(Offset offset) {
-            IntPtr pdPtr = (IntPtr)gameManager.Read<uint>(Program, 0x0, playerData);
-            IntPtr listPtr = Program.Read<IntPtr>(pdPtr, HollowKnight.PlayerData.GetOffset(offset));
+            IntPtr listPtr = gameManager.Read<IntPtr>(Program, 0x0, playerData, HollowKnight.PlayerData.GetOffset(offset));
             IntPtr arrayPtr = Program.Read<IntPtr>(listPtr, 0x8);
             int arraySize = Program.Read<int>(arrayPtr, 0xC);
 
@@ -346,7 +345,7 @@ namespace LiveSplit.HollowKnight {
 
                 list.Add(Program.ReadString(itemPtr));
             }
-            
+
             return list;
         }
         public GameState GameState() {
