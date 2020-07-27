@@ -194,7 +194,8 @@
         hasWhiteKey,
         killedHiveKnight,
         grubsCollected,
-        guardiansDefeated
+        guardiansDefeated,
+        scenesEncounteredDreamPlantC
     }
     public enum GameState {
         INACTIVE,
