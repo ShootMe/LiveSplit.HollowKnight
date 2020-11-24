@@ -78,12 +78,25 @@ namespace LiveSplit.HollowKnight {
             string sceneName = mem.SceneName();
 
             if (currentSplit == -1) {
-                shouldSplit = (nextScene.Equals("Tutorial_01", StringComparison.OrdinalIgnoreCase) && mem.GameState() == GameState.ENTERING_LEVEL) || nextScene == "GG_Vengefly_V" || nextScene == "GG_Boss_Door_Entrance";
+                shouldSplit = 
+                    (nextScene.Equals("Tutorial_01", StringComparison.OrdinalIgnoreCase) && mem.GameState() == GameState.ENTERING_LEVEL) || 
+                    nextScene == "GG_Vengefly_V" || 
+                    nextScene == "GG_Boss_Door_Entrance" ||
+                    nextScene == "GG_Entrance_Cutscene";
             } else if (Model.CurrentState.CurrentPhase == TimerPhase.Running && settings.Splits.Count > 0) {
                 GameState gameState = mem.GameState();
                 SplitName finalSplit = settings.Splits[settings.Splits.Count - 1];
 
-                if (currentSplit + 1 < Model.CurrentState.Run.Count || (currentSplit + 1 == Model.CurrentState.Run.Count && (finalSplit == SplitName.ElderbugFlower || finalSplit == SplitName.ZoteKilled || finalSplit == SplitName.HuskMiner || finalSplit == SplitName.KingsPass || finalSplit == SplitName.GreatHopper || finalSplit == SplitName.PathOfPain || finalSplit == SplitName.Aluba))) {
+                if (currentSplit + 1 < Model.CurrentState.Run.Count || 
+                    (currentSplit + 1 == Model.CurrentState.Run.Count && 
+                    (finalSplit == SplitName.ElderbugFlower ||
+                    finalSplit == SplitName.ZoteKilled ||
+                    finalSplit == SplitName.HuskMiner ||
+                    finalSplit == SplitName.KingsPass ||
+                    finalSplit == SplitName.GreatHopper ||
+                    finalSplit == SplitName.PathOfPain ||
+                    finalSplit == SplitName.Aluba)
+                    )) {
                     if (!settings.Ordered) {
                         foreach (SplitName split in settings.Splits) {
                             if (splitsDone.Contains(split) || gameState != GameState.PLAYING) { continue; }
