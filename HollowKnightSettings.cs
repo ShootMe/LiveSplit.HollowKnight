@@ -9,6 +9,7 @@ namespace LiveSplit.HollowKnight {
     public partial class HollowKnightSettings : UserControl {
         public List<SplitName> Splits { get; private set; }
         public bool Ordered { get; set; }
+        public bool AutosplitEndRuns { get; set; }
         private bool isLoading;
         public HollowKnightSettings() {
             isLoading = true;
@@ -34,6 +35,7 @@ namespace LiveSplit.HollowKnight {
             }
 
             chkOrdered.Checked = Ordered;
+            chkAutosplitEndRuns.Checked = AutosplitEndRuns;
 
             foreach (SplitName split in Splits) {
                 MemberInfo info = typeof(SplitName).GetMember(split.ToString())[0];
@@ -76,6 +78,7 @@ namespace LiveSplit.HollowKnight {
             if (isLoading) return;
 
             Ordered = chkOrdered.Checked;
+            AutosplitEndRuns = chkAutosplitEndRuns.Checked;
 
             Splits.Clear();
             foreach (Control c in flowMain.Controls) {
@@ -95,6 +98,10 @@ namespace LiveSplit.HollowKnight {
             xmlOrdered.InnerText = Ordered.ToString();
             xmlSettings.AppendChild(xmlOrdered);
 
+            XmlElement xmlAutosplitEndRuns = document.CreateElement("AutosplitEndRuns");
+            xmlAutosplitEndRuns.InnerText = AutosplitEndRuns.ToString();
+            xmlSettings.AppendChild(xmlAutosplitEndRuns);
+
             XmlElement xmlSplits = document.CreateElement("Splits");
             xmlSettings.AppendChild(xmlSplits);
 
@@ -109,11 +116,18 @@ namespace LiveSplit.HollowKnight {
         }
         public void SetSettings(XmlNode settings) {
             XmlNode orderedNode = settings.SelectSingleNode(".//Ordered");
+            XmlNode AutosplitEndRunsNode = settings.SelectSingleNode(".//AutosplitEndRuns");
             bool isOrdered = false;
+            bool isAutosplitEndRuns = false;
+
             if (orderedNode != null) {
                 bool.TryParse(orderedNode.InnerText, out isOrdered);
             }
+            if (AutosplitEndRunsNode!= null) {
+                bool.TryParse(AutosplitEndRunsNode.InnerText, out isAutosplitEndRuns);
+            }
             Ordered = isOrdered;
+            AutosplitEndRuns = isAutosplitEndRuns;
 
             Splits.Clear();
             XmlNodeList splitNodes = settings.SelectNodes(".//Splits/Split");
@@ -179,6 +193,22 @@ namespace LiveSplit.HollowKnight {
                     destination.Invalidate();
                 }
             }
+        }
+
+        private void AutosplitEndChanged(object sender, EventArgs e) {
+            UpdateSplits();
+        }
+
+        private void AutosplitEndPopup(object sender, PopupEventArgs e) {
+            AutosplitEndSplits_ToolTip.Show("Stop the timer on the last autosplit", chkAutosplitEndRuns);
+        }
+
+        private void OrderedSplitsPopup(object sender, PopupEventArgs e) {
+            OrderedSplits_ToolTip.Show("Required for runs with Pantheon splits", chkOrdered);
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e) {
+
         }
     }
 }

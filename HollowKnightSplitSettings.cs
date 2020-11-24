@@ -51,6 +51,10 @@ namespace LiveSplit.HollowKnight {
             mY = e.Y;
             isDragging = false;
         }
+
+        private void ToolTips_Popup(object sender, PopupEventArgs e) {
+
+        }
     }
     public enum SplitName {
         [Description("Abyss Shriek (Skill)"), ToolTip("Splits when obtaining Abyss Shriek (Shadow Scream)")]
