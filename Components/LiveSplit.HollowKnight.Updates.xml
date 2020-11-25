@@ -1,5 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <updates>
+	  <update version="2.8.6">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change> Option to let any autosplit entry finish a run (any ending will split if on final split for consistency) </change>
+			      <change> Godseeker save (and initial Godhome entry) autostarts inactive timer </change>
+            <change> Tooltips-on-hover for more user-friendliness </change>
+        </changelog>
+	  </update>
     <update version="2.8.5">
         <files>
             <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>

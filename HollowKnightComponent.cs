@@ -78,29 +78,68 @@ namespace LiveSplit.HollowKnight {
             string sceneName = mem.SceneName();
 
             if (currentSplit == -1) {
-                shouldSplit = (nextScene.Equals("Tutorial_01", StringComparison.OrdinalIgnoreCase) && mem.GameState() == GameState.ENTERING_LEVEL) || nextScene == "GG_Vengefly_V" || nextScene == "GG_Boss_Door_Entrance";
+                shouldSplit = 
+                    (nextScene.Equals("Tutorial_01", StringComparison.OrdinalIgnoreCase) && mem.GameState() == GameState.ENTERING_LEVEL) || 
+                    nextScene == "GG_Vengefly_V" || 
+                    nextScene == "GG_Boss_Door_Entrance" ||
+                    nextScene == "GG_Entrance_Cutscene";
             } else if (Model.CurrentState.CurrentPhase == TimerPhase.Running && settings.Splits.Count > 0) {
                 GameState gameState = mem.GameState();
                 SplitName finalSplit = settings.Splits[settings.Splits.Count - 1];
 
-                if (currentSplit + 1 < Model.CurrentState.Run.Count || (currentSplit + 1 == Model.CurrentState.Run.Count && (finalSplit == SplitName.ElderbugFlower || finalSplit == SplitName.ZoteKilled || finalSplit == SplitName.HuskMiner || finalSplit == SplitName.KingsPass || finalSplit == SplitName.GreatHopper || finalSplit == SplitName.PathOfPain || finalSplit == SplitName.Aluba))) {
-                    if (!settings.Ordered) {
-                        foreach (SplitName split in settings.Splits) {
-                            if (splitsDone.Contains(split) || gameState != GameState.PLAYING) { continue; }
+                // Experimental "Finish on any autosplit"-logic on true, otherwise default stable logic.
+                // Both are the same except for letting autosplit entries finish runs.
+                if (!settings.AutosplitEndRuns) {
+                    if (currentSplit + 1 < Model.CurrentState.Run.Count ||
+                        (currentSplit + 1 == Model.CurrentState.Run.Count &&
+                        (finalSplit == SplitName.ElderbugFlower ||
+                        finalSplit == SplitName.ZoteKilled ||
+                        finalSplit == SplitName.HuskMiner ||
+                        finalSplit == SplitName.KingsPass ||
+                        finalSplit == SplitName.GreatHopper ||
+                        finalSplit == SplitName.PathOfPain ||
+                        finalSplit == SplitName.Aluba))) {
+                        if (!settings.Ordered) {
+                            foreach (SplitName split in settings.Splits) {
+                                if (splitsDone.Contains(split) || gameState != GameState.PLAYING) { continue; }
 
-                            shouldSplit = CheckSplit(split, nextScene, sceneName);
+                                shouldSplit = CheckSplit(split, nextScene, sceneName);
 
-                            if (shouldSplit) {
-                                splitsDone.Add(split);
-                                break;
+                                if (shouldSplit) {
+                                    splitsDone.Add(split);
+                                    break;
+                                }
                             }
+                        } else if (currentSplit < settings.Splits.Count) {
+                            SplitName split = settings.Splits[currentSplit];
+                            shouldSplit = CheckSplit(split, nextScene, sceneName);
                         }
-                    } else if (currentSplit < settings.Splits.Count) {
-                        SplitName split = settings.Splits[currentSplit];
-                        shouldSplit = CheckSplit(split, nextScene, sceneName);
+                    } else {
+                        shouldSplit = nextScene.StartsWith("Cinematic_Ending", StringComparison.OrdinalIgnoreCase) || nextScene == "GG_End_Sequence";
                     }
                 } else {
-                    shouldSplit = nextScene.StartsWith("Cinematic_Ending", StringComparison.OrdinalIgnoreCase) || nextScene == "GG_End_Sequence";
+                    if (currentSplit < Model.CurrentState.Run.Count) {
+                        if (currentSplit + 1 == Model.CurrentState.Run.Count) {
+                            shouldSplit = nextScene.StartsWith("Cinematic_Ending", StringComparison.OrdinalIgnoreCase) || nextScene == "GG_End_Sequence";
+                        }
+                        if (!shouldSplit) {
+                            if (!settings.Ordered) {
+                                foreach (SplitName split in settings.Splits) {
+                                    if (splitsDone.Contains(split) || gameState != GameState.PLAYING) { continue; }
+
+                                    shouldSplit = CheckSplit(split, nextScene, sceneName);
+
+                                    if (shouldSplit) {
+                                        splitsDone.Add(split);
+                                        break;
+                                    }
+                                }
+                            } else if (currentSplit < settings.Splits.Count) {
+                                SplitName split = settings.Splits[currentSplit];
+                                shouldSplit = CheckSplit(split, nextScene, sceneName);
+                            }
+                        }
+                    }
                 }
 
                 UIState uiState = mem.UIState();
