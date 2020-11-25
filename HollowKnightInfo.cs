@@ -174,6 +174,7 @@ namespace LiveSplit.HollowKnight {
                 Memory.SetCameraZoom(zoomValue.Value / 200f);
             }
         }
+
         private void btnDebugInfo_Click(object sender, EventArgs e) {
             showDebug = !showDebug;
             Memory.EnableDebug(showDebug);

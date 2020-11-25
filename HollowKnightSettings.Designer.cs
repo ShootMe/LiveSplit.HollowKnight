@@ -35,6 +35,7 @@
             this.rdType = new System.Windows.Forms.RadioButton();
             this.AutosplitEndSplits_ToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.OrderedSplits_ToolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.EndingsSplit_ToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.flowMain.SuspendLayout();
             this.flowOptions.SuspendLayout();
             this.Options_GroupBox.SuspendLayout();
@@ -47,6 +48,7 @@
             this.btnAddSplit.Size = new System.Drawing.Size(57, 21);
             this.btnAddSplit.TabIndex = 0;
             this.btnAddSplit.Text = "Add Split";
+            this.EndingsSplit_ToolTip.SetToolTip(this.btnAddSplit, "All game endings automatically stop timer when on final split");
             this.btnAddSplit.UseVisualStyleBackColor = true;
             this.btnAddSplit.Click += new System.EventHandler(this.btnAddSplit_Click);
             // 
@@ -134,7 +136,7 @@
             this.chkAutosplitEndRuns.Size = new System.Drawing.Size(133, 19);
             this.chkAutosplitEndRuns.TabIndex = 5;
             this.chkAutosplitEndRuns.Text = "End-triggering autosplit";
-            this.AutosplitEndSplits_ToolTip.SetToolTip(this.chkAutosplitEndRuns, "Stop the timer on the last autosplit");
+            this.AutosplitEndSplits_ToolTip.SetToolTip(this.chkAutosplitEndRuns, "Any autosplit can stop the timer on final split to finish a run");
             this.chkAutosplitEndRuns.UseVisualStyleBackColor = true;
             this.chkAutosplitEndRuns.CheckedChanged += new System.EventHandler(this.AutosplitEndChanged);
             // 
@@ -160,6 +162,11 @@
             // 
             this.OrderedSplits_ToolTip.ShowAlways = true;
             this.OrderedSplits_ToolTip.Popup += new System.Windows.Forms.PopupEventHandler(this.OrderedSplitsPopup);
+            // 
+            // EndingsSplit_ToolTip
+            // 
+            this.EndingsSplit_ToolTip.ShowAlways = true;
+            this.EndingsSplit_ToolTip.Popup += new System.Windows.Forms.PopupEventHandler(this.EndingsSplitPopup);
             // 
             // HollowKnightSettings
             // 
@@ -195,5 +202,6 @@
         private System.Windows.Forms.ToolTip AutosplitEndSplits_ToolTip;
         private System.Windows.Forms.GroupBox Options_GroupBox;
         private System.Windows.Forms.ToolTip OrderedSplits_ToolTip;
+        private System.Windows.Forms.ToolTip EndingsSplit_ToolTip;
     }
 }
