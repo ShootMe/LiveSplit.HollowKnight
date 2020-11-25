@@ -1,28 +1,28 @@
 ﻿namespace LiveSplit.HollowKnight {
-	partial class HollowKnightSettings {
-		/// <summary> 
-		/// Required designer variable.
-		/// </summary>
-		private System.ComponentModel.IContainer components = null;
+    partial class HollowKnightSettings {
+        /// <summary> 
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
 
-		/// <summary> 
-		/// Clean up any resources being used.
-		/// </summary>
-		/// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-		protected override void Dispose(bool disposing) {
-			if (disposing && (components != null)) {
-				components.Dispose();
-			}
-			base.Dispose(disposing);
-		}
+        /// <summary> 
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing) {
+            if (disposing && (components != null)) {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
 
-		#region Component Designer generated code
+        #region Component Designer generated code
 
-		/// <summary> 
-		/// Required method for Designer support - do not modify 
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent() {
+        /// <summary> 
+        /// Required method for Designer support - do not modify 
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
             this.btnAddSplit = new System.Windows.Forms.Button();
             this.flowMain = new System.Windows.Forms.FlowLayoutPanel();
@@ -33,9 +33,7 @@
             this.rdAlpha = new System.Windows.Forms.RadioButton();
             this.chkAutosplitEndRuns = new System.Windows.Forms.CheckBox();
             this.rdType = new System.Windows.Forms.RadioButton();
-            this.AutosplitEndSplits_ToolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.OrderedSplits_ToolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.EndingsSplit_ToolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.ToolTips = new System.Windows.Forms.ToolTip(this.components);
             this.flowMain.SuspendLayout();
             this.flowOptions.SuspendLayout();
             this.Options_GroupBox.SuspendLayout();
@@ -48,7 +46,7 @@
             this.btnAddSplit.Size = new System.Drawing.Size(57, 21);
             this.btnAddSplit.TabIndex = 0;
             this.btnAddSplit.Text = "Add Split";
-            this.EndingsSplit_ToolTip.SetToolTip(this.btnAddSplit, "All game endings automatically stop timer when on final split");
+            this.ToolTips.SetToolTip(this.btnAddSplit, "All game endings automatically stop timer when on final split");
             this.btnAddSplit.UseVisualStyleBackColor = true;
             this.btnAddSplit.Click += new System.EventHandler(this.btnAddSplit_Click);
             // 
@@ -95,7 +93,6 @@
             this.Options_GroupBox.TabIndex = 6;
             this.Options_GroupBox.TabStop = false;
             this.Options_GroupBox.Text = "Options";
-            this.Options_GroupBox.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
             // lblSort
             // 
@@ -113,7 +110,7 @@
             this.chkOrdered.Size = new System.Drawing.Size(92, 19);
             this.chkOrdered.TabIndex = 4;
             this.chkOrdered.Text = "Ordered Splits";
-            this.OrderedSplits_ToolTip.SetToolTip(this.chkOrdered, "Required for runs with Pantheon splits");
+            this.ToolTips.SetToolTip(this.chkOrdered, "Required for runs with Pantheon splits");
             this.chkOrdered.UseVisualStyleBackColor = true;
             this.chkOrdered.CheckedChanged += new System.EventHandler(this.ControlChanged);
             // 
@@ -136,7 +133,7 @@
             this.chkAutosplitEndRuns.Size = new System.Drawing.Size(133, 19);
             this.chkAutosplitEndRuns.TabIndex = 5;
             this.chkAutosplitEndRuns.Text = "End-triggering autosplit";
-            this.AutosplitEndSplits_ToolTip.SetToolTip(this.chkAutosplitEndRuns, "Any autosplit can stop the timer on final split to finish a run");
+            this.ToolTips.SetToolTip(this.chkAutosplitEndRuns, "Any autosplit can stop the timer on final split to finish a run");
             this.chkAutosplitEndRuns.UseVisualStyleBackColor = true;
             this.chkAutosplitEndRuns.CheckedChanged += new System.EventHandler(this.AutosplitEndChanged);
             // 
@@ -153,20 +150,9 @@
             this.rdType.UseVisualStyleBackColor = true;
             this.rdType.CheckedChanged += new System.EventHandler(this.radio_CheckedChanged);
             // 
-            // AutosplitEndSplits_ToolTip
+            // ToolTips
             // 
-            this.AutosplitEndSplits_ToolTip.ShowAlways = true;
-            this.AutosplitEndSplits_ToolTip.Popup += new System.Windows.Forms.PopupEventHandler(this.AutosplitEndPopup);
-            // 
-            // OrderedSplits_ToolTip
-            // 
-            this.OrderedSplits_ToolTip.ShowAlways = true;
-            this.OrderedSplits_ToolTip.Popup += new System.Windows.Forms.PopupEventHandler(this.OrderedSplitsPopup);
-            // 
-            // EndingsSplit_ToolTip
-            // 
-            this.EndingsSplit_ToolTip.ShowAlways = true;
-            this.EndingsSplit_ToolTip.Popup += new System.Windows.Forms.PopupEventHandler(this.EndingsSplitPopup);
+            this.ToolTips.ShowAlways = true;
             // 
             // HollowKnightSettings
             // 
@@ -188,20 +174,18 @@
             this.ResumeLayout(false);
             this.PerformLayout();
 
-		}
+        }
 
-		#endregion
-		private System.Windows.Forms.Button btnAddSplit;
-		private System.Windows.Forms.FlowLayoutPanel flowMain;
-		private System.Windows.Forms.FlowLayoutPanel flowOptions;
-		private System.Windows.Forms.Label lblSort;
-		private System.Windows.Forms.RadioButton rdType;
-		private System.Windows.Forms.RadioButton rdAlpha;
-		private System.Windows.Forms.CheckBox chkOrdered;
+        #endregion
+        private System.Windows.Forms.Button btnAddSplit;
+        private System.Windows.Forms.FlowLayoutPanel flowMain;
+        private System.Windows.Forms.FlowLayoutPanel flowOptions;
+        private System.Windows.Forms.Label lblSort;
+        private System.Windows.Forms.RadioButton rdType;
+        private System.Windows.Forms.RadioButton rdAlpha;
+        private System.Windows.Forms.CheckBox chkOrdered;
         private System.Windows.Forms.CheckBox chkAutosplitEndRuns;
-        private System.Windows.Forms.ToolTip AutosplitEndSplits_ToolTip;
         private System.Windows.Forms.GroupBox Options_GroupBox;
-        private System.Windows.Forms.ToolTip OrderedSplits_ToolTip;
-        private System.Windows.Forms.ToolTip EndingsSplit_ToolTip;
+        private System.Windows.Forms.ToolTip ToolTips;
     }
 }

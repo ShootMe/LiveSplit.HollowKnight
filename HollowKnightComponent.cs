@@ -78,9 +78,9 @@ namespace LiveSplit.HollowKnight {
             string sceneName = mem.SceneName();
 
             if (currentSplit == -1) {
-                shouldSplit = 
-                    (nextScene.Equals("Tutorial_01", StringComparison.OrdinalIgnoreCase) && mem.GameState() == GameState.ENTERING_LEVEL) || 
-                    nextScene == "GG_Vengefly_V" || 
+                shouldSplit =
+                    (nextScene.Equals("Tutorial_01", StringComparison.OrdinalIgnoreCase) && mem.GameState() == GameState.ENTERING_LEVEL) ||
+                    nextScene == "GG_Vengefly_V" ||
                     nextScene == "GG_Boss_Door_Entrance" ||
                     nextScene == "GG_Entrance_Cutscene";
             } else if (Model.CurrentState.CurrentPhase == TimerPhase.Running && settings.Splits.Count > 0) {

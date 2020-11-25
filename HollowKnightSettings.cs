@@ -5,14 +5,13 @@ using System.Drawing;
 using System.Reflection;
 using System.Windows.Forms;
 using System.Xml;
-
 namespace LiveSplit.HollowKnight {
     public partial class HollowKnightSettings : UserControl {
         public List<SplitName> Splits { get; private set; }
         public bool Ordered { get; set; }
         public bool AutosplitEndRuns { get; set; }
         private bool isLoading;
-        
+
         public HollowKnightSettings() {
             isLoading = true;
             InitializeComponent();
@@ -125,7 +124,7 @@ namespace LiveSplit.HollowKnight {
             if (orderedNode != null) {
                 bool.TryParse(orderedNode.InnerText, out isOrdered);
             }
-            if (AutosplitEndRunsNode!= null) {
+            if (AutosplitEndRunsNode != null) {
                 bool.TryParse(AutosplitEndRunsNode.InnerText, out isAutosplitEndRuns);
             }
             Ordered = isOrdered;
@@ -196,25 +195,8 @@ namespace LiveSplit.HollowKnight {
                 }
             }
         }
-
         private void AutosplitEndChanged(object sender, EventArgs e) {
             UpdateSplits();
-        }
-
-        private void AutosplitEndPopup(object sender, PopupEventArgs e) {
-            AutosplitEndSplits_ToolTip.Show("Any autosplit can stop the timer on final split to finish a run", chkAutosplitEndRuns);
-        }
-
-        private void OrderedSplitsPopup(object sender, PopupEventArgs e) {
-            OrderedSplits_ToolTip.Show("Required for runs with Pantheon splits", chkOrdered);
-        }
-
-        private void groupBox1_Enter(object sender, EventArgs e) {
-
-        }
-
-        private void EndingsSplitPopup(object sender, PopupEventArgs e) {
-            EndingsSplit_ToolTip.Show("All game endings automatically stop the timer when on final split", btnAddSplit);
         }
     }
 }
