@@ -437,7 +437,7 @@ namespace LiveSplit.HollowKnight {
         [Description("Mr. Mushroom 7 (Spot)"), ToolTip("Splits when talking to Mr. Mushroom")]
         MrMushroom7,
 
-        [Description("Abyss (Area)"), ToolTip("Splits when entering Abyss text first appears")]
+        [Description("Ancient Basin (Area)"), ToolTip("Splits when entering Ancient Basin text first appears")]
         Abyss,
         [Description("City Of Tears (Area)"), ToolTip("Splits when entering City Of Tears text first appears")]
         CityOfTears,

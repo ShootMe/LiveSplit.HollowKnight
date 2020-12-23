@@ -1,6 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <updates>
-	  <update version="2.8.6">
+    <update version="2.8.7">
+      <files>
+        <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+      </files>
+      <changelog>
+        <change> "Abyss (area)" -> "Ancient Basin (area)" to reflect ingame name. </change>
+      </changelog>
+    </update>
+    <update version="2.8.6">
         <files>
             <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
         </files>
