@@ -485,6 +485,7 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.TreeWaterways: shouldSplit = mem.PlayerDataStringList(Offset.scenesEncounteredDreamPlantC).Contains("Abyss_01"); break;
 
                 case SplitName.KingsPass: shouldSplit = sceneName.StartsWith("Tutorial_01") && nextScene.StartsWith("Town"); break;
+                case SplitName.BlueLake: shouldSplit = sceneName.StartsWith("Crossroads_04") && nextScene.StartsWith("Crossroads_50"); break;
 
                 case SplitName.VengeflyKingP: shouldSplit = sceneName.StartsWith("GG_Vengefly") && nextScene.StartsWith("GG_Gruz_Mother"); break;
                 case SplitName.GruzMotherP: shouldSplit = sceneName.StartsWith("GG_Gruz_Mother") && nextScene.StartsWith("GG_False_Knight"); break;
