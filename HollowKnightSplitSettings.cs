@@ -479,6 +479,8 @@ namespace LiveSplit.HollowKnight {
         WhitePalace,
         [Description("King's Pass (Area)"), ToolTip("Splits when leaving King's pass")]
         KingsPass,
+        [Description("Blue Lake (Area)"), ToolTip("Splits on transition to Blue Lake from Gruz Mother scene (requires Ordered Splits)")]
+        BlueLake,
 
         [Description("Baldur Shell (Charm)"), ToolTip("Splits when obtaining the Baldur Shell charm")]
         BaldurShell,
