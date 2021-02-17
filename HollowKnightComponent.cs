@@ -643,7 +643,7 @@ namespace LiveSplit.HollowKnight {
             currentSplit = 0;
             state = 0;
             Model.CurrentState.IsGameTimePaused = true;
-            Model.CurrentState.SetGameTime(TimeSpan.FromSeconds(0));
+            Model.CurrentState.SetGameTime(Model.CurrentState.CurrentTime.RealTime);
             splitsDone.Clear();
             WriteLog("---------New Game-------------------------------");
         }
