@@ -1,12 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <updates>
-	<update version="2.8.7.1">
+    <update version="2.8.7.2">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change> Let LiveSplit dictate "start timer at". </change>
+        </changelog>
+    </update>
+    <update version="2.8.7.1">
         <files>
             <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
         </files>
         <changelog>
             <change> "Blue Lake (area)" added as a quick fix for comsob/gold inconsistencies with Shaman Stone (pre- vs post-bench) and Gruz Mother (Gruzzer cleanup). </change>
-	</changelog>
+        </changelog>
+    </update>
     <update version="2.8.7">
         <files>
             <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
