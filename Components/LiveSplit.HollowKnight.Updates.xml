@@ -3,6 +3,10 @@
     <update version="2.9.0">
         <files>
             <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+            <file path="Properties/AssemblyInfo.cs" status="changed"/>
+            <file path="HollowKnightComponent.cs" status="changed"/>
+            <file path="HollowKnightSettings.cs" status="changed"/>
+            <file path="Enums.cs" status="changed"/>
         </files>
         <changelog>
             <change> Not-ordered splits no longer avoid splitting outside of gameplay-state, mainly fixing dreamer issue with random late/early splitting when the cutscene is unskippable. </change>
@@ -12,7 +16,7 @@
             <change> Added toll benches (Sanctum, Basin, QG.) </change>
             <change> Added White Palace splits (Orb 1, Orb 2, Orb 3, Workshop, King's/Right White Fragment.) </change>
             <change> Added THK and Radiance boss splits for use in fight practice. </change>
-            <change> Added Left/Queen's White Fragment and Open City gate splits. </change>
+            <change> Added Left/Queen's White Fragment and Open City Gate. </change>
             <change> Fixed naming and description error in Sly Key, now Shopkeeper's Key. </change>
         </changelog> 
     </update>

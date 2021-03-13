@@ -709,7 +709,6 @@ namespace LiveSplit.HollowKnight {
             state = 0;
             Model.CurrentState.IsGameTimePaused = true;
             Model.CurrentState.SetGameTime(Model.CurrentState.CurrentTime.RealTime);
-            //Model.CurrentState.SetGameTime(Model.CurrentState.CurrentTime.GameTime);
             splitsDone.Clear();
             WriteLog("---------New Game-------------------------------");
         }
@@ -727,7 +726,7 @@ namespace LiveSplit.HollowKnight {
         }
         public Control GetSettingsControl(LayoutMode mode) { return settings; }
         public void SetSettings(XmlNode document) { settings.SetSettings(document); }
-        public XmlNode GetSettings(XmlDocument document) { return settings.UpdateSettings(document); } // TODO: stop remaking the entire list every check. Don't scroll change autosplits.
+        public XmlNode GetSettings(XmlDocument document) { return settings.UpdateSettings(document); }
         public void DrawHorizontal(Graphics g, LiveSplitState state, float height, Region clipRegion) { }
         public void DrawVertical(Graphics g, LiveSplitState state, float width, Region clipRegion) { }
 #endif
