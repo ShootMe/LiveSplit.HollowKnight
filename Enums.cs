@@ -45,9 +45,15 @@
         colosseumSilverCompleted,
         colosseumGoldCompleted,
         openedCrossroads,
+        openedGreenpath,
+        openedRuins1,
         openedRuins2,
         openedFungalWastes,
+        openedRoyalGardens,
+        openedRestingGrounds,
         openedDeepnest,
+        openedStagNest,
+        openedHiddenStation,
         gotCharm_1,
         gotCharm_2,
         gotCharm_3,
@@ -92,6 +98,7 @@
         killsSpitter,
         killedBigFly,
         killedMawlek,
+        killedMenderBug,
         killedMossKnight,
         killedInfectedKnight,
         killedMegaJellyfish,
@@ -189,13 +196,67 @@
         killedGorgeousHusk,
         gladeDoorOpened,
         killedLazyFlyer,
-        openedRuins1,
-        openedGreenpath,
+        killsLazyFlyer,
         hasWhiteKey,
         killedHiveKnight,
         grubsCollected,
         guardiansDefeated,
-        scenesEncounteredDreamPlantC
+        scenesEncounteredDreamPlantC,
+        
+        openedCityGate,
+        cityGateClosed,
+        
+        abyssGateOpened,
+        abyssLighthouse,
+        
+        whitePalaceOrb_1,
+        whitePalaceOrb_2,
+        whitePalaceOrb_3,
+        whitePalace05_lever,
+        whitePalaceMidWarp,
+        whitePalaceSecretRoomVisited,
+        
+        dreamOrbs,
+        
+        slyRescued,
+        hornetGreenpath,
+        nailsmithKilled,
+        nailsmithSpared,
+        
+        metQueen,
+        gotQueenFragment,
+        gotKingFragment,
+        
+        travelling,
+        stagPosition,
+        
+        openedTown, 
+        openedTownBuilding, // Town stag station lever?
+        
+        openedMageDoor,
+        openedMageDoor_v2,
+        brokenMageWindow,
+        brokenMageWindowGlass,
+        mineLiftOpened,
+        
+        kingsStationNonDisplay,
+        
+        waterwaysGate,
+        openedWaterwaysManhole,
+        waterwaysAcidDrained,
+        dungDefenderWallBroken,
+
+        tollBenchQueensGardens,
+        tollBenchCity,
+        tollBenchAbyss,
+        
+        encounteredHornet,
+        openedPalaceGrounds, //likely wp location?
+        
+        maskBrokenLurien,
+        maskBrokenHegemol,
+        maskBrokenMonomon,
+        gladeGhostsKilled
     }
     public enum GameState {
         INACTIVE,
@@ -292,7 +353,7 @@
     public enum TargetMode {
         FOLLOW_HERO,
         LOCK_ZONE,
-        BOSS,
+        BOSS, // Use to autostart bosses together with ordered splits?
         FREE
     }
     public enum MainMenuState {
