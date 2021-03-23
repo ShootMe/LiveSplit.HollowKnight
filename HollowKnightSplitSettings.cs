@@ -110,7 +110,7 @@ namespace LiveSplit.HollowKnight {
         SalubrasBlessing,
         [Description("Simple Key - First (Item)"), ToolTip("Splits when obtaining the first Simple Key")]
         SimpleKey,
-        [Description("Sly Key (Item)"), ToolTip("Splits when obtaining the Simple Key from Sly")]
+        [Description("Shopkeeper's Key (Item)"), ToolTip("Splits when obtaining the Shopkeeper's Key from the Crystal Peak key room")]
         SlyKey,
         [Description("Tram Pass (Item)"), ToolTip("Splits when obtaining the Tram Pass")]
         TramPass,
@@ -204,8 +204,8 @@ namespace LiveSplit.HollowKnight {
         GreyPrince,
         [Description("Gruz Mother (Boss)"), ToolTip("Splits when killing Gruz Mother")]
         GruzMother,
-        [Description("Hollow Knight - Dream Nail (Boss)"), ToolTip("Splits when going into the dream world for Hollow Knight to fight Radiance")]
-        HollowKnight,
+        [Description("Hollow Knight Practice (Boss)"), ToolTip("Splits when killing The Hollow Knight")]
+        HollowKnightBoss,
         [Description("Hornet 1 (Boss)"), ToolTip("Splits when killing Hornet for the first time")]
         Hornet1,
         [Description("Hornet 2 (Boss)"), ToolTip("Splits when killing Hornet for the second time")]
@@ -228,6 +228,8 @@ namespace LiveSplit.HollowKnight {
         Nosk,
         [Description("Oro & Mato Nail Bros (Boss)"), ToolTip("Splits when killing the Nail Bros (Pantheon)")]
         MatoOroNailBros,
+        [Description("Radiance Practice (Boss)"), ToolTip("Splits when killing The Radiance")]
+        RadianceBoss,
         [Description("Pure Vessel (Boss)"), ToolTip("Splits when killing Pure Vessel")]
         PureVessel,
         [Description("Sheo Paintmaster (Boss)"), ToolTip("Splits when killing Sheo (Pantheon)")]
@@ -354,7 +356,7 @@ namespace LiveSplit.HollowKnight {
         Dreamer2,
         [Description("Third Dreamer (Dreamer)"), ToolTip("Splits when you see the mask for the third dreamer killed")]
         Dreamer3,
-        [Description("Nightmare Lantern (Event)"), ToolTip("Splits when activating the Nightmare Lantern")]
+        [Description("Nightmare Lantern Lit (Event)"), ToolTip("Splits when initially lighting the Nightmare Lantern")]
         NightmareLantern,
         [Description("Nightmare Lantern Destroyed (Event)"), ToolTip("Splits when destroying the Nightmare Lantern")]
         NightmareLanternDestroyed,
@@ -362,12 +364,16 @@ namespace LiveSplit.HollowKnight {
         SeerDeparts,
         [Description("Spirit Glade Door (Event)"), ToolTip("Splits when the Seer open Spirit Glade after bringing back 200 essence")]
         SpiritGladeOpen,
-        [Description("Watcher Knights Chandelier (Event)"), ToolTip("Splits when dropping the chandelier on one of the watcher knights")]
+        [Description("Chandelier - Watcher Knights (Event)"), ToolTip("Splits when dropping the chandelier on one of the watcher knights")]
         WatcherChandelier,
-        [Description("Beasts Den Trap Bench (Event)"), ToolTip("Splits when getting the trap bench in Beasts Den")]
+        [Description("City Gate (Event)"), ToolTip("Splits when using the City Key to open the gate")] 
+        CityGateOpen,
+        [Description("Trap Bench - Beasts Den (Event)"), ToolTip("Splits when getting the trap bench in Beasts Den")]
         BeastsDenTrapBench,
-        [Description("Hollow Knight Scream (Event)"), ToolTip("Splits at the end of the first Hollow Knight scream after the chains are broken")]
+        [Description("Chains Broken - Hollow Knight (Event)"), ToolTip("Splits at the end of the first Hollow Knight scream after the chains are broken")]
         UnchainedHollowKnight,
+        [Description("Radiance Dream Entry (Event)"), ToolTip("Splits when going into the dream world for Hollow Knight to fight Radiance")]
+        HollowKnightDreamnail,
 
         [Description("Colosseum Fight 1 (Trial)"), ToolTip("Splits when beating the first Colosseum trial")]
         ColosseumBronze,
@@ -392,12 +398,18 @@ namespace LiveSplit.HollowKnight {
         AspidHunter,
         [Description("Aluba (Killed)"), ToolTip("Splits when killing an Aluba")]
         Aluba,
+        //[Description("Al2ba (Killed)"), ToolTip("Splits when killing two Alubas")]
+        //Al2ba,
         [Description("Husk Miner (Killed)"), ToolTip("Splits when killing a Husk Miner")]
         HuskMiner,
         [Description("Great Hopper (Killed)"), ToolTip("Splits when killing a Great Hopper")]
         GreatHopper,
         [Description("Gorgeous Husk (Killed)"), ToolTip("Splits when killing Gorgeous Husk")]
         GorgeousHusk,
+        [Description("Menderbug (Killed)"), ToolTip("Splits when killing Menderbug")]
+        MenderBug,
+        //[Description("Revek (Killed)"), ToolTip("Splits when talking to Revek after clearing all other Glade ghosts")]
+        //Revek,
         [Description("Moss Knight (Mini Boss)"), ToolTip("Splits when killing Moss Knight")]
         MossKnight,
         [Description("Shrumal Ogre (Mini Boss)"), ToolTip("Splits when killing the final Shrumal Ogre")]
@@ -408,19 +420,28 @@ namespace LiveSplit.HollowKnight {
         Zote2,
         [Description("Zote Killed Colosseum (Mini Boss)"), ToolTip("Splits when killing Zote in the Colosseum")]
         ZoteKilled,
-
-        [Description("Distant Village (Stag Station)"), ToolTip("Splits when obtaining Distant Village Stag Station")]
-        DeepnestStation,
+        
         [Description("Forgotten Crossroads (Stag Station)"), ToolTip("Splits when opening the Forgotten Crossroads Stag Station")]
         CrossroadsStation,
-        [Description("Kings Station (Stag Station)"), ToolTip("Splits when obtaining Kings Station Stag Station")]
-        KingsStationStation,
-        [Description("City Storerooms (Stag Station)"), ToolTip("Splits when obtaining City Storerooms Stag Station")]
-        StoreroomsStation,
         [Description("Greenpath (Stag Station)"), ToolTip("Splits when obtaining Greenpath Stag Station")]
         GreenpathStation,
-        [Description("Queens Station (Stag Station)"), ToolTip("Splits when obtaining Queens Station Stag Station")]
+        [Description("Queen's Station (Stag Station)"), ToolTip("Splits when obtaining Queens Station Stag Station")]
         QueensStationStation,
+        [Description("Queen's Gardens (Stag Station)"), ToolTip("Splits when obtaining Queens Gardens Stag Station")]
+        QueensGardensStation,
+        [Description("City Storerooms (Stag Station)"), ToolTip("Splits when obtaining City Storerooms Stag Station")]
+        StoreroomsStation,
+        [Description("Kings Station (Stag Station)"), ToolTip("Splits when obtaining Kings Station Stag Station")]
+        KingsStationStation,
+        [Description("Resting Grounds (Stag Station)"), ToolTip("Splits when obtaining Resting Grounds Stag Station")]
+        RestingGroundsStation,
+        [Description("Distant Village (Stag Station)"), ToolTip("Splits when obtaining Distant Village Stag Station")]
+        DeepnestStation,
+        [Description("Hidden Station (Stag Station)"), ToolTip("Splits when obtaining to Hidden Station Stag Station")]
+        HiddenStationStation,
+        [Description("Stagnest (Stag Station)"), ToolTip("Splits when traveling to Stagnest (Requires Ordered Splits)")]
+        StagnestStation,
+
 
         [Description("Mr. Mushroom 1 (Spot)"), ToolTip("Splits when talking to Mr. Mushroom")]
         MrMushroom1,
@@ -477,6 +498,8 @@ namespace LiveSplit.HollowKnight {
         TeachersArchive,
         [Description("White Palace (Area)"), ToolTip("Splits when entering White Palace text for the first time")]
         WhitePalace,
+        [Description("White Palace - Workshop (Area)"), ToolTip("Splits when visiting the secret room in White Palace")] 
+        WhitePalaceSecretRoom,
         [Description("King's Pass (Area)"), ToolTip("Splits when leaving King's pass")]
         KingsPass,
         [Description("Blue Lake (Area)"), ToolTip("Splits on transition to Blue Lake from Gruz Mother scene (requires Ordered Splits)")]
@@ -526,6 +549,10 @@ namespace LiveSplit.HollowKnight {
         Hiveblood,
         [Description("Joni's Blessing (Charm)"), ToolTip("Splits when obtaining the Joni's Blessing charm")]
         JonisBlessing,
+        [Description("Kingsoul Fragment - Queen's (Charm)"), ToolTip("Splits on picking up the left Kingsoul White Fragment")] 
+        WhiteFragmentLeft,
+        [Description("Kingsoul Fragment - King's (Charm)"), ToolTip("Splits on picking up the right Kingsoul White Fragment")] 
+        WhiteFragmentRight,
         [Description("Kingsoul (Charm)"), ToolTip("Splits when obtaining the completed Kingsoul charm")]
         Kingsoul,
         [Description("Lifeblood Core (Charm)"), ToolTip("Splits when obtaining the Lifeblood Core charm")]
@@ -738,7 +765,21 @@ namespace LiveSplit.HollowKnight {
         [Description("Whispering Root (Royal Waterways)"), ToolTip("Splits upon completing the whispering root in the Royal Waterways")]
         TreeWaterways,
         [Description("Whispering Root (Spirits' Glade)"), ToolTip("Splits upon completing the whispering root in the Spirits' Glade")]
-        TreeGlade
+        TreeGlade,
+        
+        [Description("Queen's Garden Bench (Toll)"), ToolTip("Splits when buying Queen's Garden toll bench")] 
+        TollBenchQG,
+        [Description("Sanctum Bench (Toll)"), ToolTip("Splits when buying City/Sanctum toll bench by Cornifer's location")] 
+        TollBenchCity,
+        [Description("Basin Bench (Toll)"), ToolTip("Splits when buying Ancient Basin toll bench")] 
+        TollBenchBasin,
+        
+        [Description("White Palace - First Orb (Lever)"), ToolTip("Splits when lighting the first orb in White Palace")] 
+        WhitePalaceOrb1,
+        [Description("White Palace - Second Orb (Lever)"), ToolTip("Splits when lighting the second orb in White Palace")] 
+        WhitePalaceOrb2,
+        [Description("White Palace - Third Orb (Lever)"), ToolTip("Splits when lighting the third orb in White Palace")] 
+        WhitePalaceOrb3
     }
     public class ToolTipAttribute : Attribute {
         public string ToolTip { get; set; }
