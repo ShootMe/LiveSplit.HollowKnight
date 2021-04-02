@@ -10,7 +10,9 @@ namespace LiveSplit.HollowKnight {
         private bool isDragging = false;
         public HollowKnightSplitSettings() {
             InitializeComponent();
+            cboName.MouseWheel += (o, e) => ((HandledMouseEventArgs)e).Handled = true;
         }
+        
         private void cboName_SelectedIndexChanged(object sender, EventArgs e) {
             string splitDescription = cboName.SelectedValue.ToString();
             SplitName split = GetSplitName(splitDescription);
@@ -33,6 +35,7 @@ namespace LiveSplit.HollowKnight {
             }
             return SplitName.ForgottenCrossroads;
         }
+        
         private void picHandle_MouseMove(object sender, MouseEventArgs e) {
             if (!isDragging) {
                 if (e.Button == MouseButtons.Left) {

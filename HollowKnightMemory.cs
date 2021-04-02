@@ -364,6 +364,11 @@ namespace LiveSplit.HollowKnight {
             }
             return (UIState)ui;
         }
+
+        public bool GameManagerNull() {
+            return gameManager == null;
+        }
+
         public bool AcceptingInput() {
             //GameManager._instance.InputHandler.acceptingInput
             if (lastVersion.Minor >= 3) {

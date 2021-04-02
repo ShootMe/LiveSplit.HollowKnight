@@ -95,11 +95,29 @@ namespace LiveSplit.HollowKnight {
             string sceneName = mem.SceneName();
 
             if (currentSplit == -1) {
-                shouldSplit =
-                    (nextScene.Equals("Tutorial_01", StringComparison.OrdinalIgnoreCase) && mem.GameState() == GameState.ENTERING_LEVEL) ||
-                    nextScene == "GG_Vengefly_V" ||
-                    nextScene == "GG_Boss_Door_Entrance" ||
-                    nextScene == "GG_Entrance_Cutscene";
+                // TODO: Start split
+                SplitName startSplit = settings.Splits[0];
+                if (!settings.Ordered) {
+                    shouldSplit =
+                        (nextScene.Equals("Tutorial_01", StringComparison.OrdinalIgnoreCase) &&
+                         mem.GameState() == GameState.ENTERING_LEVEL) ||
+                        nextScene == "GG_Vengefly_V" ||
+                        nextScene == "GG_Boss_Door_Entrance" ||
+                        nextScene == "GG_Entrance_Cutscene";
+                    if (CheckSplit(startSplit, nextScene, sceneName)) {
+                        shouldSplit = true;
+                        splitsDone.Add(startSplit);
+                    }
+                } else {
+                    shouldSplit =
+                        (nextScene.Equals("Tutorial_01", StringComparison.OrdinalIgnoreCase) &&
+                         mem.GameState() == GameState.ENTERING_LEVEL) ||
+                        nextScene == "GG_Vengefly_V" ||
+                        nextScene == "GG_Boss_Door_Entrance" ||
+                        nextScene == "GG_Entrance_Cutscene" ||
+                        CheckSplit(startSplit, nextScene, sceneName);
+                }
+
             } else if (Model.CurrentState.CurrentPhase == TimerPhase.Running && settings.Splits.Count > 0) {
                 GameState gameState = mem.GameState();
                 SplitName finalSplit = settings.Splits[settings.Splits.Count - 1];
@@ -118,7 +136,7 @@ namespace LiveSplit.HollowKnight {
                         finalSplit == SplitName.Aluba))) {
                         if (!settings.Ordered) {
                             foreach (SplitName split in settings.Splits) {
-                                if (splitsDone.Contains(split)) { continue; }
+                                if (splitsDone.Contains(split) || mem.GameManagerNull()) { continue; }
 
                                 shouldSplit = CheckSplit(split, nextScene, sceneName);
 
@@ -149,7 +167,7 @@ namespace LiveSplit.HollowKnight {
                                             && gameState != GameState.PAUSED)
                                         ) { continue; }
                                     */
-                                    if (splitsDone.Contains(split)) { continue; }
+                                    if (splitsDone.Contains(split) || mem.GameManagerNull()) { continue; }
                                     
                                     shouldSplit = CheckSplit(split, nextScene, sceneName);
 
