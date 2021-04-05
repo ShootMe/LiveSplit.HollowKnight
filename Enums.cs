@@ -204,16 +204,13 @@
         scenesEncounteredDreamPlantC,
         
         openedCityGate,
-        cityGateClosed,
-        
+
         abyssGateOpened,
         abyssLighthouse,
         
         whitePalaceOrb_1,
         whitePalaceOrb_2,
         whitePalaceOrb_3,
-        whitePalace05_lever,
-        whitePalaceMidWarp,
         whitePalaceSecretRoomVisited,
         
         dreamOrbs,
@@ -245,18 +242,12 @@
         openedWaterwaysManhole,
         waterwaysAcidDrained,
         dungDefenderWallBroken,
-
         tollBenchQueensGardens,
         tollBenchCity,
         tollBenchAbyss,
-        
-        encounteredHornet,
-        openedPalaceGrounds, //likely wp location?
-        
         maskBrokenLurien,
         maskBrokenHegemol,
         maskBrokenMonomon,
-        gladeGhostsKilled
     }
     public enum GameState {
         INACTIVE,
