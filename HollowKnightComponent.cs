@@ -95,7 +95,14 @@ namespace LiveSplit.HollowKnight {
             string sceneName = mem.SceneName();
 
             if (currentSplit == -1) {
+                shouldSplit = (nextScene.Equals("Tutorial_01", StringComparison.OrdinalIgnoreCase) &&
+                               mem.GameState() == GameState.ENTERING_LEVEL) ||
+                              nextScene == "GG_Vengefly_V" ||
+                              nextScene == "GG_Boss_Door_Entrance" ||
+                              nextScene == "GG_Entrance_Cutscene";
+
                 // TODO: Start split
+                /*
                 SplitName startSplit = settings.Splits[0];
                 if (!settings.Ordered) {
                     shouldSplit =
@@ -116,7 +123,7 @@ namespace LiveSplit.HollowKnight {
                         nextScene == "GG_Boss_Door_Entrance" ||
                         nextScene == "GG_Entrance_Cutscene" ||
                         CheckSplit(startSplit, nextScene, sceneName);
-                }
+                }*/
 
             } else if (Model.CurrentState.CurrentPhase == TimerPhase.Running && settings.Splits.Count > 0) {
                 GameState gameState = mem.GameState();
@@ -203,10 +210,16 @@ namespace LiveSplit.HollowKnight {
                     || gameState == GameState.EXITING_LEVEL
                     || gameState == GameState.LOADING
                     || mem.HeroTransitionState() == HeroTransitionState.WAITING_TO_ENTER_LEVEL
+                    
+                    || (uiState != UIState.PLAYING 
+                        && (loadingMenu || (uiState != UIState.PAUSED && (!string.IsNullOrEmpty(nextScene) || sceneName == "_test_charms"))) 
+                    && nextScene != sceneName)
+                    /*
                     || (uiState != UIState.PLAYING
                         && (uiState != UIState.PAUSED || loadingMenu)
-                        && (!string.IsNullOrEmpty(nextScene) || sceneName == "_test_charms")
+                        && (!string.IsNullOrEmpty(nextScene) || sceneName == "_test_charms" || loadingMenu)
                         && nextScene != sceneName)
+                    */
                     || (mem.TileMapDirty() && !mem.UsesSceneTransitionRoutine());
 
                 lastGameState = gameState;
@@ -637,7 +650,7 @@ namespace LiveSplit.HollowKnight {
 
                     switch (key) {
                         case "CurrentSplit": 
-                            curr = currentSplit.ToString();
+                            curr = currentSplit + " - " + (SplitName)currentSplit;
                             break;
                         case "State": curr = state.ToString(); break;
                         case "GameState": curr = mem.GameState().ToString(); break;
