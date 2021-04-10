@@ -97,9 +97,7 @@ namespace LiveSplit.HollowKnight {
             if (currentSplit == -1) {
                 shouldSplit = (nextScene.Equals("Tutorial_01", StringComparison.OrdinalIgnoreCase) &&
                                mem.GameState() == GameState.ENTERING_LEVEL) ||
-                              nextScene == "GG_Vengefly_V" ||
-                              nextScene == "GG_Boss_Door_Entrance" ||
-                              nextScene == "GG_Entrance_Cutscene";
+                              nextScene is "GG_Vengefly_V" or "GG_Boss_Door_Entrance" or "GG_Entrance_Cutscene";
 
                 // TODO: Start split
                 /*
@@ -127,28 +125,34 @@ namespace LiveSplit.HollowKnight {
 
             } else if (Model.CurrentState.CurrentPhase == TimerPhase.Running && settings.Splits.Count > 0) {
                 GameState gameState = mem.GameState();
+                UIState uIState = mem.UIState();
                 SplitName finalSplit = settings.Splits[settings.Splits.Count - 1];
 
                 // Experimental "Finish on any autosplit"-logic on true, otherwise default stable logic.
                 // Both are the same except for letting autosplit entries finish runs.
                 if (!settings.AutosplitEndRuns) {
                     if (currentSplit + 1 < Model.CurrentState.Run.Count ||
-                        (currentSplit + 1 == Model.CurrentState.Run.Count &&
-                        (finalSplit == SplitName.ElderbugFlower ||
-                        finalSplit == SplitName.ZoteKilled ||
-                        finalSplit == SplitName.HuskMiner ||
-                        finalSplit == SplitName.KingsPass ||
-                        finalSplit == SplitName.GreatHopper ||
-                        finalSplit == SplitName.PathOfPain ||
-                        finalSplit == SplitName.Aluba))) {
+                        (currentSplit + 1 == Model.CurrentState.Run.Count && 
+                         (finalSplit is 
+                            SplitName.ElderbugFlower or 
+                            SplitName.ZoteKilled or 
+                            SplitName.HuskMiner or 
+                            SplitName.KingsPass or 
+                            SplitName.GreatHopper or 
+                            SplitName.PathOfPain or 
+                            SplitName.Aluba))) {
                         if (!settings.Ordered) {
                             foreach (SplitName split in settings.Splits) {
-                                if (splitsDone.Contains(split) || mem.GameManagerNull()) { continue; }
+                                if (splitsDone.Contains(split)
+                                    || (gameState == GameState.INACTIVE && uIState == UIState.INACTIVE)
+                                    || (gameState == GameState.MAIN_MENU && (uIState == UIState.MENU_HOME || uIState == UIState.MENU_PROFILES))
+                                    ) { continue; }
 
                                 shouldSplit = CheckSplit(split, nextScene, sceneName);
 
                                 if (shouldSplit) {
                                     splitsDone.Add(split);
+                                    if (hasLog || !Console.IsOutputRedirected) WriteLogWithTime("TESTING - Split: " + split + " - " + nameof(split));
                                     break;
                                 }
                             }
@@ -174,12 +178,16 @@ namespace LiveSplit.HollowKnight {
                                             && gameState != GameState.PAUSED)
                                         ) { continue; }
                                     */
-                                    if (splitsDone.Contains(split) || mem.GameManagerNull()) { continue; }
+                                    if (splitsDone.Contains(split)
+                                        || (gameState == GameState.INACTIVE && uIState == UIState.INACTIVE)
+                                        || (gameState == GameState.MAIN_MENU && (uIState == UIState.MENU_HOME || uIState == UIState.MENU_PROFILES))
+                                        ) { continue; }
                                     
                                     shouldSplit = CheckSplit(split, nextScene, sceneName);
 
                                     if (shouldSplit) {
                                         splitsDone.Add(split);
+                                        if (hasLog || !Console.IsOutputRedirected) WriteLogWithTime("TESTING - Split: " + split + " - " + nameof(split));
                                         break;
                                     }
                                 }
@@ -192,7 +200,7 @@ namespace LiveSplit.HollowKnight {
                 }
 
                 UIState uiState = mem.UIState();
-                bool loadingMenu = (string.IsNullOrEmpty(nextScene) && sceneName != "Menu_Title") || (nextScene == "Menu_Title" && sceneName != "Menu_Title");
+                bool loadingMenu = (sceneName != "Menu_Title" && string.IsNullOrEmpty(nextScene)) || (sceneName != "Menu_Title" && nextScene == "Menu_Title");
                 if (gameState == GameState.PLAYING && lastGameState == GameState.MAIN_MENU) {
                     lookForTeleporting = true;
                 }
@@ -205,21 +213,13 @@ namespace LiveSplit.HollowKnight {
                 Model.CurrentState.IsGameTimePaused =
                     (gameState == GameState.PLAYING && teleporting && !mem.HazardRespawning())
                     || lookForTeleporting
-                    || ((gameState == GameState.PLAYING || gameState == GameState.ENTERING_LEVEL) && uiState != UIState.PLAYING)
+                    || ((gameState is GameState.PLAYING or GameState.ENTERING_LEVEL) && uiState != UIState.PLAYING)
                     || (gameState != GameState.PLAYING && !mem.AcceptingInput())
-                    || gameState == GameState.EXITING_LEVEL
-                    || gameState == GameState.LOADING
-                    || mem.HeroTransitionState() == HeroTransitionState.WAITING_TO_ENTER_LEVEL
-                    
+                    || gameState is GameState.EXITING_LEVEL or GameState.LOADING 
+                    || mem.HeroTransitionState() == HeroTransitionState.WAITING_TO_ENTER_LEVEL 
                     || (uiState != UIState.PLAYING 
                         && (loadingMenu || (uiState != UIState.PAUSED && (!string.IsNullOrEmpty(nextScene) || sceneName == "_test_charms"))) 
-                    && nextScene != sceneName)
-                    /*
-                    || (uiState != UIState.PLAYING
-                        && (uiState != UIState.PAUSED || loadingMenu)
-                        && (!string.IsNullOrEmpty(nextScene) || sceneName == "_test_charms" || loadingMenu)
-                        && nextScene != sceneName)
-                    */
+                        && nextScene != sceneName) 
                     || (mem.TileMapDirty() && !mem.UsesSceneTransitionRoutine());
 
                 lastGameState = gameState;
@@ -649,8 +649,8 @@ namespace LiveSplit.HollowKnight {
                     prev = currentValues[key];
 
                     switch (key) {
-                        case "CurrentSplit": 
-                            curr = currentSplit + " - " + (SplitName)currentSplit;
+                        case "CurrentSplit":
+                            curr = currentSplit.ToString();
                             break;
                         case "State": curr = state.ToString(); break;
                         case "GameState": curr = mem.GameState().ToString(); break;
@@ -753,6 +753,7 @@ namespace LiveSplit.HollowKnight {
         }
         public void OnSplit(object sender, EventArgs e) {
             currentSplit++;
+            
             state = 0;
         }
         public Control GetSettingsControl(LayoutMode mode) { return settings; }
