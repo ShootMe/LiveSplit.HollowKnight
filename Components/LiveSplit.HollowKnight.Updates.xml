@@ -1,5 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <updates>
+    <update version="2.9.1">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change> Fixed s/q timer not acting properly (thank you muri for pointing this out) </change>
+            <change> Seemingly fixed non-ordered splits mis-splits on quitouts </change>
+            <change> Testing log last-split output when splits happen </change>
+        </changelog>
+    </update>
     <update version="2.9.0">
         <files>
             <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
