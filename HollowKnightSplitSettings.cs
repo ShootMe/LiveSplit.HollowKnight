@@ -2,6 +2,8 @@
 using System.ComponentModel;
 using System.Reflection;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
+
 namespace LiveSplit.HollowKnight {
     public partial class HollowKnightSplitSettings : UserControl {
         public string Split { get; set; } = "";
@@ -93,6 +95,12 @@ namespace LiveSplit.HollowKnight {
         [Description("Vengeful Spirit (Skill)"), ToolTip("Splits when obtaining Vengeful Spirit")]
         VengefulSpirit,
 
+        [Description("City Crest (Item)"), ToolTip("Splits when obtaining the City Crest")]
+        CityKey,
+        [Description("Delicate Flower (Item)"), ToolTip("Splits when flower is in inventory")]
+        HasDelicateFlower,
+        [Description("Elegant Key (Item)"), ToolTip("Splits when obtaining the Elegant Key")]
+        ElegantKey,
         [Description("God Tuner (Item)"), ToolTip("Splits when obtaining the God Tuner")]
         GodTuner,
         [Description("Hunter's Mark (Item)"), ToolTip("Splits when obtaining the Hunter's Mark")]
@@ -101,8 +109,6 @@ namespace LiveSplit.HollowKnight {
         KingsBrand,
         [Description("Love Key (Item)"), ToolTip("Splits when obtaining the Love Key")]
         LoveKey,
-        [Description("Elegant Key (Item)"), ToolTip("Splits when obtaining the Elegant Key")]
-        ElegantKey,
         [Description("Lumafly Lantern (Item)"), ToolTip("Splits when obtaining the Lumafly Lantern")]
         LumaflyLantern,
         [Description("Pale Lurker Key (Item)"), ToolTip("Splits when obtaining the Simple Key from the Pale Lurker")]
@@ -117,6 +123,9 @@ namespace LiveSplit.HollowKnight {
         SlyKey,
         [Description("Tram Pass (Item)"), ToolTip("Splits when obtaining the Tram Pass")]
         TramPass,
+        
+        
+
 
         [Description("Mask Fragment 1 (Fragment)"), ToolTip("Splits when getting 1st Mask fragment")]
         MaskFragment1,
@@ -359,24 +368,32 @@ namespace LiveSplit.HollowKnight {
         Dreamer2,
         [Description("Third Dreamer (Dreamer)"), ToolTip("Splits when you see the mask for the third dreamer killed")]
         Dreamer3,
-        [Description("Nightmare Lantern Lit (Event)"), ToolTip("Splits when initially lighting the Nightmare Lantern")]
-        NightmareLantern,
-        [Description("Nightmare Lantern Destroyed (Event)"), ToolTip("Splits when destroying the Nightmare Lantern")]
-        NightmareLanternDestroyed,
-        [Description("Seer Departs (Event)"), ToolTip("Splits when the Seer Departs after bringing back 2400 essence")]
-        SeerDeparts,
-        [Description("Spirit Glade Door (Event)"), ToolTip("Splits when the Seer open Spirit Glade after bringing back 200 essence")]
-        SpiritGladeOpen,
+
+        [Description("Can Overcharm (Event)"), ToolTip("Splits when overcharming is enabled")]
+        CanOvercharm,
+        [Description("Chains Broken - Hollow Knight (Event)"), ToolTip("Splits at the end of the first Hollow Knight scream after the chains are broken")]
+        UnchainedHollowKnight,
         [Description("Chandelier - Watcher Knights (Event)"), ToolTip("Splits when dropping the chandelier on one of the watcher knights")]
         WatcherChandelier,
         [Description("City Gate (Event)"), ToolTip("Splits when using the City Key to open the gate")] 
         CityGateOpen,
-        [Description("Trap Bench - Beasts Den (Event)"), ToolTip("Splits when getting the trap bench in Beasts Den")]
-        BeastsDenTrapBench,
-        [Description("Chains Broken - Hollow Knight (Event)"), ToolTip("Splits at the end of the first Hollow Knight scream after the chains are broken")]
-        UnchainedHollowKnight,
+        [Description("Flower Quest (Event)"), ToolTip("Splits when placing the flower at the grave of the Traitors' Child")]
+        FlowerQuest,
+        [Description("Nailsmith - Killed (Event)"), ToolTip("Splits when Nailsmith is killed")]
+        NailsmithKilled,
+        [Description("Nightmare Lantern Lit (Event)"), ToolTip("Splits when initially lighting the Nightmare Lantern")]
+        NightmareLantern,
+        [Description("Nightmare Lantern Destroyed (Event)"), ToolTip("Splits when destroying the Nightmare Lantern")]
+        NightmareLanternDestroyed,
         [Description("Radiance Dream Entry (Event)"), ToolTip("Splits when going into the dream world for Hollow Knight to fight Radiance")]
         HollowKnightDreamnail,
+        [Description("Seer Departs (Event)"), ToolTip("Splits when the Seer Departs after bringing back 2400 essence")]
+        SeerDeparts,
+        [Description("Spirit Glade Door (Event)"), ToolTip("Splits when the Seer open Spirit Glade after bringing back 200 essence")]
+        SpiritGladeOpen,
+        [Description("Trap Bench - Beasts Den (Event)"), ToolTip("Splits when getting the trap bench in Beasts Den")]
+        BeastsDenTrapBench,
+        
 
         [Description("Colosseum Fight 1 (Trial)"), ToolTip("Splits when beating the first Colosseum trial")]
         ColosseumBronze,
@@ -411,6 +428,10 @@ namespace LiveSplit.HollowKnight {
         GorgeousHusk,
         [Description("Menderbug (Killed)"), ToolTip("Splits when killing Menderbug")]
         MenderBug,
+        [Description("Sanctum Warrior (Enemy)"), ToolTip("Splits on first Sanctum Warrior kill")]
+        killedSanctumWarrior,
+        [Description("Soul Twister (Enemy)"), ToolTip("Splits on first Soul Twister kill")]
+        killedSoulTwister,
         //[Description("Revek (Killed)"), ToolTip("Splits when talking to Revek after clearing all other Glade ghosts")]
         //Revek,
         [Description("Moss Knight (Mini Boss)"), ToolTip("Splits when killing Moss Knight")]
@@ -503,10 +524,12 @@ namespace LiveSplit.HollowKnight {
         WhitePalace,
         [Description("White Palace - Workshop (Area)"), ToolTip("Splits when visiting the secret room in White Palace")] 
         WhitePalaceSecretRoom,
-        [Description("King's Pass (Area)"), ToolTip("Splits when leaving King's pass")]
+        [Description("King's Pass (Transition)"), ToolTip("Splits when leaving King's pass")]
         KingsPass,
-        [Description("Blue Lake (Area)"), ToolTip("Splits on transition to Blue Lake from Gruz Mother scene (requires Ordered Splits)")]
+        [Description("Blue Lake (Transition)"), ToolTip("Splits on transition to Blue Lake from Gruz Mother scene (requires Ordered Splits)")]
         BlueLake,
+        [Description("NKG Dream (Transition)"), ToolTip("Splits on transition to NKG dream")]
+        enterNKG,
 
         [Description("Baldur Shell (Charm)"), ToolTip("Splits when obtaining the Baldur Shell charm")]
         BaldurShell,
@@ -604,6 +627,8 @@ namespace LiveSplit.HollowKnight {
         NotchShrumalOgres,
         [Description("Fog Canyon (Charm Notch)"), ToolTip("Splits when obtaining the charm notch in Fog Canyon")]
         NotchFogCanyon,
+        [Description("Grimm (Charm Notch)"), ToolTip("Splits when obtaining the charm notch after Grimm")]
+        NotchGrimm,
         [Description("Salubra 1 (Charm Notch)"), ToolTip("Splits when obtaining the first charm notch from Salubra")]
         NotchSalubra1,
         [Description("Salubra 2 (Charm Notch)"), ToolTip("Splits when obtaining the second charm notch from Salubra")]
@@ -612,9 +637,13 @@ namespace LiveSplit.HollowKnight {
         NotchSalubra3,
         [Description("Salubra 4 (Charm Notch)"), ToolTip("Splits when obtaining the fourth charm notch from Salubra")]
         NotchSalubra4,
+        [Description("Sly 1 (Charm Notch)"), ToolTip("Splits when obtaining the first charm notch from Sly")]
+        NotchSly1,
+        [Description("Sly 2 (Charm Notch)"), ToolTip("Splits when obtaining the second charm notch from Sly")]
+        NotchSly2,
 
-        [Description("Relic Dealer Lemm (NPC)"), ToolTip("Splits when talking to Lemm for the first time")]
-        Lemm1,
+        [Description("Met Grey Mourner (NPC)"), ToolTip("Splits when talking to Grey Mourner for the first time")]
+        MetGreyMourner,
         [Description("Relic Dealer Lemm Shop (NPC)"), ToolTip("Splits when talking to Lemm in the shop for the first time")]
         Lemm2,
         [Description("Elderbug Flower Quest (NPC)"), ToolTip("Splits when giving the flower to the Elderbug")]
@@ -625,6 +654,8 @@ namespace LiveSplit.HollowKnight {
         BrummFlame,
         [Description("Little Fool (NPC)"), ToolTip("Splits when talking to the Little Fool for the first time")]
         LittleFool,
+        [Description("Sly Rescued (NPC)"), ToolTip("Splits when saving Sly")]
+        SlyRescued,
 
         [Description("Grimm Flame 1 (Flame)"), ToolTip("Splits after obtaining the first flame.")]
         Flame1,
@@ -776,13 +807,75 @@ namespace LiveSplit.HollowKnight {
         TollBenchCity,
         [Description("Basin Bench (Toll)"), ToolTip("Splits when buying Ancient Basin toll bench")] 
         TollBenchBasin,
-        
-        [Description("White Palace - First Orb (Lever)"), ToolTip("Splits when lighting the first orb in White Palace")] 
+        [Description("Waterways Manhole (Toll)"), ToolTip("Splits when opening the Waterways Manhole")]
+        WaterwaysManhole,
+        [Description("Tram Deepnest (Tram)"), ToolTip("Splits when unlocking the tram in Deepnest")]
+        TramDeepnest,
+
+        [Description("White Palace - Lower Orb (Lever)"), ToolTip("Splits when lighting the orb in White Palace lowest floor")] 
         WhitePalaceOrb1,
-        [Description("White Palace - Second Orb (Lever)"), ToolTip("Splits when lighting the second orb in White Palace")] 
+        [Description("White Palace - Left Orb (Lever)"), ToolTip("Splits when lighting the orb in White Palace left wing")] 
+        WhitePalaceOrb3,
+        [Description("White Palace - Right Orb (Lever)"), ToolTip("Splits when lighting the orb in White Palace right wing")] 
         WhitePalaceOrb2,
-        [Description("White Palace - Third Orb (Lever)"), ToolTip("Splits when lighting the third orb in White Palace")] 
-        WhitePalaceOrb3
+        
+        [Description("White Palace - Left Midpoint (Room)"), ToolTip("Splits on transition between White_Palace_04 and _14")]
+        WhitePalaceLeftWingMid,
+        [Description("White Palace - Right Side Entry (Room)"), ToolTip("Splits on transition between White_Palace_03_Hub and _15")]
+        WhitePalaceRightEntry,
+        [Description("White Palace - Right Side Climb (Room)"), ToolTip("Splits on transition between White_Palace_05 and _16")]
+        WhitePalaceRightClimb,
+        [Description("White Palace - Right Side Saw Squeeze (Room)"), ToolTip("Splits on transition between White_Palace_16 and _05")]
+        WhitePalaceRightSqueeze,
+        [Description("White Palace - Right Side Exit (Room)"), ToolTip("Splits on transition between White_Palace_05 and _15")]
+        WhitePalaceRightDone,
+        [Description("White Palace - Top Entry (Room)"), ToolTip("Splits on transition between White_Palace_03_Hub and _06")]
+        WhitePalaceTopEntry,
+        [Description("White Palace - Top Cursed Cycle (Room)"), ToolTip("Splits on transition between White_Palace_06 and _07")]
+        WhitePalaceTopClimb,
+        [Description("White Palace - Top Lever (Room)"), ToolTip("Splits on transition between White_Palace_07 and _12")]
+        WhitePalaceTopLeverRoom,
+        [Description("White Palace - Top Final Platforming (Room)"), ToolTip("Splits on transition between White_Palace_12 and _13")]
+        WhitePalaceTopLastPlats,
+        [Description("White Palace - Throne Room (Room)"), ToolTip("Splits on transition between White_Palace_13 and _09")]
+        WhitePalaceThroneRoom,
+        [Description("White Palace - Atrium (Room)"), ToolTip("Splits on any transition to White_Palace_03_Hub")]
+        WhitePalaceAtrium,
+
+
+        /*
+        [Description("Nailsmith - Spared (Event)"), ToolTip("Splits when Nailsmith is spared according to the game")] 
+        NailsmithSpared,
+        
+        [Description("Mage Door (Test)"), ToolTip("Splits when Nailsmith is spared")] 
+        MageDoor,
+        [Description("Sanctum Warrior Window (Test)"), ToolTip("Splits when Nailsmith is killed")] 
+        MageWindow,
+        [Description("Mage Lord Enc. (Test)"), ToolTip("Splits when Nailsmith is spared")] 
+        MageLordEncountered,
+        [Description("Mage Lord 2 Enc. (Test)"), ToolTip("Splits when Nailsmith is killed")] 
+        MageDoor2,
+        [Description("Mage Window (Test)"), ToolTip("Splits when Nailsmith is spared")] 
+        MageWindowGlass,
+        [Description("Mage Window Glass (Test)"), ToolTip("Splits when Nailsmith is killed")] 
+        MageLordEncountered2,
+        */
+
+
+
+        /*
+        [Description("Equipped fr. health (menu testing)"), ToolTip("Splits when equipping charm23, for timing menuing")]
+        EquippedFragileHealth,
+        */
+        
+
+        /*
+        [Description("Sanctum (Area)"), ToolTip("Splits when mapzone is Sanctum :)")]
+        AreaTestingSanctum,
+        [Description("Sanctum Upper (Area)"), ToolTip("Splits when mapzone is Mage Tower :)")]
+        AreaTestingSanctumUpper,
+        */
+        
     }
     public class ToolTipAttribute : Attribute {
         public string ToolTip { get; set; }
