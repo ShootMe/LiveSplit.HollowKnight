@@ -240,8 +240,6 @@
         
         mineLiftOpened,
         gotGrimmNotch,
-        slyNotch1,
-        slyNotch2,
         
         xunFlowerGiven,
         
@@ -277,6 +275,10 @@
         currentArea,
         killedMageKnight,
         killedMage,
+
+        dreamGateScene,
+        dreamGateX,
+        dreamGateY,
     }
     public enum GameState {
         INACTIVE,

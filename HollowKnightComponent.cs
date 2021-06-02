@@ -530,6 +530,7 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.TreeWaterways: shouldSplit = mem.PlayerDataStringList(Offset.scenesEncounteredDreamPlantC).Contains("Abyss_01"); break;
 
                 case SplitName.KingsPass: shouldSplit = sceneName.StartsWith("Tutorial_01") && nextScene.StartsWith("Town"); break;
+                case SplitName.KingsPassEnterFromTown: shouldSplit = sceneName.StartsWith("Town") && nextScene.StartsWith("Tutorial_01"); break;
                 case SplitName.BlueLake: shouldSplit = !sceneName.StartsWith("Crossroads_50") && nextScene.StartsWith("Crossroads_50"); break;
 
                 case SplitName.VengeflyKingP: shouldSplit = sceneName.StartsWith("GG_Vengefly") && nextScene.StartsWith("GG_Gruz_Mother"); break;
@@ -631,6 +632,9 @@ namespace LiveSplit.HollowKnight {
                 //case SplitName.EquippedFragileHealth: shouldSplit = mem.PlayerData<bool>(Offset.equippedCharm_23); break;
                 case SplitName.CanOvercharm: shouldSplit = mem.PlayerData<bool>(Offset.canOvercharm); break;
                 case SplitName.MetGreyMourner: shouldSplit = mem.PlayerData<bool>(Offset.metXun); break;
+                case SplitName.GreyMournerSeerAscended:
+                    shouldSplit = mem.PlayerData<bool>(Offset.metXun) && mem.PlayerData<bool>(Offset.mothDeparted);
+                    break;
                 case SplitName.HasDelicateFlower: shouldSplit = mem.PlayerData<bool>(Offset.hasXunFlower); break;
 
                 //case SplitName.AreaTestingSanctum: shouldSplit = mem.PlayerData<int>(Offset.currentArea) == (int)MapZone.SOUL_SOCIETY; break;
@@ -639,7 +643,41 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.killedSanctumWarrior: shouldSplit = mem.PlayerData<bool>(Offset.killedMageKnight); break;
                 case SplitName.killedSoulTwister: shouldSplit = mem.PlayerData<bool>(Offset.killedMage); break;
 
-                case SplitName.enterNKG: shouldSplit = sceneName.StartsWith("Grimm_Main_Tent") && nextScene.StartsWith("Grimm_Nightmare"); break;
+                case SplitName.EnterNKG: shouldSplit = sceneName.StartsWith("Grimm_Main_Tent") && nextScene.StartsWith("Grimm_Nightmare"); break;
+                case SplitName.EnterGreenpath: shouldSplit = !sceneName.StartsWith("Fungus1_01") && nextScene.StartsWith("Fungus1_01"); break;
+                case SplitName.EnterGreenpathWithOvercharm: 
+                    shouldSplit = !sceneName.StartsWith("Fungus1_01") 
+                        && nextScene.StartsWith("Fungus1_01") 
+                        && mem.PlayerData<bool>(Offset.canOvercharm); 
+                    break;
+                case SplitName.EnterSanctum: shouldSplit = !sceneName.StartsWith("Ruins1_23") && nextScene.StartsWith("Ruins1_23"); break;
+                case SplitName.EnterSanctumWithShadeSoul: 
+                    shouldSplit = !sceneName.StartsWith("Ruins1_23") 
+                        && nextScene.StartsWith("Ruins1_23") 
+                        && mem.PlayerData<int>(Offset.fireballLevel) == 2; 
+                    break;
+                case SplitName.EnterAnyDream: shouldSplit = nextScene.StartsWith("Dream_") && nextScene != sceneName; break;
+                case SplitName.DgateKingdomsEdgeAcid:
+                    shouldSplit =
+                        mem.PlayerDataString<String>(Offset.dreamGateScene).StartsWith("Deepnest_East_04") &&
+                        (mem.PlayerData<Single>(Offset.dreamGateX) > 27.0f && mem.PlayerData<Single>(Offset.dreamGateX) < 29f) &&
+                        (mem.PlayerData<Single>(Offset.dreamGateY) > 7.0f && mem.PlayerData<Single>(Offset.dreamGateY) < 9f);
+                    break;
+                    /*
+                        Dream_Nailcollection
+                        Dream_01_False_Knight
+                        Dream_02_Mage_Lord
+                        Dream_03_Infected_Knight
+                        Dream_04_White_Defender
+                        Dream_Mighty_Zote
+                        Dream_Guardian_Hegemol
+                        Dream_Guardian_Lurien
+                        Dream_Guardian_Monomon
+                        Dream_Backer_Shrine
+                        Dream_Room_Believer_Shrine
+                        Dream_Abyss
+                        Dream_Final_Boss
+                     */
             }
             return shouldSplit;
         }

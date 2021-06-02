@@ -524,12 +524,29 @@ namespace LiveSplit.HollowKnight {
         WhitePalace,
         [Description("White Palace - Workshop (Area)"), ToolTip("Splits when visiting the secret room in White Palace")] 
         WhitePalaceSecretRoom,
-        [Description("King's Pass (Transition)"), ToolTip("Splits when leaving King's pass")]
-        KingsPass,
+        
+        
+        
         [Description("Blue Lake (Transition)"), ToolTip("Splits on transition to Blue Lake from Gruz Mother scene (requires Ordered Splits)")]
         BlueLake,
+        [Description("Enter Any Dream (Transition)"), ToolTip("Splits when entering any dream world")]
+        EnterAnyDream,
+        [Description("Greenpath (Transition)"), ToolTip("Splits when entering Greenpath")]
+        EnterGreenpath,
+        [Description("Greenpath w/ Unlocked Overcharm (Transition)"), ToolTip("Splits when entering Greenpath with overcharming unlocked")]
+        EnterGreenpathWithOvercharm,
+        [Description("King's Pass (Transition)"), ToolTip("Splits when leaving King's pass")]
+        KingsPass,
         [Description("NKG Dream (Transition)"), ToolTip("Splits on transition to NKG dream")]
-        enterNKG,
+        EnterNKG,
+        [Description("Sanctum (Transition)"), ToolTip("Splits when entering Sanctum")]
+        EnterSanctum,
+        [Description("Sanctum w/ Shade Soul (Transition)"), ToolTip("Splits when entering Sanctum after obtaining shade soul")]
+        EnterSanctumWithShadeSoul,
+
+        [Description("Stag To Dirtmouth (Transition)"), ToolTip("Splits when travelling to Dirtmouth")]
+        KingsPassEnterFromTown,
+
 
         [Description("Baldur Shell (Charm)"), ToolTip("Splits when obtaining the Baldur Shell charm")]
         BaldurShell,
@@ -637,13 +654,11 @@ namespace LiveSplit.HollowKnight {
         NotchSalubra3,
         [Description("Salubra 4 (Charm Notch)"), ToolTip("Splits when obtaining the fourth charm notch from Salubra")]
         NotchSalubra4,
-        [Description("Sly 1 (Charm Notch)"), ToolTip("Splits when obtaining the first charm notch from Sly")]
-        NotchSly1,
-        [Description("Sly 2 (Charm Notch)"), ToolTip("Splits when obtaining the second charm notch from Sly")]
-        NotchSly2,
 
         [Description("Met Grey Mourner (NPC)"), ToolTip("Splits when talking to Grey Mourner for the first time")]
         MetGreyMourner,
+        [Description("Mourner w/ Seer Ascended (NPC)"), ToolTip("Splits when both talked to Grey Mourner and Seer has ascended")]
+        GreyMournerSeerAscended,
         [Description("Relic Dealer Lemm Shop (NPC)"), ToolTip("Splits when talking to Lemm in the shop for the first time")]
         Lemm2,
         [Description("Elderbug Flower Quest (NPC)"), ToolTip("Splits when giving the flower to the Elderbug")]
@@ -842,7 +857,8 @@ namespace LiveSplit.HollowKnight {
         [Description("White Palace - Atrium (Room)"), ToolTip("Splits on any transition to White_Palace_03_Hub")]
         WhitePalaceAtrium,
 
-
+        [Description("Kingdom's Edge Acid (Dreamgate)"), ToolTip("Splits when placing Dreamgate by KE Acid (hopefully)")]
+        DgateKingdomsEdgeAcid,
         /*
         [Description("Nailsmith - Spared (Event)"), ToolTip("Splits when Nailsmith is spared according to the game")] 
         NailsmithSpared,
