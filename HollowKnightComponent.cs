@@ -94,6 +94,7 @@ namespace LiveSplit.HollowKnight {
             bool shouldSplit = false;
             string nextScene = mem.NextSceneName();
             string sceneName = mem.SceneName();
+            UIState uIState;
 
             if (currentSplit == -1) {
                 shouldSplit = (nextScene.Equals("Tutorial_01", StringComparison.OrdinalIgnoreCase) &&
@@ -118,12 +119,11 @@ namespace LiveSplit.HollowKnight {
                             SplitName.PathOfPain or 
                             SplitName.Aluba))) {
                         if (!settings.Ordered) {
-                            UIState uIState = mem.UIState();
+                            uIState = mem.UIState();
                             foreach (SplitName split in settings.Splits) {
                                 if (splitsDone.Contains(split)
                                     || (gameState == GameState.INACTIVE && uIState == UIState.INACTIVE)
-                                    || (gameState == GameState.MAIN_MENU && (uIState == UIState.MENU_HOME || uIState == UIState.MENU_PROFILES))
-                                    ) { continue; }
+                                    || (gameState == GameState.MAIN_MENU)) { continue; }
 
                                 shouldSplit = CheckSplit(split, nextScene, sceneName);
 
@@ -135,8 +135,10 @@ namespace LiveSplit.HollowKnight {
                                 }
                             }
                         } else if (currentSplit < settings.Splits.Count) {
+                            uIState = mem.UIState();
                             SplitName split = settings.Splits[currentSplit];
-                            shouldSplit = CheckSplit(split, nextScene, sceneName);
+                            shouldSplit = CheckSplit(split, nextScene, sceneName) 
+                                && !((gameState == GameState.INACTIVE && uIState == UIState.INACTIVE) || (gameState == GameState.MAIN_MENU));
                         }
                     } else {
                         shouldSplit = nextScene.StartsWith("Cinematic_Ending", StringComparison.OrdinalIgnoreCase) || nextScene == "GG_End_Sequence";
@@ -148,7 +150,7 @@ namespace LiveSplit.HollowKnight {
                         }
                         if (!shouldSplit) {
                             if (!settings.Ordered) {
-                                UIState uIState = mem.UIState();
+                                uIState = mem.UIState();
                                 foreach (SplitName split in settings.Splits) {
                                     /*
                                      if (splitsDone.Contains(split) 
@@ -159,9 +161,8 @@ namespace LiveSplit.HollowKnight {
                                     */
                                     if (splitsDone.Contains(split)
                                         || (gameState == GameState.INACTIVE && uIState == UIState.INACTIVE)
-                                        || (gameState == GameState.MAIN_MENU && (uIState == UIState.MENU_HOME || uIState == UIState.MENU_PROFILES))
-                                        ) { continue; }
-                                    
+                                        || (gameState == GameState.MAIN_MENU)) { continue; }
+
                                     shouldSplit = CheckSplit(split, nextScene, sceneName);
 
                                     if (shouldSplit) {
@@ -172,8 +173,10 @@ namespace LiveSplit.HollowKnight {
                                     }
                                 }
                             } else if (currentSplit < settings.Splits.Count) {
+                                uIState = mem.UIState();
                                 SplitName split = settings.Splits[currentSplit];
-                                shouldSplit = CheckSplit(split, nextScene, sceneName);
+                                shouldSplit = CheckSplit(split, nextScene, sceneName) 
+                                    && !((gameState == GameState.INACTIVE && uIState == UIState.INACTIVE) || (gameState == GameState.MAIN_MENU));
                             }
                         }
                     }
