@@ -379,6 +379,8 @@ namespace LiveSplit.HollowKnight {
         [Description("Third Dreamer (Dreamer)"), ToolTip("Splits when you see the mask for the third dreamer killed")]
         Dreamer3,
 
+        [Description("106% Pre-Grimm Shop (Event)"), ToolTip("Splits when Lantern + Vessel Fragment(5) + Mask Shard(4) have been acquired")]
+        PreGrimmShop,
         [Description("Can Overcharm (Event)"), ToolTip("Splits when overcharming is enabled")]
         CanOvercharm,
         [Description("Chains Broken - Hollow Knight (Event)"), ToolTip("Splits at the end of the first Hollow Knight scream after the chains are broken")]
@@ -438,9 +440,9 @@ namespace LiveSplit.HollowKnight {
         GorgeousHusk,
         [Description("Menderbug (Killed)"), ToolTip("Splits when killing Menderbug")]
         MenderBug,
-        [Description("Sanctum Warrior (Enemy)"), ToolTip("Splits on first Sanctum Warrior kill")]
+        [Description("Sanctum Warrior (Killed)"), ToolTip("Splits on first Sanctum Warrior kill")]
         killedSanctumWarrior,
-        [Description("Soul Twister (Enemy)"), ToolTip("Splits on first Soul Twister kill")]
+        [Description("Soul Twister (Killed)"), ToolTip("Splits on first Soul Twister kill")]
         killedSoulTwister,
         //[Description("Revek (Killed)"), ToolTip("Splits when talking to Revek after clearing all other Glade ghosts")]
         //Revek,
@@ -536,7 +538,6 @@ namespace LiveSplit.HollowKnight {
         WhitePalaceSecretRoom,
         
         
-        
         [Description("Blue Lake (Transition)"), ToolTip("Splits on transition to Blue Lake from Gruz Mother scene (requires Ordered Splits)")]
         BlueLake,
         [Description("Enter Any Dream (Transition)"), ToolTip("Splits when entering any dream world")]
@@ -547,15 +548,14 @@ namespace LiveSplit.HollowKnight {
         EnterGreenpathWithOvercharm,
         [Description("King's Pass (Transition)"), ToolTip("Splits when leaving King's pass")]
         KingsPass,
+        [Description("King's Pass From Town (Transition)"), ToolTip("Splits when travelling to Dirtmouth")]
+        KingsPassEnterFromTown,
         [Description("NKG Dream (Transition)"), ToolTip("Splits on transition to NKG dream")]
         EnterNKG,
         [Description("Sanctum (Transition)"), ToolTip("Splits when entering Sanctum")]
         EnterSanctum,
         [Description("Sanctum w/ Shade Soul (Transition)"), ToolTip("Splits when entering Sanctum after obtaining shade soul")]
         EnterSanctumWithShadeSoul,
-
-        [Description("Stag To Dirtmouth (Transition)"), ToolTip("Splits when travelling to Dirtmouth")]
-        KingsPassEnterFromTown,
 
 
         [Description("Baldur Shell (Charm)"), ToolTip("Splits when obtaining the Baldur Shell charm")]

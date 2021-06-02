@@ -662,9 +662,9 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.EnterAnyDream: shouldSplit = nextScene.StartsWith("Dream_") && nextScene != sceneName; break;
                 case SplitName.DgateKingdomsEdgeAcid:
                     shouldSplit =
-                        mem.PlayerDataString<String>(Offset.dreamGateScene).StartsWith("Deepnest_East_04") &&
-                        (mem.PlayerData<Single>(Offset.dreamGateX) > 27.0f && mem.PlayerData<Single>(Offset.dreamGateX) < 29f) &&
-                        (mem.PlayerData<Single>(Offset.dreamGateY) > 7.0f && mem.PlayerData<Single>(Offset.dreamGateY) < 9f);
+                        mem.PlayerDataString<string>(Offset.dreamGateScene).StartsWith("Deepnest_East_04") &&
+                        (mem.PlayerData<float>(Offset.dreamGateX) > 27.0f && mem.PlayerData<float>(Offset.dreamGateX) < 29f) &&
+                        (mem.PlayerData<float>(Offset.dreamGateY) > 7.0f && mem.PlayerData<float>(Offset.dreamGateY) < 9f);
                     break;
                 /*
                     Dream_Nailcollection
@@ -686,6 +686,14 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.LostKinEssence: shouldSplit = mem.PlayerData<bool>(Offset.infectedKnightOrbsCollected); break;
                 case SplitName.WhiteDefenderEssence: shouldSplit = mem.PlayerData<bool>(Offset.whiteDefenderOrbsCollected); break;
                 case SplitName.GreyPrinceEssence: shouldSplit = mem.PlayerData<bool>(Offset.greyPrinceOrbsCollected); break;
+
+                case SplitName.PreGrimmShop:
+                    shouldSplit = mem.PlayerData<bool>(Offset.hasLantern) &&
+                        mem.PlayerData<int>(Offset.maxHealthBase) == 6 &&
+                        (mem.PlayerData<int>(Offset.vesselFragments) == 4 ||
+                            (mem.PlayerData<int>(Offset.MPReserveMax) == 33 && mem.PlayerData<int>(Offset.vesselFragments) == 1));
+                    break;
+
             }
             return shouldSplit;
         }
