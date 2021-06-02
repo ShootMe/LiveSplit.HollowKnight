@@ -279,6 +279,14 @@
         dreamGateScene,
         dreamGateX,
         dreamGateY,
+
+        falseKnightOrbsCollected,
+        mageLordOrbsCollected,
+        infectedKnightOrbsCollected,
+        whiteDefenderOrbsCollected,
+        greyPrinceOrbsCollected,
+
+
     }
     public enum GameState {
         INACTIVE,

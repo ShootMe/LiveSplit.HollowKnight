@@ -204,6 +204,8 @@ namespace LiveSplit.HollowKnight {
         FalseKnight,
         [Description("Failed Champion (Boss)"), ToolTip("Splits when killing Failed Champion (False Knight Dream)")]
         FailedKnight,
+        [Description("Failed Champion (Essence)"), ToolTip("Splits when getting Failed Champion essence (False Knight Dream)")]
+        FailedChampionEssence,
         [Description("Flukemarm (Boss)"), ToolTip("Splits when killing Flukemarm")]
         Flukemarm,
         [Description("Galien (Boss)"), ToolTip("Splits when killing Galien")]
@@ -214,6 +216,8 @@ namespace LiveSplit.HollowKnight {
         Gorb,
         [Description("Grey Prince Zote (Boss)"), ToolTip("Splits when killing Grey Prince")]
         GreyPrince,
+        [Description("Grey Prince Zote (Essence)"), ToolTip("Splits when getting Grey Prince Zote essence")]
+        GreyPrinceEssence,
         [Description("Gruz Mother (Boss)"), ToolTip("Splits when killing Gruz Mother")]
         GruzMother,
         [Description("Hollow Knight Practice (Boss)"), ToolTip("Splits when killing The Hollow Knight")]
@@ -224,6 +228,8 @@ namespace LiveSplit.HollowKnight {
         Hornet2,
         [Description("Lost Kin (Boss)"), ToolTip("Splits when killing Lost Kin (Broken Vessel Dream)")]
         LostKin,
+        [Description("Lost Kin (Essence)"), ToolTip("Splits when getting Lost Kin essence (Broken Vessel Dream)")]
+        LostKinEssence,
         [Description("Mantis Lords (Boss)"), ToolTip("Splits when killing Mantis Lords")]
         MantisLords,
         [Description("Markoth (Boss)"), ToolTip("Splits when killing Markoth")]
@@ -252,6 +258,8 @@ namespace LiveSplit.HollowKnight {
         SoulMaster,
         [Description("Soul Tyrant (Boss)"), ToolTip("Splits when killing Soul Tyrant (Soul Master Dream)")]
         SoulTyrant,
+        [Description("Soul Tyrant (Essence)"), ToolTip("Splits when getting Soul Tyrant essence (Soul Master Dream)")]
+        SoulTyrantEssence,
         [Description("Traitor Lord (Boss)"), ToolTip("Splits when killing Traitor Lord")]
         TraitorLord,
         [Description("Troupe Master Grimm (Boss)"), ToolTip("Splits when killing Troupe Master Grimm")]
@@ -262,6 +270,8 @@ namespace LiveSplit.HollowKnight {
         BlackKnight,
         [Description("White Defender (Boss)"), ToolTip("Splits when killing White Defender")]
         WhiteDefender,
+        [Description("White Defender (Essence)"), ToolTip("Splits when getting White Defender essence")]
+        WhiteDefenderEssence,
         [Description("Xero (Boss)"), ToolTip("Splits when killing Xero")]
         Xero,
         [Description("Hive Knight (Boss)"), ToolTip("Splits when killing Hive Knight")]

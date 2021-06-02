@@ -10,6 +10,7 @@
         <change> A few NPC and event splits (actual Flower Quest triggers, Grey Mourner, canOvercharm, city key+gate, deepnest tram, rescue sly) </change>
         <change> A new Dreamgate placed split (Only Kingdom's Edge Acid dreamgate for now) </change>
         <change> New combination splits (Transition to Sanctum WITH shade soul, talked to Grey Mourner AND having ascended Seer, etc) </change>
+        <change> Dream boss essence splits for Failed Champ, Tyrant, Lost Kin, White Defender, and GPZ </change>
         <change> Removed some non-working splits (Lemm Fountain) </change>
       </changelog>
     </update>

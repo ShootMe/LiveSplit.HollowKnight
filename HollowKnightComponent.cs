@@ -666,21 +666,26 @@ namespace LiveSplit.HollowKnight {
                         (mem.PlayerData<Single>(Offset.dreamGateX) > 27.0f && mem.PlayerData<Single>(Offset.dreamGateX) < 29f) &&
                         (mem.PlayerData<Single>(Offset.dreamGateY) > 7.0f && mem.PlayerData<Single>(Offset.dreamGateY) < 9f);
                     break;
-                    /*
-                        Dream_Nailcollection
-                        Dream_01_False_Knight
-                        Dream_02_Mage_Lord
-                        Dream_03_Infected_Knight
-                        Dream_04_White_Defender
-                        Dream_Mighty_Zote
-                        Dream_Guardian_Hegemol
-                        Dream_Guardian_Lurien
-                        Dream_Guardian_Monomon
-                        Dream_Backer_Shrine
-                        Dream_Room_Believer_Shrine
-                        Dream_Abyss
-                        Dream_Final_Boss
-                     */
+                /*
+                    Dream_Nailcollection
+                    Dream_01_False_Knight
+                    Dream_02_Mage_Lord
+                    Dream_03_Infected_Knight
+                    Dream_04_White_Defender
+                    Dream_Mighty_Zote
+                    Dream_Guardian_Hegemol
+                    Dream_Guardian_Lurien
+                    Dream_Guardian_Monomon
+                    Dream_Backer_Shrine
+                    Dream_Room_Believer_Shrine
+                    Dream_Abyss
+                    Dream_Final_Boss
+                 */
+                case SplitName.FailedChampionEssence: shouldSplit = mem.PlayerData<bool>(Offset.falseKnightOrbsCollected); break;
+                case SplitName.SoulTyrantEssence: shouldSplit = mem.PlayerData<bool>(Offset.mageLordOrbsCollected); break;
+                case SplitName.LostKinEssence: shouldSplit = mem.PlayerData<bool>(Offset.infectedKnightOrbsCollected); break;
+                case SplitName.WhiteDefenderEssence: shouldSplit = mem.PlayerData<bool>(Offset.whiteDefenderOrbsCollected); break;
+                case SplitName.GreyPrinceEssence: shouldSplit = mem.PlayerData<bool>(Offset.greyPrinceOrbsCollected); break;
             }
             return shouldSplit;
         }
