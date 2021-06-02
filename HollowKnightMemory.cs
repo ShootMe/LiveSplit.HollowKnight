@@ -13,8 +13,8 @@ namespace LiveSplit.HollowKnight {
         public Process Program { get; set; }
         public bool IsHooked { get; set; }
         private DateTime lastHooked;
-        private int uiManager, inputHandler, cameraCtrl, gameState, heroController, camTarget, camMode, menuState, uiState;
-        private int geoCounter, heroAccepting, actorState, transistionState, camTeleport, playerData, debugInfo, tilemapDirty, cState;
+        private int uiManager, inputHandler, cameraCtrl, gameState, heroController, camTarget, camMode, menuState, uiState, achievementHandler, awardAchievementEvent;
+        private int geoCounter, heroAccepting, actorState, transistionState, camTeleport, playerData, sceneData, debugInfo, tilemapDirty, cState;
         private Version lastVersion;
 
         public HollowKnightMemory() {
@@ -31,6 +31,7 @@ namespace LiveSplit.HollowKnight {
         private void UpdatedPointer(ProgramPointer pointer) {
             //GameManager
             playerData = 0x30;
+            sceneData = 0x34;
             uiManager = 0x84;
             inputHandler = 0x68;
             cameraCtrl = 0x74;
@@ -38,6 +39,10 @@ namespace LiveSplit.HollowKnight {
             heroController = 0x78;
             debugInfo = 0x2c;
             tilemapDirty = 0xcf;
+            achievementHandler = 0x78;
+            
+            //AchievementHandler
+            awardAchievementEvent = 0x20;
 
             //CameraController
             camTarget = 0x28;
@@ -330,6 +335,21 @@ namespace LiveSplit.HollowKnight {
                     return gameManager.Read<T>(Program, 0x0, playerData, HollowKnight.PlayerData.GetOffset(offset));
             }
         }
+        
+        public string PlayerDataString<String>(Offset offset) {
+            //GameManger._instance.playerData.(offset)
+            switch (offset) {
+                case Offset.bossDoorStateTier1:
+                case Offset.bossDoorStateTier2:
+                case Offset.bossDoorStateTier3:
+                case Offset.bossDoorStateTier4:
+                case Offset.bossDoorStateTier5:
+                    return gameManager.Read(Program, 0x0, playerData, HollowKnight.PlayerData.GetOffset(offset), 0xa);
+                default:
+                    return gameManager.Read(Program, 0x0, playerData, HollowKnight.PlayerData.GetOffset(offset));
+            }
+        }
+
         public List<string> PlayerDataStringList(Offset offset) {
             IntPtr listPtr = gameManager.Read<IntPtr>(Program, 0x0, playerData, HollowKnight.PlayerData.GetOffset(offset));
             IntPtr arrayPtr = Program.Read<IntPtr>(listPtr, 0x8);
@@ -383,6 +403,7 @@ namespace LiveSplit.HollowKnight {
             //GameManager._instance.heroCtrl.transitionState
             return (HeroTransitionState)gameManager.Read<int>(Program, 0x0, heroController, transistionState);
         }
+
         public string SceneName() {
             //GameManager._instance.sceneName
             return gameManager.Read(Program, 0x0, 0xc);
@@ -408,6 +429,16 @@ namespace LiveSplit.HollowKnight {
             //GameManager._instance.hero_ctrl.cState.hazardRespawning
             return gameManager.Read<bool>(Program, 0x0, heroController, cState, 0x26);
         }
+
+        public string AchievementKey() {
+            IntPtr basePointer = gameManager.Read<IntPtr>(Program, 0x0, achievementHandler);
+            
+            gameManager.Read<int>(Program, 0x0, achievementHandler);
+
+
+            return "";
+        }
+
         public bool HookProcess() {
             IsHooked = Program != null && !Program.HasExited;
             if (!IsHooked && DateTime.Now > lastHooked.AddSeconds(1)) {
@@ -534,6 +565,22 @@ namespace LiveSplit.HollowKnight {
             }
         }
     }
+
+    public class SceneData {
+        public static Dictionary<string, PlayerKey> Data = new Dictionary<string, PlayerKey>(StringComparer.OrdinalIgnoreCase);
+        public static int DataLength;
+        
+        //georocks
+        //persistentintdata
+        //persistentbooldata
+        
+        public SceneData() { }
+
+        public static void InitializeData(Version ver) { }
+        
+        
+    }
+    
     public class PlayerKey {
         public int Index { get; set; }
         public string Name { get; set; }

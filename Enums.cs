@@ -207,6 +207,7 @@
 
         abyssGateOpened,
         abyssLighthouse,
+        blueVineDoor,
         
         whitePalaceOrb_1,
         whitePalaceOrb_2,
@@ -234,20 +235,58 @@
         openedMageDoor_v2,
         brokenMageWindow,
         brokenMageWindowGlass,
+        mageLordEncountered,
+        mageLordEncountered_2,
+        
         mineLiftOpened,
+        gotGrimmNotch,
+        
+        xunFlowerGiven,
         
         kingsStationNonDisplay,
-        
+
+        openedTramLower,
+        openedTramRestingGrounds,
+        tramLowerPosition,
+        tramRestingGroundsPosition,
+
         waterwaysGate,
         openedWaterwaysManhole,
         waterwaysAcidDrained,
         dungDefenderWallBroken,
+        openedLoveDoor,
+        
+        hasCityKey,
+        
         tollBenchQueensGardens,
         tollBenchCity,
         tollBenchAbyss,
         maskBrokenLurien,
         maskBrokenHegemol,
         maskBrokenMonomon,
+
+        equippedCharm_23,
+        canOvercharm,
+        slyShellFrag4,
+        slyVesselFrag4,
+        metXun,
+        hasXunFlower,
+
+        currentArea,
+        killedMageKnight,
+        killedMage,
+
+        dreamGateScene,
+        dreamGateX,
+        dreamGateY,
+
+        falseKnightOrbsCollected,
+        mageLordOrbsCollected,
+        infectedKnightOrbsCollected,
+        whiteDefenderOrbsCollected,
+        greyPrinceOrbsCollected,
+
+
     }
     public enum GameState {
         INACTIVE,
