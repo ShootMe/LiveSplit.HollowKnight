@@ -691,9 +691,22 @@ namespace LiveSplit.HollowKnight {
                     shouldSplit = mem.PlayerData<bool>(Offset.hasLantern) &&
                         mem.PlayerData<int>(Offset.maxHealthBase) == 6 &&
                         (mem.PlayerData<int>(Offset.vesselFragments) == 4 ||
-                            (mem.PlayerData<int>(Offset.MPReserveMax) == 33 && mem.PlayerData<int>(Offset.vesselFragments) == 1));
+                            (mem.PlayerData<int>(Offset.MPReserveMax) == 33 && mem.PlayerData<int>(Offset.vesselFragments) == 2));
                     break;
+                case SplitName.ElderHuEssence: shouldSplit = mem.PlayerData<int>(Offset.elderHuDefeated) == 2; break;
+                case SplitName.GalienEssence: shouldSplit = mem.PlayerData<int>(Offset.galienDefeated) == 2; break;
+                case SplitName.GorbEssence: shouldSplit = mem.PlayerData<int>(Offset.aladarSlugDefeated) == 2; break;
+                case SplitName.MarmuEssence: shouldSplit = mem.PlayerData<int>(Offset.mumCaterpillarDefeated) == 2; break;
+                case SplitName.NoEyesEssence: shouldSplit = mem.PlayerData<int>(Offset.noEyesDefeated) == 2; break;
+                case SplitName.XeroEssence: shouldSplit = mem.PlayerData<int>(Offset.xeroDefeated) == 2; break;
+                case SplitName.MarkothEssence: shouldSplit = mem.PlayerData<int>(Offset.markothDefeated) == 2; break;
 
+                case SplitName.DungDefenderIdol:
+                    shouldSplit = mem.PlayerData<bool>(Offset.foundTrinket3) && sceneName.StartsWith("Waterways_15"); 
+                    break;
+                case SplitName.WaterwaysEntry: shouldSplit = nextScene.StartsWith("Waterways_01") && nextScene != sceneName; break;
+                case SplitName.FogCanyonEntry: shouldSplit = nextScene.StartsWith("Fungus3_26") && nextScene != sceneName; break;
+                case SplitName.SoulMasterEncountered: shouldSplit = mem.PlayerData<bool>(Offset.mageLordEncountered); break;
             }
             return shouldSplit;
         }

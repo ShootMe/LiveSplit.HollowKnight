@@ -869,6 +869,35 @@ namespace LiveSplit.HollowKnight {
 
         [Description("Kingdom's Edge Acid (Dreamgate)"), ToolTip("Splits when placing Dreamgate by KE Acid (hopefully)")]
         DgateKingdomsEdgeAcid,
+
+        [Description("Gorb (Essence)"), ToolTip("Splits when absorbing essence from Gorb")] 
+        GorbEssence,
+        [Description("Xero (Essence)"), ToolTip("Splits when absorbing essence from Xero")]
+        XeroEssence,
+        [Description("Elder Hu (Essence)"), ToolTip("Splits when absorbing essence from Elder Hu")]
+        ElderHuEssence,
+        [Description("Marmu (Essence)"), ToolTip("Splits when absorbing essence from Marmu")]
+        MarmuEssence,
+        [Description("No Eyes (Essence)"), ToolTip("Splits when absorbing essence from No Eyes")]
+        NoEyesEssence,
+        [Description("Markoth (Essence)"), ToolTip("Splits when absorbing essence from Markoth")]
+        MarkothEssence,
+        [Description("Galien (Essence)"), ToolTip("Splits when absorbing essence from Galien")]
+        GalienEssence,
+
+        [Description("Dung Defender Idol (Trinket)"), ToolTip("Splits when picking up Dung Defender idol as the first idol")]
+        DungDefenderIdol,
+
+
+        //Waterways_15 "trinket3" "foundTrinket3"
+        [Description("Waterways Manhole (Transition)"), ToolTip("Splits on transition to Waterways through Waterways")]
+        WaterwaysEntry,
+        [Description("Fog Canyon (Transition)"), ToolTip("Splits on transition to Fog Canyon")]
+        FogCanyonEntry,
+
+        [Description("Soul Master Encountered (Event)"), ToolTip("Splits when Soul Master is activated the first time and the gate closes")]
+        SoulMasterEncountered,
+
         /*
         [Description("Nailsmith - Spared (Event)"), ToolTip("Splits when Nailsmith is spared according to the game")] 
         NailsmithSpared,
@@ -893,7 +922,7 @@ namespace LiveSplit.HollowKnight {
         [Description("Equipped fr. health (menu testing)"), ToolTip("Splits when equipping charm23, for timing menuing")]
         EquippedFragileHealth,
         */
-        
+
 
         /*
         [Description("Sanctum (Area)"), ToolTip("Splits when mapzone is Sanctum :)")]
@@ -901,7 +930,7 @@ namespace LiveSplit.HollowKnight {
         [Description("Sanctum Upper (Area)"), ToolTip("Splits when mapzone is Mage Tower :)")]
         AreaTestingSanctumUpper,
         */
-        
+
     }
     public class ToolTipAttribute : Attribute {
         public string ToolTip { get; set; }

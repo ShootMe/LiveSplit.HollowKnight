@@ -286,7 +286,30 @@
         whiteDefenderOrbsCollected,
         greyPrinceOrbsCollected,
 
-
+        aladarSlugDefeated, 
+        xeroDefeated,
+        elderHuDefeated,
+        mumCaterpillarDefeated,
+        noEyesDefeated,
+        markothDefeated,
+        galienDefeated,
+        
+        trinket1,
+        foundTrinket1,
+        trinket2,
+        foundTrinket2,
+        trinket3,
+        foundTrinket3,
+        trinket4,
+        foundTrinket4,
+        noTrinket1,
+        noTrinket2,
+        noTrinket3,
+        noTrinket4,
+        soldTrinket1,
+        soldTrinket2,
+        soldTrinket3,
+        soldTrinket4,
     }
     public enum GameState {
         INACTIVE,
