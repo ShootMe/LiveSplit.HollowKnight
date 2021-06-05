@@ -1,5 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <updates>
+    <update version="2.9.3">
+      <files>
+        <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+      </files>
+      <changelog>
+        <change> Transition splits to Waterways (manhole entrance), Fog Canyon (Crossroads Acid entrance) </change>
+        <change> Essence splits for all Dream Warrior </change> 
+        <change> Dung Defender Idol split (splits when having picked up an idol + current room being the post-DD dive idol room) </change>
+      </changelog>
+    </update>
     <update version="2.9.2">
       <files>
         <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>

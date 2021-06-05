@@ -888,8 +888,6 @@ namespace LiveSplit.HollowKnight {
         [Description("Dung Defender Idol (Trinket)"), ToolTip("Splits when picking up Dung Defender idol as the first idol")]
         DungDefenderIdol,
 
-
-        //Waterways_15 "trinket3" "foundTrinket3"
         [Description("Waterways Manhole (Transition)"), ToolTip("Splits on transition to Waterways through Waterways")]
         WaterwaysEntry,
         [Description("Fog Canyon (Transition)"), ToolTip("Splits on transition to Fog Canyon")]
