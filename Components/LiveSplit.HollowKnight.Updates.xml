@@ -1,32 +1,40 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <updates>
+    <update version="2.9.4">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change> Fix typo </change>
+        </changelog>
+    </update>
     <update version="2.9.3">
-      <files>
-        <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
-      </files>
-      <changelog>
-        <change> A bunch of splits added to support 106% and other categories </change> 
-        <change> Essence splits for all Dream Warrior </change> 
-        <change> Transition splits to Waterways (manhole entrance), Fog Canyon (Crossroads Acid entrance), Queen's Garden (room after QGA), Kingdom's Edge, Crystal Peak, Path of Pain rooms, Hive </change>
-        <change> Essence splits for all Dream Warrior </change> 
-        <change> Dung Defender Idol split (splits when having picked up an idol + current room being the post-DD dive idol room) </change>
-        <change> Event splits for specific run shopping encounters (106% pre-grimm, Lemm second visit in ACN) </change> 
-        <change> Happy Couple-ending event split. Happy Pride, y'all! </change> 
-      </changelog>
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change> A bunch of splits added to support 106% and other categories </change>
+            <change> Essence splits for all Dream Warrior </change>
+            <change> Transition splits to Waterways (manhole entrance), Fog Canyon (Crossroads Acid entrance), Queen's Garden (room after QGA), Kingdom's Edge, Crystal Peak, Path of Pain rooms, Hive </change>
+            <change> Essence splits for all Dream Warrior </change>
+            <change> Dung Defender Idol split (splits when having picked up an idol + current room being the post-DD dive idol room) </change>
+            <change> Event splits for specific run shopping encounters (106% pre-grimm, Lemm second visit in ACN) </change>
+            <change> Happy Couple-ending event split. Happy Pride, y'all! </change>
+        </changelog>
     </update>
     <update version="2.9.2">
-      <files>
-        <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
-      </files>
-      <changelog>
-        <change> Added multiple transition splits (White Palace, Sanctum, NKG dream, any dream entry, Greenpath) </change>
-        <change> Modified Blue Lake to split on entry from either direction </change>
-        <change> A few NPC and event splits (actual Flower Quest triggers, Grey Mourner, canOvercharm, city key+gate, deepnest tram, rescue sly) </change>
-        <change> A new Dreamgate placed split (Only Kingdom's Edge Acid dreamgate for now) </change>
-        <change> New combination splits (Transition to Sanctum WITH shade soul, talked to Grey Mourner AND having ascended Seer, etc) </change>
-        <change> Dream boss essence splits for Failed Champ, Tyrant, Lost Kin, White Defender, and GPZ </change>
-        <change> Removed some non-working splits (Lemm Fountain) </change>
-      </changelog>
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change> Added multiple transition splits (White Palace, Sanctum, NKG dream, any dream entry, Greenpath) </change>
+            <change> Modified Blue Lake to split on entry from either direction </change>
+            <change> A few NPC and event splits (actual Flower Quest triggers, Grey Mourner, canOvercharm, city key+gate, deepnest tram, rescue sly) </change>
+            <change> A new Dreamgate placed split (Only Kingdom's Edge Acid dreamgate for now) </change>
+            <change> New combination splits (Transition to Sanctum WITH shade soul, talked to Grey Mourner AND having ascended Seer, etc) </change>
+            <change> Dream boss essence splits for Failed Champ, Tyrant, Lost Kin, White Defender, and GPZ </change>
+            <change> Removed some non-working splits (Lemm Fountain) </change>
+        </changelog>
     </update>
     <update version="2.9.1">
         <files>
@@ -52,7 +60,7 @@
             <change> Added THK and Radiance boss splits for use in fight practice. </change>
             <change> Added Left/Queen's White Fragment and Open City Gate. </change>
             <change> Fixed naming and description error in Sly Key, now Shopkeeper's Key. </change>
-        </changelog> 
+        </changelog>
     </update>
     <update version="2.8.9">
         <files>
