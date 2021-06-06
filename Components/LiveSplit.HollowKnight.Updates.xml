@@ -5,9 +5,13 @@
         <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
       </files>
       <changelog>
-        <change> Transition splits to Waterways (manhole entrance), Fog Canyon (Crossroads Acid entrance) </change>
+        <change> A bunch of splits added to support 106% and other categories </change> 
+        <change> Essence splits for all Dream Warrior </change> 
+        <change> Transition splits to Waterways (manhole entrance), Fog Canyon (Crossroads Acid entrance), Queen's Garden (room after QGA), Kingdom's Edge, Crystal Peak, Path of Pain rooms, Hive </change>
         <change> Essence splits for all Dream Warrior </change> 
         <change> Dung Defender Idol split (splits when having picked up an idol + current room being the post-DD dive idol room) </change>
+        <change> Event splits for specific run shopping encounters (106% pre-grimm, Lemm second visit in ACN) </change> 
+        <change> Happy Couple-ending event split. Happy Pride, y'all! </change> 
       </changelog>
     </update>
     <update version="2.9.2">
