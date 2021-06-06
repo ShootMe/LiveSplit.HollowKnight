@@ -941,7 +941,6 @@ namespace LiveSplit.HollowKnight {
         [Description("Equipped fr. health (menu testing)"), ToolTip("Splits when equipping charm23, for timing menuing")]
         EquippedFragileHealth,
         */
-        xd
 
     }
     public class ToolTipAttribute : Attribute {
