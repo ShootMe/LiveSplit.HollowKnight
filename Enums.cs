@@ -267,10 +267,12 @@
 
         equippedCharm_23,
         canOvercharm,
+        overcharmed,
         slyShellFrag4,
         slyVesselFrag4,
         metXun,
         hasXunFlower,
+        xunRewardGiven,
 
         currentArea,
         killedMageKnight,
@@ -294,13 +296,13 @@
         markothDefeated,
         galienDefeated,
         
-        trinket1,
+        trinket1,   // Journal : int
         foundTrinket1,
-        trinket2,
+        trinket2,   // Seal : int
         foundTrinket2,
-        trinket3,
+        trinket3,   // Idol : int
         foundTrinket3,
-        trinket4,
+        trinket4,   // Arcane Egg : int
         foundTrinket4,
         noTrinket1,
         noTrinket2,
@@ -310,6 +312,9 @@
         soldTrinket2,
         soldTrinket3,
         soldTrinket4,
+
+        nailsmithConvoArt,
+
     }
     public enum GameState {
         INACTIVE,

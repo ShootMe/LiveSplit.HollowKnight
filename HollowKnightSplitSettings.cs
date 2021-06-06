@@ -198,8 +198,12 @@ namespace LiveSplit.HollowKnight {
         CrystalGuardian2,
         [Description("Dung Defender (Boss)"), ToolTip("Splits when killing Dung Defender")]
         DungDefender,
+        [Description("Dung Defender Idol (Trinket)"), ToolTip("Splits when picking up Dung Defender idol as the first idol")]
+        DungDefenderIdol,
         [Description("Elder Hu (Boss)"), ToolTip("Splits when killing Elder Hu")]
         ElderHu,
+        [Description("Elder Hu (Essence)"), ToolTip("Splits when absorbing essence from Elder Hu")]
+        ElderHuEssence,
         [Description("False Knight (Boss)"), ToolTip("Splits when killing False Knight")]
         FalseKnight,
         [Description("Failed Champion (Boss)"), ToolTip("Splits when killing Failed Champion (False Knight Dream)")]
@@ -210,16 +214,22 @@ namespace LiveSplit.HollowKnight {
         Flukemarm,
         [Description("Galien (Boss)"), ToolTip("Splits when killing Galien")]
         Galien,
+        [Description("Galien (Essence)"), ToolTip("Splits when absorbing essence from Galien")]
+        GalienEssence,
         [Description("God Tamer (Boss)"), ToolTip("Splits when killing the God Tamer")]
         GodTamer,
         [Description("Gorb (Boss)"), ToolTip("Splits when killing Gorb")]
         Gorb,
+        [Description("Gorb (Essence)"), ToolTip("Splits when absorbing essence from Gorb")]
+        GorbEssence,
         [Description("Grey Prince Zote (Boss)"), ToolTip("Splits when killing Grey Prince")]
         GreyPrince,
         [Description("Grey Prince Zote (Essence)"), ToolTip("Splits when getting Grey Prince Zote essence")]
         GreyPrinceEssence,
         [Description("Gruz Mother (Boss)"), ToolTip("Splits when killing Gruz Mother")]
         GruzMother,
+        [Description("Hive Knight (Boss)"), ToolTip("Splits when killing Hive Knight")]
+        HiveKnight,
         [Description("Hollow Knight Practice (Boss)"), ToolTip("Splits when killing The Hollow Knight")]
         HollowKnightBoss,
         [Description("Hornet 1 (Boss)"), ToolTip("Splits when killing Hornet for the first time")]
@@ -234,14 +244,20 @@ namespace LiveSplit.HollowKnight {
         MantisLords,
         [Description("Markoth (Boss)"), ToolTip("Splits when killing Markoth")]
         Markoth,
+        [Description("Markoth (Essence)"), ToolTip("Splits when absorbing essence from Markoth")]
+        MarkothEssence,
         [Description("Marmu (Boss)"), ToolTip("Splits when killing Marmu")]
         Marmu,
+        [Description("Marmu (Essence)"), ToolTip("Splits when absorbing essence from Marmu")]
+        MarmuEssence,
         [Description("Mega Moss Charger (Boss)"), ToolTip("Splits when killing Mega Moss Charger")]
         MegaMossCharger,
         [Description("Nightmare King Grimm (Boss)"), ToolTip("Splits when killing Nightmare King Grimm")]
         NightmareKingGrimm,
         [Description("No Eyes (Boss)"), ToolTip("Splits when killing No Eyes")]
         NoEyes,
+        [Description("No Eyes (Essence)"), ToolTip("Splits when absorbing essence from No Eyes")]
+        NoEyesEssence,
         [Description("Nosk (Boss)"), ToolTip("Splits when killing Nosk")]
         Nosk,
         [Description("Oro & Mato Nail Bros (Boss)"), ToolTip("Splits when killing the Nail Bros (Pantheon)")]
@@ -274,9 +290,9 @@ namespace LiveSplit.HollowKnight {
         WhiteDefenderEssence,
         [Description("Xero (Boss)"), ToolTip("Splits when killing Xero")]
         Xero,
-        [Description("Hive Knight (Boss)"), ToolTip("Splits when killing Hive Knight")]
-        HiveKnight,
-
+        [Description("Xero (Essence)"), ToolTip("Splits when absorbing essence from Xero")]
+        XeroEssence,
+        
         [Description("Vengefly King (Pantheon)"), ToolTip("Splits after killing Vengefly King in Pantheon 1")]
         VengeflyKingP,
         [Description("Gruz Mother (Pantheon)"), ToolTip("Splits after killing Gruz Mother in Pantheon 1")]
@@ -391,8 +407,16 @@ namespace LiveSplit.HollowKnight {
         CityGateOpen,
         [Description("Flower Quest (Event)"), ToolTip("Splits when placing the flower at the grave of the Traitors' Child")]
         FlowerQuest,
+        [Description("Flower Quest Reward (Event)"), ToolTip("Splits when Grey Mourner gives you the Flower Quest reward")]
+        FlowerRewardGiven,
+        [Description("Happy Couple (Event)"), ToolTip("Splits when talking to Nailsmith in Sheo's hut for the first time")]
+        HappyCouplePlayerDataEvent,
+        [Description("Lemm 2 - ACN (Event)"), ToolTip("Splits on having sold a total: 1 journal, 6 seals, and 4 idols to Lemm")]
+        AllCharmNotchesLemm2CP,
         [Description("Nailsmith - Killed (Event)"), ToolTip("Splits when Nailsmith is killed")]
         NailsmithKilled,
+        [Description("Nailsmith - Spared (Event)"), ToolTip("Splits when Nailsmith is registered as `spared`")]
+        NailsmithSpared,
         [Description("Nightmare Lantern Lit (Event)"), ToolTip("Splits when initially lighting the Nightmare Lantern")]
         NightmareLantern,
         [Description("Nightmare Lantern Destroyed (Event)"), ToolTip("Splits when destroying the Nightmare Lantern")]
@@ -406,7 +430,6 @@ namespace LiveSplit.HollowKnight {
         [Description("Trap Bench - Beasts Den (Event)"), ToolTip("Splits when getting the trap bench in Beasts Den")]
         BeastsDenTrapBench,
         
-
         [Description("Colosseum Fight 1 (Trial)"), ToolTip("Splits when beating the first Colosseum trial")]
         ColosseumBronze,
         [Description("Colosseum Fight 2 (Trial)"), ToolTip("Splits when beating the second Colosseum trial")]
@@ -536,27 +559,43 @@ namespace LiveSplit.HollowKnight {
         WhitePalace,
         [Description("White Palace - Workshop (Area)"), ToolTip("Splits when visiting the secret room in White Palace")] 
         WhitePalaceSecretRoom,
-        
-        
+
+        [Description("Ancient Basin (Transition)"), ToolTip("Splits on transition to Basin, alternative to the (Area) split")]
+        BasinEntry,
         [Description("Blue Lake (Transition)"), ToolTip("Splits on transition to Blue Lake from Gruz Mother scene (requires Ordered Splits)")]
         BlueLake,
+        [Description("Crystal Peak (Transition)"), ToolTip("Splits on transition to the room where the dive and toll entrances meet")]
+        CrystalPeakEntry,
+        //[Description("Crystal Mound Exit (Transition)"), ToolTip("Splits on transition from Crystal Mound")]
+        //CrystalMoundExit,
         [Description("Enter Any Dream (Transition)"), ToolTip("Splits when entering any dream world")]
         EnterAnyDream,
+        [Description("Fog Canyon (Transition)"), ToolTip("Splits on transition to Fog Canyon")]
+        FogCanyonEntry,
         [Description("Greenpath (Transition)"), ToolTip("Splits when entering Greenpath")]
         EnterGreenpath,
         [Description("Greenpath w/ Unlocked Overcharm (Transition)"), ToolTip("Splits when entering Greenpath with overcharming unlocked")]
         EnterGreenpathWithOvercharm,
+        [Description("Hive (Transition)"), ToolTip("Splits on transition to Hive")]
+        HiveEntry,
         [Description("King's Pass (Transition)"), ToolTip("Splits when leaving King's pass")]
         KingsPass,
-        [Description("King's Pass From Town (Transition)"), ToolTip("Splits when travelling to Dirtmouth")]
+        [Description("King's Pass From Town (Transition)"), ToolTip("Splits on transition between Dirtmouth and King's Pass")]
         KingsPassEnterFromTown,
+        [Description("Kingdom's Edge (Transition)"), ToolTip("Splits on transition to Kingdom's Edge from Kings Station")]
+        KingdomsEdgeEntry,
+        [Description("Kingdom's Edge Overcharmed (Transition)"), ToolTip("Splits on transition to Kingdom's Edge from Kings Station while overcharmed")]
+        KingdomsEdgeOvercharmedEntry,
         [Description("NKG Dream (Transition)"), ToolTip("Splits on transition to NKG dream")]
         EnterNKG,
+        [Description("Queen's Garden (Transition)"), ToolTip("Splits on transition to Hive")]
+        QueensGardensEntry,
         [Description("Sanctum (Transition)"), ToolTip("Splits when entering Sanctum")]
         EnterSanctum,
         [Description("Sanctum w/ Shade Soul (Transition)"), ToolTip("Splits when entering Sanctum after obtaining shade soul")]
         EnterSanctumWithShadeSoul,
-
+        [Description("Waterways Manhole (Transition)"), ToolTip("Splits on transition to Waterways through Waterways")]
+        WaterwaysEntry,
 
         [Description("Baldur Shell (Charm)"), ToolTip("Splits when obtaining the Baldur Shell charm")]
         BaldurShell,
@@ -867,39 +906,21 @@ namespace LiveSplit.HollowKnight {
         [Description("White Palace - Atrium (Room)"), ToolTip("Splits on any transition to White_Palace_03_Hub")]
         WhitePalaceAtrium,
 
+        [Description("Path of Pain Room 1 (Room)"), ToolTip("Splits on transition to the first room in PoP")]
+        PathOfPainEntry,
+        [Description("Path of Pain Room 2 (Room)"), ToolTip("Splits on transition to the second room in PoP")]
+        PathOfPainTransition1,
+        [Description("Path of Pain Room 3 (Room)"), ToolTip("Splits on transition to the third room in PoP")]
+        PathOfPainTransition2,
+        [Description("Path of Pain Room 4 (Room)"), ToolTip("Splits on transition to the fourth room in PoP")]
+        PathOfPainTransition3,
+
         [Description("Kingdom's Edge Acid (Dreamgate)"), ToolTip("Splits when placing Dreamgate by KE Acid (hopefully)")]
         DgateKingdomsEdgeAcid,
 
-        [Description("Gorb (Essence)"), ToolTip("Splits when absorbing essence from Gorb")] 
-        GorbEssence,
-        [Description("Xero (Essence)"), ToolTip("Splits when absorbing essence from Xero")]
-        XeroEssence,
-        [Description("Elder Hu (Essence)"), ToolTip("Splits when absorbing essence from Elder Hu")]
-        ElderHuEssence,
-        [Description("Marmu (Essence)"), ToolTip("Splits when absorbing essence from Marmu")]
-        MarmuEssence,
-        [Description("No Eyes (Essence)"), ToolTip("Splits when absorbing essence from No Eyes")]
-        NoEyesEssence,
-        [Description("Markoth (Essence)"), ToolTip("Splits when absorbing essence from Markoth")]
-        MarkothEssence,
-        [Description("Galien (Essence)"), ToolTip("Splits when absorbing essence from Galien")]
-        GalienEssence,
-
-        [Description("Dung Defender Idol (Trinket)"), ToolTip("Splits when picking up Dung Defender idol as the first idol")]
-        DungDefenderIdol,
-
-        [Description("Waterways Manhole (Transition)"), ToolTip("Splits on transition to Waterways through Waterways")]
-        WaterwaysEntry,
-        [Description("Fog Canyon (Transition)"), ToolTip("Splits on transition to Fog Canyon")]
-        FogCanyonEntry,
-
-        [Description("Soul Master Encountered (Event)"), ToolTip("Splits when Soul Master is activated the first time and the gate closes")]
+        [Description("Soul Master Encountered (Practice)"), ToolTip("Splits when Soul Master is activated the first time and the gate closes")]
         SoulMasterEncountered,
-
         /*
-        [Description("Nailsmith - Spared (Event)"), ToolTip("Splits when Nailsmith is spared according to the game")] 
-        NailsmithSpared,
-        
         [Description("Mage Door (Test)"), ToolTip("Splits when Nailsmith is spared")] 
         MageDoor,
         [Description("Sanctum Warrior Window (Test)"), ToolTip("Splits when Nailsmith is killed")] 
@@ -920,14 +941,7 @@ namespace LiveSplit.HollowKnight {
         [Description("Equipped fr. health (menu testing)"), ToolTip("Splits when equipping charm23, for timing menuing")]
         EquippedFragileHealth,
         */
-
-
-        /*
-        [Description("Sanctum (Area)"), ToolTip("Splits when mapzone is Sanctum :)")]
-        AreaTestingSanctum,
-        [Description("Sanctum Upper (Area)"), ToolTip("Splits when mapzone is Mage Tower :)")]
-        AreaTestingSanctumUpper,
-        */
+        xd
 
     }
     public class ToolTipAttribute : Attribute {
