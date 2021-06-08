@@ -400,8 +400,15 @@ namespace LiveSplit.HollowKnight {
             IsHooked = Program != null && !Program.HasExited;
             if (!IsHooked && DateTime.Now > lastHooked.AddSeconds(1)) {
                 lastHooked = DateTime.Now;
+
                 Process[] processes = Process.GetProcessesByName("Hollow_Knight");
-                Program = processes.Length == 0 ? null : processes[0];
+                Program = processes != null && processes.Length > 0 ? processes[0] : null;
+
+                if (Program == null) {
+                    processes = Process.GetProcessesByName("Hollow Knight");
+                    Program = processes != null && processes.Length > 0 ? processes[0] : null;
+                }
+
                 if (Program != null && !Program.HasExited) {
                     MemoryReader.Update64Bit(Program);
                     IsHooked = true;
