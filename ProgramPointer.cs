@@ -9,7 +9,9 @@ namespace LiveSplit.HollowKnight {
     public enum AutoDeref {
         None,
         Single,
-        Double
+        Double,
+        Single32,
+        Double32
     }
     public class ProgramPointer {
         private int lastID;
@@ -81,11 +83,17 @@ namespace LiveSplit.HollowKnight {
         }
         public static IntPtr DerefPointer(Process program, IntPtr pointer, AutoDeref autoDeref) {
             if (pointer != IntPtr.Zero) {
-                if (autoDeref != AutoDeref.None) {
-                    pointer = program.Read<IntPtr>(pointer);
-                    if (autoDeref == AutoDeref.Double) {
+                switch (autoDeref) {
+                    case AutoDeref.Single: pointer = program.Read<IntPtr>(pointer); break;
+                    case AutoDeref.Single32: pointer = (IntPtr)program.Read<uint>(pointer); break;
+                    case AutoDeref.Double:
                         pointer = program.Read<IntPtr>(pointer);
-                    }
+                        pointer = program.Read<IntPtr>(pointer);
+                        break;
+                    case AutoDeref.Double32:
+                        pointer = (IntPtr)program.Read<uint>(pointer);
+                        pointer = program.Read<IntPtr>(pointer);
+                        break;
                 }
             }
             return pointer;

@@ -21,6 +21,7 @@ namespace LiveSplit.HollowKnight {
             lastHooked = DateTime.MinValue;
             gameManager = new ProgramPointer(
                 new FindPointerSignature(PointerVersion.Normal64, AutoDeref.Single, "41FFD3E96300000048B8????????????????488B10488BCE488D6424009049BB", 10),
+                new FindPointerSignature(PointerVersion.Normal64, AutoDeref.Single32, "488BCE49BB????????????????41FFD3E9??000000488B1425", 25),
                 new FindPointerSignature(PointerVersion.Normal, AutoDeref.Single, "83C41083EC0C57E8????????83C410EB3D8B05", 19),
                 new FindPointerSignature(PointerVersion.API, AutoDeref.Single, "83C41083EC0C57393FE8????????83C410EB3F8B05", 21)) { UpdatedPointer = UpdatedPointer };
         }

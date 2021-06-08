@@ -48,7 +48,6 @@
     <OutputPath>bin\</OutputPath>
     <DefineConstants>TRACE;Info</DefineConstants>
     <Optimize>true</Optimize>
-    <OutputType>Exe</OutputType>
     <DebugType>pdbonly</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
