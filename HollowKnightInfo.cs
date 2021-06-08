@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Reflection;
 using System.Threading;
@@ -7,11 +6,8 @@ using System.Windows.Forms;
 namespace LiveSplit.HollowKnight {
     public partial class HollowKnightInfo : Form {
         public HollowKnightMemory Memory { get; set; }
-        private HashSet<EnemyInfo> enemyInfo = new HashSet<EnemyInfo>();
-        private EnemyInfo currentEnemy = new EnemyInfo();
-        private bool changed = false, showDebug = false;
+        private bool showDebug = false;
         private string lastScene = null;
-        private DateTime lastCheck = DateTime.MinValue;
         private TargetMode lastTargetMode = TargetMode.FOLLOW_HERO;
         public static void Main(string[] args) {
             try {
@@ -65,10 +61,6 @@ namespace LiveSplit.HollowKnight {
                 lblUIState.Text = "UI State: " + uiState.ToString().PadRight(15, ' ') + "Menu State: " + Memory.MenuState().ToString();
 
                 if (lastScene != sceneName) {
-                    enemyInfo.Clear();
-                    currentEnemy.Pointer = 0;
-                    currentEnemy.HP = 0;
-                    Memory.UpdateGeoCounter(false, 0);
                     lastScene = sceneName;
                 }
                 lblSceneName.Text = "Scene: " + sceneName + " Next: " + nextScene + " tileMapDirty: " + Memory.TileMapDirty();
@@ -86,9 +78,6 @@ namespace LiveSplit.HollowKnight {
 
                 bool disablePause = Memory.PlayerData<bool>(Offset.disablePause);
                 btnEnablePause.Enabled = disablePause;
-                if (chkShowEnemyHP.Checked) {
-                    DisplayEnemyHP();
-                }
                 if (chkInfiniteHP.Checked) {
                     Memory.SetPlayerData(Offset.health, Memory.PlayerData<int>(Offset.maxHealthBase));
                 }
@@ -99,53 +88,6 @@ namespace LiveSplit.HollowKnight {
                     Memory.SetPlayerData(Offset.isInvincible, true);
                 }
             }
-        }
-        public void DisplayEnemyHP() {
-            int maxHP = 0;
-            EnemyInfo maxPointer = null;
-
-            if (lastCheck.AddSeconds(1) < DateTime.Now) {
-                lastCheck = DateTime.Now;
-
-                List<EnemyInfo> enemies = Memory.GetEnemyInfo();
-                foreach (EnemyInfo info in enemies) {
-                    if (enemyInfo.Add(info)) {
-                        if (info.HP > maxHP && info.HP > 100 && info.HP != 999) {
-                            maxHP = info.HP;
-                            maxPointer = info;
-                        }
-                    }
-                }
-            }
-
-            int oldHP = 0;
-            foreach (EnemyInfo info in enemyInfo) {
-                oldHP = info.UpdateHP(Memory.Program);
-                if (oldHP != info.HP && info.HP < 5000 && info.HP > 0) {
-                    currentEnemy = info;
-                    changed = true;
-                    break;
-                }
-            }
-
-            if (maxHP > 0 && maxHP < 5000) {
-                currentEnemy = maxPointer;
-                changed = true;
-            }
-
-            if (changed) {
-                if (chkEnemyInvincible.Checked && currentEnemy.HP > 0) {
-                    currentEnemy.UpdateHP(Memory.Program, oldHP);
-                }
-                Memory.UpdateGeoCounter(true, currentEnemy.HP < 0 ? 0 : currentEnemy.HP);
-                changed = false;
-            }
-        }
-        private void chkShowEnemyHP_CheckedChanged(object sender, EventArgs e) {
-            if (!chkShowEnemyHP.Checked) {
-                Memory.UpdateGeoCounter(false, 0);
-            }
-            chkEnemyInvincible.Enabled = chkShowEnemyHP.Checked;
         }
         private void btnEnablePause_Click(object sender, EventArgs e) {
             Memory.SetPlayerData(Offset.disablePause, false);

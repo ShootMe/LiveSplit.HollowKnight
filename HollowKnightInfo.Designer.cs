@@ -24,7 +24,6 @@
         /// </summary>
         private void InitializeComponent() {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(HollowKnightInfo));
-            this.chkShowEnemyHP = new System.Windows.Forms.CheckBox();
             this.lblNote = new System.Windows.Forms.Label();
             this.lblSceneName = new System.Windows.Forms.Label();
             this.lblUIState = new System.Windows.Forms.Label();
@@ -40,23 +39,9 @@
             this.chkCameraTarget = new System.Windows.Forms.CheckBox();
             this.chkLockZoom = new System.Windows.Forms.CheckBox();
             this.zoomValue = new System.Windows.Forms.TrackBar();
-            this.chkEnemyInvincible = new System.Windows.Forms.CheckBox();
             this.btnDebugInfo = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.zoomValue)).BeginInit();
             this.SuspendLayout();
-            // 
-            // chkShowEnemyHP
-            // 
-            this.chkShowEnemyHP.AutoSize = true;
-            this.chkShowEnemyHP.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkShowEnemyHP.Location = new System.Drawing.Point(41, 152);
-            this.chkShowEnemyHP.Name = "chkShowEnemyHP";
-            this.chkShowEnemyHP.Size = new System.Drawing.Size(251, 20);
-            this.chkShowEnemyHP.TabIndex = 8;
-            this.chkShowEnemyHP.Text = "Show Enemy HP in Geo Counter";
-            this.chkShowEnemyHP.UseVisualStyleBackColor = true;
-            this.chkShowEnemyHP.Visible = false;
-            this.chkShowEnemyHP.CheckedChanged += new System.EventHandler(this.chkShowEnemyHP_CheckedChanged);
             // 
             // lblNote
             // 
@@ -223,19 +208,6 @@
             this.zoomValue.Value = 200;
             this.zoomValue.Scroll += new System.EventHandler(this.zoomValue_Scroll);
             // 
-            // chkEnemyInvincible
-            // 
-            this.chkEnemyInvincible.AutoSize = true;
-            this.chkEnemyInvincible.Enabled = false;
-            this.chkEnemyInvincible.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkEnemyInvincible.Location = new System.Drawing.Point(369, 152);
-            this.chkEnemyInvincible.Name = "chkEnemyInvincible";
-            this.chkEnemyInvincible.Size = new System.Drawing.Size(195, 20);
-            this.chkEnemyInvincible.TabIndex = 13;
-            this.chkEnemyInvincible.Text = "Make Enemy Invincible";
-            this.chkEnemyInvincible.UseVisualStyleBackColor = true;
-            this.chkEnemyInvincible.Visible = false;
-            // 
             // btnDebugInfo
             // 
             this.btnDebugInfo.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -254,7 +226,6 @@
             this.ClientSize = new System.Drawing.Size(584, 271);
             this.Controls.Add(this.lblNote);
             this.Controls.Add(this.btnDebugInfo);
-            this.Controls.Add(this.chkEnemyInvincible);
             this.Controls.Add(this.chkLockZoom);
             this.Controls.Add(this.zoomValue);
             this.Controls.Add(this.chkCameraTarget);
@@ -269,7 +240,6 @@
             this.Controls.Add(this.lblMenuState);
             this.Controls.Add(this.lblUIState);
             this.Controls.Add(this.lblSceneName);
-            this.Controls.Add(this.chkShowEnemyHP);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
@@ -282,8 +252,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.CheckBox chkShowEnemyHP;
         private System.Windows.Forms.Label lblNote;
         private System.Windows.Forms.Label lblSceneName;
         private System.Windows.Forms.Label lblUIState;
@@ -299,7 +267,6 @@
         private System.Windows.Forms.CheckBox chkCameraTarget;
         private System.Windows.Forms.CheckBox chkLockZoom;
         private System.Windows.Forms.TrackBar zoomValue;
-        private System.Windows.Forms.CheckBox chkEnemyInvincible;
         private System.Windows.Forms.Button btnDebugInfo;
     }
 }

@@ -3,6 +3,7 @@ using System.Diagnostics;
 namespace LiveSplit.HollowKnight {
     public enum PointerVersion {
         Normal,
+        Normal64,
         API
     }
     public enum AutoDeref {
