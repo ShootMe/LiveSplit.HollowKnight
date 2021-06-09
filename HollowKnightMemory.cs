@@ -12,7 +12,7 @@ namespace LiveSplit.HollowKnight {
         public Process Program { get; set; }
         public bool IsHooked { get; set; }
         private DateTime lastHooked;
-        private int uiManager, inputHandler, cameraCtrl, gameState, heroController, camTarget, camMode, menuState, uiState, achievementHandler;
+        private int uiManager, inputHandler, cameraCtrl, gameState, heroController, camTarget, camMode, camTMode, camDest, menuState, uiState, achievementHandler;
         private int heroAccepting, actorState, transistionState, camTeleport, playerData, debugInfo, tilemapDirty, cState, sceneName, nextSceneName, hazardRespawning;
         //private int sceneData, awardAchievementEvent;
         private Version lastVersion;
@@ -51,6 +51,8 @@ namespace LiveSplit.HollowKnight {
             camTarget = 0x28;
             camMode = 0x40;
             camTeleport = 0x4b;
+            camDest = 0x24;
+            camTMode = 0x20;
 
             //HeroController
             cState = 0x108;
@@ -82,6 +84,8 @@ namespace LiveSplit.HollowKnight {
                 camTarget = 0x48;
                 camMode = 0x6c;
                 camTeleport = 0x77;
+                camDest = 0x40;
+                camTMode = 0x3c;
 
                 //HeroController
                 cState = 0x210;
@@ -234,10 +238,15 @@ namespace LiveSplit.HollowKnight {
         }
         public void SetCameraZoom(float zoom) {
             //GameManger._instance.gameCams.tk2dCam.zoomFactor
-            if (lastVersion.Minor == 3) {
-                gameManager.Write<float>(Program, zoom, 0x0, 0x24, 0x48, 0x48);
+            if (lastVersion?.Minor >= 3) {
+                if (lastVersion?.Minor >= 5) {
+                    gameManager.Write<float>(Program, zoom, 0x0, 0x48, 0x90, 0x68);
+                } else {
+                    gameManager.Write<float>(Program, zoom, 0x0, 0x24, 0x48, 0x48);
+                }
+            } else {
+                gameManager.Write<float>(Program, zoom, 0x0, 0x20, 0x40, 0x48);
             }
-            gameManager.Write<float>(Program, zoom, 0x0, 0x20, 0x40, 0x48);
         }
         public bool CameraTeleporting() {
             //GameManger._instance.cameraCtrl.teleporting
@@ -245,17 +254,17 @@ namespace LiveSplit.HollowKnight {
         }
         public PointF GetCameraTarget() {
             //GameManger._instance.cameraCtrl.camTarget.destination
-            float x = gameManager.Read<float>(Program, 0x0, cameraCtrl, camTarget, 0x24);
-            float y = gameManager.Read<float>(Program, 0x0, cameraCtrl, camTarget, 0x28);
+            float x = gameManager.Read<float>(Program, 0x0, cameraCtrl, camTarget, camDest);
+            float y = gameManager.Read<float>(Program, 0x0, cameraCtrl, camTarget, camDest + 0x4);
             return new PointF(x, y);
         }
         public TargetMode GetCameraTargetMode() {
             //GameManger._instance.cameraCtrl.camTarget.mode
-            return (TargetMode)gameManager.Read<int>(Program, 0x0, cameraCtrl, camTarget, 0x20);
+            return (TargetMode)gameManager.Read<int>(Program, 0x0, cameraCtrl, camTarget, camTMode);
         }
         public void SetCameraTargetMode(TargetMode mode) {
             //GameManger._instance.cameraCtrl.camTarget.mode
-            gameManager.Write(Program, (int)mode, 0x0, cameraCtrl, camTarget, 0x20);
+            gameManager.Write(Program, (int)mode, 0x0, cameraCtrl, camTarget, camTMode);
         }
         public CameraMode CameraMode() {
             //GameManager._instance.cameraCtrl.mode
@@ -263,15 +272,15 @@ namespace LiveSplit.HollowKnight {
         }
         public void EnableDebug(bool enable) {
             //inputHandler.onScreenDebugInfo.showFPS
-            gameManager.Write(Program, enable, 0x0, inputHandler, debugInfo, 0x7c);
+            gameManager.Write(Program, enable, 0x0, inputHandler, debugInfo, lastVersion?.Minor >= 5 ? 0x9c : 0x7c);
             //inputHandler.onScreenDebugInfo.showInfo
-            gameManager.Write(Program, enable, 0x0, inputHandler, debugInfo, 0x7d);
+            gameManager.Write(Program, enable, 0x0, inputHandler, debugInfo, lastVersion?.Minor >= 5 ? 0x9d : 0x7d);
             //inputHandler.onScreenDebugInfo.showInput
-            gameManager.Write(Program, enable, 0x0, inputHandler, debugInfo, 0x7e);
+            gameManager.Write(Program, enable, 0x0, inputHandler, debugInfo, lastVersion?.Minor >= 5 ? 0x9e : 0x7e);
             //inputHandler.onScreenDebugInfo.showLoadingTime
-            gameManager.Write(Program, enable, 0x0, inputHandler, debugInfo, 0x7f);
+            gameManager.Write(Program, enable, 0x0, inputHandler, debugInfo, lastVersion?.Minor >= 5 ? 0x9f : 0x7f);
             //inputHandler.onScreenDebugInfo.showTFR
-            gameManager.Write(Program, enable, 0x0, inputHandler, debugInfo, 0x80);
+            gameManager.Write(Program, enable, 0x0, inputHandler, debugInfo, lastVersion?.Minor >= 5 ? 0xa0 : 0x80);
         }
         public void SetPlayerData(Offset offset, int value) {
             //GameManger._instance.playerData.(offset)
