@@ -67,35 +67,38 @@ namespace LiveSplit.HollowKnight {
 
             //1568
             if (MemoryReader.is64Bit) {
-                playerData = 0xc8;
-                //sceneData = 0xd0;
                 sceneName = 0x18;
                 nextSceneName = 0x20;
-                uiManager = 0xa0;
                 inputHandler = 0x40;
-                cameraCtrl = 0x80;
-                gameState = 0x174;
-                heroController = 0x88;
-                debugInfo = 0x60;
-                tilemapDirty = 0x1ab;
                 achievementHandler = 0x50;
+                cameraCtrl = 0x80;
+                heroController = 0x88;
+                uiManager = 0xa0;
+                playerData = 0xc8;
+                //sceneData = 0xd0;
+                gameState = 0x174;
+                tilemapDirty = 0x1ab;
+
+                //InputHandler
+                debugInfo = 0x60;
 
                 //CameraController
                 camTarget = 0x48;
                 camMode = 0x6c;
                 camTeleport = 0x77;
-                camDest = 0x40;
+
+                //CameraTarget
                 camTMode = 0x3c;
+                camDest = 0x40;
 
                 //HeroController
                 cState = 0x210;
-                heroAccepting = 0x6e7;
                 actorState = 0x600;
                 transistionState = 0x608;
-                hazardRespawning = 0x2e;
+                heroAccepting = 0x6e7;
 
-                uiState = 0x29c;
-                menuState = 0x2a0;
+                //HeroControllerStates
+                hazardRespawning = 0x2e;
 
                 versionString = 0x38;
 
@@ -107,6 +110,16 @@ namespace LiveSplit.HollowKnight {
                 } while (string.IsNullOrEmpty(version) && len-- > 0);
 
                 lastVersion = new Version(version);
+
+                if (lastVersion.Build == 68) {
+                    //UIManager
+                    uiState = 0x29c;
+                    menuState = 0x2a0;
+                } else {
+                    //UIManager
+                    uiState = 0x2a4;
+                    menuState = 0x2a8;
+                }
             } else {
                 len = gameManager.Read<int>(Program, 0x0, inputHandler, debugInfo, versionString, 0x8);
 
@@ -303,7 +316,6 @@ namespace LiveSplit.HollowKnight {
                     return gameManager.Read<T>(Program, 0x0, playerData, HollowKnight.PlayerData.GetOffset(offset));
             }
         }
-
         public string PlayerDataString<String>(Offset offset) {
             //GameManger._instance.playerData.(offset)
             switch (offset) {
