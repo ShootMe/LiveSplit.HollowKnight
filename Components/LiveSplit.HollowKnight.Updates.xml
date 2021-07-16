@@ -1,5 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <updates>
+    <update version="2.9.9">
+      <files>
+        <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+      </files>
+      <changelog>
+        <change> General quitout split added </change>
+        <change> Quitout after Gorgeuous Husk and Quitout after Mantis Claw added </change>
+        <change> Transition splits on first trans after above abilities for categories that don't quitout </change>
+        <change> Removed all non-credits implicit endings (aluba, PoP, p1 zote, etc). Add them as autosplits + enable `End-triggering autosplits` to use </change>
+        <change> Added a niche split for dying (shade skip setup, Eat Me Too%). Relatively untested </change>
+      </changelog>
+    </update>
     <update version="2.9.8">
         <files>
             <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>

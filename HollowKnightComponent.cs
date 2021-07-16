@@ -138,7 +138,10 @@ namespace LiveSplit.HollowKnight {
         }
 
         private void LoadRemoval(GameState gameState, UIState uIState, string nextScene, string sceneName) {
-            bool loadingMenu = (sceneName != "Menu_Title" && string.IsNullOrEmpty(nextScene)) || (sceneName != "Menu_Title" && nextScene == "Menu_Title");
+            uIState = mem.UIState();
+            bool loadingMenu = (sceneName != "Menu_Title" && string.IsNullOrEmpty(nextScene)) 
+                || (sceneName != "Menu_Title" && nextScene == "Menu_Title" 
+                || (sceneName == "Quit_To_Menu"));
             if (gameState == GameState.PLAYING && lastGameState == GameState.MAIN_MENU) {
                 lookForTeleporting = true;
             }
@@ -158,8 +161,13 @@ namespace LiveSplit.HollowKnight {
                 || (uIState != UIState.PLAYING
                     && (loadingMenu || (uIState != UIState.PAUSED && (!string.IsNullOrEmpty(nextScene) || sceneName == "_test_charms")))
                     && nextScene != sceneName)
-                || (mem.TileMapDirty() && !mem.UsesSceneTransitionRoutine());
-
+                || (mem.TileMapDirty() && !mem.UsesSceneTransitionRoutine())
+                /* comment below parts out for release 
+                || (mem.MenuState() == MainMenuState.EXIT_PROMPT && mem.GameState() == GameState.PAUSED && uIState == UIState.PAUSED
+                    && (mem.CameraMode() is CameraMode.FROZEN or CameraMode.FOLLOWING) && (mem.GetCameraTargetMode() is TargetMode.FREE or TargetMode.FOLLOW_HERO))
+                || (mem.MenuState() == MainMenuState.LOGO && mem.GameState() == GameState.INACTIVE && uIState == UIState.INACTIVE)
+                */
+                ;
             lastGameState = gameState;
         }
 
@@ -170,7 +178,9 @@ namespace LiveSplit.HollowKnight {
                     continue; 
                 } 
                 else if (split.ToString().StartsWith("Menu")) {
-                    if (!menuSplitHelper) menuSplitHelper = CheckSplit(split, nextScene, sceneName) || split == SplitName.Menu;
+                    if (!menuSplitHelper) 
+                        menuSplitHelper = split == SplitName.Menu || 
+                            CheckSplit(split, nextScene, sceneName) && !((gameState == GameState.INACTIVE && uIState == UIState.INACTIVE) || (gameState == GameState.MAIN_MENU));
                     if (menuSplitHelper) {
                         if (CheckSplit(SplitName.Menu, nextScene, sceneName)) {
                             splitsDone.Add(split);
@@ -181,7 +191,7 @@ namespace LiveSplit.HollowKnight {
                         }
                     }
                 }
-                else {
+                else if (!((gameState == GameState.INACTIVE && uIState == UIState.INACTIVE) || (gameState == GameState.MAIN_MENU))) {
                     if (CheckSplit(split, nextScene, sceneName)) {
                         splitsDone.Add(split);
                         lastSplitDone = split;
@@ -725,11 +735,14 @@ namespace LiveSplit.HollowKnight {
                     break;
                 case SplitName.HappyCouplePlayerDataEvent: shouldSplit = mem.PlayerData<bool>(Offset.nailsmithConvoArt); break;
                 case SplitName.GodhomeBench: shouldSplit = sceneName.StartsWith("GG_Spa") && sceneName != nextScene; break;
-                case SplitName.MoundWithClaw: shouldSplit = sceneName.StartsWith("Crossroads_ShamanTemple") && mem.PlayerData<bool>(Offset.hasWallJump); break;
-                case SplitName.ExitMoundWithClaw: shouldSplit = sceneName.StartsWith("Crossroads_ShamanTemple") && sceneName != nextScene && mem.PlayerData<bool>(Offset.hasWallJump); break;
+                
                 case SplitName.Menu: shouldSplit = sceneName == "Menu_Title"; break;
                 case SplitName.MenuClaw: shouldSplit = mem.PlayerData<bool>(Offset.hasWallJump); break;
-                case SplitName.MenuGhusk: shouldSplit = mem.PlayerData<bool>(Offset.killedGorgeousHusk); break;
+                case SplitName.MenuGorgeousHusk: shouldSplit = mem.PlayerData<bool>(Offset.killedGorgeousHusk); break;
+                case SplitName.TransClaw: shouldSplit = mem.PlayerData<bool>(Offset.hasWallJump) && nextScene != sceneName; break;
+                case SplitName.TransGorgeousHusk: shouldSplit = mem.PlayerData<bool>(Offset.killedGorgeousHusk) && nextScene != sceneName; break;
+
+                case SplitName.PlayerDeath: shouldSplit = mem.PlayerData<int>(Offset.health) == 0; break;
             }
             return shouldSplit;
         }
