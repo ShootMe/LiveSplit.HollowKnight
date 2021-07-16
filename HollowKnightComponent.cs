@@ -46,6 +46,7 @@ namespace LiveSplit.HollowKnight {
         private static string LOGFILE = "_HollowKnight.log";
         private PlayerData pdata = new PlayerData();
         private GameState lastGameState;
+        private bool menuSplitHelper;
         private bool lookForTeleporting;
 #if !Info
         public HollowKnightComponent(LiveSplitState state) {
@@ -94,7 +95,6 @@ namespace LiveSplit.HollowKnight {
             bool shouldSplit = false;
             string nextScene = mem.NextSceneName();
             string sceneName = mem.SceneName();
-            UIState uIState;
 
             if (currentSplit == -1) {
                 shouldSplit = (nextScene.Equals("Tutorial_01", StringComparison.OrdinalIgnoreCase) &&
@@ -103,42 +103,16 @@ namespace LiveSplit.HollowKnight {
 
             } else if (Model.CurrentState.CurrentPhase == TimerPhase.Running && settings.Splits.Count > 0) {
                 GameState gameState = mem.GameState();
-                SplitName finalSplit = settings.Splits[settings.Splits.Count - 1];
+                UIState uIState = mem.UIState();
+                //SplitName finalSplit = settings.Splits[settings.Splits.Count - 1];
 
-                // Experimental "Finish on any autosplit"-logic on true, otherwise default stable logic.
-                // Both are the same except for letting autosplit entries finish runs.
                 if (!settings.AutosplitEndRuns) {
-                    if (currentSplit + 1 < Model.CurrentState.Run.Count ||
-                        (currentSplit + 1 == Model.CurrentState.Run.Count && 
-                         (finalSplit is 
-                            SplitName.ElderbugFlower or 
-                            SplitName.ZoteKilled or 
-                            SplitName.HuskMiner or 
-                            SplitName.KingsPass or 
-                            SplitName.GreatHopper or 
-                            SplitName.PathOfPain or 
-                            SplitName.Aluba))) {
+                    if (currentSplit + 1 < Model.CurrentState.Run.Count) {
                         if (!settings.Ordered) {
-                            uIState = mem.UIState();
-                            foreach (SplitName split in settings.Splits) {
-                                if (splitsDone.Contains(split)
-                                    || (gameState == GameState.INACTIVE && uIState == UIState.INACTIVE)
-                                    || (gameState == GameState.MAIN_MENU)) { continue; }
-
-                                shouldSplit = CheckSplit(split, nextScene, sceneName);
-
-                                if (shouldSplit) {
-                                    splitsDone.Add(split);
-                                    lastSplitDone = split;
-                                    if (hasLog || !Console.IsOutputRedirected) WriteLogWithTime("TESTING - Split done: " + split);
-                                    break;
-                                }
-                            }
+                            shouldSplit = NotOrderedSplits(gameState, uIState, nextScene, sceneName);
+                        
                         } else if (currentSplit < settings.Splits.Count) {
-                            uIState = mem.UIState();
-                            SplitName split = settings.Splits[currentSplit];
-                            shouldSplit = CheckSplit(split, nextScene, sceneName) 
-                                && !((gameState == GameState.INACTIVE && uIState == UIState.INACTIVE) || (gameState == GameState.MAIN_MENU));
+                            shouldSplit = OrderedSplits(gameState, uIState, nextScene, sceneName);
                         }
                     } else {
                         shouldSplit = nextScene.StartsWith("Cinematic_Ending", StringComparison.OrdinalIgnoreCase) || nextScene == "GG_End_Sequence";
@@ -150,66 +124,109 @@ namespace LiveSplit.HollowKnight {
                         }
                         if (!shouldSplit) {
                             if (!settings.Ordered) {
-                                uIState = mem.UIState();
-                                foreach (SplitName split in settings.Splits) {
-                                    /*
-                                     if (splitsDone.Contains(split) 
-                                        || (gameState != GameState.PLAYING 
-                                            && gameState != GameState.CUTSCENE
-                                            && gameState != GameState.PAUSED)
-                                        ) { continue; }
-                                    */
-                                    if (splitsDone.Contains(split)
-                                        || (gameState == GameState.INACTIVE && uIState == UIState.INACTIVE)
-                                        || (gameState == GameState.MAIN_MENU)) { continue; }
-
-                                    shouldSplit = CheckSplit(split, nextScene, sceneName);
-
-                                    if (shouldSplit) {
-                                        splitsDone.Add(split);
-                                        lastSplitDone = split;
-                                        if (hasLog || !Console.IsOutputRedirected) WriteLogWithTime("TESTING - Split: " + split);
-                                        break;
-                                    }
-                                }
+                                shouldSplit = NotOrderedSplits(gameState, uIState, nextScene, sceneName);
                             } else if (currentSplit < settings.Splits.Count) {
-                                uIState = mem.UIState();
-                                SplitName split = settings.Splits[currentSplit];
-                                shouldSplit = CheckSplit(split, nextScene, sceneName) 
-                                    && !((gameState == GameState.INACTIVE && uIState == UIState.INACTIVE) || (gameState == GameState.MAIN_MENU));
-                            }
+                                shouldSplit = OrderedSplits(gameState, uIState, nextScene, sceneName);
+                            }        
                         }
                     }
                 }
-
-                UIState uiState = mem.UIState();
-                bool loadingMenu = (sceneName != "Menu_Title" && string.IsNullOrEmpty(nextScene)) || (sceneName != "Menu_Title" && nextScene == "Menu_Title");
-                if (gameState == GameState.PLAYING && lastGameState == GameState.MAIN_MENU) {
-                    lookForTeleporting = true;
-                }
-                bool teleporting = mem.CameraTeleporting();
-                if (lookForTeleporting && (teleporting || (gameState != GameState.PLAYING && gameState != GameState.ENTERING_LEVEL))) {
-                    lookForTeleporting = false;
-                }
-
-                // TODO: look into Current Patch quitout issues.
-                Model.CurrentState.IsGameTimePaused =
-                    (gameState == GameState.PLAYING && teleporting && !mem.HazardRespawning())
-                    || lookForTeleporting
-                    || ((gameState is GameState.PLAYING or GameState.ENTERING_LEVEL) && uiState != UIState.PLAYING)
-                    || (gameState != GameState.PLAYING && !mem.AcceptingInput())
-                    || gameState is GameState.EXITING_LEVEL or GameState.LOADING 
-                    || mem.HeroTransitionState() == HeroTransitionState.WAITING_TO_ENTER_LEVEL 
-                    || (uiState != UIState.PLAYING 
-                        && (loadingMenu || (uiState != UIState.PAUSED && (!string.IsNullOrEmpty(nextScene) || sceneName == "_test_charms"))) 
-                        && nextScene != sceneName) 
-                    || (mem.TileMapDirty() && !mem.UsesSceneTransitionRoutine());
-
-                lastGameState = gameState;
+                LoadRemoval(gameState, uIState, nextScene, sceneName);
             }
-
+ 
             HandleSplit(shouldSplit);
         }
+
+        private void LoadRemoval(GameState gameState, UIState uIState, string nextScene, string sceneName) {
+            uIState = mem.UIState();
+            bool loadingMenu = (sceneName != "Menu_Title" && string.IsNullOrEmpty(nextScene)) 
+                || (sceneName != "Menu_Title" && nextScene == "Menu_Title" 
+                || (sceneName == "Quit_To_Menu"));
+            if (gameState == GameState.PLAYING && lastGameState == GameState.MAIN_MENU) {
+                lookForTeleporting = true;
+            }
+            bool teleporting = mem.CameraTeleporting();
+            if (lookForTeleporting && (teleporting || (gameState != GameState.PLAYING && gameState != GameState.ENTERING_LEVEL))) {
+                lookForTeleporting = false;
+            }
+
+            // TODO: look into Current Patch quitout issues.
+            Model.CurrentState.IsGameTimePaused =
+                (gameState == GameState.PLAYING && teleporting && !mem.HazardRespawning())
+                || lookForTeleporting
+                || ((gameState is GameState.PLAYING or GameState.ENTERING_LEVEL) && uIState != UIState.PLAYING)
+                || (gameState != GameState.PLAYING && !mem.AcceptingInput())
+                || gameState is GameState.EXITING_LEVEL or GameState.LOADING
+                || mem.HeroTransitionState() == HeroTransitionState.WAITING_TO_ENTER_LEVEL
+                || (uIState != UIState.PLAYING
+                    && (loadingMenu || (uIState != UIState.PAUSED && (!string.IsNullOrEmpty(nextScene) || sceneName == "_test_charms")))
+                    && nextScene != sceneName)
+                || (mem.TileMapDirty() && !mem.UsesSceneTransitionRoutine())
+                /* comment below parts out for release 
+                || (mem.MenuState() == MainMenuState.EXIT_PROMPT && mem.GameState() == GameState.PAUSED && uIState == UIState.PAUSED
+                    && (mem.CameraMode() is CameraMode.FROZEN or CameraMode.FOLLOWING) && (mem.GetCameraTargetMode() is TargetMode.FREE or TargetMode.FOLLOW_HERO))
+                || (mem.MenuState() == MainMenuState.LOGO && mem.GameState() == GameState.INACTIVE && uIState == UIState.INACTIVE)
+                */
+                ;
+            lastGameState = gameState;
+        }
+
+        private bool NotOrderedSplits(GameState gameState, UIState uIState, string nextScene, string sceneName) {
+
+            foreach (SplitName split in settings.Splits) {
+                if (splitsDone.Contains(split)) { 
+                    continue; 
+                } 
+                else if (split.ToString().StartsWith("Menu")) {
+                    if (!menuSplitHelper) 
+                        menuSplitHelper = split == SplitName.Menu || 
+                            CheckSplit(split, nextScene, sceneName) && !((gameState == GameState.INACTIVE && uIState == UIState.INACTIVE) || (gameState == GameState.MAIN_MENU));
+                    if (menuSplitHelper) {
+                        if (CheckSplit(SplitName.Menu, nextScene, sceneName)) {
+                            splitsDone.Add(split);
+                            lastSplitDone = split;
+                            menuSplitHelper = false;
+                            if (hasLog || !Console.IsOutputRedirected) WriteLogWithTime("Split: " + split);
+                            return true;
+                        }
+                    }
+                }
+                else if (!((gameState == GameState.INACTIVE && uIState == UIState.INACTIVE) || (gameState == GameState.MAIN_MENU))) {
+                    if (CheckSplit(split, nextScene, sceneName)) {
+                        splitsDone.Add(split);
+                        lastSplitDone = split;
+                        menuSplitHelper = false;
+                        if (hasLog || !Console.IsOutputRedirected) WriteLogWithTime("Split: " + split);
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        private bool OrderedSplits(GameState gameState, UIState uIState, string nextScene, string sceneName) {
+            SplitName split = settings.Splits[currentSplit];
+
+            if (split.ToString().StartsWith("Menu")) {
+                if (!menuSplitHelper) menuSplitHelper = split == SplitName.Menu || CheckSplit(split, nextScene, sceneName);
+                if (menuSplitHelper) {
+                    if (CheckSplit(SplitName.Menu, nextScene, sceneName)) {
+                        menuSplitHelper = false;
+                        if (hasLog || !Console.IsOutputRedirected) WriteLogWithTime("Split: " + split);
+                        return true;
+                    }
+                }
+            } else {
+                if (CheckSplit(split, nextScene, sceneName)
+                        && !((gameState == GameState.INACTIVE && uIState == UIState.INACTIVE) || (gameState == GameState.MAIN_MENU))) {
+                    if (hasLog || !Console.IsOutputRedirected) WriteLogWithTime("Split: " + split);
+                    return true;
+                }
+            }
+            return false;
+        }
+        
+
         private bool CheckSplit(SplitName split, string nextScene, string sceneName) {
             bool shouldSplit = false;
 
@@ -588,17 +605,18 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.WhitePalaceOrb3: shouldSplit = mem.PlayerData<bool>(Offset.whitePalaceOrb_3); break;
                 case SplitName.WhitePalaceSecretRoom: shouldSplit = mem.PlayerData<bool>(Offset.whitePalaceSecretRoomVisited); break;
 
+                case SplitName.WhitePalaceLeftEntry: shouldSplit = nextScene.StartsWith("White_Palace_04") && nextScene != sceneName; break;
                 case SplitName.WhitePalaceLeftWingMid: shouldSplit = sceneName.StartsWith("White_Palace_04") && nextScene.StartsWith("White_Palace_14"); break;
-                case SplitName.WhitePalaceRightEntry: shouldSplit = sceneName.StartsWith("White_Palace_03_Hub") && nextScene.StartsWith("White_Palace_15"); break;
+                case SplitName.WhitePalaceRightEntry: shouldSplit = nextScene.StartsWith("White_Palace_15") && nextScene != sceneName; break;
                 case SplitName.WhitePalaceRightClimb: shouldSplit = sceneName.StartsWith("White_Palace_05") && nextScene.StartsWith("White_Palace_16"); break;
                 case SplitName.WhitePalaceRightSqueeze: shouldSplit = sceneName.StartsWith("White_Palace_16") && nextScene.StartsWith("White_Palace_05"); break;
                 case SplitName.WhitePalaceRightDone: shouldSplit = sceneName.StartsWith("White_Palace_05") && nextScene.StartsWith("White_Palace_15"); break;
-                case SplitName.WhitePalaceTopEntry: shouldSplit = sceneName.StartsWith("White_Palace_03_Hub") && nextScene.StartsWith("White_Palace_06"); break;
+                case SplitName.WhitePalaceTopEntry: shouldSplit = sceneName.StartsWith("White_Palace_03_hub") && nextScene.StartsWith("White_Palace_06"); break;
                 case SplitName.WhitePalaceTopClimb: shouldSplit = sceneName.StartsWith("White_Palace_06") && nextScene.StartsWith("White_Palace_07"); break;
                 case SplitName.WhitePalaceTopLeverRoom: shouldSplit = sceneName.StartsWith("White_Palace_07") && nextScene.StartsWith("White_Palace_12"); break;
                 case SplitName.WhitePalaceTopLastPlats: shouldSplit = sceneName.StartsWith("White_Palace_12") && nextScene.StartsWith("White_Palace_13"); break;
                 case SplitName.WhitePalaceThroneRoom: shouldSplit = sceneName.StartsWith("White_Palace_13") && nextScene.StartsWith("White_Palace_09"); break;
-                case SplitName.WhitePalaceAtrium: shouldSplit = !sceneName.StartsWith("White_Palace_03_Hub") && nextScene.StartsWith("White_Palace_03_Hub"); break;
+                case SplitName.WhitePalaceAtrium: shouldSplit = nextScene.StartsWith("White_Palace_03_hub") && nextScene != sceneName; break;
 
                 case SplitName.PathOfPainEntry: shouldSplit = nextScene.StartsWith("White_Palace_18") && nextScene != sceneName; break;
                 case SplitName.PathOfPainTransition1: shouldSplit = nextScene.StartsWith("White_Palace_17") && nextScene != sceneName; break;
@@ -716,7 +734,15 @@ namespace LiveSplit.HollowKnight {
                         mem.PlayerData<int>(Offset.soldTrinket3) == 4;
                     break;
                 case SplitName.HappyCouplePlayerDataEvent: shouldSplit = mem.PlayerData<bool>(Offset.nailsmithConvoArt); break;
-                //case SplitName.GorgeousHuskQuitout: shouldSplit = mem.PlayerData<bool>(Offset.killedGorgeousHusk) && ; break;
+                case SplitName.GodhomeBench: shouldSplit = sceneName.StartsWith("GG_Spa") && sceneName != nextScene; break;
+                
+                case SplitName.Menu: shouldSplit = sceneName == "Menu_Title"; break;
+                case SplitName.MenuClaw: shouldSplit = mem.PlayerData<bool>(Offset.hasWallJump); break;
+                case SplitName.MenuGorgeousHusk: shouldSplit = mem.PlayerData<bool>(Offset.killedGorgeousHusk); break;
+                case SplitName.TransClaw: shouldSplit = mem.PlayerData<bool>(Offset.hasWallJump) && nextScene != sceneName; break;
+                case SplitName.TransGorgeousHusk: shouldSplit = mem.PlayerData<bool>(Offset.killedGorgeousHusk) && nextScene != sceneName; break;
+
+                case SplitName.PlayerDeath: shouldSplit = mem.PlayerData<int>(Offset.health) == 0; break;
             }
             return shouldSplit;
         }
