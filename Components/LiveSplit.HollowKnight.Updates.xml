@@ -1,5 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <updates>
+    <update version="3.0.0">
+      <files>
+        <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+      </files>
+      <changelog>
+        <change> Added a 1xx% sly shopping 2 split (on leaving Sly's shop w/ sprintmaster and 8 vessel frags) </change>
+        <change> `Has descending dark` transition split </change>
+        <change> Sorted the splits from the last update </change>
+      </changelog>
+    </update>
     <update version="2.9.9">
       <files>
         <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>

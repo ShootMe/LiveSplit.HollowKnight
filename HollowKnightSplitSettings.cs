@@ -397,6 +397,8 @@ namespace LiveSplit.HollowKnight {
 
         [Description("106% Pre-Grimm Shop (Event)"), ToolTip("Splits when Lantern + Vessel Fragment(5) + Mask Shard(4) have been acquired")]
         PreGrimmShop,
+        [Description("1xx% Sly Final Shop (Event)"), ToolTip("Splits on leaving Sly's shop after having bough Sprintmaster and Vessel Frag 8")]
+        SlyShopFinished,
         [Description("Can Overcharm (Event)"), ToolTip("Splits when overcharming is enabled")]
         CanOvercharm,
         [Description("Chains Broken - Hollow Knight (Event)"), ToolTip("Splits at the end of the first Hollow Knight scream after the chains are broken")]
@@ -405,6 +407,8 @@ namespace LiveSplit.HollowKnight {
         WatcherChandelier,
         [Description("City Gate (Event)"), ToolTip("Splits when using the City Key to open the gate")] 
         CityGateOpen,
+        [Description("Death (Event)"), ToolTip("Splits when player hp is 0")]
+        PlayerDeath,
         [Description("Flower Quest (Event)"), ToolTip("Splits when placing the flower at the grave of the Traitors' Child")]
         FlowerQuest,
         [Description("Flower Quest Reward (Event)"), ToolTip("Splits when Grey Mourner gives you the Flower Quest reward")]
@@ -572,10 +576,16 @@ namespace LiveSplit.HollowKnight {
         EnterAnyDream,
         [Description("Fog Canyon (Transition)"), ToolTip("Splits on transition to Fog Canyon")]
         FogCanyonEntry,
+        [Description("Gorgeous Husk Killed (Transition)"), ToolTip("Splits on transition after Gorgeous Husk defeated")]
+        TransGorgeousHusk,
         [Description("Greenpath (Transition)"), ToolTip("Splits when entering Greenpath")]
         EnterGreenpath,
         [Description("Greenpath w/ Unlocked Overcharm (Transition)"), ToolTip("Splits when entering Greenpath with overcharming unlocked")]
         EnterGreenpathWithOvercharm,
+        [Description("Has Claw (Transition)"), ToolTip("Splits on transition after Mantis Claw acquired")]
+        TransClaw,
+        [Description("Has Descending Dark (Transition)"), ToolTip("Splits on transition after Descending Dark acquired")]
+        TransDescendingDark,
         [Description("Hive (Transition)"), ToolTip("Splits on transition to Hive")]
         HiveEntry,
         [Description("King's Pass (Transition)"), ToolTip("Splits when leaving King's pass")]
@@ -928,17 +938,11 @@ namespace LiveSplit.HollowKnight {
 
         [Description("Main Menu (Menu)"), ToolTip("Splits on main menu")]
         Menu,
-        [Description("Main Menu w/ Claw (Transition)"), ToolTip("Splits on transition to menu after Mantis Claw acquired")]
+        [Description("Main Menu w/ Claw (Menu)"), ToolTip("Splits on transition to menu after Mantis Claw acquired")]
         MenuClaw,
-        [Description("Main Menu w/ Ghusk (Transition)"), ToolTip("Splits on transition to menu after Gorgeous Husk defeated")]
+        [Description("Main Menu w/ Ghusk (Menu)"), ToolTip("Splits on transition to menu after Gorgeous Husk defeated")]
         MenuGorgeousHusk,
-        [Description("Has Claw (Transition)"), ToolTip("Splits on transition to menu after Mantis Claw acquired")]
-        TransClaw,
-        [Description("Gorgeous Husk (Transition)"), ToolTip("Splits on transition to menu after Gorgeous Husk defeated")]
-        TransGorgeousHusk,
 
-        [Description("Death (Event)"), ToolTip("Splits when player hp is 0")]
-        PlayerDeath
 
         /*
         [Description("Mage Door (Test)"), ToolTip("Splits when Nailsmith is spared")] 
