@@ -101,6 +101,8 @@ namespace LiveSplit.HollowKnight {
         HasDelicateFlower,
         [Description("Elegant Key (Item)"), ToolTip("Splits when obtaining the Elegant Key")]
         ElegantKey,
+        [Description("Elegant Key Shoptimisation (Item)"), ToolTip("Splits when obtaining both mask shard 1 and Elegant Key")]
+        ElegantKeyShoptimised,
         [Description("God Tuner (Item)"), ToolTip("Splits when obtaining the God Tuner")]
         GodTuner,
         [Description("Hunter's Mark (Item)"), ToolTip("Splits when obtaining the Hunter's Mark")]
