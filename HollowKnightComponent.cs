@@ -750,6 +750,11 @@ namespace LiveSplit.HollowKnight {
                         && !sceneName.StartsWith("Room_shop")
                         && mem.PlayerData<bool>(Offset.gotCharm_37);
                     break;
+                case SplitName.ElegantKeyShoptimised:
+                    shouldSplit =
+                        shouldSplit = mem.PlayerData<int>(Offset.maxHealthBase) == 5 && mem.PlayerData<int>(Offset.heartPieces) == 1
+                        && mem.PlayerData<bool>(Offset.hasWhiteKey);
+                    break;
             }
             return shouldSplit;
         }

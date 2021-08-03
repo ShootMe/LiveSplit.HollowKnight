@@ -1,5 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <updates>
+  <update version="3.0.1">
+    <files>
+      <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+    </files>
+    <changelog>
+      <change> 106% elegant key shoptimisation split </change>
+    </changelog>
+  </update>
     <update version="3.0.0">
       <files>
         <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
