@@ -417,8 +417,6 @@ namespace LiveSplit.HollowKnight {
         FlowerRewardGiven,
         [Description("Happy Couple (Event)"), ToolTip("Splits when talking to Nailsmith in Sheo's hut for the first time")]
         HappyCouplePlayerDataEvent,
-        [Description("Lemm 2 - ACN (Event)"), ToolTip("Splits on having sold a total: 1 journal, 6 seals, and 4 idols to Lemm")]
-        AllCharmNotchesLemm2CP,
         [Description("Nailsmith - Killed (Event)"), ToolTip("Splits when Nailsmith is killed")]
         NailsmithKilled,
         [Description("Nailsmith - Spared (Event)"), ToolTip("Splits when Nailsmith is registered as `spared`")]
@@ -716,12 +714,14 @@ namespace LiveSplit.HollowKnight {
         [Description("Salubra 4 (Charm Notch)"), ToolTip("Splits when obtaining the fourth charm notch from Salubra")]
         NotchSalubra4,
 
+        [Description("Lemm Shop (NPC)"), ToolTip("Splits when talking to Lemm in the shop for the first time")]
+        Lemm2,
+        [Description("Lemm - ACN (Event)"), ToolTip("Splits on having sold a total: 1 journal, 6 seals, and 4 idols to Lemm")]
+        AllCharmNotchesLemm2CP,
         [Description("Met Grey Mourner (NPC)"), ToolTip("Splits when talking to Grey Mourner for the first time")]
         MetGreyMourner,
         [Description("Mourner w/ Seer Ascended (NPC)"), ToolTip("Splits when both talked to Grey Mourner and Seer has ascended")]
         GreyMournerSeerAscended,
-        [Description("Relic Dealer Lemm Shop (NPC)"), ToolTip("Splits when talking to Lemm in the shop for the first time")]
-        Lemm2,
         [Description("Elderbug Flower Quest (NPC)"), ToolTip("Splits when giving the flower to the Elderbug")]
         ElderbugFlower,
         [Description("Bretta Rescued (NPC)"), ToolTip("Splits when saving Bretta")]
@@ -957,6 +957,30 @@ namespace LiveSplit.HollowKnight {
         AllBreakables,
         [Description("Met Emilitia (Event)"), ToolTip("Splits when talking to Emilitia for the first time")]
         MetEmilitia,
+
+        AllSeals,
+        AllEggs,
+        SlySimpleKey,
+        AllBreakables,
+        CorniferAtHome,
+        mapDirtmouth,
+        mapCrossroads,
+        mapGreenpath,
+        mapFogCanyon,
+        mapRoyalGardens,
+        mapFungalWastes,
+        mapCity,
+        mapWaterways,
+        mapMines,
+        mapDeepnest,
+        mapCliffs,
+        mapOutskirts,
+        mapRestingGrounds,
+        mapAbyss,
+        givenGodseekerFlower,
+        givenOroFlower,
+        givenWhiteLadyFlower,
+        givenEmilitiaFlower,
 
         /*
         [Description("Mage Door (Test)"), ToolTip("Splits when Nailsmith is spared")] 
