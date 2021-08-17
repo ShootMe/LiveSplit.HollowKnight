@@ -592,7 +592,7 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.TraitorLordP: shouldSplit = sceneName.StartsWith("GG_Traitor_Lord") && nextScene.StartsWith("GG_White_Defender"); break;
                 case SplitName.WhiteDefenderP: shouldSplit = sceneName.StartsWith("GG_White_Defender") && nextScene == "GG_Spa"; break;
                 case SplitName.FailedChampionP: shouldSplit = sceneName.StartsWith("GG_Failed_Champion") && (nextScene.StartsWith("GG_Ghost_Markoth") || nextScene.StartsWith("GG_Grimm_Nightmare")); break;
-                case SplitName.MarkothP: shouldSplit = sceneName.StartsWith("GG_Ghost_Markoth") && (nextScene.StartsWith("GG_Watcher_Knights") || nextScene.StartsWith("GG_Grey_Prince_Zote")); break;
+                case SplitName.MarkothP: shouldSplit = sceneName.StartsWith("GG_Ghost_Markoth") && (nextScene.StartsWith("GG_Watcher_Knights") || nextScene.StartsWith("GG_Grey_Prince_Zote") || nextScene.StartsWith("GG_Failed_Champion")); break;
                 case SplitName.WatcherKnightsP: shouldSplit = sceneName.StartsWith("GG_Watcher_Knights") && (nextScene.StartsWith("GG_Soul_Tyrant") || nextScene.StartsWith("GG_Uumuu")); break;
                 case SplitName.SoulTyrantP: shouldSplit = sceneName.StartsWith("GG_Soul_Tyrant") && (nextScene == "GG_Engine_Prime" || nextScene.StartsWith("GG_Ghost_Markoth")); break;
                 case SplitName.PureVesselP: shouldSplit = sceneName.StartsWith("GG_Hollow_Knight") && (nextScene == "GG_End_Sequence" || nextScene.StartsWith("GG_Radiance") || nextScene == "GG_Door_5_Finale"); break;
@@ -752,9 +752,22 @@ namespace LiveSplit.HollowKnight {
                     break;
                 case SplitName.ElegantKeyShoptimised:
                     shouldSplit =
-                        shouldSplit = mem.PlayerData<int>(Offset.maxHealthBase) == 5 && mem.PlayerData<int>(Offset.heartPieces) == 1
+                        mem.PlayerData<int>(Offset.maxHealthBase) == 5 && mem.PlayerData<int>(Offset.heartPieces) == 1
                         && mem.PlayerData<bool>(Offset.hasWhiteKey);
                     break;
+                case SplitName.AllSeals: shouldSplit = mem.PlayerData<int>(Offset.trinket2) + mem.PlayerData<int>(Offset.soldTrinket2) == 17; break;
+                case SplitName.AllEggs: shouldSplit = mem.PlayerData<int>(Offset.rancidEggs) + mem.PlayerData<int>(Offset.jinnEggsSold) == 21; break;
+                case SplitName.SlySimpleKey: shouldSplit = mem.PlayerData<bool>(Offset.slySimpleKey); break;
+                case SplitName.AllBreakables:
+                    shouldSplit = mem.PlayerData<bool>(Offset.pooedFragileHeart) &&
+                        mem.PlayerData<bool>(Offset.pooedFragileGreed) &&
+                        mem.PlayerData<bool>(Offset.pooedFragileStrength);
+                    break;
+                case SplitName.CorniferAtHome:
+                    shouldSplit = mem.PlayerData<bool>(Offset.corniferAtHome) && sceneName.StartsWith("Town") && nextScene.StartsWith("Room_mapper");
+                    break;
+
+
             }
             return shouldSplit;
         }

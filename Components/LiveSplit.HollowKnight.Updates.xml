@@ -1,5 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <updates>
+  <update version="3.0.2">
+    <files>
+      <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+    </files>
+    <changelog>
+      <change> Implemented Flibber's splits </change>
+      <change>  </change>
+    </changelog>
+  </update>
   <update version="3.0.1">
     <files>
       <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
