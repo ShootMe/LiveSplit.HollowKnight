@@ -339,25 +339,8 @@
         givenWhiteLadyFlower,
         givenEmilitiaFlower,
         zoteDead,
-
-        corniferAtHome
-        metQuirrel,
-        quirrelEggTemple,
-        quirrelSlugShrine,
-        quirrelRuins,
-        quirrelMines,
-        quirrelLeftStation,
-        quirrelLeftEggTemple,
-        quirrelCityEncountered,
-        quirrelCityLeft,
-        quirrelMinesEncountered,
-        quirrelMinesLeft,
-        quirrelMantisEncountered,
-        enteredMantisLordArea,
-        quirrelSpaReady,
-        quirrelSpaEncountered,
-        quirrelArchiveEncountered,
-        quirrelEpilogueCompleted,
+        corniferAtHome,
+        metEmilitia,
     }
     public enum GameState {
         INACTIVE,
