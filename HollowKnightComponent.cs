@@ -751,10 +751,21 @@ namespace LiveSplit.HollowKnight {
                         && mem.PlayerData<bool>(Offset.gotCharm_37);
                     break;
                 case SplitName.ElegantKeyShoptimised:
-                    shouldSplit =
-                        shouldSplit = mem.PlayerData<int>(Offset.maxHealthBase) == 5 && mem.PlayerData<int>(Offset.heartPieces) == 1
+                    shouldSplit = mem.PlayerData<int>(Offset.maxHealthBase) == 5 && mem.PlayerData<int>(Offset.heartPieces) == 1
                         && mem.PlayerData<bool>(Offset.hasWhiteKey);
                     break;
+                case SplitName.CorniferAtHome:
+                    shouldSplit = mem.PlayerData<bool>(Offset.corniferAtHome) && sceneName.StartsWith("Town") && nextScene.StartsWith("Room_mapper");
+                    break;
+                case SplitName.AllSeals: shouldSplit = mem.PlayerData<int>(Offset.trinket2) + mem.PlayerData<int>(Offset.soldTrinket2) == 17; break;
+                case SplitName.AllEggs: shouldSplit = mem.PlayerData<int>(Offset.rancidEggs) + mem.PlayerData<int>(Offset.jinnEggsSold) == 21; break;
+                case SplitName.SlySimpleKey: shouldSplit = mem.PlayerData<bool>(Offset.slySimpleKey); break;
+                case SplitName.AllBreakables:
+                    shouldSplit = mem.PlayerData<bool>(Offset.pooedFragileHeart) &&
+                        mem.PlayerData<bool>(Offset.pooedFragileGreed) &&
+                        mem.PlayerData<bool>(Offset.pooedFragileStrength);
+                    break;
+                case SplitName.MetEmilitia: shouldSplit = mem.PlayerData<bool>(Offset.metEmilitia); break;
             }
             return shouldSplit;
         }

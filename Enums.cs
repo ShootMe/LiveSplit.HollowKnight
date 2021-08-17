@@ -315,6 +315,14 @@
 
         nailsmithConvoArt,
 
+        corniferAtHome,
+        rancidEggs,
+        jinnEggsSold,
+        slySimpleKey,
+        pooedFragileHeart,
+        pooedFragileGreed,
+        pooedFragileStrength,
+        metEmilitia,
     }
     public enum GameState {
         INACTIVE,

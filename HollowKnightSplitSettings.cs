@@ -945,6 +945,18 @@ namespace LiveSplit.HollowKnight {
         [Description("Main Menu w/ Ghusk (Menu)"), ToolTip("Splits on transition to menu after Gorgeous Husk defeated")]
         MenuGorgeousHusk,
 
+        [Description("Cornifer at Home (Transition)"), ToolTip("Splits when entering Iselda's hut while Cornifer is sleeping")]
+        CorniferAtHome,
+        [Description("All Seals (Item)"), ToolTip("Splits when 17 Hallownest Seals have been collected")]
+        AllSeals,
+        [Description("All Eggs (Item)"), ToolTip("Splits when 21 Rancid Eggs have been collected")]
+        AllEggs,
+        [Description("Sly Simple Key (Item)"), ToolTip("Splits when buying the simple key from Sly")]
+        SlySimpleKey,
+        [Description("All Breakables (Event)"), ToolTip("Splits when all 3 fragile charms are broken")]
+        AllBreakables,
+        [Description("Met Emilitia (Event)"), ToolTip("Splits when talking to Emilitia for the first time")]
+        MetEmilitia,
 
         /*
         [Description("Mage Door (Test)"), ToolTip("Splits when Nailsmith is spared")] 
