@@ -935,7 +935,7 @@ namespace LiveSplit.HollowKnight {
         [Description("Soul Master Encountered (Practice)"), ToolTip("Splits when Soul Master is activated the first time and the gate closes")]
         SoulMasterEncountered,
 
-        [Description("Godhome Bench_TEST (Transition)"), ToolTip("Splits when leaving a Godhome Bench room")]
+        [Description("Godhome Bench (Transition)"), ToolTip("Splits when leaving a Godhome Bench room")]
         GodhomeBench,
 
         [Description("Main Menu (Menu)"), ToolTip("Splits on main menu")]
@@ -958,28 +958,42 @@ namespace LiveSplit.HollowKnight {
         [Description("Met Emilitia (Event)"), ToolTip("Splits when talking to Emilitia for the first time")]
         MetEmilitia,
 
-        AllSeals,
-        AllEggs,
-        SlySimpleKey,
-        AllBreakables,
-        CorniferAtHome,
+        [Description("Map Dirtmouth (Item)"), ToolTip("Splits when acquiring the Dirtmouth map")]
         mapDirtmouth,
+        [Description("Map Crossroads (Item)"), ToolTip("Splits when acquiring the Crossroads map")]
         mapCrossroads,
+        [Description("Map Greenpath (Item)"), ToolTip("Splits when acquiring the Greenpath map")]
         mapGreenpath,
+        [Description("Map Fog Canyon (Item)"), ToolTip("Splits when acquiring the Fog Canyon map")]
         mapFogCanyon,
+        [Description("Map Queens Gardens (Item)"), ToolTip("Splits when acquiring the QG map")]
         mapRoyalGardens,
+        [Description("Map Fungal Wastes (Item)"), ToolTip("Splits when acquiring the Fungal Wastes map")]
         mapFungalWastes,
+        [Description("Map City of Tears (Item)"), ToolTip("Splits when acquiring the City map")]
         mapCity,
+        [Description("Map Waterways (Item)"), ToolTip("Splits when acquiring the Waterways map")]
         mapWaterways,
+        [Description("Map Crystal Peak (Item)"), ToolTip("Splits when acquiring the Crystal Peak map")]
         mapMines,
+        [Description("Map Deepnest (Item)"), ToolTip("Splits when acquiring the Deepnest map")]
         mapDeepnest,
+        [Description("Map Howling Cliffs (Item)"), ToolTip("Splits when acquiring the Howling Cliffs map")]
         mapCliffs,
+        [Description("Map Kingdom's Edge (Item)"), ToolTip("Splits when acquiring the KE map")]
         mapOutskirts,
+        [Description("Map Resting Grounds (Item)"), ToolTip("Splits when acquiring the Resting Grounds map")]
         mapRestingGrounds,
+        [Description("Map Ancient Basin (Item)"), ToolTip("Splits when acquiring the Abyss map")]
         mapAbyss,
+
+        [Description("Godseeker Flower (NPC)"), ToolTip("Splits when giving Godseeker a flower")]
         givenGodseekerFlower,
+        [Description("Oro Flower (NPC)"), ToolTip("Splits when giving Oro a flower")]
         givenOroFlower,
+        [Description("White Lady Flower (NPC)"), ToolTip("Splits when giving White Lady a flower")]
         givenWhiteLadyFlower,
+        [Description("Emilitia Flower (NPC)"), ToolTip("Splits when giving Emilita a flower")]
         givenEmilitiaFlower,
 
         /*

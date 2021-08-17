@@ -768,6 +768,25 @@ namespace LiveSplit.HollowKnight {
                     break;
 
                 case SplitName.MetEmilitia: shouldSplit = mem.PlayerData<bool>(Offset.metEmilitia); break;
+                case SplitName.mapDirtmouth: shouldSplit = mem.PlayerData<bool>(Offset.mapDirtmouth); break;
+                case SplitName.mapCrossroads: shouldSplit = mem.PlayerData<bool>(Offset.mapCrossroads); break;
+                case SplitName.mapGreenpath: shouldSplit = mem.PlayerData<bool>(Offset.mapGreenpath); break;
+                case SplitName.mapFogCanyon: shouldSplit = mem.PlayerData<bool>(Offset.mapFogCanyon); break;
+                case SplitName.mapRoyalGardens: shouldSplit = mem.PlayerData<bool>(Offset.mapRoyalGardens); break;
+                case SplitName.mapFungalWastes: shouldSplit = mem.PlayerData<bool>(Offset.mapFungalWastes); break;
+                case SplitName.mapCity: shouldSplit = mem.PlayerData<bool>(Offset.mapCity); break;
+                case SplitName.mapWaterways: shouldSplit = mem.PlayerData<bool>(Offset.mapWaterways); break;
+                case SplitName.mapMines: shouldSplit = mem.PlayerData<bool>(Offset.mapMines); break;
+                case SplitName.mapDeepnest: shouldSplit = mem.PlayerData<bool>(Offset.mapDeepnest); break;
+                case SplitName.mapCliffs: shouldSplit = mem.PlayerData<bool>(Offset.mapCliffs); break;
+                case SplitName.mapOutskirts: shouldSplit = mem.PlayerData<bool>(Offset.mapOutskirts); break;
+                case SplitName.mapRestingGrounds: shouldSplit = mem.PlayerData<bool>(Offset.mapRestingGrounds); break;
+                case SplitName.mapAbyss: shouldSplit = mem.PlayerData<bool>(Offset.mapAbyss); break;
+                case SplitName.givenGodseekerFlower: shouldSplit = mem.PlayerData<bool>(Offset.givenGodseekerFlower); break;
+                case SplitName.givenOroFlower: shouldSplit = mem.PlayerData<bool>(Offset.givenOroFlower); break;
+                case SplitName.givenWhiteLadyFlower: shouldSplit = mem.PlayerData<bool>(Offset.givenWhiteLadyFlower); break;
+                case SplitName.givenEmilitiaFlower: shouldSplit = mem.PlayerData<bool>(Offset.givenEmilitiaFlower); break;
+
             }
             return shouldSplit;
         }
