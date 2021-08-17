@@ -1,5 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <updates>
+  <update version="3.0.2">
+    <files>
+      <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+    </files>
+    <changelog>
+      <change> Flib's meme run splits: Dapper Mapper (Cornifer at Home), All Seals, All Rancid Eggs, All Simple Keys (Sly Simple Key), All Breakables, and GGG (Met Emilitia) </change>
+      <change> All individual maps, flower given to: Godseeker, Oro, White Lady, Emilitia </change>
+      <change> All new splits added to the bottom of the list </change>
+    </changelog>
+  </update>
   <update version="3.0.1">
     <files>
       <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
