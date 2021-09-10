@@ -341,6 +341,7 @@
         zoteDead,
         corniferAtHome,
         metEmilitia,
+        killsOblobble
     }
     public enum GameState {
         INACTIVE,

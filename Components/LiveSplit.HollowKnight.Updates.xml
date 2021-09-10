@@ -1,5 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <updates>
+  <update version="3.0.3">
+    <files>
+      <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+    </files>
+    <changelog>
+      <change> Enter White Palace transition split ("White Palace Entry (Transition)") </change>
+      <change> Oblobbles boss split </change>
+      <change> Manual Split that will never autosplit as a workaround for using manual splits with ordered splits turned on </change>
+      <change> QG frogs and post-upper arena splits. Not immediately useful, but potentially nice-to-have ("Queen's Garden - Frogs (Transition)" + "Queen's Garden - Post-Upper Arena (Transition)") </change>
+    </changelog>
+  </update>
   <update version="3.0.2">
     <files>
       <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
