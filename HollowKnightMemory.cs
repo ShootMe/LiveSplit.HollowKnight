@@ -119,6 +119,17 @@ namespace LiveSplit.HollowKnight {
                     //UIManager
                     uiState = 0x2a4;
                     menuState = 0x2a8;
+
+                    // Modding API 1.5.75.11827-63
+                    // MAPI keeps the same ui property, but changes it to get/set from a different backing field.
+                    // The original backing field stays at the same address, but has no setters any more.
+                    if (gameManager.Read<IntPtr>(Program, 0x0, uiManager) == IntPtr.Zero) {
+                        gameState = 0x184;
+                        tilemapDirty = 0x1bb;
+                        uiState = 0x2ac;
+                        menuState = 0x2b0;
+                        uiManager = 0x178;
+                    }
                 }
             } else {
                 len = gameManager.Read<int>(Program, 0x0, inputHandler, debugInfo, versionString, 0x8);
@@ -337,7 +348,7 @@ namespace LiveSplit.HollowKnight {
 
             List<string> list = new List<string>();
             for (int i = 0; i < arraySize; i++) {
-                int itemOffset = MemoryReader.is64Bit ? 0x20 + 8 * (i + 1) : 0xc + 4 * (i + 1);
+                int itemOffset = MemoryReader.is64Bit ? 0x18 + 8 * (i + 1) : 0xc + 4 * (i + 1);
                 IntPtr itemPtr = Program.Read<IntPtr>(arrayPtr + itemOffset);
                 if (itemPtr == IntPtr.Zero) {
                     continue;
