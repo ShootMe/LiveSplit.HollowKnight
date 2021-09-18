@@ -6,7 +6,8 @@
     </files>
     <changelog>
       <change> Pantheon entry splits ("Pantheon 1-4 (Transition)" and "Pantheon 5 (Transition)"). Grouped with Godhome Bench </change>
-      <change> Courtesy of Flib: fixed 1.5.75 api load removal + dreamtrees (fixed a datatype offset error) </change>
+      <change> Flibber: fixed 1.5.75 modapi loadremoval + dreamtrees (fixed a datatype offset error) </change>
+      <change> Slaurent: added grubs by scene splits for all grubs </change>
     </changelog>
   </update>
   <update version="3.0.3">
