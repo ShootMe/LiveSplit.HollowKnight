@@ -1012,6 +1012,13 @@ namespace LiveSplit.HollowKnight {
         [Description("Manual Split (Misc)"), ToolTip("Never splits. Use this when you need to manually split while using ordered splits")]
         ManualSplit,
 
+        [Description("Pantheon 1-4 Entry (idk)"), ToolTip("Splits on entry to any of pantheon 1 - 4")]
+        Pantheon1to4Entry,
+        [Description("Pantheon 5 Entry (idk)"), ToolTip("Splits on entry to pantheon 5")]
+        Pantheon5Entry
+
+
+
 
         /*
         [Description("Mage Door (Test)"), ToolTip("Splits when Nailsmith is spared")] 

@@ -794,7 +794,9 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.WhitePalaceLowerOrb: shouldSplit = nextScene.StartsWith("White_Palace_02") && nextScene != sceneName; break;
                 case SplitName.QueensGardensPostArenaTransition: shouldSplit = nextScene.StartsWith("Fungus3_13") && nextScene != sceneName; break;
                 case SplitName.QueensGardensFrogsTrans: shouldSplit = nextScene.StartsWith("Fungus1_23") && nextScene != sceneName; break;
-
+                case SplitName.Pantheon1to4Entry: shouldSplit = nextScene.StartsWith("GG_Boss_Door_Entrance") && nextScene != sceneName; break;
+                case SplitName.Pantheon5Entry: shouldSplit = nextScene.StartsWith("GG_Vengefly_V") && nextScene != sceneName; break;
+                    
             }
             return shouldSplit;
         }
