@@ -950,6 +950,10 @@ namespace LiveSplit.HollowKnight {
 
         [Description("Godhome Bench (Transition)"), ToolTip("Splits when leaving a Godhome Bench room")]
         GodhomeBench,
+        [Description("Pantheon 1-4 (Transition)"), ToolTip("Splits on entry to any of pantheon 1 - 4")]
+        Pantheon1to4Entry,
+        [Description("Pantheon 5 (Transition)"), ToolTip("Splits on entry to pantheon 5")]
+        Pantheon5Entry,
 
         [Description("Main Menu (Menu)"), ToolTip("Splits on main menu")]
         Menu,
@@ -1012,10 +1016,7 @@ namespace LiveSplit.HollowKnight {
         [Description("Manual Split (Misc)"), ToolTip("Never splits. Use this when you need to manually split while using ordered splits")]
         ManualSplit,
 
-        [Description("Pantheon 1-4 Entry (idk)"), ToolTip("Splits on entry to any of pantheon 1 - 4")]
-        Pantheon1to4Entry,
-        [Description("Pantheon 5 Entry (idk)"), ToolTip("Splits on entry to pantheon 5")]
-        Pantheon5Entry
+
 
 
 

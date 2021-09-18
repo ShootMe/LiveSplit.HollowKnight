@@ -5,7 +5,8 @@
       <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
     </files>
     <changelog>
-      <change> Pantheon entry splits () </change>
+      <change> Pantheon entry splits ("Pantheon 1-4 (Transition)" and "Pantheon 5 (Transition)"). Grouped with Godhome Bench </change>
+      <change> Courtesy of Flib: fixed 1.5.75 api load removal + dreamtrees (fixed a datatype offset error) </change>
     </changelog>
   </update>
   <update version="3.0.3">
