@@ -872,7 +872,7 @@ namespace LiveSplit.HollowKnight {
         TreeGreenpath,
         [Description("Whispering Root (Hive)"), ToolTip("Splits upon completing the whispering root in the Hive")]
         TreeHive,
-        [Description("Whispering Root (Howling Cliifs)"), ToolTip("Splits upon completing the whispering root in the Howling Cliifs")]
+        [Description("Whispering Root (Howling Cliffs)"), ToolTip("Splits upon completing the whispering root in the Howling Cliifs")]
         TreeCliffs,
         [Description("Whispering Root (Kingdom's Edge)"), ToolTip("Splits upon completing the whispering root in the Kingdom's Edge")]
         TreeKingdomsEdge,
