@@ -533,6 +533,51 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.Grub45: shouldSplit = mem.PlayerData<int>(Offset.grubsCollected) == 45; break;
                 case SplitName.Grub46: shouldSplit = mem.PlayerData<int>(Offset.grubsCollected) == 46; break;
 
+                case SplitName.GrubBasinDive:                shouldSplit = mem.PlayerDataStringList(Offset.scenesGrubRescued).Contains("Abyss_17"); break;
+                case SplitName.GrubBasinWings:               shouldSplit = mem.PlayerDataStringList(Offset.scenesGrubRescued).Contains("Abyss_19"); break;
+                case SplitName.GrubCityBelowLoveTower:       shouldSplit = mem.PlayerDataStringList(Offset.scenesGrubRescued).Contains("Ruins2_07"); break;
+                case SplitName.GrubCityBelowSanctum:         shouldSplit = mem.PlayerDataStringList(Offset.scenesGrubRescued).Contains("Ruins1_05"); break;
+                case SplitName.GrubCityCollectorAll:         shouldSplit = mem.PlayerDataStringList(Offset.scenesGrubRescued).Contains("Ruins2_11"); break;
+                case SplitName.GrubCityGuardHouse:           shouldSplit = mem.PlayerDataStringList(Offset.scenesGrubRescued).Contains("Ruins_House_01"); break;
+                case SplitName.GrubCitySanctum:              shouldSplit = mem.PlayerDataStringList(Offset.scenesGrubRescued).Contains("Ruins1_32"); break;
+                case SplitName.GrubCitySpire:                shouldSplit = mem.PlayerDataStringList(Offset.scenesGrubRescued).Contains("Ruins2_03"); break;
+                case SplitName.GrubCliffsBaldurShell:        shouldSplit = mem.PlayerDataStringList(Offset.scenesGrubRescued).Contains("Fungus1_28"); break;
+                case SplitName.GrubCrossroadsAcid:           shouldSplit = mem.PlayerDataStringList(Offset.scenesGrubRescued).Contains("Crossroads_35"); break;
+                case SplitName.GrubCrossroadsGuarded:        shouldSplit = mem.PlayerDataStringList(Offset.scenesGrubRescued).Contains("Crossroads_48"); break;
+                case SplitName.GrubCrossroadsSpikes:         shouldSplit = mem.PlayerDataStringList(Offset.scenesGrubRescued).Contains("Crossroads_31"); break;
+                case SplitName.GrubCrossroadsVengefly:       shouldSplit = mem.PlayerDataStringList(Offset.scenesGrubRescued).Contains("Crossroads_05"); break;
+                case SplitName.GrubCrossroadsWall:           shouldSplit = mem.PlayerDataStringList(Offset.scenesGrubRescued).Contains("Crossroads_03"); break;
+                case SplitName.GrubCrystalPeaksBottomLever:  shouldSplit = mem.PlayerDataStringList(Offset.scenesGrubRescued).Contains("Mines_04"); break;
+                case SplitName.GrubCrystalPeaksCrown:        shouldSplit = mem.PlayerDataStringList(Offset.scenesGrubRescued).Contains("Mines_24"); break;
+                case SplitName.GrubCrystalPeaksCrushers:     shouldSplit = mem.PlayerDataStringList(Offset.scenesGrubRescued).Contains("Mines_19"); break;
+                case SplitName.GrubCrystalPeaksCrystalHeart: shouldSplit = mem.PlayerDataStringList(Offset.scenesGrubRescued).Contains("Mines_31"); break;
+                case SplitName.GrubCrystalPeaksMimics:       shouldSplit = mem.PlayerDataStringList(Offset.scenesGrubRescued).Contains("Mines_16"); break;
+                case SplitName.GrubCrystalPeaksMound:        shouldSplit = mem.PlayerDataStringList(Offset.scenesGrubRescued).Contains("Mines_35"); break;
+                case SplitName.GrubCrystalPeaksSpikes:       shouldSplit = mem.PlayerDataStringList(Offset.scenesGrubRescued).Contains("Mines_03"); break;
+                case SplitName.GrubDeepnestBeastsDen:        shouldSplit = mem.PlayerDataStringList(Offset.scenesGrubRescued).Contains("Deepnest_Spider_Town"); break;
+                case SplitName.GrubDeepnestDark:             shouldSplit = mem.PlayerDataStringList(Offset.scenesGrubRescued).Contains("Deepnest_39"); break;
+                case SplitName.GrubDeepnestMimics:           shouldSplit = mem.PlayerDataStringList(Offset.scenesGrubRescued).Contains("Deepnest_36"); break;
+                case SplitName.GrubDeepnestNosk:             shouldSplit = mem.PlayerDataStringList(Offset.scenesGrubRescued).Contains("Deepnest_31"); break;
+                case SplitName.GrubDeepnestSpikes:           shouldSplit = mem.PlayerDataStringList(Offset.scenesGrubRescued).Contains("Deepnest_03"); break;
+                case SplitName.GrubFogCanyonArchives:        shouldSplit = mem.PlayerDataStringList(Offset.scenesGrubRescued).Contains("Fungus3_47"); break;
+                case SplitName.GrubFungalBouncy:             shouldSplit = mem.PlayerDataStringList(Offset.scenesGrubRescued).Contains("Fungus2_18"); break;
+                case SplitName.GrubFungalSporeShroom:        shouldSplit = mem.PlayerDataStringList(Offset.scenesGrubRescued).Contains("Fungus2_20"); break;
+                case SplitName.GrubGreenpathCornifer:        shouldSplit = mem.PlayerDataStringList(Offset.scenesGrubRescued).Contains("Fungus1_06"); break;
+                case SplitName.GrubGreenpathHunter:          shouldSplit = mem.PlayerDataStringList(Offset.scenesGrubRescued).Contains("Fungus1_07"); break;
+                case SplitName.GrubGreenpathMossKnight:      shouldSplit = mem.PlayerDataStringList(Offset.scenesGrubRescued).Contains("Fungus1_21"); break;
+                case SplitName.GrubGreenpathVesselFragment:  shouldSplit = mem.PlayerDataStringList(Offset.scenesGrubRescued).Contains("Fungus1_13"); break;
+                case SplitName.GrubHiveExternal:             shouldSplit = mem.PlayerDataStringList(Offset.scenesGrubRescued).Contains("Hive_03"); break;
+                case SplitName.GrubHiveInternal:             shouldSplit = mem.PlayerDataStringList(Offset.scenesGrubRescued).Contains("Hive_04"); break;
+                case SplitName.GrubKingdomsEdgeCenter:       shouldSplit = mem.PlayerDataStringList(Offset.scenesGrubRescued).Contains("Deepnest_East_11"); break;
+                case SplitName.GrubKingdomsEdgeOro:          shouldSplit = mem.PlayerDataStringList(Offset.scenesGrubRescued).Contains("Deepnest_East_14"); break;
+                case SplitName.GrubQueensGardensBelowStag:   shouldSplit = mem.PlayerDataStringList(Offset.scenesGrubRescued).Contains("Fungus3_10"); break;
+                case SplitName.GrubQueensGardensUpper:       shouldSplit = mem.PlayerDataStringList(Offset.scenesGrubRescued).Contains("Fungus3_22"); break;
+                case SplitName.GrubQueensGardensWhiteLady:   shouldSplit = mem.PlayerDataStringList(Offset.scenesGrubRescued).Contains("Fungus3_48"); break;
+                case SplitName.GrubRestingGroundsCrypts:     shouldSplit = mem.PlayerDataStringList(Offset.scenesGrubRescued).Contains("RestingGrounds_10"); break;
+                case SplitName.GrubWaterwaysCenter:          shouldSplit = mem.PlayerDataStringList(Offset.scenesGrubRescued).Contains("Waterways_04"); break;
+                case SplitName.GrubWaterwaysHwurmps:         shouldSplit = mem.PlayerDataStringList(Offset.scenesGrubRescued).Contains("Waterways_14"); break;
+                case SplitName.GrubWaterwaysIsma:            shouldSplit = mem.PlayerDataStringList(Offset.scenesGrubRescued).Contains("Waterways_13"); break;
+
                 case SplitName.TreeCity: shouldSplit = mem.PlayerDataStringList(Offset.scenesEncounteredDreamPlantC).Contains("Ruins1_17"); break;
                 case SplitName.TreeCliffs: shouldSplit = mem.PlayerDataStringList(Offset.scenesEncounteredDreamPlantC).Contains("Cliffs_01"); break;
                 case SplitName.TreeCrossroads: shouldSplit = mem.PlayerDataStringList(Offset.scenesEncounteredDreamPlantC).Contains("Crossroads_07"); break;
@@ -794,7 +839,9 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.WhitePalaceLowerOrb: shouldSplit = nextScene.StartsWith("White_Palace_02") && nextScene != sceneName; break;
                 case SplitName.QueensGardensPostArenaTransition: shouldSplit = nextScene.StartsWith("Fungus3_13") && nextScene != sceneName; break;
                 case SplitName.QueensGardensFrogsTrans: shouldSplit = nextScene.StartsWith("Fungus1_23") && nextScene != sceneName; break;
-
+                case SplitName.Pantheon1to4Entry: shouldSplit = nextScene.StartsWith("GG_Boss_Door_Entrance") && nextScene != sceneName; break;
+                case SplitName.Pantheon5Entry: shouldSplit = nextScene.StartsWith("GG_Vengefly_V") && nextScene != sceneName; break;
+                    
             }
             return shouldSplit;
         }
