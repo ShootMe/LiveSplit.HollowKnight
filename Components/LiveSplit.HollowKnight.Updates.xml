@@ -1,5 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <updates>
+  <update version="3.0.5">
+    <files>
+      <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+    </files>
+    <changelog>
+        <change> Settings UI improvements for both performance and UX (slaurent) </change>
+    </changelog>
+  </update>
   <update version="3.0.4">
     <files>
       <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>

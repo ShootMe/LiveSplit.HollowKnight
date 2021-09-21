@@ -29,6 +29,9 @@
             this.cboName = new System.Windows.Forms.ComboBox();
             this.ToolTips = new System.Windows.Forms.ToolTip(this.components);
             this.picHandle = new System.Windows.Forms.PictureBox();
+            this.btnEdit = new System.Windows.Forms.Button();
+            this.btnAddBelow = new System.Windows.Forms.Button();
+            this.btnAddAbove = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.picHandle)).BeginInit();
             this.SuspendLayout();
             // 
@@ -63,17 +66,50 @@
             this.picHandle.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picHandle_MouseDown);
             this.picHandle.MouseMove += new System.Windows.Forms.MouseEventHandler(this.picHandle_MouseMove);
             // 
+            // btnEdit
+            // 
+            this.btnEdit.Location = new System.Drawing.Point(306, 2);
+            this.btnEdit.Name = "btnEdit";
+            this.btnEdit.Size = new System.Drawing.Size(26, 23);
+            this.btnEdit.TabIndex = 6;
+            this.btnEdit.Text = "✏";
+            this.ToolTips.SetToolTip(this.btnEdit, "edit this setting");
+            this.btnEdit.UseVisualStyleBackColor = true;
+            // 
+            // btnAddBelow
+            // 
+            this.btnAddBelow.Location = new System.Drawing.Point(378, 2);
+            this.btnAddBelow.Name = "btnAddBelow";
+            this.btnAddBelow.Size = new System.Drawing.Size(34, 23);
+            this.btnAddBelow.TabIndex = 8;
+            this.btnAddBelow.Text = "+↓";
+            this.ToolTips.SetToolTip(this.btnAddBelow, "add a split below this");
+            this.btnAddBelow.UseVisualStyleBackColor = true;
+            // 
+            // btnAddAbove
+            // 
+            this.btnAddAbove.Location = new System.Drawing.Point(338, 2);
+            this.btnAddAbove.Name = "btnAddAbove";
+            this.btnAddAbove.Size = new System.Drawing.Size(34, 23);
+            this.btnAddAbove.TabIndex = 7;
+            this.btnAddAbove.Text = "+↑";
+            this.ToolTips.SetToolTip(this.btnAddAbove, "add a split above this");
+            this.btnAddAbove.UseVisualStyleBackColor = true;
+            // 
             // HollowKnightSplitSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
+            this.Controls.Add(this.btnAddBelow);
+            this.Controls.Add(this.btnAddAbove);
+            this.Controls.Add(this.btnEdit);
             this.Controls.Add(this.btnRemove);
             this.Controls.Add(this.cboName);
             this.Controls.Add(this.picHandle);
             this.Margin = new System.Windows.Forms.Padding(0);
             this.Name = "HollowKnightSplitSettings";
-            this.Size = new System.Drawing.Size(310, 28);
+            this.Size = new System.Drawing.Size(415, 30);
             ((System.ComponentModel.ISupportInitialize)(this.picHandle)).EndInit();
             this.ResumeLayout(false);
 
@@ -82,7 +118,10 @@
         #endregion
         public System.Windows.Forms.Button btnRemove;
         public System.Windows.Forms.ComboBox cboName;
+        public System.Windows.Forms.Button btnEdit;
         private System.Windows.Forms.ToolTip ToolTips;
         private System.Windows.Forms.PictureBox picHandle;
+        public System.Windows.Forms.Button btnAddBelow;
+        public System.Windows.Forms.Button btnAddAbove;
     }
 }
