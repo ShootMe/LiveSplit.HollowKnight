@@ -48,9 +48,16 @@ namespace LiveSplit.HollowKnight {
         private GameState lastGameState;
         private bool menuSplitHelper;
         private bool lookForTeleporting;
+
+#if !Info
+        // Remembered data for ghost splits
+        private HollowKnightStoredData store;
+#endif
+
 #if !Info
         public HollowKnightComponent(LiveSplitState state) {
             mem = new HollowKnightMemory();
+            store = new HollowKnightStoredData(mem);
             settings = new HollowKnightSettings();
             foreach (string key in keys) {
                 currentValues[key] = "";
@@ -133,7 +140,8 @@ namespace LiveSplit.HollowKnight {
                 }
                 LoadRemoval(gameState, uIState, nextScene, sceneName);
             }
- 
+
+            store.Update();
             HandleSplit(shouldSplit);
         }
 
@@ -849,8 +857,42 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.QueensGardensFrogsTrans: shouldSplit = nextScene.StartsWith("Fungus1_23") && nextScene != sceneName; break;
                 case SplitName.Pantheon1to4Entry: shouldSplit = nextScene.StartsWith("GG_Boss_Door_Entrance") && nextScene != sceneName; break;
                 case SplitName.Pantheon5Entry: shouldSplit = nextScene.StartsWith("GG_Vengefly_V") && nextScene != sceneName; break;
-                    
+
+                case SplitName.OnObtainGhostMarissa:
+                    shouldSplit = store.CheckIncreased(Offset.dreamOrbs) && sceneName == "Ruins_Bathhouse";
+                    break;
+                case SplitName.OnObtainGhostCaelifFera:
+                    shouldSplit = store.CheckIncreased(Offset.dreamOrbs) && sceneName == "Fungus1_24";
+                    break;
+                case SplitName.OnObtainGhostPoggy:
+                    shouldSplit = store.CheckIncreased(Offset.dreamOrbs) && sceneName == "Ruins_Elevator";
+                    break;
+                case SplitName.OnObtainGhostGravedigger:
+                    shouldSplit = store.CheckIncreased(Offset.dreamOrbs) && sceneName == "Town";
+                    break;
+                case SplitName.OnObtainGhostJoni:
+                    shouldSplit = store.CheckIncreased(Offset.dreamOrbs) && sceneName == "Cliffs_05";
+                    break;
+                case SplitName.OnObtainGhostCloth:
+                    shouldSplit = store.CheckIncreased(Offset.dreamOrbs) && sceneName == "Fungus3_23" && store.TraitorLordDeadOnEntry;
+                    break;
+                case SplitName.OnObtainGhostVespa:
+                    shouldSplit = store.CheckIncreased(Offset.dreamOrbs) && sceneName == "Hive_05" && mem.PlayerData<bool>(Offset.gotCharm_29);
+                    break;
+
+                case SplitName.OnObtainWanderersJournal: shouldSplit = store.CheckIncreased(Offset.trinket1); break;
+                case SplitName.OnObtainHallownestSeal: shouldSplit = store.CheckIncreased(Offset.trinket2); break;
+                case SplitName.OnObtainKingsIdol: shouldSplit = store.CheckIncreased(Offset.trinket3); break;
+                case SplitName.OnObtainArcaneEgg: shouldSplit = store.CheckIncreased(Offset.trinket4); break;
+                case SplitName.OnObtainRancidEgg: shouldSplit = store.CheckIncreased(Offset.rancidEggs); break;
+                case SplitName.OnObtainMaskShard: shouldSplit = store.CheckChanged(Offset.heartPieces); break;
+                case SplitName.OnObtainVesselFragment: shouldSplit = store.CheckChanged(Offset.vesselFragments); break;
+                case SplitName.OnObtainSimpleKey: shouldSplit = store.CheckIncreased(Offset.simpleKeys); break;
+                case SplitName.OnUseSimpleKey: shouldSplit = store.CheckIncreased(Offset.simpleKeys, -1); break;
+                case SplitName.OnObtainGrub: shouldSplit = store.CheckIncreased(Offset.grubsCollected); break;
             }
+
+            if (shouldSplit) store.Update();
             return shouldSplit;
         }
         private void HandleSplit(bool shouldSplit, bool shouldReset = false) {

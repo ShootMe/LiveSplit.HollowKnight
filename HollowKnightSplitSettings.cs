@@ -1110,6 +1110,42 @@ namespace LiveSplit.HollowKnight {
         [Description("Emilitia Flower (NPC)"), ToolTip("Splits when giving Emilita a flower")]
         givenEmilitiaFlower,
        
+        [Description("Dream Nail Marissa (Obtain)"), ToolTip("Splits when obtaining the essence from Marissa")]
+        OnObtainGhostMarissa,
+        [Description("Dream Nail Caelif and Fera (Obtain)"), ToolTip("Splits when obtaining the essence from Caelif and Fera Orthop")]
+        OnObtainGhostCaelifFera,
+        [Description("Dream Nail Poggy (Obtain)"), ToolTip("Splits when obtaining the essence from Poggy Thorax")]
+        OnObtainGhostPoggy,
+        [Description("Dream Nail Gravedigger (Obtain)"), ToolTip("Splits when obtaining the essence from Gravedigger")]
+        OnObtainGhostGravedigger,
+        [Description("Dream Nail Joni (Obtain)"), ToolTip("Splits when obtaining the essence from Joni")]
+        OnObtainGhostJoni,
+        [Description("Dream Nail Cloth (Obtain)"), ToolTip("Splits when obtaining the essence from Cloth")]
+        OnObtainGhostCloth,
+        [Description("Dream Nail Vespa (Obtain)"), ToolTip("Splits when obtaining the essence from Vespa")]
+        OnObtainGhostVespa,
+
+        [Description("Wanderer's Journal (Obtain)"), ToolTip("Splits when obtaining a Wanderer's Journal")]
+        OnObtainWanderersJournal,
+        [Description("Hallownest Seal (Obtain)"), ToolTip("Splits when obtaining a Hallownest Seal")]
+        OnObtainHallownestSeal,
+        [Description("King's Idol (Obtain)"), ToolTip("Splits when obtaining a King's Idol")]
+        OnObtainKingsIdol,
+        [Description("Arcane Egg (Obtain)"), ToolTip("Splits when obtaining an Arcane Egg")]
+        OnObtainArcaneEgg,
+        [Description("Rancid Egg (Obtain)"), ToolTip("Splits when obtaining a Rancid Egg")]
+        OnObtainRancidEgg,
+        [Description("Mask Shard (Obtain)"), ToolTip("Splits when obtaining a Mask Shard")]
+        OnObtainMaskShard,
+        [Description("Vessel Fragment (Obtain)"), ToolTip("Splits when obtaining a Vessel Fragment")]
+        OnObtainVesselFragment,
+        [Description("Simple Key (Obtain)"), ToolTip("Splits when obtaining a Simple Key")]
+        OnObtainSimpleKey,
+        [Description("Use Simple Key (Obtain)"), ToolTip("Splits when using a Simple Key")]
+        OnUseSimpleKey,
+        [Description("Grub (Obtain)"), ToolTip("Splits when obtaining a Grub")]
+        OnObtainGrub,
+
         [Description("Manual Split (Misc)"), ToolTip("Never splits. Use this when you need to manually split while using ordered splits")]
         ManualSplit,
 
