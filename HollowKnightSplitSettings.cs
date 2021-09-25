@@ -701,6 +701,12 @@ namespace LiveSplit.HollowKnight {
         SteadyBody,
         [Description("Thorns Of Agony (Charm)"), ToolTip("Splits when obtaining Thorns of Agony charm")]
         ThornsOfAgony,
+        [Description("Unbreakable Greed (Charm)"), ToolTip("Splits when obtaining the Unbreakable Greed charm")]
+        UnbreakableGreed,
+        [Description("Unbreakable Heart (Charm)"), ToolTip("Splits when obtaining the Unbreakable Heart charm")]
+        UnbreakableHeart,
+        [Description("Unbreakable Strength (Charm)"), ToolTip("Splits when obtaining the Unbreakable Strength charm")]
+        UnbreakableStrength,
         [Description("Void Heart (Charm)"), ToolTip("Splits when changing the Kingsoul to the Void Heart charm")]
         VoidHeart,
         [Description("Wayward Compass (Charm)"), ToolTip("Splits when obtaining Wayward Compass charm")]
@@ -1061,6 +1067,8 @@ namespace LiveSplit.HollowKnight {
         SlySimpleKey,
         [Description("All Breakables (Event)"), ToolTip("Splits when all 3 fragile charms are broken")]
         AllBreakables,
+        [Description("All Unbreakables (Charm)"), ToolTip("Splits when all 3 unbreakable charms are obtained")]
+        AllUnbreakables,
         [Description("Met Emilitia (Event)"), ToolTip("Splits when talking to Emilitia for the first time")]
         MetEmilitia,
 

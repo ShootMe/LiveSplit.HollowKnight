@@ -436,6 +436,9 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.TraitorLord: shouldSplit = mem.PlayerData<bool>(Offset.killedTraitorLord); break;
                 case SplitName.TramPass: shouldSplit = mem.PlayerData<bool>(Offset.hasTramPass); break;
                 case SplitName.TroupeMasterGrimm: shouldSplit = mem.PlayerData<bool>(Offset.killedGrimm); break;
+                case SplitName.UnbreakableGreed: shouldSplit = mem.PlayerData<bool>(Offset.fragileGreed_unbreakable); break;
+                case SplitName.UnbreakableHeart: shouldSplit = mem.PlayerData<bool>(Offset.fragileHealth_unbreakable); break;
+                case SplitName.UnbreakableStrength: shouldSplit = mem.PlayerData<bool>(Offset.fragileStrength_unbreakable); break;
                 case SplitName.UnchainedHollowKnight: shouldSplit = mem.PlayerData<bool>(Offset.unchainedHollowKnight); break;
                 case SplitName.Uumuu: shouldSplit = mem.PlayerData<bool>(Offset.killedMegaJellyfish); break;
                 case SplitName.VengefulSpirit: shouldSplit = mem.PlayerData<int>(Offset.fireballLevel) == 1; break;
@@ -807,9 +810,14 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.AllEggs: shouldSplit = mem.PlayerData<int>(Offset.rancidEggs) + mem.PlayerData<int>(Offset.jinnEggsSold) == 21; break;
                 case SplitName.SlySimpleKey: shouldSplit = mem.PlayerData<bool>(Offset.slySimpleKey); break;
                 case SplitName.AllBreakables:
-                    shouldSplit = mem.PlayerData<bool>(Offset.pooedFragileHeart) &&
-                        mem.PlayerData<bool>(Offset.pooedFragileGreed) &&
-                        mem.PlayerData<bool>(Offset.pooedFragileStrength);
+                    shouldSplit = mem.PlayerData<bool>(Offset.brokenCharm_23) &&
+                        mem.PlayerData<bool>(Offset.brokenCharm_24) &&
+                        mem.PlayerData<bool>(Offset.brokenCharm_25);
+                    break;
+                case SplitName.AllUnbreakables:
+                    shouldSplit = mem.PlayerData<bool>(Offset.fragileGreed_unbreakable) &&
+                        mem.PlayerData<bool>(Offset.fragileHealth_unbreakable) &&
+                        mem.PlayerData<bool>(Offset.fragileStrength_unbreakable);
                     break;
 
                 case SplitName.MetEmilitia: shouldSplit = mem.PlayerData<bool>(Offset.metEmilitia); break;

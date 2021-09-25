@@ -1,5 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <updates>
+  <update version="3.0.6">
+    <files>
+      <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+    </files>
+    <changelog>
+      <change> Fix existing AllBreakables split (slaurent) </change>
+      <change> Add splits for each Unbreakable charm, as well as AllUnbreakables (slaurent) </change>
+    </changelog>
+  </update>
   <update version="3.0.5">
     <files>
       <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
