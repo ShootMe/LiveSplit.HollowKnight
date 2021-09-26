@@ -322,7 +322,7 @@ namespace LiveSplit.HollowKnight {
                 case Offset.bossDoorStateTier3:
                 case Offset.bossDoorStateTier4:
                 case Offset.bossDoorStateTier5:
-                    return gameManager.Read<T>(Program, 0x0, playerData, HollowKnight.PlayerData.GetOffset(offset), 0xa);
+                    return gameManager.Read<T>(Program, 0x0, playerData, HollowKnight.PlayerData.GetOffset(offset) + 0x2);
                 default:
                     return gameManager.Read<T>(Program, 0x0, playerData, HollowKnight.PlayerData.GetOffset(offset));
             }
@@ -335,7 +335,7 @@ namespace LiveSplit.HollowKnight {
                 case Offset.bossDoorStateTier3:
                 case Offset.bossDoorStateTier4:
                 case Offset.bossDoorStateTier5:
-                    return gameManager.Read(Program, 0x0, playerData, HollowKnight.PlayerData.GetOffset(offset), 0xa);
+                    return gameManager.Read(Program, 0x0, playerData, HollowKnight.PlayerData.GetOffset(offset) + 0x2);
                 default:
                     return gameManager.Read(Program, 0x0, playerData, HollowKnight.PlayerData.GetOffset(offset));
             }
