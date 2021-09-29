@@ -1135,9 +1135,9 @@ namespace LiveSplit.HollowKnight {
         OnObtainArcaneEgg,
         [Description("Rancid Egg (Obtain)"), ToolTip("Splits when obtaining a Rancid Egg")]
         OnObtainRancidEgg,
-        [Description("Mask Shard (Obtain)"), ToolTip("Splits when obtaining a Mask Shard")]
+        [Description("Mask Shard (Obtain)"), ToolTip("Splits when obtaining a Mask Shard (splits on upgrade for full mask)")]
         OnObtainMaskShard,
-        [Description("Vessel Fragment (Obtain)"), ToolTip("Splits when obtaining a Vessel Fragment")]
+        [Description("Vessel Fragment (Obtain)"), ToolTip("Splits when obtaining a Vessel Fragment (splits on upgrade for full vessel)")]
         OnObtainVesselFragment,
         [Description("Simple Key (Obtain)"), ToolTip("Splits when obtaining a Simple Key")]
         OnObtainSimpleKey,

@@ -859,37 +859,41 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.Pantheon5Entry: shouldSplit = nextScene.StartsWith("GG_Vengefly_V") && nextScene != sceneName; break;
 
                 case SplitName.OnObtainGhostMarissa:
-                    shouldSplit = store.CheckIncreased(Offset.dreamOrbs) && sceneName == "Ruins_Bathhouse";
+                    shouldSplit = store.CheckIncremented(Offset.dreamOrbs) && sceneName == "Ruins_Bathhouse";
                     break;
                 case SplitName.OnObtainGhostCaelifFera:
-                    shouldSplit = store.CheckIncreased(Offset.dreamOrbs) && sceneName == "Fungus1_24";
+                    shouldSplit = store.CheckIncremented(Offset.dreamOrbs) && sceneName == "Fungus1_24";
                     break;
                 case SplitName.OnObtainGhostPoggy:
-                    shouldSplit = store.CheckIncreased(Offset.dreamOrbs) && sceneName == "Ruins_Elevator";
+                    shouldSplit = store.CheckIncremented(Offset.dreamOrbs) && sceneName == "Ruins_Elevator";
                     break;
                 case SplitName.OnObtainGhostGravedigger:
-                    shouldSplit = store.CheckIncreased(Offset.dreamOrbs) && sceneName == "Town";
+                    shouldSplit = store.CheckIncremented(Offset.dreamOrbs) && sceneName == "Town";
                     break;
                 case SplitName.OnObtainGhostJoni:
-                    shouldSplit = store.CheckIncreased(Offset.dreamOrbs) && sceneName == "Cliffs_05";
+                    shouldSplit = store.CheckIncremented(Offset.dreamOrbs) && sceneName == "Cliffs_05";
                     break;
                 case SplitName.OnObtainGhostCloth:
-                    shouldSplit = store.CheckIncreased(Offset.dreamOrbs) && sceneName == "Fungus3_23" && store.TraitorLordDeadOnEntry;
+                    shouldSplit = store.CheckIncremented(Offset.dreamOrbs) && sceneName == "Fungus3_23" && store.TraitorLordDeadOnEntry;
                     break;
                 case SplitName.OnObtainGhostVespa:
-                    shouldSplit = store.CheckIncreased(Offset.dreamOrbs) && sceneName == "Hive_05" && mem.PlayerData<bool>(Offset.gotCharm_29);
+                    shouldSplit = store.CheckIncremented(Offset.dreamOrbs) && sceneName == "Hive_05" && mem.PlayerData<bool>(Offset.gotCharm_29);
                     break;
 
-                case SplitName.OnObtainWanderersJournal: shouldSplit = store.CheckIncreased(Offset.trinket1); break;
-                case SplitName.OnObtainHallownestSeal: shouldSplit = store.CheckIncreased(Offset.trinket2); break;
-                case SplitName.OnObtainKingsIdol: shouldSplit = store.CheckIncreased(Offset.trinket3); break;
-                case SplitName.OnObtainArcaneEgg: shouldSplit = store.CheckIncreased(Offset.trinket4); break;
-                case SplitName.OnObtainRancidEgg: shouldSplit = store.CheckIncreased(Offset.rancidEggs); break;
-                case SplitName.OnObtainMaskShard: shouldSplit = store.CheckChanged(Offset.heartPieces); break;
-                case SplitName.OnObtainVesselFragment: shouldSplit = store.CheckChanged(Offset.vesselFragments); break;
-                case SplitName.OnObtainSimpleKey: shouldSplit = store.CheckIncreased(Offset.simpleKeys); break;
-                case SplitName.OnUseSimpleKey: shouldSplit = store.CheckIncreased(Offset.simpleKeys, -1); break;
-                case SplitName.OnObtainGrub: shouldSplit = store.CheckIncreased(Offset.grubsCollected); break;
+                case SplitName.OnObtainWanderersJournal: shouldSplit = store.CheckIncremented(Offset.trinket1); break;
+                case SplitName.OnObtainHallownestSeal: shouldSplit = store.CheckIncremented(Offset.trinket2); break;
+                case SplitName.OnObtainKingsIdol: shouldSplit = store.CheckIncremented(Offset.trinket3); break;
+                case SplitName.OnObtainArcaneEgg: shouldSplit = store.CheckIncremented(Offset.trinket4); break;
+                case SplitName.OnObtainRancidEgg: shouldSplit = store.CheckIncremented(Offset.rancidEggs); break;
+                case SplitName.OnObtainMaskShard:
+                    shouldSplit = store.CheckIncremented(Offset.maxHealthBase) || (store.CheckIncremented(Offset.heartPieces) && mem.PlayerData<int>(Offset.heartPieces) < 4);
+                    break;
+                case SplitName.OnObtainVesselFragment:
+                    shouldSplit = store.CheckIncreasedBy(Offset.MPReserveMax, 33) || (store.CheckIncremented(Offset.vesselFragments) && mem.PlayerData<int>(Offset.vesselFragments) < 3);
+                    break;
+                case SplitName.OnObtainSimpleKey: shouldSplit = store.CheckIncremented(Offset.simpleKeys); break;
+                case SplitName.OnUseSimpleKey: shouldSplit = store.CheckIncreasedBy(Offset.simpleKeys, -1); break;
+                case SplitName.OnObtainGrub: shouldSplit = store.CheckIncremented(Offset.grubsCollected); break;
             }
 
             if (shouldSplit) store.Update();
