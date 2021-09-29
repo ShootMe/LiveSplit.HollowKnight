@@ -1146,6 +1146,8 @@ namespace LiveSplit.HollowKnight {
         [Description("Grub (Obtain)"), ToolTip("Splits when obtaining a Grub")]
         OnObtainGrub,
 
+        [Description("Any Transition (Transition)"), ToolTip("Splits when the knight enters a transition (only one will split per transition)")]
+        AnyTransition,
         [Description("Manual Split (Misc)"), ToolTip("Never splits. Use this when you need to manually split while using ordered splits")]
         ManualSplit,
 

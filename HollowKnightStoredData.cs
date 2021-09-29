@@ -6,6 +6,10 @@ namespace LiveSplit.HollowKnight
 
         private ConcurrentDictionary<Offset, int> pdInts = new ConcurrentDictionary<Offset, int>();
         public bool TraitorLordDeadOnEntry { get; private set; } = false;
+        /// <summary>
+        /// Returns true if the knight is currently in a transition and has already split there
+        /// </summary>
+        public bool SplitThisTransition { get; set; } = false;
 
         private HollowKnightMemory mem;
 
@@ -61,7 +65,13 @@ namespace LiveSplit.HollowKnight
             foreach (Offset offset in pdInts.Keys) {
                 pdInts[offset] = mem.PlayerData<int>(offset);
             }
-            if (mem.HeroTransitionState() != HeroTransitionState.WAITING_TO_TRANSITION) TraitorLordDeadOnEntry = mem.PlayerData<bool>(Offset.killedTraitorLord);
+            if (mem.HeroTransitionState() != HeroTransitionState.WAITING_TO_TRANSITION) {
+                // In transition
+                TraitorLordDeadOnEntry = mem.PlayerData<bool>(Offset.killedTraitorLord);
+            } else {
+                // Not in transition
+                SplitThisTransition = false;
+            }
         }
     }
 }
