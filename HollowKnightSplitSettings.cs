@@ -1124,6 +1124,8 @@ namespace LiveSplit.HollowKnight {
         OnObtainGhostCloth,
         [Description("Dream Nail Vespa (Obtain)"), ToolTip("Splits when obtaining the essence from Vespa")]
         OnObtainGhostVespa,
+        [Description("Dream Nail Revek (Obtain)"), ToolTip("Splits when 19 essence has been obtained in Spirit's Glade while this has been the current split")]
+        OnObtainGhostRevek,
 
         [Description("Wanderer's Journal (Obtain)"), ToolTip("Splits when obtaining a Wanderer's Journal")]
         OnObtainWanderersJournal,
