@@ -1135,9 +1135,9 @@ namespace LiveSplit.HollowKnight {
         OnObtainArcaneEgg,
         [Description("Rancid Egg (Obtain)"), ToolTip("Splits when obtaining a Rancid Egg")]
         OnObtainRancidEgg,
-        [Description("Mask Shard (Obtain)"), ToolTip("Splits when obtaining a Mask Shard")]
+        [Description("Mask Shard (Obtain)"), ToolTip("Splits when obtaining a Mask Shard (splits on upgrade for full mask)")]
         OnObtainMaskShard,
-        [Description("Vessel Fragment (Obtain)"), ToolTip("Splits when obtaining a Vessel Fragment")]
+        [Description("Vessel Fragment (Obtain)"), ToolTip("Splits when obtaining a Vessel Fragment (splits on upgrade for full vessel)")]
         OnObtainVesselFragment,
         [Description("Simple Key (Obtain)"), ToolTip("Splits when obtaining a Simple Key")]
         OnObtainSimpleKey,
@@ -1146,6 +1146,8 @@ namespace LiveSplit.HollowKnight {
         [Description("Grub (Obtain)"), ToolTip("Splits when obtaining a Grub")]
         OnObtainGrub,
 
+        [Description("Any Transition (Transition)"), ToolTip("Splits when the knight enters a transition (only one will split per transition)")]
+        AnyTransition,
         [Description("Manual Split (Misc)"), ToolTip("Never splits. Use this when you need to manually split while using ordered splits")]
         ManualSplit,
 
