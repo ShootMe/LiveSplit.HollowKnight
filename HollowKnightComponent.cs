@@ -765,7 +765,7 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.MarkothEssence: shouldSplit = mem.PlayerData<int>(Offset.markothDefeated) == 2; break;
 
                 case SplitName.DungDefenderIdol:
-                    shouldSplit = mem.PlayerData<bool>(Offset.foundTrinket3) && sceneName.StartsWith("Waterways_15"); 
+                    shouldSplit = store.CheckIncreased(Offset.trinket3) && sceneName.StartsWith("Waterways_15"); 
                     break;
                 case SplitName.WaterwaysEntry: shouldSplit = nextScene.StartsWith("Waterways_01") && nextScene != sceneName; break;
                 case SplitName.FogCanyonEntry: shouldSplit = nextScene.StartsWith("Fungus3_26") && nextScene != sceneName; break;
