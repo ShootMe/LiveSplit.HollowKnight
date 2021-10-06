@@ -882,8 +882,7 @@ namespace LiveSplit.HollowKnight {
                     break;
                 case SplitName.OnObtainGhostRevek:
                     if (sceneName == "RestingGrounds_08") {
-                        if (store.CheckIncreasedBy(Offset.dreamOrbs, 1)) { store.GladeEssence++; store.Update(); }
-                        shouldSplit = store.GladeEssence == 19;
+                        shouldSplit = store.GladeEssence == 19 || store.GladeEssence == 18 && store.CheckIncremented(Offset.dreamOrbs);
                     }
                     break;
 
