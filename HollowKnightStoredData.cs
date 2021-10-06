@@ -10,6 +10,7 @@ namespace LiveSplit.HollowKnight
         /// Returns true if the knight is currently in a transition and has already split there
         /// </summary>
         public bool SplitThisTransition { get; set; } = false;
+        public int GladeEssence { get; set; } = 0;
 
         private HollowKnightMemory mem;
 
@@ -62,6 +63,9 @@ namespace LiveSplit.HollowKnight
         }
 
         public void Update() {
+            if (CheckIncremented(Offset.dreamOrbs) && mem.SceneName() == "RestingGrounds_08") {
+                GladeEssence++;
+            }
             foreach (Offset offset in pdInts.Keys) {
                 pdInts[offset] = mem.PlayerData<int>(offset);
             }
