@@ -6,7 +6,9 @@
     </files>
     <changelog>
       <change> Support for `[amount] + 1` splits (flibber) </change>
-      <change> Lots of  (slaurent) </change>
+      <change> Fixed pantheon bench splits </change>
+      <change> (todo)Colo unlocked and leaving colos transition splits </change>
+      <change> (todo)pantheon lore room splits </change>
     </changelog>
   </update>
   <update version="3.0.6">

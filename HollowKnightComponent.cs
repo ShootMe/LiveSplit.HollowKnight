@@ -895,6 +895,12 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.OnObtainSimpleKey: shouldSplit = store.CheckIncremented(Offset.simpleKeys); break;
                 case SplitName.OnUseSimpleKey: shouldSplit = store.CheckIncreasedBy(Offset.simpleKeys, -1); break;
                 case SplitName.OnObtainGrub: shouldSplit = store.CheckIncremented(Offset.grubsCollected); break;
+                case SplitName.FlowerRewardGiven: shouldSplit = mem.PlayerData<bool>(Offset.xunRewardGiven); break;
+                case SplitName.ColosseumBronzeUnlocked: shouldSplit = mem.PlayerData<bool>(Offset.colosseumBronzeOpened); break;
+                case SplitName.ColosseumSilverUnlocked: shouldSplit = mem.PlayerData<bool>(Offset.colosseumSilverOpened); break;
+                case SplitName.colosseumGoldUnlocked: shouldSplit = mem.PlayerData<bool>(Offset.colosseumGoldOpened); break;
+
+                    
             }
 
             if (shouldSplit) {

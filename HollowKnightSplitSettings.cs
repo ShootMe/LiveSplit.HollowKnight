@@ -1151,7 +1151,12 @@ namespace LiveSplit.HollowKnight {
         [Description("Manual Split (Misc)"), ToolTip("Never splits. Use this when you need to manually split while using ordered splits")]
         ManualSplit,
 
-
+        [Description("Colo1 Unlocked (Event)"), ToolTip("Splits when the knight enters a transition (only one will split per transition)")]
+        ColosseumBronzeUnlocked,
+        [Description("Colo2 Unlocked (Event)"), ToolTip("Splits when the knight enters a transition (only one will split per transition)")]
+        ColosseumSilverUnlocked,
+        [Description("Colo3 Unlocked (Event)"), ToolTip("Splits when the knight enters a transition (only one will split per transition)")]
+        colosseumGoldUnlocked,
 
 
 
