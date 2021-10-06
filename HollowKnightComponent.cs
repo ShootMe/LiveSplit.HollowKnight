@@ -880,6 +880,11 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.OnObtainGhostVespa:
                     shouldSplit = store.CheckIncremented(Offset.dreamOrbs) && sceneName == "Hive_05" && mem.PlayerData<bool>(Offset.gotCharm_29);
                     break;
+                case SplitName.OnObtainGhostRevek:
+                    if (sceneName == "RestingGrounds_08") {
+                        shouldSplit = store.GladeEssence == 19 || store.GladeEssence == 18 && store.CheckIncremented(Offset.dreamOrbs);
+                    }
+                    break;
 
                 case SplitName.OnObtainWanderersJournal: shouldSplit = store.CheckIncremented(Offset.trinket1); break;
                 case SplitName.OnObtainHallownestSeal: shouldSplit = store.CheckIncremented(Offset.trinket2); break;
