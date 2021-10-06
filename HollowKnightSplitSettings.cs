@@ -1158,7 +1158,13 @@ namespace LiveSplit.HollowKnight {
         [Description("Colo2 Unlocked (Event)"), ToolTip("Splits when the knight enters a transition (only one will split per transition)")]
         ColosseumSilverUnlocked,
         [Description("Colo3 Unlocked (Event)"), ToolTip("Splits when the knight enters a transition (only one will split per transition)")]
-        colosseumGoldUnlocked,
+        ColosseumGoldUnlocked,
+        [Description("Colo1 Exit (Event)"), ToolTip("Splits when the knight enters a transition (only one will split per transition)")]
+        ColosseumBronzeExit,
+        [Description("Colo2 Exit (Event)"), ToolTip("Splits when the knight enters a transition (only one will split per transition)")]
+        ColosseumSilverExit,
+        [Description("Colo3 Exit (Event)"), ToolTip("Splits when the knight enters a transition (only one will split per transition)")]
+        ColosseumGoldExit,
 
 
 

@@ -903,9 +903,10 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.FlowerRewardGiven: shouldSplit = mem.PlayerData<bool>(Offset.xunRewardGiven); break;
                 case SplitName.ColosseumBronzeUnlocked: shouldSplit = mem.PlayerData<bool>(Offset.colosseumBronzeOpened); break;
                 case SplitName.ColosseumSilverUnlocked: shouldSplit = mem.PlayerData<bool>(Offset.colosseumSilverOpened); break;
-                case SplitName.colosseumGoldUnlocked: shouldSplit = mem.PlayerData<bool>(Offset.colosseumGoldOpened); break;
-
-                    
+                case SplitName.ColosseumGoldUnlocked: shouldSplit = mem.PlayerData<bool>(Offset.colosseumGoldOpened); break;
+                case SplitName.ColosseumBronzeExit: shouldSplit = mem.PlayerData<bool>(Offset.colosseumBronzeCompleted) && !nextScene.StartsWith("Room_Colosseum_Bronze") && nextScene != sceneName; break;
+                case SplitName.ColosseumSilverExit: shouldSplit = mem.PlayerData<bool>(Offset.colosseumSilverCompleted) && !nextScene.StartsWith("Room_Colosseum_Silver") && nextScene != sceneName; break;
+                case SplitName.ColosseumGoldExit: shouldSplit = mem.PlayerData<bool>(Offset.colosseumGoldCompleted) && !nextScene.StartsWith("Room_Colosseum_Gold") && nextScene != sceneName; break;
             }
 
             if (shouldSplit) {
