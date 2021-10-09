@@ -42,6 +42,7 @@ namespace LiveSplit.HollowKnight {
         private Dictionary<string, string> currentValues = new Dictionary<string, string>();
         private HollowKnightSettings settings;
         private HashSet<SplitName> splitsDone = new HashSet<SplitName>();
+        private List<SplitName> failedValues = new List<SplitName>();
         private SplitName lastSplitDone;
         private static string LOGFILE = "_HollowKnight.log";
         private PlayerData pdata = new PlayerData();
@@ -791,7 +792,12 @@ namespace LiveSplit.HollowKnight {
                     break;
                 case SplitName.HappyCouplePlayerDataEvent: shouldSplit = mem.PlayerData<bool>(Offset.nailsmithConvoArt); break;
                 case SplitName.GodhomeBench: shouldSplit = sceneName.StartsWith("GG_Spa") && sceneName != nextScene && !store.SplitThisTransition; break;
-                
+                case SplitName.GodhomeLoreRoom: 
+                    shouldSplit = 
+                        (sceneName.StartsWith("GG_Engine") || sceneName.StartsWith("GG_Unn") || sceneName.StartsWith("GG_Wyrm"))
+                        && sceneName != nextScene 
+                        && !store.SplitThisTransition;
+                    break;
                 case SplitName.Menu: shouldSplit = sceneName == "Menu_Title"; break;
                 case SplitName.MenuClaw: shouldSplit = mem.PlayerData<bool>(Offset.hasWallJump); break;
                 case SplitName.MenuGorgeousHusk: shouldSplit = mem.PlayerData<bool>(Offset.killedGorgeousHusk); break;
@@ -907,6 +913,15 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.ColosseumBronzeExit: shouldSplit = mem.PlayerData<bool>(Offset.colosseumBronzeCompleted) && !nextScene.StartsWith("Room_Colosseum_Bronze") && nextScene != sceneName; break;
                 case SplitName.ColosseumSilverExit: shouldSplit = mem.PlayerData<bool>(Offset.colosseumSilverCompleted) && !nextScene.StartsWith("Room_Colosseum_Silver") && nextScene != sceneName; break;
                 case SplitName.ColosseumGoldExit: shouldSplit = mem.PlayerData<bool>(Offset.colosseumGoldCompleted) && !nextScene.StartsWith("Room_Colosseum_Gold") && nextScene != sceneName; break;
+                case SplitName.SoulTyrantEssenceWithSanctumGrub: shouldSplit = mem.PlayerData<bool>(Offset.mageLordOrbsCollected) && mem.PlayerDataStringList(Offset.scenesGrubRescued).Contains("Ruins1_32"); break;
+                case SplitName.EndingSplit: shouldSplit = nextScene.StartsWith("Cinematic_Ending", StringComparison.OrdinalIgnoreCase) || nextScene == "GG_End_Sequence"; break;
+
+                default:
+                    //throw new Exception(split + " does not have a defined shouldsplit value");
+                    if (!failedValues.Contains(split)) {
+                        failedValues.Add(split);
+                    }
+                    break;
             }
 
             if (shouldSplit) {
@@ -1024,6 +1039,13 @@ namespace LiveSplit.HollowKnight {
             lookForTeleporting = false;
             Model.CurrentState.IsGameTimePaused = true;
             splitsDone.Clear();
+            if (failedValues.Count > 0) {
+                WriteLog("---------Splits without match-------------------");
+                foreach (var value in failedValues) {
+                    WriteLogWithTime(value.ToString() + " - does not have a defined shouldsplit value");
+                }
+                failedValues.Clear();
+            }
             WriteLog("---------Reset----------------------------------");
         }
         public void OnResume(object sender, EventArgs e) {
@@ -1038,6 +1060,7 @@ namespace LiveSplit.HollowKnight {
             Model.CurrentState.IsGameTimePaused = true;
             Model.CurrentState.SetGameTime(Model.CurrentState.CurrentTime.RealTime);
             splitsDone.Clear();
+            failedValues.Clear();
             WriteLog("---------New Game-------------------------------");
         }
         public void OnUndoSplit(object sender, EventArgs e) {

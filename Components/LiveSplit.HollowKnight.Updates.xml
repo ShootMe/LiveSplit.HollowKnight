@@ -6,9 +6,12 @@
     </files>
     <changelog>
       <change> Support for `[amount] + 1` splits (flibber) </change>
-      <change> Fixed pantheon bench splits </change>
-      <change> (todo)Colo unlocked and leaving colos transition splits </change>
-      <change> (todo)pantheon lore room splits </change>
+      <change> Fixed pantheon bench splits (flibber) </change>
+      <change> Split for leaving pantheon lore rooms </change>
+      <change> Soul Tyrant w/ Sanctum Grub split, to avoid forgetting the grub when going back </change>
+      <change> Each individual colo trial unlocked and leaving each individual colo trial splits </change>
+      <change> Ending event split. Splits on credits (f.ex in All Cheevos) </change>
+      <change> Log autosplits without existing split-conditions </change>
     </changelog>
   </update>
   <update version="3.0.6">
