@@ -440,7 +440,7 @@ namespace LiveSplit.HollowKnight {
 
         [Description("Colosseum Unlocked 1 (Trial)"), ToolTip("Splits when the knight unlocks the trial at Little Fool")]
         ColosseumBronzeUnlocked,
-        [Description("Colosseum Unlocked 3 (Trial)"), ToolTip("Splits when the knight unlocks the trial at Little Fool")]
+        [Description("Colosseum Unlocked 2 (Trial)"), ToolTip("Splits when the knight unlocks the trial at Little Fool")]
         ColosseumSilverUnlocked,
         [Description("Colosseum Unlocked 3 (Trial)"), ToolTip("Splits when the knight unlocks the trial at Little Fool")]
         ColosseumGoldUnlocked,
@@ -450,7 +450,7 @@ namespace LiveSplit.HollowKnight {
         ColosseumSilver,
         [Description("Colosseum Fight 3 (Trial)"), ToolTip("Splits when beating the third Colosseum trial")]
         ColosseumGold,
-        [Description("Colossum Exit 1 (Transition)"), ToolTip("Splits on the transition out of the trial, or in the load-in after quitout")]
+        [Description("Colosseum Exit 1 (Transition)"), ToolTip("Splits on the transition out of the trial, or in the load-in after quitout")]
         ColosseumBronzeExit,
         [Description("Colosseum Exit 2 (Transition)"), ToolTip("Splits on the transition out of the trial, or in the load-in after quitout")]
         ColosseumSilverExit,
