@@ -81,6 +81,7 @@
       <DependentUpon>HollowKnightInfo.cs</DependentUpon>
     </Compile>
     <Compile Include="HollowKnightMemory.cs" />
+    <Compile Include="HollowKnightStoredData.cs" />
     <Compile Include="MemoryReader.cs" />
     <Compile Include="HollowKnightSettings.cs">
       <SubType>UserControl</SubType>
