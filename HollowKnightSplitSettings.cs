@@ -232,8 +232,6 @@ namespace LiveSplit.HollowKnight {
         GruzMother,
         [Description("Hive Knight (Boss)"), ToolTip("Splits when killing Hive Knight")]
         HiveKnight,
-        [Description("Hollow Knight Practice (Boss)"), ToolTip("Splits when killing The Hollow Knight")]
-        HollowKnightBoss,
         [Description("Hornet 1 (Boss)"), ToolTip("Splits when killing Hornet for the first time")]
         Hornet1,
         [Description("Hornet 2 (Boss)"), ToolTip("Splits when killing Hornet for the second time")]
@@ -266,10 +264,12 @@ namespace LiveSplit.HollowKnight {
         KilledOblobbles,
         [Description("Oro & Mato Nail Bros (Boss)"), ToolTip("Splits when killing the Nail Bros (Pantheon)")]
         MatoOroNailBros,
-        [Description("Radiance Practice (Boss)"), ToolTip("Splits when killing The Radiance")]
-        RadianceBoss,
         [Description("Pure Vessel (Boss)"), ToolTip("Splits when killing Pure Vessel")]
         PureVessel,
+        [Description("Segment Practice - Radiance (Boss)"), ToolTip("Splits when killing The Radiance")]
+        RadianceBoss,
+        [Description("Segment Practice - THK (Boss)"), ToolTip("Splits when killing The Hollow Knight")]
+        HollowKnightBoss,
         [Description("Sheo Paintmaster (Boss)"), ToolTip("Splits when killing Sheo (Pantheon)")]
         SheoPaintmaster,
         [Description("Sly Nailsage (Boss)"), ToolTip("Splits when killing Nailsage Sly (Pantheon)")]
@@ -280,6 +280,8 @@ namespace LiveSplit.HollowKnight {
         SoulTyrant,
         [Description("Soul Tyrant (Essence)"), ToolTip("Splits when getting Soul Tyrant essence (Soul Master Dream)")]
         SoulTyrantEssence,
+        [Description("Soul Tyrant w/ Sanctum Grub (Essence)"), ToolTip("Splits when getting Soul Tyrant essence and Sanctum fakedive grub")]
+        SoulTyrantEssenceWithSanctumGrub,
         [Description("Traitor Lord (Boss)"), ToolTip("Splits when killing Traitor Lord")]
         TraitorLord,
         [Description("Troupe Master Grimm (Boss)"), ToolTip("Splits when killing Troupe Master Grimm")]
@@ -413,6 +415,8 @@ namespace LiveSplit.HollowKnight {
         CityGateOpen,
         [Description("Death (Event)"), ToolTip("Splits when player hp is 0")]
         PlayerDeath,
+        [Description("Ending (Event)"), ToolTip("Splits on any credits rolling")]
+        EndingSplit,
         [Description("Flower Quest (Event)"), ToolTip("Splits when placing the flower at the grave of the Traitors' Child")]
         FlowerQuest,
         [Description("Flower Quest Reward (Event)"), ToolTip("Splits when Grey Mourner gives you the Flower Quest reward")]
@@ -421,8 +425,6 @@ namespace LiveSplit.HollowKnight {
         HappyCouplePlayerDataEvent,
         [Description("Nailsmith - Killed (Event)"), ToolTip("Splits when Nailsmith is killed")]
         NailsmithKilled,
-        [Description("Nailsmith - Spared (Event)"), ToolTip("Splits when Nailsmith is registered as `spared`")]
-        NailsmithSpared,
         [Description("Nightmare Lantern Lit (Event)"), ToolTip("Splits when initially lighting the Nightmare Lantern")]
         NightmareLantern,
         [Description("Nightmare Lantern Destroyed (Event)"), ToolTip("Splits when destroying the Nightmare Lantern")]
@@ -435,13 +437,25 @@ namespace LiveSplit.HollowKnight {
         SpiritGladeOpen,
         [Description("Trap Bench - Beasts Den (Event)"), ToolTip("Splits when getting the trap bench in Beasts Den")]
         BeastsDenTrapBench,
-        
+
+        [Description("Colosseum Unlocked 1 (Trial)"), ToolTip("Splits when the knight unlocks the trial at Little Fool")]
+        ColosseumBronzeUnlocked,
+        [Description("Colosseum Unlocked 3 (Trial)"), ToolTip("Splits when the knight unlocks the trial at Little Fool")]
+        ColosseumSilverUnlocked,
+        [Description("Colosseum Unlocked 3 (Trial)"), ToolTip("Splits when the knight unlocks the trial at Little Fool")]
+        ColosseumGoldUnlocked,
         [Description("Colosseum Fight 1 (Trial)"), ToolTip("Splits when beating the first Colosseum trial")]
         ColosseumBronze,
         [Description("Colosseum Fight 2 (Trial)"), ToolTip("Splits when beating the second Colosseum trial")]
         ColosseumSilver,
         [Description("Colosseum Fight 3 (Trial)"), ToolTip("Splits when beating the third Colosseum trial")]
         ColosseumGold,
+        [Description("Colossum Exit 1 (Transition)"), ToolTip("Splits on the transition out of the trial, or in the load-in after quitout")]
+        ColosseumBronzeExit,
+        [Description("Colosseum Exit 2 (Transition)"), ToolTip("Splits on the transition out of the trial, or in the load-in after quitout")]
+        ColosseumSilverExit,
+        [Description("Colosseum Exit 3 (Transition)"), ToolTip("Splits on the transition out of the trial, or in the load-in after quitout")]
+        ColosseumGoldExit,
         [Description("Pantheon 1 (Trial)"), ToolTip("Splits when beating the first Pantheon")]
         Pantheon1,
         [Description("Pantheon 2 (Trial)"), ToolTip("Splits when beating the second Pantheon")]
@@ -738,6 +752,14 @@ namespace LiveSplit.HollowKnight {
         GreyMournerSeerAscended,
         [Description("Elderbug Flower Quest (NPC)"), ToolTip("Splits when giving the flower to the Elderbug")]
         ElderbugFlower,
+        [Description("Godseeker Flower (NPC)"), ToolTip("Splits when giving Godseeker a flower")]
+        givenGodseekerFlower,
+        [Description("Oro Flower (NPC)"), ToolTip("Splits when giving Oro a flower")]
+        givenOroFlower,
+        [Description("White Lady Flower (NPC)"), ToolTip("Splits when giving White Lady a flower")]
+        givenWhiteLadyFlower,
+        [Description("Emilitia Flower (NPC)"), ToolTip("Splits when giving Emilita a flower")]
+        givenEmilitiaFlower,
         [Description("Bretta Rescued (NPC)"), ToolTip("Splits when saving Bretta")]
         BrettaRescued,
         [Description("Brumm Flame (NPC)"), ToolTip("Splits when collecting Brumm's flame in Deepnest")]
@@ -1045,6 +1067,8 @@ namespace LiveSplit.HollowKnight {
 
         [Description("Godhome Bench (Transition)"), ToolTip("Splits when leaving a Godhome Bench room")]
         GodhomeBench,
+        [Description("Godhome Lore Room (Transition)"), ToolTip("Splits when leaving a Godhome lore room")]
+        GodhomeLoreRoom,
         [Description("Pantheon 1-4 (Transition)"), ToolTip("Splits on entry to any of pantheon 1 - 4")]
         Pantheon1to4Entry,
         [Description("Pantheon 5 (Transition)"), ToolTip("Splits on entry to pantheon 5")]
@@ -1100,15 +1124,6 @@ namespace LiveSplit.HollowKnight {
         mapRestingGrounds,
         [Description("Map Ancient Basin (Item)"), ToolTip("Splits when acquiring the Abyss map")]
         mapAbyss,
-
-        [Description("Godseeker Flower (NPC)"), ToolTip("Splits when giving Godseeker a flower")]
-        givenGodseekerFlower,
-        [Description("Oro Flower (NPC)"), ToolTip("Splits when giving Oro a flower")]
-        givenOroFlower,
-        [Description("White Lady Flower (NPC)"), ToolTip("Splits when giving White Lady a flower")]
-        givenWhiteLadyFlower,
-        [Description("Emilitia Flower (NPC)"), ToolTip("Splits when giving Emilita a flower")]
-        givenEmilitiaFlower,
        
         [Description("Dream Nail Marissa (Obtain)"), ToolTip("Splits when obtaining the essence from Marissa")]
         OnObtainGhostMarissa,
@@ -1152,19 +1167,6 @@ namespace LiveSplit.HollowKnight {
         AnyTransition,
         [Description("Manual Split (Misc)"), ToolTip("Never splits. Use this when you need to manually split while using ordered splits")]
         ManualSplit,
-
-        [Description("Colo1 Unlocked (Event)"), ToolTip("Splits when the knight enters a transition (only one will split per transition)")]
-        ColosseumBronzeUnlocked,
-        [Description("Colo2 Unlocked (Event)"), ToolTip("Splits when the knight enters a transition (only one will split per transition)")]
-        ColosseumSilverUnlocked,
-        [Description("Colo3 Unlocked (Event)"), ToolTip("Splits when the knight enters a transition (only one will split per transition)")]
-        ColosseumGoldUnlocked,
-        [Description("Colo1 Exit (Event)"), ToolTip("Splits when the knight enters a transition (only one will split per transition)")]
-        ColosseumBronzeExit,
-        [Description("Colo2 Exit (Event)"), ToolTip("Splits when the knight enters a transition (only one will split per transition)")]
-        ColosseumSilverExit,
-        [Description("Colo3 Exit (Event)"), ToolTip("Splits when the knight enters a transition (only one will split per transition)")]
-        ColosseumGoldExit,
 
 
 
