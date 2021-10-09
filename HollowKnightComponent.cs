@@ -108,7 +108,7 @@ namespace LiveSplit.HollowKnight {
                 shouldSplit = (nextScene.Equals("Tutorial_01", StringComparison.OrdinalIgnoreCase) &&
                                mem.GameState() == GameState.ENTERING_LEVEL) ||
                               nextScene is "GG_Vengefly_V" or "GG_Boss_Door_Entrance" or "GG_Entrance_Cutscene";
-
+                store.SplitThisTransition = true;
             } else if (Model.CurrentState.CurrentPhase == TimerPhase.Running && settings.Splits.Count > 0) {
                 GameState gameState = mem.GameState();
                 UIState uIState = mem.UIState();
