@@ -49,6 +49,7 @@ namespace LiveSplit.HollowKnight {
         private GameState lastGameState;
         private bool menuSplitHelper;
         private bool lookForTeleporting;
+        private List<string> menuingSceneNames = new List<string> { "Menu_Title", "Quit_To_Menu", "PermaDeath" };
 
 #if !Info
         // Remembered data for ghost splits
@@ -857,7 +858,17 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.KilledOblobbles: shouldSplit = mem.PlayerData<int>(Offset.killsOblobble) == 1; break;
                 case SplitName.WhitePalaceEntry: shouldSplit = nextScene.StartsWith("White_Palace_11") && nextScene != sceneName; break;
                 case SplitName.ManualSplit: shouldSplit = false; break;
-                case SplitName.AnyTransition: shouldSplit = nextScene != sceneName && !store.SplitThisTransition; break;
+                case SplitName.AnyTransition:
+                    if (nextScene != sceneName && !store.SplitThisTransition) {
+                        shouldSplit =
+                            !(
+                                string.IsNullOrEmpty(sceneName) ||
+                                string.IsNullOrEmpty(nextScene) ||
+                                menuingSceneNames.Contains(sceneName) ||
+                                menuingSceneNames.Contains(nextScene)
+                            );
+                    }
+                    break;
                 case SplitName.WhitePalaceLowerEntry: shouldSplit = nextScene.StartsWith("White_Palace_01") && nextScene != sceneName; break;
                 case SplitName.WhitePalaceLowerOrb: shouldSplit = nextScene.StartsWith("White_Palace_02") && nextScene != sceneName; break;
                 case SplitName.QueensGardensPostArenaTransition: shouldSplit = nextScene.StartsWith("Fungus3_13") && nextScene != sceneName; break;
