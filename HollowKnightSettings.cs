@@ -17,6 +17,11 @@ namespace LiveSplit.HollowKnight {
         public HollowKnightSettings() {
             isLoading = true;
             InitializeComponent();
+            string version = typeof(HollowKnightComponent).Assembly.GetName().Version.ToString();
+#if DEBUG
+            version += "-dev";
+#endif
+            this.versionLabel.Text = "Autosplitter Version: " + version;
 
             Splits = new List<SplitName>();
             isLoading = false;
@@ -260,6 +265,10 @@ namespace LiveSplit.HollowKnight {
             }
         }
         private void AutosplitEndChanged(object sender, EventArgs e) {
+            UpdateSplits();
+        }
+
+        private void AutosplitStartChanged(object sender, EventArgs e) {
             UpdateSplits();
         }
     }
