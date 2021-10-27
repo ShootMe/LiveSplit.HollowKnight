@@ -142,8 +142,6 @@ namespace LiveSplit.HollowKnight {
             AutosplitStartRuns = chkAutosplitStartRuns.Checked ?
                 HollowKnightSplitSettings.GetSplitName(cboStartTriggerName.Text) : null;
 
-            Debug.WriteLine("AutosplitStartRuns: " + AutosplitStartRuns);// == null ? "null" : AutosplitStartRuns.Value.ToString());
-
             Splits.Clear();
             foreach (Control c in flowMain.Controls) {
                 if (c is HollowKnightSplitSettings) {
@@ -199,8 +197,6 @@ namespace LiveSplit.HollowKnight {
                 string splitDescription = AutosplitStartRunsNode.InnerText.Trim();
                 if (!string.IsNullOrEmpty(splitDescription)) {
                     AutosplitStartRuns = HollowKnightSplitSettings.GetSplitName(splitDescription);
-                    Debug.WriteLine("AutosplitStartRuns: " + AutosplitStartRuns);
-                    Debug.WriteLine("AutosplitStartRuns: " + typeof(SplitName).GetMember(AutosplitStartRuns.ToString()));
                     cboStartTriggerName.DataSource = GetAvailableSplits();
                     MemberInfo info = typeof(SplitName).GetMember(AutosplitStartRuns.ToString())[0];
                     DescriptionAttribute description = (DescriptionAttribute)info.GetCustomAttributes(typeof(DescriptionAttribute), false)[0];
@@ -307,7 +303,6 @@ namespace LiveSplit.HollowKnight {
         }
 
         private void cboStartTriggerName_SelectedIndexChanged(object sender, EventArgs e) {
-            Debug.WriteLine("cboStartTriggerName_SelectedIndexChanged");
             UpdateSplits();
         }
     }
