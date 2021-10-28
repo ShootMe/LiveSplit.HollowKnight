@@ -876,6 +876,21 @@ namespace LiveSplit.HollowKnight {
                             );
                     }
                     break;
+                case SplitName.TransitionAfterSaveState: 
+                    if (nextScene != sceneName && 
+                        nextScene != "Room_Sly_Storeroom" && 
+                        "Room_Sly_Storeroom" != sceneName && 
+                        !store.SplitThisTransition
+                        ) {
+                        shouldSplit =
+                            !(
+                                string.IsNullOrEmpty(sceneName) ||
+                                string.IsNullOrEmpty(nextScene) ||
+                                menuingSceneNames.Contains(sceneName) ||
+                                menuingSceneNames.Contains(nextScene)
+                            );
+                    }
+                    break;
                 case SplitName.WhitePalaceLowerEntry: shouldSplit = nextScene.StartsWith("White_Palace_01") && nextScene != sceneName; break;
                 case SplitName.WhitePalaceLowerOrb: shouldSplit = nextScene.StartsWith("White_Palace_02") && nextScene != sceneName; break;
                 case SplitName.QueensGardensPostArenaTransition: shouldSplit = nextScene.StartsWith("Fungus3_13") && nextScene != sceneName; break;
