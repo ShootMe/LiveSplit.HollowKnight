@@ -683,10 +683,10 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.WhitePalaceThroneRoom: shouldSplit = sceneName.StartsWith("White_Palace_13") && nextScene.StartsWith("White_Palace_09"); break;
                 case SplitName.WhitePalaceAtrium: shouldSplit = nextScene.StartsWith("White_Palace_03_hub") && nextScene != sceneName; break;
 
-                case SplitName.PathOfPainEntry: shouldSplit = nextScene.StartsWith("White_Palace_18") && nextScene != sceneName; break;
-                case SplitName.PathOfPainTransition1: shouldSplit = nextScene.StartsWith("White_Palace_17") && nextScene != sceneName; break;
-                case SplitName.PathOfPainTransition2: shouldSplit = nextScene.StartsWith("White_Palace_19") && nextScene != sceneName; break;
-                case SplitName.PathOfPainTransition3: shouldSplit = nextScene.StartsWith("White_Palace_20") && nextScene != sceneName; break;
+                case SplitName.PathOfPainEntry: shouldSplit = nextScene.StartsWith("White_Palace_18") && sceneName.StartsWith("White_Palace_06"); break;
+                case SplitName.PathOfPainTransition1: shouldSplit = nextScene.StartsWith("White_Palace_17") && sceneName.StartsWith("White_Palace_18"); break;
+                case SplitName.PathOfPainTransition2: shouldSplit = nextScene.StartsWith("White_Palace_19") && sceneName.StartsWith("White_Palace_17"); break;
+                case SplitName.PathOfPainTransition3: shouldSplit = nextScene.StartsWith("White_Palace_20") && sceneName.StartsWith("White_Palace_19"); break;
 
                 case SplitName.WhiteFragmentLeft: shouldSplit = mem.PlayerData<bool>(Offset.gotQueenFragment); break;
                 case SplitName.WhiteFragmentRight: shouldSplit = mem.PlayerData<bool>(Offset.gotKingFragment); break;
