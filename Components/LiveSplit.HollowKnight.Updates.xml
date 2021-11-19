@@ -1,117 +1,117 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <updates>
-  <update vesrion="3.0.9">
-    <files>
-      <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
-    </files>
-    <changelog>
-      <change>Fix Path of Pain transitions to check source room (to avoid splitting on reloading from save state) (flibber)</change>
-      <change>Fix 'Any Transition' to not split in menus (slaurent)</change>
-      <change>Add new autosplits 'Eternal Ordeal Unlocked', 'Eternal Ordeal Achieved' (slaurent)</change>
-      <change>Add new autosplit 'Transition excluding Save State' (flibber)</change>
-      <change>Display autosplitter version in settings ui (slaurent)</change>
-      <change>Support 'start-triggering autosplit', to optionally use an autosplit as a trigger to start the timer (slaurent)</change>
-    </changelog>
-  </update>
-  <update vesrion="3.0.8">
-    <files>
-      <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
-    </files>
-    <changelog>
-      <change> Fixed typos </change>
-    </changelog>
-  </update>
-  <update version="3.0.7">
-    <files>
-      <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
-    </files>
-    <changelog>
-      <change> Support for `[amount] + 1` splits (flibber) </change>
-      <change> Fixed pantheon bench splits (flibber) </change>
-      <change> Split for leaving pantheon lore rooms </change>
-      <change> Soul Tyrant w/ Sanctum Grub split, to avoid forgetting the grub when going back </change>
-      <change> Each individual colo trial unlocked and leaving each individual colo trial splits </change>
-      <change> Ending event split. Splits on credits (f.ex in All Cheevos) </change>
-      <change> Log autosplits without existing split-conditions </change>
-    </changelog>
-  </update>
-  <update version="3.0.6">
-    <files>
-      <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
-    </files>
-    <changelog>
-      <change> Fix existing AllBreakables split (slaurent) </change>
-      <change> Add splits for each Unbreakable charm, as well as AllUnbreakables (slaurent) </change>
-    </changelog>
-  </update>
-  <update version="3.0.5">
-    <files>
-      <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
-    </files>
-    <changelog>
-        <change> Settings UI improvements for both performance and UX (slaurent) </change>
-    </changelog>
-  </update>
-  <update version="3.0.4">
-    <files>
-      <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
-    </files>
-    <changelog>
-      <change> Pantheon entry splits ("Pantheon 1-4 (Transition)" and "Pantheon 5 (Transition)"). Grouped with Godhome Bench </change>
-      <change> Flibber: fixed 1.5.75 modapi loadremoval + dreamtrees (fixed a datatype offset error) </change>
-      <change> Slaurent: added grubs by scene splits for all grubs </change>
-    </changelog>
-  </update>
-  <update version="3.0.3">
-    <files>
-      <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
-    </files>
-    <changelog>
-      <change> Enter White Palace transition split ("White Palace Entry (Transition)") </change>
-      <change> Oblobbles boss split </change>
-      <change> Manual Split that will never autosplit as a workaround for using manual splits with ordered splits turned on </change>
-      <change> QG frogs and post-upper arena splits. Not immediately useful, but potentially nice-to-have ("Queen's Garden - Frogs (Transition)" + "Queen's Garden - Post-Upper Arena (Transition)") </change>
-    </changelog>
-  </update>
-  <update version="3.0.2">
-    <files>
-      <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
-    </files>
-    <changelog>
-      <change> Flib's meme run splits: Dapper Mapper (Cornifer at Home), All Seals, All Rancid Eggs, All Simple Keys (Sly Simple Key), All Breakables, and GGG (Met Emilitia) </change>
-      <change> All individual maps, flower given to: Godseeker, Oro, White Lady, Emilitia </change>
-      <change> All new splits added to the bottom of the list </change>
-    </changelog>
-  </update>
-  <update version="3.0.1">
-    <files>
-      <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
-    </files>
-    <changelog>
-      <change> 106% elegant key shoptimisation split </change>
-    </changelog>
-  </update>
+    <update vesrion="3.0.9">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change>Fix Path of Pain transitions to check source room (to avoid splitting on reloading from save state) (flibber)</change>
+            <change>Fix 'Any Transition' to not split in menus (slaurent)</change>
+            <change>Add new autosplits 'Eternal Ordeal Unlocked', 'Eternal Ordeal Achieved' (slaurent)</change>
+            <change>Add new autosplit 'Transition excluding Save State' (flibber)</change>
+            <change>Display autosplitter version in settings ui (slaurent)</change>
+            <change>Support 'start-triggering autosplit', to optionally use an autosplit as a trigger to start the timer (slaurent)</change>
+        </changelog>
+    </update>
+    <update vesrion="3.0.8">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change> Fixed typos </change>
+        </changelog>
+    </update>
+    <update version="3.0.7">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change> Support for `[amount] + 1` splits (flibber) </change>
+            <change> Fixed pantheon bench splits (flibber) </change>
+            <change> Split for leaving pantheon lore rooms </change>
+            <change> Soul Tyrant w/ Sanctum Grub split, to avoid forgetting the grub when going back </change>
+            <change> Each individual colo trial unlocked and leaving each individual colo trial splits </change>
+            <change> Ending event split. Splits on credits (f.ex in All Cheevos) </change>
+            <change> Log autosplits without existing split-conditions </change>
+        </changelog>
+    </update>
+    <update version="3.0.6">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change> Fix existing AllBreakables split (slaurent) </change>
+            <change> Add splits for each Unbreakable charm, as well as AllUnbreakables (slaurent) </change>
+        </changelog>
+    </update>
+    <update version="3.0.5">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change> Settings UI improvements for both performance and UX (slaurent) </change>
+        </changelog>
+    </update>
+    <update version="3.0.4">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change> Pantheon entry splits ("Pantheon 1-4 (Transition)" and "Pantheon 5 (Transition)"). Grouped with Godhome Bench </change>
+            <change> Flibber: fixed 1.5.75 modapi loadremoval + dreamtrees (fixed a datatype offset error) </change>
+            <change> Slaurent: added grubs by scene splits for all grubs </change>
+        </changelog>
+    </update>
+    <update version="3.0.3">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change> Enter White Palace transition split ("White Palace Entry (Transition)") </change>
+            <change> Oblobbles boss split </change>
+            <change> Manual Split that will never autosplit as a workaround for using manual splits with ordered splits turned on </change>
+            <change> QG frogs and post-upper arena splits. Not immediately useful, but potentially nice-to-have ("Queen's Garden - Frogs (Transition)" + "Queen's Garden - Post-Upper Arena (Transition)") </change>
+        </changelog>
+    </update>
+    <update version="3.0.2">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change> Flib's meme run splits: Dapper Mapper (Cornifer at Home), All Seals, All Rancid Eggs, All Simple Keys (Sly Simple Key), All Breakables, and GGG (Met Emilitia) </change>
+            <change> All individual maps, flower given to: Godseeker, Oro, White Lady, Emilitia </change>
+            <change> All new splits added to the bottom of the list </change>
+        </changelog>
+    </update>
+    <update version="3.0.1">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change> 106% elegant key shoptimisation split </change>
+        </changelog>
+    </update>
     <update version="3.0.0">
-      <files>
-        <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
-      </files>
-      <changelog>
-        <change> Added a 1xx% sly shopping 2 split (on leaving Sly's shop w/ sprintmaster and 8 vessel frags) </change>
-        <change> `Has descending dark` transition split </change>
-        <change> Sorted the splits from the last update </change>
-      </changelog>
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change> Added a 1xx% sly shopping 2 split (on leaving Sly's shop w/ sprintmaster and 8 vessel frags) </change>
+            <change> `Has descending dark` transition split </change>
+            <change> Sorted the splits from the last update </change>
+        </changelog>
     </update>
     <update version="2.9.9">
-      <files>
-        <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
-      </files>
-      <changelog>
-        <change> General quitout split added </change>
-        <change> Quitout after Gorgeuous Husk and Quitout after Mantis Claw added </change>
-        <change> Transition splits on first trans after above abilities for categories that don't quitout </change>
-        <change> Removed all non-credits implicit endings (aluba, PoP, p1 zote, etc). Add them as autosplits + enable `End-triggering autosplits` to use </change>
-        <change> Added a niche split for dying (shade skip setup, Eat Me Too%). Relatively untested </change>
-      </changelog>
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change> General quitout split added </change>
+            <change> Quitout after Gorgeuous Husk and Quitout after Mantis Claw added </change>
+            <change> Transition splits on first trans after above abilities for categories that don't quitout </change>
+            <change> Removed all non-credits implicit endings (aluba, PoP, p1 zote, etc). Add them as autosplits + enable `End-triggering autosplits` to use </change>
+            <change> Added a niche split for dying (shade skip setup, Eat Me Too%). Relatively untested </change>
+        </changelog>
     </update>
     <update version="2.9.8">
         <files>
