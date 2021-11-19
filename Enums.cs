@@ -351,7 +351,9 @@
         corniferAtHome,
         metEmilitia,
         killsOblobble,
-        scenesGrubRescued
+        scenesGrubRescued,
+        zoteStatueWallBroken,
+        ordealAchieved
     }
     public enum GameState {
         INACTIVE,

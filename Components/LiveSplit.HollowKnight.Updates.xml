@@ -1,5 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <updates>
+  <update vesrion="3.0.9">
+    <files>
+      <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+    </files>
+    <changelog>
+      <change>Fix Path of Pain transitions to check source room (to avoid splitting on reloading from save state) (flibber)</change>
+      <change>Fix 'Any Transition' to not split in menus (slaurent)</change>
+      <change>Add new autosplits 'Eternal Ordeal Unlocked', 'Eternal Ordeal Achieved' (slaurent)</change>
+      <change>Add new autosplit 'Transition excluding Save State' (flibber)</change>
+      <change>Display autosplitter version in settings ui (slaurent)</change>
+      <change>Support 'start-triggering autosplit', to optionally use an autosplit as a trigger to start the timer (slaurent)</change>
+    </changelog>
+  </update>
   <update vesrion="3.0.8">
     <files>
       <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>

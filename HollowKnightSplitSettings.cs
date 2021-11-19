@@ -437,6 +437,10 @@ namespace LiveSplit.HollowKnight {
         SpiritGladeOpen,
         [Description("Trap Bench - Beasts Den (Event)"), ToolTip("Splits when getting the trap bench in Beasts Den")]
         BeastsDenTrapBench,
+        [Description("Eternal Ordeal Unlocked (Event)"), ToolTip("Splits when breaking the wall to the Zote statue in Godhome")]
+        EternalOrdealUnlocked,
+        [Description("Eternal Ordeal Achieved (Event)"), ToolTip("Splits when achieving the ordeal (57th Zote killed)")]
+        EternalOrdealAchieved,
 
         [Description("Colosseum Unlocked 1 (Trial)"), ToolTip("Splits when the knight unlocks the trial at Little Fool")]
         ColosseumBronzeUnlocked,
@@ -1165,6 +1169,8 @@ namespace LiveSplit.HollowKnight {
 
         [Description("Any Transition (Transition)"), ToolTip("Splits when the knight enters a transition (only one will split per transition)")]
         AnyTransition,
+        [Description("Transition excluding Save State (Transition)"), ToolTip("Splits when the knight enters a transition (excludes save states and Sly's basement)")]
+        TransitionAfterSaveState,
         [Description("Manual Split (Misc)"), ToolTip("Never splits. Use this when you need to manually split while using ordered splits")]
         ManualSplit,
 
