@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <updates>
-    <update vesrion="3.0.9">
+    <update version="3.0.9">
         <files>
             <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
         </files>
@@ -13,7 +13,7 @@
             <change>Support 'start-triggering autosplit', to optionally use an autosplit as a trigger to start the timer (slaurent)</change>
         </changelog>
     </update>
-    <update vesrion="3.0.8">
+    <update version="3.0.8">
         <files>
             <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
         </files>
