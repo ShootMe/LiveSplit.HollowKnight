@@ -14,7 +14,7 @@ namespace LiveSplit.HollowKnight {
             InitializeComponent();
             cboName.MouseWheel += (o, e) => ((HandledMouseEventArgs)e).Handled = true;
         }
-        
+
         private void cboName_SelectedIndexChanged(object sender, EventArgs e) {
             string splitDescription = cboName.SelectedValue.ToString();
             SplitName split = GetSplitName(splitDescription);
@@ -37,7 +37,7 @@ namespace LiveSplit.HollowKnight {
             }
             return SplitName.ForgottenCrossroads;
         }
-        
+
         private void picHandle_MouseMove(object sender, MouseEventArgs e) {
             if (!isDragging) {
                 if (e.Button == MouseButtons.Left) {
@@ -125,8 +125,8 @@ namespace LiveSplit.HollowKnight {
         SlyKey,
         [Description("Tram Pass (Item)"), ToolTip("Splits when obtaining the Tram Pass")]
         TramPass,
-        
-        
+
+
 
 
         [Description("Mask Fragment 1 (Fragment)"), ToolTip("Splits when getting 1st Mask fragment")]
@@ -298,7 +298,7 @@ namespace LiveSplit.HollowKnight {
         Xero,
         [Description("Xero (Essence)"), ToolTip("Splits when absorbing essence from Xero")]
         XeroEssence,
-        
+
         [Description("Vengefly King (Pantheon)"), ToolTip("Splits after killing Vengefly King in Pantheon 1")]
         VengeflyKingP,
         [Description("Gruz Mother (Pantheon)"), ToolTip("Splits after killing Gruz Mother in Pantheon 1")]
@@ -411,7 +411,7 @@ namespace LiveSplit.HollowKnight {
         UnchainedHollowKnight,
         [Description("Chandelier - Watcher Knights (Event)"), ToolTip("Splits when dropping the chandelier on one of the watcher knights")]
         WatcherChandelier,
-        [Description("City Gate (Event)"), ToolTip("Splits when using the City Key to open the gate")] 
+        [Description("City Gate (Event)"), ToolTip("Splits when using the City Key to open the gate")]
         CityGateOpen,
         [Description("Death (Event)"), ToolTip("Splits when player hp is 0")]
         PlayerDeath,
@@ -503,7 +503,7 @@ namespace LiveSplit.HollowKnight {
         Zote2,
         [Description("Zote Killed Colosseum (Mini Boss)"), ToolTip("Splits when killing Zote in the Colosseum")]
         ZoteKilled,
-        
+
         [Description("Forgotten Crossroads (Stag Station)"), ToolTip("Splits when opening the Forgotten Crossroads Stag Station")]
         CrossroadsStation,
         [Description("Greenpath (Stag Station)"), ToolTip("Splits when obtaining Greenpath Stag Station")]
@@ -581,7 +581,7 @@ namespace LiveSplit.HollowKnight {
         TeachersArchive,
         [Description("White Palace (Area)"), ToolTip("Splits when entering White Palace text for the first time")]
         WhitePalace,
-        [Description("White Palace - Workshop (Area)"), ToolTip("Splits when visiting the secret room in White Palace")] 
+        [Description("White Palace - Workshop (Area)"), ToolTip("Splits when visiting the secret room in White Palace")]
         WhitePalaceSecretRoom,
 
         [Description("Ancient Basin (Transition)"), ToolTip("Splits on transition to Basin, alternative to the (Area) split")]
@@ -677,9 +677,9 @@ namespace LiveSplit.HollowKnight {
         Hiveblood,
         [Description("Joni's Blessing (Charm)"), ToolTip("Splits when obtaining the Joni's Blessing charm")]
         JonisBlessing,
-        [Description("Kingsoul Fragment - Queen's (Charm)"), ToolTip("Splits on picking up the left Kingsoul White Fragment")] 
+        [Description("Kingsoul Fragment - Queen's (Charm)"), ToolTip("Splits on picking up the left Kingsoul White Fragment")]
         WhiteFragmentLeft,
-        [Description("Kingsoul Fragment - King's (Charm)"), ToolTip("Splits on picking up the right Kingsoul White Fragment")] 
+        [Description("Kingsoul Fragment - King's (Charm)"), ToolTip("Splits on picking up the right Kingsoul White Fragment")]
         WhiteFragmentRight,
         [Description("Kingsoul (Charm)"), ToolTip("Splits when obtaining the completed Kingsoul charm")]
         Kingsoul,
@@ -1005,23 +1005,72 @@ namespace LiveSplit.HollowKnight {
         TreeWaterways,
         [Description("Whispering Root (Spirits' Glade)"), ToolTip("Splits upon completing the whispering root in the Spirits' Glade")]
         TreeGlade,
-        
-        [Description("Queen's Garden Bench (Toll)"), ToolTip("Splits when buying Queen's Garden toll bench")] 
+
+        [Description("100 Essence (Essence)"), ToolTip("Essence")]
+        Essence100,
+        [Description("200 Essence (Essence)"), ToolTip("Essence")]
+        Essence200,
+        [Description("300 Essence (Essence)"), ToolTip("Essence")]
+        Essence300,
+        [Description("400 Essence (Essence)"), ToolTip("Essence")]
+        Essence400,
+        [Description("500 Essence (Essence)"), ToolTip("Essence")]
+        Essence500,
+        [Description("600 Essence (Essence)"), ToolTip("Essence")]
+        Essence600,
+        [Description("700 Essence (Essence)"), ToolTip("Essence")]
+        Essence700,
+        [Description("800 Essence (Essence)"), ToolTip("Essence")]
+        Essence800,
+        [Description("900 Essence (Essence)"), ToolTip("Essence")]
+        Essence900,
+        [Description("1000 Essence (Essence)"), ToolTip("Essence")]
+        Essence1000,
+        [Description("1100 Essence (Essence)"), ToolTip("Essence")]
+        Essence1100,
+        [Description("1200 Essence (Essence)"), ToolTip("Essence")]
+        Essence1200,
+        [Description("1300 Essence (Essence)"), ToolTip("Essence")]
+        Essence1300,
+        [Description("1400 Essence (Essence)"), ToolTip("Essence")]
+        Essence1400,
+        [Description("1500 Essence (Essence)"), ToolTip("Essence")]
+        Essence1500,
+        [Description("1600 Essence (Essence)"), ToolTip("Essence")]
+        Essence1600,
+        [Description("1700 Essence (Essence)"), ToolTip("Essence")]
+        Essence1700,
+        [Description("1800 Essence (Essence)"), ToolTip("Essence")]
+        Essence1800,
+        [Description("1900 Essence (Essence)"), ToolTip("Essence")]
+        Essence1900,
+        [Description("2000 Essence (Essence)"), ToolTip("Essence")]
+        Essence2000,
+        [Description("2100 Essence (Essence)"), ToolTip("Essence")]
+        Essence2100,
+        [Description("2200 Essence (Essence)"), ToolTip("Essence")]
+        Essence2200,
+        [Description("2300 Essence (Essence)"), ToolTip("Essence")]
+        Essence2300,
+        [Description("2400 Essence (Essence)"), ToolTip("Essence")]
+        Essence2400,
+
+        [Description("Queen's Garden Bench (Toll)"), ToolTip("Splits when buying Queen's Garden toll bench")]
         TollBenchQG,
-        [Description("Sanctum Bench (Toll)"), ToolTip("Splits when buying City/Sanctum toll bench by Cornifer's location")] 
+        [Description("Sanctum Bench (Toll)"), ToolTip("Splits when buying City/Sanctum toll bench by Cornifer's location")]
         TollBenchCity,
-        [Description("Basin Bench (Toll)"), ToolTip("Splits when buying Ancient Basin toll bench")] 
+        [Description("Basin Bench (Toll)"), ToolTip("Splits when buying Ancient Basin toll bench")]
         TollBenchBasin,
         [Description("Waterways Manhole (Toll)"), ToolTip("Splits when opening the Waterways Manhole")]
         WaterwaysManhole,
         [Description("Tram Deepnest (Tram)"), ToolTip("Splits when unlocking the tram in Deepnest")]
         TramDeepnest,
 
-        [Description("White Palace - Lower Orb (Lever)"), ToolTip("Splits when lighting the orb in White Palace lowest floor")] 
+        [Description("White Palace - Lower Orb (Lever)"), ToolTip("Splits when lighting the orb in White Palace lowest floor")]
         WhitePalaceOrb1,
-        [Description("White Palace - Left Orb (Lever)"), ToolTip("Splits when lighting the orb in White Palace left wing")] 
+        [Description("White Palace - Left Orb (Lever)"), ToolTip("Splits when lighting the orb in White Palace left wing")]
         WhitePalaceOrb3,
-        [Description("White Palace - Right Orb (Lever)"), ToolTip("Splits when lighting the orb in White Palace right wing")] 
+        [Description("White Palace - Right Orb (Lever)"), ToolTip("Splits when lighting the orb in White Palace right wing")]
         WhitePalaceOrb2,
 
 
@@ -1128,7 +1177,7 @@ namespace LiveSplit.HollowKnight {
         mapRestingGrounds,
         [Description("Map Ancient Basin (Item)"), ToolTip("Splits when acquiring the Abyss map")]
         mapAbyss,
-       
+
         [Description("Dream Nail Marissa (Obtain)"), ToolTip("Splits when obtaining the essence from Marissa")]
         OnObtainGhostMarissa,
         [Description("Dream Nail Caelif and Fera (Obtain)"), ToolTip("Splits when obtaining the essence from Caelif and Fera Orthop")]
@@ -1178,17 +1227,17 @@ namespace LiveSplit.HollowKnight {
 
 
         /*
-        [Description("Mage Door (Test)"), ToolTip("Splits when Nailsmith is spared")] 
+        [Description("Mage Door (Test)"), ToolTip("Splits when Nailsmith is spared")]
         MageDoor,
-        [Description("Sanctum Warrior Window (Test)"), ToolTip("Splits when Nailsmith is killed")] 
+        [Description("Sanctum Warrior Window (Test)"), ToolTip("Splits when Nailsmith is killed")]
         MageWindow,
-        [Description("Mage Lord Enc. (Test)"), ToolTip("Splits when Nailsmith is spared")] 
+        [Description("Mage Lord Enc. (Test)"), ToolTip("Splits when Nailsmith is spared")]
         MageLordEncountered,
-        [Description("Mage Lord 2 Enc. (Test)"), ToolTip("Splits when Nailsmith is killed")] 
+        [Description("Mage Lord 2 Enc. (Test)"), ToolTip("Splits when Nailsmith is killed")]
         MageDoor2,
-        [Description("Mage Window (Test)"), ToolTip("Splits when Nailsmith is spared")] 
+        [Description("Mage Window (Test)"), ToolTip("Splits when Nailsmith is spared")]
         MageWindowGlass,
-        [Description("Mage Window Glass (Test)"), ToolTip("Splits when Nailsmith is killed")] 
+        [Description("Mage Window Glass (Test)"), ToolTip("Splits when Nailsmith is killed")]
         MageLordEncountered2,
         */
 
