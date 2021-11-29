@@ -894,8 +894,10 @@ namespace LiveSplit.HollowKnight {
         GrubCityBelowLoveTower,
         [Description("Rescued Grub City Below Sanctum (Grub)"), ToolTip("Splits when rescuing the grub in Ruins1_05")]
         GrubCityBelowSanctum,
-        [Description("Rescued Grub City Collector (Grub)"), ToolTip("Splits when rescuing all three grubs in Ruins2_11. (On 1221, splits for right grub)")]
+        [Description("Rescued Grub City Collector All (Grub)"), ToolTip("Splits when rescuing all three grubs in Ruins2_11. (On 1221, splits for right grub)")]
         GrubCityCollectorAll,
+        [Description("Rescued Grub City Collector (Grub)"), ToolTip("Splits when rescuing any grub in Ruins2_11")]
+        GrubCityCollector,
         [Description("Rescued Grub City Guard House (Grub)"), ToolTip("Splits when rescuing the grub in Ruins_House_01")]
         GrubCityGuardHouse,
         [Description("Rescued Grub City Sanctum (Grub)"), ToolTip("Splits when rescuing the grub in Ruins1_32")]
