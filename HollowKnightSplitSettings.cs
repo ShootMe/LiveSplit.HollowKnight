@@ -1166,6 +1166,10 @@ namespace LiveSplit.HollowKnight {
         OnUseSimpleKey,
         [Description("Grub (Obtain)"), ToolTip("Splits when obtaining a Grub")]
         OnObtainGrub,
+        [Description("GPZ Overworld (Boss)"), ToolTip("Splits each time defeating Grey Prince Zote in Bretta's dream")]
+        OnDefeatGPZ,
+        [Description("WD Overworld (Boss)"), ToolTip("Splits each time defeating White Defender in Dung Defender's dream")]
+        OnDefeatWhiteDefender,
 
         [Description("Any Transition (Transition)"), ToolTip("Splits when the knight enters a transition (only one will split per transition)")]
         AnyTransition,

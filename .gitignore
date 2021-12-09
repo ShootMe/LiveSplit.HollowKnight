@@ -2,12 +2,9 @@
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
-/.vs/LiveSplit.HollowKnight/v14
+/.vs/
 /bin
 /Components/LiveSplit.HollowKnight.exe
 /obj
 /LiveSplit.HollowKnight.csproj.user
-/.vs/LiveSplit.HollowKnight/v15
 .idea
-/.vs/LiveSplit.HollowKnight/v16/Server/sqlite3
-/.vs/LiveSplit.HollowKnight/v16/.suo

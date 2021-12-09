@@ -353,7 +353,9 @@
         killsOblobble,
         scenesGrubRescued,
         zoteStatueWallBroken,
-        ordealAchieved
+        ordealAchieved,
+        whiteDefenderDefeats,
+        greyPrinceDefeats
     }
     public enum GameState {
         INACTIVE,
