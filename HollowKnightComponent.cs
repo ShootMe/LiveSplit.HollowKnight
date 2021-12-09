@@ -778,11 +778,17 @@ namespace LiveSplit.HollowKnight {
                     break;
                 case SplitName.WaterwaysEntry: shouldSplit = nextScene.StartsWith("Waterways_01") && nextScene != sceneName; break;
                 case SplitName.FogCanyonEntry: shouldSplit = nextScene.StartsWith("Fungus3_26") && nextScene != sceneName; break;
+                case SplitName.FungalWastesEntry:
+                    shouldSplit = (nextScene.StartsWith("Fungus2_06") // Room outside Leg Eater
+                        || nextScene.StartsWith("Fungus2_03") // From Queens' Station
+                        || nextScene.StartsWith("Fungus2_23") // Bretta from Waterways
+                        || nextScene.StartsWith("Fungus2_20") // Spore Shroom room, from QG (this one's unlikely to come up)
+                        ) && nextScene != sceneName; break;
                 case SplitName.SoulMasterEncountered: shouldSplit = mem.PlayerData<bool>(Offset.mageLordEncountered); break;
 
-                //case SplitName.CrystalMoundExit: shouldSplit = sceneName.StartsWith("Mines_35") && nextScene != sceneName; break;
-                case SplitName.CrystalPeakEntry: shouldSplit = nextScene.StartsWith("Mines_02") && nextScene != sceneName; break;
-                case SplitName.QueensGardensEntry: shouldSplit = nextScene.StartsWith("Fungus3_34") && nextScene != sceneName; break;
+                case SplitName.CrystalMoundExit: shouldSplit = sceneName.StartsWith("Mines_35") && nextScene != sceneName; break;
+                case SplitName.CrystalPeakEntry: shouldSplit = (nextScene.StartsWith("Mines_02") || nextScene.StartsWith("Mines_10")) && nextScene != sceneName; break;
+                case SplitName.QueensGardensEntry: shouldSplit = (nextScene.StartsWith("Fungus3_34") || nextScene.StartsWith("Deepnest_43")) && nextScene != sceneName; break;
                 case SplitName.BasinEntry: shouldSplit = nextScene.StartsWith("Abyss_04") && nextScene != sceneName; break;
                 case SplitName.HiveEntry: shouldSplit = nextScene.StartsWith("Hive_01") && nextScene != sceneName; break;
                 case SplitName.KingdomsEdgeEntry: shouldSplit = nextScene.StartsWith("Deepnest_East_03") && nextScene != sceneName; break;
@@ -891,6 +897,7 @@ namespace LiveSplit.HollowKnight {
                             );
                     }
                     break;
+                case SplitName.RidingStag: shouldSplit = mem.PlayerData<bool>(Offset.travelling); break;
                 case SplitName.WhitePalaceLowerEntry: shouldSplit = nextScene.StartsWith("White_Palace_01") && nextScene != sceneName; break;
                 case SplitName.WhitePalaceLowerOrb: shouldSplit = nextScene.StartsWith("White_Palace_02") && nextScene != sceneName; break;
                 case SplitName.QueensGardensPostArenaTransition: shouldSplit = nextScene.StartsWith("Fungus3_13") && nextScene != sceneName; break;
@@ -939,6 +946,7 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.OnObtainSimpleKey: shouldSplit = store.CheckIncremented(Offset.simpleKeys); break;
                 case SplitName.OnUseSimpleKey: shouldSplit = store.CheckIncreasedBy(Offset.simpleKeys, -1); break;
                 case SplitName.OnObtainGrub: shouldSplit = store.CheckIncremented(Offset.grubsCollected); break;
+                case SplitName.OnObtainPaleOre: shouldSplit = store.CheckIncremented(Offset.ore); break;
                 case SplitName.OnDefeatGPZ: shouldSplit = store.CheckIncremented(Offset.greyPrinceDefeats); break;
                 case SplitName.OnDefeatWhiteDefender: shouldSplit = store.CheckIncremented(Offset.whiteDefenderDefeats); break;
 

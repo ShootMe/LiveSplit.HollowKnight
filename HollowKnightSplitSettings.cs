@@ -250,7 +250,7 @@ namespace LiveSplit.HollowKnight {
         Marmu,
         [Description("Marmu (Essence)"), ToolTip("Splits when absorbing essence from Marmu")]
         MarmuEssence,
-        [Description("Mega Moss Charger (Boss)"), ToolTip("Splits when killing Mega Moss Charger")]
+        [Description("Massive Moss Charger (Boss)"), ToolTip("Splits when killing Massive Moss Charger")]
         MegaMossCharger,
         [Description("Nightmare King Grimm (Boss)"), ToolTip("Splits when killing Nightmare King Grimm")]
         NightmareKingGrimm,
@@ -590,12 +590,14 @@ namespace LiveSplit.HollowKnight {
         BlueLake,
         [Description("Crystal Peak (Transition)"), ToolTip("Splits on transition to the room where the dive and toll entrances meet")]
         CrystalPeakEntry,
-        //[Description("Crystal Mound Exit (Transition)"), ToolTip("Splits on transition from Crystal Mound")]
-        //CrystalMoundExit,
+        [Description("Crystal Mound Exit (Transition)"), ToolTip("Splits on transition from Crystal Mound")]
+        CrystalMoundExit,
         [Description("Enter Any Dream (Transition)"), ToolTip("Splits when entering any dream world")]
         EnterAnyDream,
-        [Description("Fog Canyon (Transition)"), ToolTip("Splits on transition to Fog Canyon")]
+        [Description("Fog Canyon (Transition)"), ToolTip("Splits on transition to East Fog Canyon")]
         FogCanyonEntry,
+        [Description("Fungal Wastes (Transition)"), ToolTip("Splits on transition to Fungal Wastes")]
+        FungalWastesEntry,
         [Description("Gorgeous Husk Killed (Transition)"), ToolTip("Splits on transition after Gorgeous Husk defeated")]
         TransGorgeousHusk,
         [Description("Greenpath (Transition)"), ToolTip("Splits when entering Greenpath")]
@@ -1166,6 +1168,8 @@ namespace LiveSplit.HollowKnight {
         OnUseSimpleKey,
         [Description("Grub (Obtain)"), ToolTip("Splits when obtaining a Grub")]
         OnObtainGrub,
+        [Description("Pale Ore (Obtain)"), ToolTip("Splits when obtaining a Pale Ore")]
+        OnObtainPaleOre,
         [Description("GPZ Overworld (Boss)"), ToolTip("Splits each time defeating Grey Prince Zote in Bretta's dream")]
         OnDefeatGPZ,
         [Description("WD Overworld (Boss)"), ToolTip("Splits each time defeating White Defender in Dung Defender's dream")]
@@ -1175,6 +1179,8 @@ namespace LiveSplit.HollowKnight {
         AnyTransition,
         [Description("Transition excluding Save State (Transition)"), ToolTip("Splits when the knight enters a transition (excludes save states and Sly's basement)")]
         TransitionAfterSaveState,
+        [Description("Riding Stag (Event)"), ToolTip("Splits while riding the stag")]
+        RidingStag,
         [Description("Manual Split (Misc)"), ToolTip("Never splits. Use this when you need to manually split while using ordered splits")]
         ManualSplit,
 
