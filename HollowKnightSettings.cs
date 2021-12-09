@@ -260,6 +260,12 @@ namespace LiveSplit.HollowKnight {
                     }
                 }
             }
+
+            if (chkAutosplitStartRuns.Checked) {
+                string text = cboStartTriggerName.Text;
+                cboStartTriggerName.DataSource = GetAvailableSplits();
+                cboStartTriggerName.Text = text;
+            }
         }
         private void flowMain_DragDrop(object sender, DragEventArgs e) {
             UpdateSplits();
