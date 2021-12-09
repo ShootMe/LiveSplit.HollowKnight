@@ -588,7 +588,7 @@ namespace LiveSplit.HollowKnight {
         BasinEntry,
         [Description("Blue Lake (Transition)"), ToolTip("Splits on transition to Blue Lake from Gruz Mother scene (requires Ordered Splits)")]
         BlueLake,
-        [Description("Crystal Peak (Transition)"), ToolTip("Splits on transition to the room where the dive and toll entrances meet")]
+        [Description("Crystal Peak Entry (Transition)"), ToolTip("Splits on transition to the room where the dive and toll entrances meet, or the room right of Dirtmouth")]
         CrystalPeakEntry,
         [Description("Crystal Mound Exit (Transition)"), ToolTip("Splits on transition from Crystal Mound")]
         CrystalMoundExit,
@@ -596,7 +596,7 @@ namespace LiveSplit.HollowKnight {
         EnterAnyDream,
         [Description("Fog Canyon (Transition)"), ToolTip("Splits on transition to East Fog Canyon")]
         FogCanyonEntry,
-        [Description("Fungal Wastes (Transition)"), ToolTip("Splits on transition to Fungal Wastes")]
+        [Description("Fungal Wastes Entry (Transition)"), ToolTip("Splits on transition to Fungal Wastes (scene below Crossroads, right of QS, left of Waterways or with Spore Shroom")]
         FungalWastesEntry,
         [Description("Gorgeous Husk Killed (Transition)"), ToolTip("Splits on transition after Gorgeous Husk defeated")]
         TransGorgeousHusk,
@@ -620,7 +620,7 @@ namespace LiveSplit.HollowKnight {
         KingdomsEdgeOvercharmedEntry,
         [Description("NKG Dream (Transition)"), ToolTip("Splits on transition to NKG dream")]
         EnterNKG,
-        [Description("Queen's Garden - QGA/Mound Entry (Transition)"), ToolTip("Splits on transition to QG scene following QGA")]
+        [Description("Queen's Garden Entry (Transition)"), ToolTip("Splits on transition to QG scene following QGA or above Deepnest")]
         QueensGardensEntry,
         [Description("Queen's Garden - Frogs (Transition)"), ToolTip("Splits on transition to QG frogs scene")]
         QueensGardensFrogsTrans,
