@@ -645,7 +645,7 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.CollectorP: shouldSplit = sceneName.StartsWith("GG_Collector") && nextScene.StartsWith("GG_God_Tamer"); break;
                 case SplitName.GodTamerP: shouldSplit = sceneName.StartsWith("GG_God_Tamer") && nextScene.StartsWith("GG_Grimm"); break;
                 case SplitName.TroupeMasterGrimmP: shouldSplit = sceneName.StartsWith("GG_Grimm") && nextScene == "GG_Spa"; break;
-                case SplitName.GalienP: shouldSplit = sceneName.StartsWith("GG_Ghost_Galien") && (nextScene.StartsWith("GG_Grey_Prince_Zote") || nextScene.StartsWith("GG_Painter")); break;
+                case SplitName.GalienP: shouldSplit = sceneName.StartsWith("GG_Ghost_Galien") && (nextScene.StartsWith("GG_Grey_Prince_Zote") || nextScene.StartsWith("GG_Painter") || nextScene.StartsWith("GG_Uumuu")); break;
                 case SplitName.GreyPrinceZoteP: shouldSplit = sceneName.StartsWith("GG_Grey_Prince_Zote") && (nextScene.StartsWith("GG_Uumuu") || nextScene.StartsWith("GG_Failed_Champion")); break;
                 case SplitName.UumuuP: shouldSplit = sceneName.StartsWith("GG_Uumuu") && (nextScene.StartsWith("GG_Hornet_2") || nextScene.StartsWith("GG_Nosk_Hornet")); break;
                 case SplitName.Hornet2P: shouldSplit = sceneName.StartsWith("GG_Hornet_2") && (nextScene == "GG_Engine" || nextScene == "GG_Spa"); break;
