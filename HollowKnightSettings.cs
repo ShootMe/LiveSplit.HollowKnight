@@ -201,7 +201,6 @@ namespace LiveSplit.HollowKnight {
                     MemberInfo info = typeof(SplitName).GetMember(AutosplitStartRuns.ToString())[0];
                     DescriptionAttribute description = (DescriptionAttribute)info.GetCustomAttributes(typeof(DescriptionAttribute), false)[0];
                     cboStartTriggerName.Text = description.Description;
-                    cboStartTriggerName.SelectedIndexChanged += new EventHandler(cboStartTriggerName_SelectedIndexChanged);
                 }
             }
             Ordered = isOrdered;
@@ -259,6 +258,12 @@ namespace LiveSplit.HollowKnight {
                         setting.cboName.Text = text;
                     }
                 }
+            }
+
+            if (chkAutosplitStartRuns.Checked) {
+                string text = cboStartTriggerName.Text;
+                cboStartTriggerName.DataSource = GetAvailableSplits();
+                cboStartTriggerName.Text = text;
             }
         }
         private void flowMain_DragDrop(object sender, DragEventArgs e) {

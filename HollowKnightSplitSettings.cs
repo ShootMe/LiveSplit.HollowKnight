@@ -250,7 +250,7 @@ namespace LiveSplit.HollowKnight {
         Marmu,
         [Description("Marmu (Essence)"), ToolTip("Splits when absorbing essence from Marmu")]
         MarmuEssence,
-        [Description("Mega Moss Charger (Boss)"), ToolTip("Splits when killing Mega Moss Charger")]
+        [Description("Massive Moss Charger (Boss)"), ToolTip("Splits when killing Massive Moss Charger")]
         MegaMossCharger,
         [Description("Nightmare King Grimm (Boss)"), ToolTip("Splits when killing Nightmare King Grimm")]
         NightmareKingGrimm,
@@ -588,14 +588,16 @@ namespace LiveSplit.HollowKnight {
         BasinEntry,
         [Description("Blue Lake (Transition)"), ToolTip("Splits on transition to Blue Lake from Gruz Mother scene (requires Ordered Splits)")]
         BlueLake,
-        [Description("Crystal Peak (Transition)"), ToolTip("Splits on transition to the room where the dive and toll entrances meet")]
+        [Description("Crystal Peak Entry (Transition)"), ToolTip("Splits on transition to the room where the dive and toll entrances meet, or the room right of Dirtmouth")]
         CrystalPeakEntry,
-        //[Description("Crystal Mound Exit (Transition)"), ToolTip("Splits on transition from Crystal Mound")]
-        //CrystalMoundExit,
+        [Description("Crystal Mound Exit (Transition)"), ToolTip("Splits on transition from Crystal Mound")]
+        CrystalMoundExit,
         [Description("Enter Any Dream (Transition)"), ToolTip("Splits when entering any dream world")]
         EnterAnyDream,
-        [Description("Fog Canyon (Transition)"), ToolTip("Splits on transition to Fog Canyon")]
+        [Description("Fog Canyon (Transition)"), ToolTip("Splits on transition to East Fog Canyon")]
         FogCanyonEntry,
+        [Description("Fungal Wastes Entry (Transition)"), ToolTip("Splits on transition to Fungal Wastes (scene below Crossroads, right of QS, left of Waterways or with Spore Shroom")]
+        FungalWastesEntry,
         [Description("Gorgeous Husk Killed (Transition)"), ToolTip("Splits on transition after Gorgeous Husk defeated")]
         TransGorgeousHusk,
         [Description("Greenpath (Transition)"), ToolTip("Splits when entering Greenpath")]
@@ -618,7 +620,7 @@ namespace LiveSplit.HollowKnight {
         KingdomsEdgeOvercharmedEntry,
         [Description("NKG Dream (Transition)"), ToolTip("Splits on transition to NKG dream")]
         EnterNKG,
-        [Description("Queen's Garden - QGA/Mound Entry (Transition)"), ToolTip("Splits on transition to QG scene following QGA")]
+        [Description("Queen's Garden Entry (Transition)"), ToolTip("Splits on transition to QG scene following QGA or above Deepnest")]
         QueensGardensEntry,
         [Description("Queen's Garden - Frogs (Transition)"), ToolTip("Splits on transition to QG frogs scene")]
         QueensGardensFrogsTrans,
@@ -1217,11 +1219,19 @@ namespace LiveSplit.HollowKnight {
         OnUseSimpleKey,
         [Description("Grub (Obtain)"), ToolTip("Splits when obtaining a Grub")]
         OnObtainGrub,
+        [Description("Pale Ore (Obtain)"), ToolTip("Splits when obtaining a Pale Ore")]
+        OnObtainPaleOre,
+        [Description("GPZ Overworld (Boss)"), ToolTip("Splits each time defeating Grey Prince Zote in Bretta's dream")]
+        OnDefeatGPZ,
+        [Description("WD Overworld (Boss)"), ToolTip("Splits each time defeating White Defender in Dung Defender's dream")]
+        OnDefeatWhiteDefender,
 
         [Description("Any Transition (Transition)"), ToolTip("Splits when the knight enters a transition (only one will split per transition)")]
         AnyTransition,
         [Description("Transition excluding Save State (Transition)"), ToolTip("Splits when the knight enters a transition (excludes save states and Sly's basement)")]
         TransitionAfterSaveState,
+        [Description("Riding Stag (Event)"), ToolTip("Splits while riding the stag")]
+        RidingStag,
         [Description("Manual Split (Misc)"), ToolTip("Never splits. Use this when you need to manually split while using ordered splits")]
         ManualSplit,
 
