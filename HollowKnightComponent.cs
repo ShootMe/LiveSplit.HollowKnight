@@ -1109,6 +1109,7 @@ namespace LiveSplit.HollowKnight {
             lookForTeleporting = false;
             Model.CurrentState.IsGameTimePaused = true;
             splitsDone.Clear();
+            store.Reset();
             if (failedValues.Count > 0) {
                 WriteLog("---------Splits without match-------------------");
                 foreach (var value in failedValues) {
@@ -1130,6 +1131,7 @@ namespace LiveSplit.HollowKnight {
             Model.CurrentState.IsGameTimePaused = true;
             Model.CurrentState.SetGameTime(Model.CurrentState.CurrentTime.RealTime);
             splitsDone.Clear();
+            store.Reset();
             failedValues.Clear();
             WriteLog("---------New Game-------------------------------");
         }

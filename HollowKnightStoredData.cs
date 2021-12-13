@@ -14,6 +14,16 @@ namespace LiveSplit.HollowKnight
 
         private HollowKnightMemory mem;
 
+        /// <summary>
+        /// Reset the stored data's memory
+        /// </summary>
+        public void Reset() {
+            pdInts.Clear();
+            TraitorLordDeadOnEntry = false;
+            SplitThisTransition = false;
+            GladeEssence = 0;
+        }
+
         private int GetValue(Offset offset) {
             if (!pdInts.ContainsKey(offset)) {
                 pdInts[offset] = mem.PlayerData<int>(offset);
