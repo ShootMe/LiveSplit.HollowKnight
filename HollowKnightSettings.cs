@@ -23,7 +23,7 @@ namespace LiveSplit.HollowKnight {
 #if DEBUG
             version += "-dev";
 #endif
-            this.versionLabel.Text = "Autosplitter Version: " + version;
+            this.versionLabel.Text = "自动计时器版本号：" + version;
 
             Splits = new List<SplitName>();
             isLoading = false;

@@ -51,8 +51,8 @@
             this.btnAddSplit.Name = "btnAddSplit";
             this.btnAddSplit.Size = new System.Drawing.Size(57, 21);
             this.btnAddSplit.TabIndex = 0;
-            this.btnAddSplit.Text = "Add Split";
-            this.ToolTips.SetToolTip(this.btnAddSplit, "All game endings automatically stop timer when on final split");
+            this.btnAddSplit.Text = "增加";
+            this.ToolTips.SetToolTip(this.btnAddSplit, "游戏结束时会自动结束计时，你不需要额外加一个“游戏结束”的事件");
             this.btnAddSplit.UseVisualStyleBackColor = true;
             this.btnAddSplit.Click += new System.EventHandler(this.btnAddSplit_Click);
             // 
@@ -96,7 +96,7 @@
             this.Options_GroupBox.Size = new System.Drawing.Size(450, 123);
             this.Options_GroupBox.TabIndex = 6;
             this.Options_GroupBox.TabStop = false;
-            this.Options_GroupBox.Text = "Options";
+            this.Options_GroupBox.Text = "选项";
             // 
             // versionLabel
             // 
@@ -118,7 +118,7 @@
             this.RunBehaviour_GroupBox.Size = new System.Drawing.Size(301, 71);
             this.RunBehaviour_GroupBox.TabIndex = 7;
             this.RunBehaviour_GroupBox.TabStop = false;
-            this.RunBehaviour_GroupBox.Text = "Run behaviour";
+            this.RunBehaviour_GroupBox.Text = "行为";
             // 
             // cboStartTriggerName
             // 
@@ -136,8 +136,8 @@
             this.chkAutosplitStartRuns.Name = "chkAutosplitStartRuns";
             this.chkAutosplitStartRuns.Size = new System.Drawing.Size(139, 17);
             this.chkAutosplitStartRuns.TabIndex = 6;
-            this.chkAutosplitStartRuns.Text = "Start-triggering autosplit:";
-            this.ToolTips.SetToolTip(this.chkAutosplitStartRuns, "The specified autosplit starts the timer. Use for ILs");
+            this.chkAutosplitStartRuns.Text = "自动触发开始计时：";
+            this.ToolTips.SetToolTip(this.chkAutosplitStartRuns, "指定的事件会自动触发开始计时。用于非流程速通");
             this.chkAutosplitStartRuns.UseVisualStyleBackColor = true;
             this.chkAutosplitStartRuns.CheckedChanged += new System.EventHandler(this.AutosplitStartChanged);
             // 
@@ -147,8 +147,8 @@
             this.chkOrdered.Name = "chkOrdered";
             this.chkOrdered.Size = new System.Drawing.Size(92, 19);
             this.chkOrdered.TabIndex = 4;
-            this.chkOrdered.Text = "Ordered Splits";
-            this.ToolTips.SetToolTip(this.chkOrdered, "Required for runs with Pantheon and/or transition splits");
+            this.chkOrdered.Text = "按顺序";
+            this.ToolTips.SetToolTip(this.chkOrdered, "当进行万神殿速通或含有切换场景片段时必须勾选");
             this.chkOrdered.UseVisualStyleBackColor = true;
             this.chkOrdered.CheckedChanged += new System.EventHandler(this.ControlChanged);
             // 
@@ -159,8 +159,8 @@
             this.chkAutosplitEndRuns.Name = "chkAutosplitEndRuns";
             this.chkAutosplitEndRuns.Size = new System.Drawing.Size(133, 19);
             this.chkAutosplitEndRuns.TabIndex = 5;
-            this.chkAutosplitEndRuns.Text = "End-triggering autosplit";
-            this.ToolTips.SetToolTip(this.chkAutosplitEndRuns, "Any autosplit can stop the timer on final split to finish a run");
+            this.chkAutosplitEndRuns.Text = "自动触发结束计时";
+            this.ToolTips.SetToolTip(this.chkAutosplitEndRuns, "游戏结束时本来就会自动结束计时。勾上这个选项后，当进行到最后一个片段时，任意一个配置的事件都可以自动结束计时");
             this.chkAutosplitEndRuns.UseVisualStyleBackColor = true;
             this.chkAutosplitEndRuns.CheckedChanged += new System.EventHandler(this.AutosplitEndChanged);
             // 
@@ -173,7 +173,7 @@
             this.SortBy_GroupBox.Size = new System.Drawing.Size(131, 71);
             this.SortBy_GroupBox.TabIndex = 6;
             this.SortBy_GroupBox.TabStop = false;
-            this.SortBy_GroupBox.Text = "Sort Split Selects By";
+            this.SortBy_GroupBox.Text = "筛选器排序方式";
             // 
             // rdAlpha
             // 
@@ -182,7 +182,7 @@
             this.rdAlpha.Name = "rdAlpha";
             this.rdAlpha.Size = new System.Drawing.Size(83, 17);
             this.rdAlpha.TabIndex = 3;
-            this.rdAlpha.Text = "Alphabetical";
+            this.rdAlpha.Text = "相同的字放在一起";
             this.rdAlpha.UseVisualStyleBackColor = true;
             this.rdAlpha.CheckedChanged += new System.EventHandler(this.radio_CheckedChanged);
             // 
@@ -195,7 +195,7 @@
             this.rdType.Size = new System.Drawing.Size(49, 17);
             this.rdType.TabIndex = 2;
             this.rdType.TabStop = true;
-            this.rdType.Text = "Type";
+            this.rdType.Text = "按类型排序";
             this.rdType.UseVisualStyleBackColor = true;
             this.rdType.CheckedChanged += new System.EventHandler(this.radio_CheckedChanged);
             // 

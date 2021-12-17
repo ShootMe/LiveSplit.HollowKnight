@@ -42,7 +42,7 @@
             this.btnRemove.Name = "btnRemove";
             this.btnRemove.Size = new System.Drawing.Size(26, 23);
             this.btnRemove.TabIndex = 4;
-            this.ToolTips.SetToolTip(this.btnRemove, "Remove this setting");
+            this.ToolTips.SetToolTip(this.btnRemove, "删除这一行");
             this.btnRemove.UseVisualStyleBackColor = true;
             // 
             // cboName
@@ -73,7 +73,7 @@
             this.btnEdit.Size = new System.Drawing.Size(26, 23);
             this.btnEdit.TabIndex = 6;
             this.btnEdit.Text = "✏";
-            this.ToolTips.SetToolTip(this.btnEdit, "edit this setting");
+            this.ToolTips.SetToolTip(this.btnEdit, "编辑这一行");
             this.btnEdit.UseVisualStyleBackColor = true;
             // 
             // btnAddBelow
@@ -83,7 +83,7 @@
             this.btnAddBelow.Size = new System.Drawing.Size(34, 23);
             this.btnAddBelow.TabIndex = 8;
             this.btnAddBelow.Text = "+↓";
-            this.ToolTips.SetToolTip(this.btnAddBelow, "add a split below this");
+            this.ToolTips.SetToolTip(this.btnAddBelow, "在下方加一行");
             this.btnAddBelow.UseVisualStyleBackColor = true;
             // 
             // btnAddAbove
@@ -93,7 +93,7 @@
             this.btnAddAbove.Size = new System.Drawing.Size(34, 23);
             this.btnAddAbove.TabIndex = 7;
             this.btnAddAbove.Text = "+↑";
-            this.ToolTips.SetToolTip(this.btnAddAbove, "add a split above this");
+            this.ToolTips.SetToolTip(this.btnAddAbove, "在上方加一行");
             this.btnAddAbove.UseVisualStyleBackColor = true;
             // 
             // HollowKnightSplitSettings

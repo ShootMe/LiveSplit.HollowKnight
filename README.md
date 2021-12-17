@@ -1,3 +1,5 @@
+**没改什么内容，就是汉化了一下**
+
 # LiveSplit.HollowKnight
 Hollow Knight Autosplitter / Load Remover
 
