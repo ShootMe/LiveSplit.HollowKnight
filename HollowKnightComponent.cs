@@ -875,6 +875,7 @@ namespace LiveSplit.HollowKnight {
                     break;
 
                 case SplitName.MetEmilitia: shouldSplit = mem.PlayerData<bool>(Offset.metEmilitia); break;
+                case SplitName.SavedCloth: shouldSplit = mem.PlayerData<bool>(Offset.savedCloth); break;
                 case SplitName.mapDirtmouth: shouldSplit = mem.PlayerData<bool>(Offset.mapDirtmouth); break;
                 case SplitName.mapCrossroads: shouldSplit = mem.PlayerData<bool>(Offset.mapCrossroads); break;
                 case SplitName.mapGreenpath: shouldSplit = mem.PlayerData<bool>(Offset.mapGreenpath); break;

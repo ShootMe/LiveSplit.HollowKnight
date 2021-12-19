@@ -230,7 +230,6 @@ namespace LiveSplit.HollowKnight {
         GreyPrinceEssence,
         [Description("Grey Prince Zote Level (Boss)"), ToolTip("Splits each time defeating Grey Prince Zote in Bretta's dream")]
         OnDefeatGPZ,
-
         [Description("Gruz Mother (Boss)"), ToolTip("Splits when killing Gruz Mother")]
         GruzMother,
         [Description("Hive Knight (Boss)"), ToolTip("Splits when killing Hive Knight")]
@@ -448,6 +447,8 @@ namespace LiveSplit.HollowKnight {
         EternalOrdealAchieved,
         [Description("Riding Stag (Event)"), ToolTip("Splits while riding the stag")]
         RidingStag,
+        [Description("Saved Cloth (Event)"), ToolTip("Splits when saving Cloth in Ancient Basin")]
+        SavedCloth,
         [Description("Colosseum Unlocked 1 (Trial)"), ToolTip("Splits when the knight unlocks the trial at Little Fool")]
         ColosseumBronzeUnlocked,
         [Description("Colosseum Unlocked 2 (Trial)"), ToolTip("Splits when the knight unlocks the trial at Little Fool")]
