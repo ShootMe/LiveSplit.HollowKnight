@@ -13,7 +13,7 @@
             <change>Add autosplits '100 Essence', '200 Essence', ... through '2400 Essence', which split when the player has at least that amount of essence. (slaurent) </change>
             <change>Add autosplits 'Crystal Mound Exit (Transition)' and 'Fungal Wastes Entry (Transition)'; both require ordered splits, like all 'Transition' splits. (flibber)</change>
             <change>Add autosplit 'Pale Ore (Obtain)', which can be used for any/all of the 6 Pale Ore (requires ordered splits, like all 'Obtain' splits). (flibber)</change>
-            <change>Add autosplits 'Grey Prince Zote Overworld' and 'White Defender Overworld', which will split each time their respective boss is defeated. Requires ordered splits. (flibber)</change>
+            <change>Add autosplits 'Grey Prince Zote Level' and 'White Defender Level', which will split each time their respective boss is defeated. Requires ordered splits. (flibber)</change>
             <change>Add autosplit 'Riding Stag (Event)'. (flibber)</change>
             <change>Add autosplit 'Saved Cloth (Event)'. (slaurent)</change>
         </changelog>
