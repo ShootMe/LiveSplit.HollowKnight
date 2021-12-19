@@ -228,6 +228,9 @@ namespace LiveSplit.HollowKnight {
         GreyPrince,
         [Description("Grey Prince Zote (Essence)"), ToolTip("Splits when getting Grey Prince Zote essence")]
         GreyPrinceEssence,
+        [Description("Grey Prince Zote Level (Boss)"), ToolTip("Splits each time defeating Grey Prince Zote in Bretta's dream")]
+        OnDefeatGPZ,
+
         [Description("Gruz Mother (Boss)"), ToolTip("Splits when killing Gruz Mother")]
         GruzMother,
         [Description("Hive Knight (Boss)"), ToolTip("Splits when killing Hive Knight")]
@@ -294,6 +297,8 @@ namespace LiveSplit.HollowKnight {
         WhiteDefender,
         [Description("White Defender (Essence)"), ToolTip("Splits when getting White Defender essence")]
         WhiteDefenderEssence,
+        [Description("White Defender Level (Boss)"), ToolTip("Splits each time defeating White Defender in Dung Defender's dream")]
+        OnDefeatWhiteDefender,
         [Description("Xero (Boss)"), ToolTip("Splits when killing Xero")]
         Xero,
         [Description("Xero (Essence)"), ToolTip("Splits when absorbing essence from Xero")]
@@ -441,7 +446,8 @@ namespace LiveSplit.HollowKnight {
         EternalOrdealUnlocked,
         [Description("Eternal Ordeal Achieved (Event)"), ToolTip("Splits when achieving the ordeal (57th Zote killed)")]
         EternalOrdealAchieved,
-
+        [Description("Riding Stag (Event)"), ToolTip("Splits while riding the stag")]
+        RidingStag,
         [Description("Colosseum Unlocked 1 (Trial)"), ToolTip("Splits when the knight unlocks the trial at Little Fool")]
         ColosseumBronzeUnlocked,
         [Description("Colosseum Unlocked 2 (Trial)"), ToolTip("Splits when the knight unlocks the trial at Little Fool")]
@@ -1221,17 +1227,11 @@ namespace LiveSplit.HollowKnight {
         OnObtainGrub,
         [Description("Pale Ore (Obtain)"), ToolTip("Splits when obtaining a Pale Ore")]
         OnObtainPaleOre,
-        [Description("GPZ Overworld (Boss)"), ToolTip("Splits each time defeating Grey Prince Zote in Bretta's dream")]
-        OnDefeatGPZ,
-        [Description("WD Overworld (Boss)"), ToolTip("Splits each time defeating White Defender in Dung Defender's dream")]
-        OnDefeatWhiteDefender,
 
         [Description("Any Transition (Transition)"), ToolTip("Splits when the knight enters a transition (only one will split per transition)")]
         AnyTransition,
         [Description("Transition excluding Save State (Transition)"), ToolTip("Splits when the knight enters a transition (excludes save states and Sly's basement)")]
         TransitionAfterSaveState,
-        [Description("Riding Stag (Event)"), ToolTip("Splits while riding the stag")]
-        RidingStag,
         [Description("Manual Split (Misc)"), ToolTip("Never splits. Use this when you need to manually split while using ordered splits")]
         ManualSplit,
 
