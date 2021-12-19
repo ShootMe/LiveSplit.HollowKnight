@@ -196,8 +196,8 @@ namespace LiveSplit.HollowKnight {
             if (AutosplitStartRunsNode != null) {
                 string splitDescription = AutosplitStartRunsNode.InnerText.Trim();
                 if (!string.IsNullOrEmpty(splitDescription)) {
-                    AutosplitStartRuns = HollowKnightSplitSettings.GetSplitName(splitDescription);
                     cboStartTriggerName.DataSource = GetAvailableSplits();
+                    AutosplitStartRuns = HollowKnightSplitSettings.GetSplitName(splitDescription);
                     MemberInfo info = typeof(SplitName).GetMember(AutosplitStartRuns.ToString())[0];
                     DescriptionAttribute description = (DescriptionAttribute)info.GetCustomAttributes(typeof(DescriptionAttribute), false)[0];
                     cboStartTriggerName.Text = description.Description;
