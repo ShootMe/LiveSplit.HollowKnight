@@ -201,6 +201,7 @@ namespace LiveSplit.HollowKnight {
                     MemberInfo info = typeof(SplitName).GetMember(AutosplitStartRuns.ToString())[0];
                     DescriptionAttribute description = (DescriptionAttribute)info.GetCustomAttributes(typeof(DescriptionAttribute), false)[0];
                     cboStartTriggerName.Text = description.Description;
+                    chkAutosplitStartRuns.Checked = true;
                 }
             }
             Ordered = isOrdered;
