@@ -128,6 +128,7 @@
             this.cboStartTriggerName.Name = "cboStartTriggerName";
             this.cboStartTriggerName.Size = new System.Drawing.Size(145, 21);
             this.cboStartTriggerName.TabIndex = 7;
+            this.cboStartTriggerName.SelectedIndexChanged += new System.EventHandler(this.cboStartTriggerName_SelectedIndexChanged);
             // 
             // chkAutosplitStartRuns
             // 

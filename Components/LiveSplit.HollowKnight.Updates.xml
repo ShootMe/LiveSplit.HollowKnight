@@ -1,5 +1,23 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <updates>
+    <update version="3.1.0">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change>Fix performance of location grub splits; add autosplit 'Rescued Grub City Collector' which splits on any Collector grub. (slaurent)</change>
+            <change>Fix 'Dream Nail Revek' prematurely splitting after having obtained essence in Spirit's Glade in a previous run. (flibber)</change>
+            <change>Fix the Start-triggering Autosplit box erroneously resetting to Abyss Shriek. (flibber)</change>
+            <change>Update names/descriptions of various autosplits (Massive Moss Charger and several Transition autosplits) (flibber)</change>
+            <change>The Crystal Peak Entry split now also splits when entering from Dirtmouth, and the Queens Garden Entry split now also splits when entering from Deepnest. (flibber)</change>
+            <change>Add autosplits '100 Essence', '200 Essence', ... through '2400 Essence', which split when the player has at least that amount of essence. (slaurent) </change>
+            <change>Add autosplits 'Crystal Mound Exit (Transition)' and 'Fungal Wastes Entry (Transition)'; both require ordered splits, like all 'Transition' splits. (flibber)</change>
+            <change>Add autosplit 'Pale Ore (Obtain)', which can be used for any/all of the 6 Pale Ore (requires ordered splits, like all 'Obtain' splits). (flibber)</change>
+            <change>Add autosplits 'Grey Prince Zote Level' and 'White Defender Level', which will split each time their respective boss is defeated. Requires ordered splits. (flibber)</change>
+            <change>Add autosplit 'Riding Stag (Event)'. (flibber)</change>
+            <change>Add autosplit 'Saved Cloth (Event)'. (slaurent)</change>
+        </changelog>
+    </update>
     <update version="3.0.9">
         <files>
             <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>

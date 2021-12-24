@@ -208,47 +208,47 @@
         grubsCollected,
         guardiansDefeated,
         scenesEncounteredDreamPlantC,
-        
+
         openedCityGate,
 
         abyssGateOpened,
         abyssLighthouse,
         blueVineDoor,
-        
+
         whitePalaceOrb_1,
         whitePalaceOrb_2,
         whitePalaceOrb_3,
         whitePalaceSecretRoomVisited,
-        
+
         dreamOrbs,
-        
+
         slyRescued,
         hornetGreenpath,
         nailsmithKilled,
         nailsmithSpared,
-        
+
         metQueen,
         gotQueenFragment,
         gotKingFragment,
-        
+
         travelling,
         stagPosition,
-        
-        openedTown, 
+
+        openedTown,
         openedTownBuilding, // Town stag station lever?
-        
+
         openedMageDoor,
         openedMageDoor_v2,
         brokenMageWindow,
         brokenMageWindowGlass,
         mageLordEncountered,
         mageLordEncountered_2,
-        
+
         mineLiftOpened,
         gotGrimmNotch,
-        
+
         xunFlowerGiven,
-        
+
         kingsStationNonDisplay,
 
         openedTramLower,
@@ -261,9 +261,9 @@
         waterwaysAcidDrained,
         dungDefenderWallBroken,
         openedLoveDoor,
-        
+
         hasCityKey,
-        
+
         tollBenchQueensGardens,
         tollBenchCity,
         tollBenchAbyss,
@@ -297,14 +297,14 @@
         whiteDefenderOrbsCollected,
         greyPrinceOrbsCollected,
 
-        aladarSlugDefeated, 
+        aladarSlugDefeated,
         xeroDefeated,
         elderHuDefeated,
         mumCaterpillarDefeated,
         noEyesDefeated,
         markothDefeated,
         galienDefeated,
-        
+
         trinket1,   // Journal : int
         foundTrinket1,
         trinket2,   // Seal : int
@@ -353,7 +353,10 @@
         killsOblobble,
         scenesGrubRescued,
         zoteStatueWallBroken,
-        ordealAchieved
+        ordealAchieved,
+        whiteDefenderDefeats,
+        greyPrinceDefeats,
+        savedCloth
     }
     public enum GameState {
         INACTIVE,
