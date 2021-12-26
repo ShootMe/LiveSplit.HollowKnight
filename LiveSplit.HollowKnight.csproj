@@ -55,9 +55,22 @@
     <Prefer32Bit>false</Prefer32Bit>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
+  
+  <PropertyGroup>
+    <LiveSplitRefs>..\..\LiveSplit</LiveSplitRefs>
+  </PropertyGroup>
+  <Import Project="LocalBuildProperties.props" Condition="Exists('LocalBuildProperties.props')" />
+  <!--Make a file LocalBuildProperties.props in this directory with the following content
+<Project>
+  <PropertyGroup>
+    <LiveSplitRefs>Livesplit/directory/goes/here</LiveSplitRefs>
+  </PropertyGroup>
+</Project>
+  -->
+  
   <ItemGroup>
     <Reference Include="LiveSplit.Core">
-      <HintPath>..\..\LiveSplit\LiveSplit.Core.dll</HintPath>
+      <HintPath>$(LiveSplitRefs)\LiveSplit.Core.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -66,7 +79,7 @@
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="UpdateManager">
-      <HintPath>..\..\LiveSplit\UpdateManager.dll</HintPath>
+      <HintPath>$(LiveSplitRefs)\UpdateManager.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
