@@ -595,7 +595,7 @@ namespace LiveSplit.HollowKnight {
 
         [Description("Ancient Basin (Transition)"), ToolTip("Splits on transition to Basin, alternative to the (Area) split")]
         BasinEntry,
-        [Description("Blue Lake (Transition)"), ToolTip("Splits on transition to Blue Lake from Gruz Mother scene (requires Ordered Splits)")]
+        [Description("Blue Lake (Transition)"), ToolTip("Splits on transition to Blue Lake (from either side)")]
         BlueLake,
         [Description("Crystal Peak Entry (Transition)"), ToolTip("Splits on transition to the room where the dive and toll entrances meet, or the room right of Dirtmouth")]
         CrystalPeakEntry,
@@ -1238,7 +1238,27 @@ namespace LiveSplit.HollowKnight {
         [Description("Manual Split (Misc)"), ToolTip("Never splits. Use this when you need to manually split while using ordered splits")]
         ManualSplit,
 
+        [Description("Enter Hornet 1 (Transition)"), ToolTip("Splits when entering Hornet 1 boss arena transition")]
+        EnterHornet1,
+        [Description("Enter Soul Master (Transition)"), ToolTip("Splits when entering Soul Master boss arena transition")]
+        EnterSoulMaster,
+        [Description("Enter Hornet 2 (Transition)"), ToolTip("Splits when entering Hornet 2 boss arena transition")]
+        EnterHornet2,
+        [Description("Enter Hive Knight (Transition)"), ToolTip("Splits when entering Hive Knight boss arena transition")]
+        EnterHiveKnight,
+        [Description("Enter Troupe Master Grimm (Transition)"), ToolTip("Splits when entering Grimm tent with requirements to trigger Troupe Master Grimm boss")]
+        EnterTMG,
 
+        [Description("Vengefly King Killed (Transition)"), ToolTip("Splits on transition after Vengefly King in Greenpath killed")]
+        VengeflyKingTrans,
+        [Description("Massive Moss Charger Killed (Transition)"), ToolTip("Splits on transition after Massive Moss Charger is killed")]
+        MegaMossChargerTrans,
+
+        [Description("Spell Twister (Transition)"), ToolTip("Splits on transition after picking up Spell Twister")]
+        SpellTwisterTrans,
+
+        [Description("Glade Idol (Relic)"), ToolTip("Splits when picking up the King's Idol in the Spirits' Glade")]
+        GladeIdol,
 
 
         /*
