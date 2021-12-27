@@ -1254,9 +1254,6 @@ namespace LiveSplit.HollowKnight {
         [Description("Massive Moss Charger Killed (Transition)"), ToolTip("Splits on transition after Massive Moss Charger is killed")]
         MegaMossChargerTrans,
 
-        [Description("Spell Twister (Transition)"), ToolTip("Splits on transition after picking up Spell Twister")]
-        SpellTwisterTrans,
-
         [Description("Glade Idol (Relic)"), ToolTip("Splits when picking up the King's Idol in the Spirits' Glade")]
         GladeIdol,
 
