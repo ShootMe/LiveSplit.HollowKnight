@@ -988,6 +988,22 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.SoulTyrantEssenceWithSanctumGrub: shouldSplit = mem.PlayerData<bool>(Offset.mageLordOrbsCollected) && mem.PlayerDataStringList(Offset.scenesGrubRescued).Contains("Ruins1_32"); break;
                 case SplitName.EndingSplit: shouldSplit = nextScene.StartsWith("Cinematic_Ending", StringComparison.OrdinalIgnoreCase) || nextScene == "GG_End_Sequence"; break;
 
+                case SplitName.EnterHornet1: shouldSplit = nextScene.StartsWith("Fungus1_04") && nextScene != sceneName; break;
+                case SplitName.EnterSoulMaster: shouldSplit = nextScene.StartsWith("Ruins1_24") && nextScene != sceneName; break;
+                case SplitName.EnterHiveKnight: shouldSplit = nextScene.StartsWith("Hive_05") && nextScene != sceneName; break;
+                case SplitName.EnterHornet2: shouldSplit = nextScene.StartsWith("Deepnest_East_Hornet") && nextScene != sceneName; break;
+                case SplitName.EnterTMG:
+                    shouldSplit = nextScene.StartsWith("Grimm_Main_Tent") && nextScene != sceneName
+                    && mem.PlayerData<int>(Offset.grimmChildLevel) == 2
+                    && mem.PlayerData<int>(Offset.flamesCollected) == 3; break;
+
+                case SplitName.VengeflyKingTrans: shouldSplit = mem.PlayerData<bool>(Offset.zoteRescuedBuzzer) && nextScene != sceneName; break;
+                case SplitName.MegaMossChargerTrans: shouldSplit = mem.PlayerData<bool>(Offset.megaMossChargerDefeated) && nextScene != sceneName; break;
+
+                case SplitName.SpellTwisterTrans: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_33) && nextScene != sceneName; break;
+
+                case SplitName.GladeIdol: shouldSplit = store.CheckIncreased(Offset.trinket3) && sceneName.StartsWith("RestingGrounds_08"); break;
+
                 default:
                     //throw new Exception(split + " does not have a defined shouldsplit value");
                     if (!failedValues.Contains(split)) {
