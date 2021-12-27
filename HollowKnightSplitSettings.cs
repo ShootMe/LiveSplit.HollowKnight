@@ -511,6 +511,7 @@ namespace LiveSplit.HollowKnight {
         [Description("Zote Killed Colosseum (Mini Boss)"), ToolTip("Splits when killing Zote in the Colosseum")]
         ZoteKilled,
 
+
         [Description("Forgotten Crossroads (Stag Station)"), ToolTip("Splits when opening the Forgotten Crossroads Stag Station")]
         CrossroadsStation,
         [Description("Greenpath (Stag Station)"), ToolTip("Splits when obtaining Greenpath Stag Station")]
@@ -607,12 +608,16 @@ namespace LiveSplit.HollowKnight {
         FungalWastesEntry,
         [Description("Gorgeous Husk Killed (Transition)"), ToolTip("Splits on transition after Gorgeous Husk defeated")]
         TransGorgeousHusk,
+        [Description("Godhome (Transition)"), ToolTip("Splits on transition to Godhome")]
+        EnterGodhome,
         [Description("Greenpath (Transition)"), ToolTip("Splits when entering Greenpath")]
         EnterGreenpath,
         [Description("Greenpath w/ Unlocked Overcharm (Transition)"), ToolTip("Splits when entering Greenpath with overcharming unlocked")]
         EnterGreenpathWithOvercharm,
         [Description("Has Claw (Transition)"), ToolTip("Splits on transition after Mantis Claw acquired")]
         TransClaw,
+        [Description("Has Fireball (Transition)"), ToolTip("Splits on transition after Vengeful Spirit acquired")]
+        TransVS,
         [Description("Has Descending Dark (Transition)"), ToolTip("Splits on transition after Descending Dark acquired")]
         TransDescendingDark,
         [Description("Hive (Transition)"), ToolTip("Splits on transition to Hive")]
@@ -1212,6 +1217,8 @@ namespace LiveSplit.HollowKnight {
         OnObtainHallownestSeal,
         [Description("King's Idol (Obtain)"), ToolTip("Splits when obtaining a King's Idol")]
         OnObtainKingsIdol,
+        [Description("King's Idol 7 (Obtain)"), ToolTip("Splits when obtaining 7 King's Idols")]
+        Idol7,
         [Description("Arcane Egg (Obtain)"), ToolTip("Splits when obtaining an Arcane Egg")]
         OnObtainArcaneEgg,
         [Description("Rancid Egg (Obtain)"), ToolTip("Splits when obtaining a Rancid Egg")]
