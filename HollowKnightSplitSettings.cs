@@ -415,7 +415,7 @@ namespace LiveSplit.HollowKnight {
         [Description("City Gate (Event)"), ToolTip("Splits when using the City Key to open the gate")]
         CityGateOpen,
         [Description("City Gate w/ Mantis Lords defeated (Event)"), ToolTip("to make sure you don't forget mantis lords")]
-        DontForgetMantisLords,
+        CityGateAndMantisLords,
         [Description("Death (Event)"), ToolTip("Splits when player hp is 0")]
         PlayerDeath,
         [Description("Ending (Event)"), ToolTip("Splits on any credits rolling")]
