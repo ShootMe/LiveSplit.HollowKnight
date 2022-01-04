@@ -107,7 +107,7 @@ namespace LiveSplit.HollowKnight {
         GodTuner,
         [Description("Hunter's Mark (Item)"), ToolTip("Splits when obtaining the Hunter's Mark")]
         HuntersMark,
-        [Description("Kings Brand (Item)"), ToolTip("Splits when obtaining the Kings Brand")]
+        [Description("King's Brand (Item)"), ToolTip("Splits when obtaining the King's Brand")]
         KingsBrand,
         [Description("Love Key (Item)"), ToolTip("Splits when obtaining the Love Key")]
         LoveKey,
@@ -125,9 +125,6 @@ namespace LiveSplit.HollowKnight {
         SlyKey,
         [Description("Tram Pass (Item)"), ToolTip("Splits when obtaining the Tram Pass")]
         TramPass,
-
-
-
 
         [Description("Mask Fragment 1 (Fragment)"), ToolTip("Splits when getting 1st Mask fragment")]
         MaskFragment1,
@@ -417,6 +414,8 @@ namespace LiveSplit.HollowKnight {
         WatcherChandelier,
         [Description("City Gate (Event)"), ToolTip("Splits when using the City Key to open the gate")]
         CityGateOpen,
+        [Description("City Gate w/ Mantis Lords defeated (Event)"), ToolTip("to make sure you don't forget mantis lords")]
+        CityGateAndMantisLords,
         [Description("Death (Event)"), ToolTip("Splits when player hp is 0")]
         PlayerDeath,
         [Description("Ending (Event)"), ToolTip("Splits on any credits rolling")]
@@ -461,6 +460,12 @@ namespace LiveSplit.HollowKnight {
         ColosseumSilver,
         [Description("Colosseum Fight 3 (Trial)"), ToolTip("Splits when beating the third Colosseum trial")]
         ColosseumGold,
+        [Description("Colosseum Entrance 1 (Transition)"), ToolTip("Splits on the transition into the trial")]
+        ColosseumBronzeEntry,
+        [Description("Colosseum Entrance 2 (Transition)"), ToolTip("Splits on the transition into the trial")]
+        ColosseumSilverEntry,
+        [Description("Colosseum Entrance 3 (Transition)"), ToolTip("Splits on the transition into the trial")]
+        ColosseumGoldEntry,
         [Description("Colosseum Exit 1 (Transition)"), ToolTip("Splits on the transition out of the trial, or in the load-in after quitout")]
         ColosseumBronzeExit,
         [Description("Colosseum Exit 2 (Transition)"), ToolTip("Splits on the transition out of the trial, or in the load-in after quitout")]
@@ -511,18 +516,17 @@ namespace LiveSplit.HollowKnight {
         [Description("Zote Killed Colosseum (Mini Boss)"), ToolTip("Splits when killing Zote in the Colosseum")]
         ZoteKilled,
 
-
         [Description("Forgotten Crossroads (Stag Station)"), ToolTip("Splits when opening the Forgotten Crossroads Stag Station")]
         CrossroadsStation,
         [Description("Greenpath (Stag Station)"), ToolTip("Splits when obtaining Greenpath Stag Station")]
         GreenpathStation,
-        [Description("Queen's Station (Stag Station)"), ToolTip("Splits when obtaining Queens Station Stag Station")]
+        [Description("Queen's Station (Stag Station)"), ToolTip("Splits when obtaining Queen's Station Stag Station")]
         QueensStationStation,
-        [Description("Queen's Gardens (Stag Station)"), ToolTip("Splits when obtaining Queens Gardens Stag Station")]
+        [Description("Queen's Gardens (Stag Station)"), ToolTip("Splits when obtaining Queen's Gardens Stag Station")]
         QueensGardensStation,
         [Description("City Storerooms (Stag Station)"), ToolTip("Splits when obtaining City Storerooms Stag Station")]
         StoreroomsStation,
-        [Description("Kings Station (Stag Station)"), ToolTip("Splits when obtaining Kings Station Stag Station")]
+        [Description("King's Station (Stag Station)"), ToolTip("Splits when obtaining King's Station Stag Station")]
         KingsStationStation,
         [Description("Resting Grounds (Stag Station)"), ToolTip("Splits when obtaining Resting Grounds Stag Station")]
         RestingGroundsStation,
@@ -533,25 +537,24 @@ namespace LiveSplit.HollowKnight {
         [Description("Stagnest (Stag Station)"), ToolTip("Splits when traveling to Stagnest (Requires Ordered Splits)")]
         StagnestStation,
 
-
-        [Description("Mr. Mushroom 1 (Spot)"), ToolTip("Splits when talking to Mr. Mushroom")]
+        [Description("Mr. Mushroom 1 (Spot)"), ToolTip("Splits when talking to Mister Mushroom in Fungal Wastes")]
         MrMushroom1,
-        [Description("Mr. Mushroom 2 (Spot)"), ToolTip("Splits when talking to Mr. Mushroom")]
+        [Description("Mr. Mushroom 2 (Spot)"), ToolTip("Splits when talking to Mister Mushroom in Kingdom's Edge")]
         MrMushroom2,
-        [Description("Mr. Mushroom 3 (Spot)"), ToolTip("Splits when talking to Mr. Mushroom")]
+        [Description("Mr. Mushroom 3 (Spot)"), ToolTip("Splits when talking to Mister Mushroom in Deepnest")]
         MrMushroom3,
-        [Description("Mr. Mushroom 4 (Spot)"), ToolTip("Splits when talking to Mr. Mushroom")]
+        [Description("Mr. Mushroom 4 (Spot)"), ToolTip("Splits when talking to Mister Mushroom in Mato's Hut")]
         MrMushroom4,
-        [Description("Mr. Mushroom 5 (Spot)"), ToolTip("Splits when talking to Mr. Mushroom")]
+        [Description("Mr. Mushroom 5 (Spot)"), ToolTip("Splits when talking to Mister Mushroom in Ancient Basin")]
         MrMushroom5,
-        [Description("Mr. Mushroom 6 (Spot)"), ToolTip("Splits when talking to Mr. Mushroom")]
+        [Description("Mr. Mushroom 6 (Spot)"), ToolTip("Splits when talking to Mister Mushroom by Overgrown Mound")]
         MrMushroom6,
-        [Description("Mr. Mushroom 7 (Spot)"), ToolTip("Splits when talking to Mr. Mushroom")]
+        [Description("Mr. Mushroom 7 (Spot)"), ToolTip("Splits when talking to Mister Mushroom in King's Pass")]
         MrMushroom7,
 
         [Description("Ancient Basin (Area)"), ToolTip("Splits when entering Ancient Basin text first appears")]
         Abyss,
-        [Description("City Of Tears (Area)"), ToolTip("Splits when entering City Of Tears text first appears")]
+        [Description("City of Tears (Area)"), ToolTip("Splits when entering City of Tears text first appears")]
         CityOfTears,
         [Description("Colosseum (Area)"), ToolTip("Splits when entering Colosseum text first appears")]
         Colosseum,
@@ -626,9 +629,9 @@ namespace LiveSplit.HollowKnight {
         KingsPass,
         [Description("King's Pass From Town (Transition)"), ToolTip("Splits on transition between Dirtmouth and King's Pass")]
         KingsPassEnterFromTown,
-        [Description("Kingdom's Edge (Transition)"), ToolTip("Splits on transition to Kingdom's Edge from Kings Station")]
+        [Description("Kingdom's Edge (Transition)"), ToolTip("Splits on transition to Kingdom's Edge from King's Station")]
         KingdomsEdgeEntry,
-        [Description("Kingdom's Edge Overcharmed (Transition)"), ToolTip("Splits on transition to Kingdom's Edge from Kings Station while overcharmed")]
+        [Description("Kingdom's Edge Overcharmed (Transition)"), ToolTip("Splits on transition to Kingdom's Edge from King's Station while overcharmed")]
         KingdomsEdgeOvercharmedEntry,
         [Description("NKG Dream (Transition)"), ToolTip("Splits on transition to NKG dream")]
         EnterNKG,
@@ -703,7 +706,7 @@ namespace LiveSplit.HollowKnight {
         LifebloodHeart,
         [Description("Longnail (Charm)"), ToolTip("Splits when obtaining the Longnail charm")]
         Longnail,
-        [Description("Mark Of Pride (Charm)"), ToolTip("Splits when obtaining the Mark Of Pride charm")]
+        [Description("Mark of Pride (Charm)"), ToolTip("Splits when obtaining the Mark of Pride charm")]
         MarkOfPride,
         [Description("Nailmaster's Glory (Charm)"), ToolTip("Splits when obtaining the Nailmaster's Glory charm")]
         NailmastersGlory,
@@ -731,7 +734,7 @@ namespace LiveSplit.HollowKnight {
         StalwartShell,
         [Description("Steady Body (Charm)"), ToolTip("Splits when obtaining the Steady Body charm")]
         SteadyBody,
-        [Description("Thorns Of Agony (Charm)"), ToolTip("Splits when obtaining Thorns of Agony charm")]
+        [Description("Thorns of Agony (Charm)"), ToolTip("Splits when obtaining Thorns of Agony charm")]
         ThornsOfAgony,
         [Description("Unbreakable Greed (Charm)"), ToolTip("Splits when obtaining the Unbreakable Greed charm")]
         UnbreakableGreed,
@@ -1070,7 +1073,104 @@ namespace LiveSplit.HollowKnight {
         Essence2300,
         [Description("2400 Essence (Essence)"), ToolTip("Essence")]
         Essence2400,
-
+        
+        [Description("Any Bench (Bench)"), ToolTip("Splits when sitting on a bench")]
+        BenchAny,/*
+        [Description("Dirtmouth (Bench)"), ToolTip("Splits when sitting on the bench in Dirtmouth")]
+        BenchDirtmouth,
+        [Description("Mato (Bench)"), ToolTip("Splits when sitting on the bench in Mato's Hut")]
+        BenchMato,
+        [Description("Crossroads Hotsprings (Bench)"), ToolTip("Splits when sitting on the hotsprings bench in Crossroads")]
+        BenchCrossroadsHotsprings,*/
+        [Description("Crossroads Stag (Bench)"), ToolTip("Splits when sitting on the bench at Crossroads Stag")]
+        BenchCrossroadsStag,/*
+        [Description("Salubra (Bench)"), ToolTip("Splits when sitting on the bench by Salubra")]
+        BenchSalubra,
+        [Description("Ancestral Mound (Bench)"), ToolTip("Splits when sitting on the bench in Ancestral Mound")]
+        BenchAncestralMound,
+        [Description("Black Egg Temple (Bench)"), ToolTip("Splits when sitting on the bench in Black Egg Temple")]
+        BenchBlackEgg,
+        [Description("Waterfall (Bench)"), ToolTip("Splits when sitting on the waterfall bench in Greenpath")]
+        BenchWaterfall,
+        [Description("Stone Sanctuary (Bench)"), ToolTip("Splits when sitting on the bench by Stone Sanctuary")]
+        BenchStoneSanctuary,
+        [Description("Greenpath Toll (Bench)"), ToolTip("Splits when sitting on the toll bench in Greenpath")]
+        BenchGreenpathToll,*/
+        [Description("Greenpath Stag (Bench)"), ToolTip("Splits when sitting on the bench at Greenpath Stag")]
+        BenchGreenpathStag,/*
+        [Description("Lake of Unn (Bench)"), ToolTip("Splits when sitting on the bench at the Lake of Unn")]
+        BenchLakeOfUnn,
+        [Description("Sheo (Bench)"), ToolTip("Splits when sitting on the bench by Sheo's hut")]
+        BenchSheo,
+        [Description("Teacher's Archives (Bench)"), ToolTip("Splits when sitting on the bench in Teacher's Archives")]
+        BenchArchives,*/
+        [Description("Queen's Station (Bench)"), ToolTip("Splits when sitting on the bench in Queen's Station")]
+        BenchQueensStation,/*
+        [Description("Leg Eater (Bench)"), ToolTip("Splits when sitting on the bench at Leg Eater")]
+        BenchLegEater,
+        [Description("Bretta (Bench)"), ToolTip("Splits when sitting on the bench by Bretta")]
+        BenchBretta,
+        [Description("Mantis Village (Bench)"), ToolTip("Splits when sitting on the bench in Mantis Village")]
+        BenchMantisVillage,
+        [Description("Quirrel (Bench)"), ToolTip("Splits when sitting on the bench Quirrel sits at in City of Tears")]
+        BenchQuirrel,
+        [Description("City Toll (Bench)"), ToolTip("Splits when sitting on the toll bench in City of Tears")]
+        BenchCityToll,*/
+        [Description("Storerooms (Bench)"), ToolTip("Splits when sitting on the bench in City Storerooms")]
+        BenchStorerooms,/*
+        [Description("Watcher's Spire (Bench)"), ToolTip("Splits when sitting on the bench in Watcher's Spire")]
+        BenchSpire,*/
+        [Description("King's Station (Bench)"), ToolTip("Splits when sitting on the bench in King's Station")]
+        BenchKingsStation,/*
+        [Description("Pleasure House (Bench)"), ToolTip("Splits when sitting on the bench in Pleasure House")]
+        BenchPleasureHouse,
+        [Description("Waterways (Bench)"), ToolTip("Splits when sitting on the bench in Royal Waterways")]
+        BenchWaterways,
+        [Description("Deepnest Hotsprings (Bench)"), ToolTip("Splits when sitting on the hotsprings bench in Deepnest")]
+        BenchDeepnestHotsprings,
+        [Description("Failed Tramway (Bench)"), ToolTip("Splits when sitting on the bench at the Failed Tramway")]
+        BenchFailedTramway,
+        [Description("Beast's Den (Bench)"), ToolTip("Splits when sitting on the bench in Beast's Den")]
+        BenchDeepnestSpiderTown,
+        [Description("Basin Toll (Bench)"), ToolTip("Splits when sitting on the toll bench in Ancient Basin")]
+        BenchBasinToll,*/
+        [Description("Hidden Station (Bench)"), ToolTip("Splits when sitting on the bench in Hidden Station")]
+        BenchHiddenStation,/*
+        [Description("Oro (Bench)"), ToolTip("Splits when sitting on the bench at Oro's hut")]
+        BenchOro,
+        [Description("Camp (Bench)"), ToolTip("Splits when sitting on the bench at the camp in Kingdom's Edge")]
+        BenchCamp,
+        [Description("Colosseum (Bench)"), ToolTip("Splits when sitting on the bench at the Colosseum")]
+        BenchColosseum,
+        [Description("Hive (Bench)"), ToolTip("Splits when sitting on the bench in the Hive")]
+        BenchHive,*/
+        [Description("Resting Grounds Stag (Bench)"), ToolTip("Splits when sitting on the bench at Resting Grounds Stag")]
+        BenchRGStag,/*
+        [Description("Crystal Peak Dark Room (Bench)"), ToolTip("Splits when sitting on the dark room bench in Crystal Peak")]
+        BenchDarkRoom,
+        [Description("Crystal Guardian (Bench)"), ToolTip("Splits when sitting on the Crystal Guardian's bench")]
+        BenchCG1,
+        [Description("Grey Mourner (Bench)"), ToolTip("Splits when sitting on the bench by the Grey Mourner")]
+        BenchFlowerQuest,
+        [Description("Queen's Garden Cornifer (Bench)"), ToolTip("Splits when sitting on the bench by Cornifer in Queen's Gardens")]
+        BenchQGCornifer,
+        [Description("Queen's Gardens Toll (Bench)"), ToolTip("Splits when sitting on the toll bench in Queen's Gardens")]
+        BenchQGToll,*/
+        [Description("Queen's Gardens Stag (Bench)"), ToolTip("Splits when sitting on the bench at Queen's Gardens Stag")]
+        BenchQGStag,/*
+        [Description("Tram (Bench)"), ToolTip("Splits when sitting on the bench in a tram")]
+        BenchTram,
+        [Description("White Palace Entrance (Bench)"), ToolTip("Splits when sitting on the bench inside the entrance to White Palace")]
+        BenchWhitePalaceEntrance,
+        [Description("White Palace Atrium (Bench)"), ToolTip("Splits when sitting on the bench in the White Palace Atrium")]
+        BenchWhitePalaceAtrium,
+        [Description("White Palace Balcony (Bench)"), ToolTip("Splits when sitting on the bench at the White Palace Balcony")]
+        BenchWhitePalaceBalcony,
+        [Description("Godhome Atrium (Bench)"), ToolTip("Splits when sitting on the bench in the Godhome Atrium")]
+        BenchGodhomeAtrium,
+        [Description("Hall of Gods (Bench)"), ToolTip("Splits when sitting on the bench in the Godhome Atrium")]
+        BenchHallOfGods,*/
+        
         [Description("Queen's Garden Bench (Toll)"), ToolTip("Splits when buying Queen's Garden toll bench")]
         TollBenchQG,
         [Description("Sanctum Bench (Toll)"), ToolTip("Splits when buying City/Sanctum toll bench by Cornifer's location")]
@@ -1088,7 +1188,6 @@ namespace LiveSplit.HollowKnight {
         WhitePalaceOrb3,
         [Description("White Palace - Right Orb (Lever)"), ToolTip("Splits when lighting the orb in White Palace right wing")]
         WhitePalaceOrb2,
-
 
         [Description("White Palace - Lower Entry (Room)"), ToolTip("Splits on transition to White_Palace_01")]
         WhitePalaceLowerEntry,
@@ -1217,8 +1316,8 @@ namespace LiveSplit.HollowKnight {
         OnObtainHallownestSeal,
         [Description("King's Idol (Obtain)"), ToolTip("Splits when obtaining a King's Idol")]
         OnObtainKingsIdol,
-        [Description("King's Idol 7 (Obtain)"), ToolTip("Splits when obtaining 7 King's Idols")]
-        Idol7,
+        [Description("Arcane Egg 8 (Obtain)"), ToolTip("Splits when obtaining 8 Arcane Eggs")]
+        ArcaneEgg8,
         [Description("Arcane Egg (Obtain)"), ToolTip("Splits when obtaining an Arcane Egg")]
         OnObtainArcaneEgg,
         [Description("Rancid Egg (Obtain)"), ToolTip("Splits when obtaining a Rancid Egg")]
@@ -1242,9 +1341,6 @@ namespace LiveSplit.HollowKnight {
         TransitionAfterSaveState,
         [Description("Manual Split (Misc)"), ToolTip("Never splits. Use this when you need to manually split while using ordered splits")]
         ManualSplit,
-
-
-
 
         /*
         [Description("Mage Door (Test)"), ToolTip("Splits when Nailsmith is spared")]
