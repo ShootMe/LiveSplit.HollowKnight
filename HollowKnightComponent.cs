@@ -774,7 +774,7 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.TollBenchBasin: shouldSplit = mem.PlayerData<bool>(Offset.tollBenchAbyss); break;
 
                 case SplitName.CityGateOpen: shouldSplit = mem.PlayerData<bool>(Offset.openedCityGate); break;
-                case SplitName.DontForgetMantisLords: shouldSplit = mem.PlayerData<bool>(Offset.openedCityGate) && mem.PlayerData<bool>(Offset.defeatedMantisLords); break;
+                case SplitName.CityGateAndMantisLords: shouldSplit = mem.PlayerData<bool>(Offset.openedCityGate) && mem.PlayerData<bool>(Offset.defeatedMantisLords); break;
                 case SplitName.NailsmithKilled: shouldSplit = mem.PlayerData<bool>(Offset.nailsmithKilled); break;
 
                 /*
