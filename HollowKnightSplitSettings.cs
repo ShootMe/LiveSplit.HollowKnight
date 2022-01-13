@@ -421,6 +421,8 @@ namespace LiveSplit.HollowKnight {
         CityGateOpen,
         [Description("Death (Event)"), ToolTip("Splits when player hp is 0")]
         PlayerDeath,
+        [Description("Shade Killed (Event)"), ToolTip("Splits when the shade is killed")]
+        ShadeKilled,
         [Description("Ending (Event)"), ToolTip("Splits on any credits rolling")]
         EndingSplit,
         [Description("Flower Quest (Event)"), ToolTip("Splits when placing the flower at the grave of the Traitors' Child")]

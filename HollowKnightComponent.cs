@@ -861,6 +861,7 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.TransGorgeousHusk: shouldSplit = mem.PlayerData<bool>(Offset.killedGorgeousHusk) && nextScene != sceneName; break;
                 case SplitName.TransDescendingDark: shouldSplit = mem.PlayerData<int>(Offset.quakeLevel) == 2 && nextScene != sceneName; break;
                 case SplitName.PlayerDeath: shouldSplit = mem.PlayerData<int>(Offset.health) == 0; break;
+                case SplitName.ShadeKilled: shouldSplit = store.CheckToggledFalse(Offset.soulLimited); break;
                 case SplitName.SlyShopFinished:
                     shouldSplit =
                         mem.PlayerData<int>(Offset.vesselFragments) == 8 || (mem.PlayerData<int>(Offset.MPReserveMax) == 66

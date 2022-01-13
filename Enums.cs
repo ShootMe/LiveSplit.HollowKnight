@@ -356,7 +356,8 @@
         ordealAchieved,
         whiteDefenderDefeats,
         greyPrinceDefeats,
-        savedCloth
+        savedCloth,
+        soulLimited
     }
     public enum GameState {
         INACTIVE,
