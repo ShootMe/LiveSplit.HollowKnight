@@ -8,6 +8,7 @@
         <change>Leave Sly hut transition split with 106% items (lantern, shard, vfrag) bought. Fixes fake golds from shoptimising differently. (cerpin)</change>
         <change>Renamed shopping splits from (event) to (transition) when appropriate. (cerpin)</change>
         <change>Fixed auto-start on transition and auto-end on transition both happening on the same transition. (cerpin)</change>
+        <change>Fixed Transition Excluding Save State to account for new debug mod implementation. (slaurent)</change>
       </changelog>
     </update>
     <update version="3.1.0">

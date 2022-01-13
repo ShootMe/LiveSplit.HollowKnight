@@ -50,6 +50,7 @@ namespace LiveSplit.HollowKnight {
         private bool menuSplitHelper;
         private bool lookForTeleporting;
         private List<string> menuingSceneNames = new List<string> { "Menu_Title", "Quit_To_Menu", "PermaDeath" };
+        private List<string> debugSaveStateSceneNames = new List<string> { "Room_Mender_House", "Room_Sly_Storeroom" };
 
 #if !Info
         // Remembered data for ghost splits
@@ -235,6 +236,18 @@ namespace LiveSplit.HollowKnight {
                     if (hasLog || !Console.IsOutputRedirected) WriteLogWithTime("Split: " + split);
                     return true;
                 }
+            }
+            return false;
+        }
+
+        private bool shouldSplitTransition(string nextScene, string sceneName) {
+            if (nextScene != sceneName && !store.SplitThisTransition) {
+                return !(
+                    string.IsNullOrEmpty(sceneName) ||
+                    string.IsNullOrEmpty(nextScene) ||
+                    menuingSceneNames.Contains(sceneName) ||
+                    menuingSceneNames.Contains(nextScene)
+                );
             }
             return false;
         }
@@ -902,30 +915,10 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.KilledOblobbles: shouldSplit = mem.PlayerData<int>(Offset.killsOblobble) == 1; break;
                 case SplitName.WhitePalaceEntry: shouldSplit = nextScene.StartsWith("White_Palace_11") && nextScene != sceneName; break;
                 case SplitName.ManualSplit: shouldSplit = false; break;
-                case SplitName.AnyTransition:
-                    if (nextScene != sceneName && !store.SplitThisTransition) {
-                        shouldSplit =
-                            !(
-                                string.IsNullOrEmpty(sceneName) ||
-                                string.IsNullOrEmpty(nextScene) ||
-                                menuingSceneNames.Contains(sceneName) ||
-                                menuingSceneNames.Contains(nextScene)
-                            );
-                    }
-                    break;
+                case SplitName.AnyTransition: shouldSplit = shouldSplitTransition(nextScene, sceneName); break;
                 case SplitName.TransitionAfterSaveState:
-                    if (nextScene != sceneName &&
-                        nextScene != "Room_Sly_Storeroom" &&
-                        "Room_Sly_Storeroom" != sceneName &&
-                        !store.SplitThisTransition
-                        ) {
-                        shouldSplit =
-                            !(
-                                string.IsNullOrEmpty(sceneName) ||
-                                string.IsNullOrEmpty(nextScene) ||
-                                menuingSceneNames.Contains(sceneName) ||
-                                menuingSceneNames.Contains(nextScene)
-                            );
+                    if (shouldSplitTransition(nextScene, sceneName)) {
+                        shouldSplit = !(debugSaveStateSceneNames.Contains(nextScene) || debugSaveStateSceneNames.Contains(sceneName));
                     }
                     break;
                 case SplitName.RidingStag: shouldSplit = mem.PlayerData<bool>(Offset.travelling); break;
