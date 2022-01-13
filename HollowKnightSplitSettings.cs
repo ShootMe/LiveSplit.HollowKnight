@@ -407,7 +407,9 @@ namespace LiveSplit.HollowKnight {
 
         [Description("106% Pre-Grimm Shop (Event)"), ToolTip("Splits when Lantern + Vessel Fragment(5) + Mask Shard(4) have been acquired")]
         PreGrimmShop,
-        [Description("1xx% Sly Final Shop (Event)"), ToolTip("Splits on leaving Sly's shop after having bough Sprintmaster and Vessel Frag 8")]
+        [Description("106% Pre-Grimm Shop (Transition)"), ToolTip("Splits when Lantern + Vessel Fragment(5) + Mask Shard(4) have been acquired")]
+        PreGrimmShopTrans,
+        [Description("1xx% Sly Final Shop (Event / Transition)"), ToolTip("Splits on leaving Sly's shop after having bough Sprintmaster and Vessel Frag 8")]
         SlyShopFinished,
         [Description("Can Overcharm (Event)"), ToolTip("Splits when overcharming is enabled")]
         CanOvercharm,
