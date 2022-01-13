@@ -112,8 +112,6 @@ namespace LiveSplit.HollowKnight {
                     shouldSplit = (nextScene.Equals("Tutorial_01", StringComparison.OrdinalIgnoreCase) &&
                                    mem.GameState() == GameState.ENTERING_LEVEL) ||
                                   nextScene is "GG_Vengefly_V" or "GG_Boss_Door_Entrance" or "GG_Entrance_Cutscene";
-
-                    store.SplitThisTransition = true;
                 }
             } else if (Model.CurrentState.CurrentPhase == TimerPhase.Running && settings.Splits.Count > 0) {
                 GameState gameState = mem.GameState();
@@ -786,10 +784,15 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.GreyPrinceEssence: shouldSplit = mem.PlayerData<bool>(Offset.greyPrinceOrbsCollected); break;
 
                 case SplitName.PreGrimmShop:
-                    shouldSplit = mem.PlayerData<bool>(Offset.hasLantern) &&
-                        mem.PlayerData<int>(Offset.maxHealthBase) == 6 &&
-                        (mem.PlayerData<int>(Offset.vesselFragments) == 4 ||
-                            (mem.PlayerData<int>(Offset.MPReserveMax) == 33 && mem.PlayerData<int>(Offset.vesselFragments) == 2));
+                    shouldSplit = mem.PlayerData<bool>(Offset.hasLantern)
+                        && mem.PlayerData<int>(Offset.maxHealthBase) == 6 
+                        && (mem.PlayerData<int>(Offset.vesselFragments) == 4 || (mem.PlayerData<int>(Offset.MPReserveMax) == 33 && mem.PlayerData<int>(Offset.vesselFragments) == 2));
+                    break;
+                case SplitName.PreGrimmShopTrans:
+                    shouldSplit = mem.PlayerData<bool>(Offset.hasLantern) 
+                        && mem.PlayerData<int>(Offset.maxHealthBase) == 6 
+                        && (mem.PlayerData<int>(Offset.vesselFragments) == 4 || (mem.PlayerData<int>(Offset.MPReserveMax) == 33 && mem.PlayerData<int>(Offset.vesselFragments) == 2))
+                        && !sceneName.StartsWith("Room_shop");
                     break;
                 case SplitName.ElderHuEssence: shouldSplit = mem.PlayerData<int>(Offset.elderHuDefeated) == 2; break;
                 case SplitName.GalienEssence: shouldSplit = mem.PlayerData<int>(Offset.galienDefeated) == 2; break;
@@ -995,10 +998,6 @@ namespace LiveSplit.HollowKnight {
                     break;
             }
 
-            if (shouldSplit) {
-                store.SplitThisTransition = true;
-                store.Update();
-            }
             return shouldSplit;
         }
         private void HandleSplit(bool shouldSplit, bool shouldReset = false) {
@@ -1012,6 +1011,8 @@ namespace LiveSplit.HollowKnight {
                 } else {
                     Model.Split();
                 }
+                store.SplitThisTransition = true;
+                store.Update();
             }
         }
 #endif
