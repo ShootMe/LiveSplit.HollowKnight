@@ -457,6 +457,7 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.UnchainedHollowKnight: shouldSplit = mem.PlayerData<bool>(Offset.unchainedHollowKnight); break;
                 case SplitName.Uumuu: shouldSplit = mem.PlayerData<bool>(Offset.killedMegaJellyfish); break;
                 case SplitName.VengefulSpirit: shouldSplit = mem.PlayerData<int>(Offset.fireballLevel) == 1; break;
+                case SplitName.TransVS: shouldSplit = mem.PlayerData<int>(Offset.fireballLevel) == 1 && nextScene != sceneName; break;
                 case SplitName.VesselFragment1: shouldSplit = mem.PlayerData<int>(Offset.MPReserveMax) == 0 && mem.PlayerData<int>(Offset.vesselFragments) == 1; break;
                 case SplitName.VesselFragment2: shouldSplit = mem.PlayerData<int>(Offset.MPReserveMax) == 0 && mem.PlayerData<int>(Offset.vesselFragments) == 2; break;
                 case SplitName.Vessel1: shouldSplit = mem.PlayerData<int>(Offset.MPReserveMax) == 33; break;
@@ -715,11 +716,63 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.WhiteFragmentLeft: shouldSplit = mem.PlayerData<bool>(Offset.gotQueenFragment); break;
                 case SplitName.WhiteFragmentRight: shouldSplit = mem.PlayerData<bool>(Offset.gotKingFragment); break;
 
+                case SplitName.BenchAny : shouldSplit = mem.PlayerData<bool>(Offset.atBench); break;
+                /*
+                case SplitName.BenchDirtmouth : shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "Town"; break;
+                case SplitName.BenchMato : shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "Room_Naimlaster"; break;
+                case SplitName.BenchCrossroadsHotsprings : shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "Crossroads_30"; break;*/
+                case SplitName.BenchCrossroadsStag : shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "Crossroads_47"; break;/*
+                case SplitName.BenchSalubra : shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "Crossroads_04"; break;
+                case SplitName.BenchAncestralMound : shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "Crossroads_ShamanTemple"; break;
+                case SplitName.BenchBlackEgg : shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "Room_Final_Boss_Atrium"; break;
+                case SplitName.BenchWaterfall : shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "Fungus1_01b"; break;
+                case SplitName.BenchStoneSanctuary : shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "Fungus1_37"; break;
+                case SplitName.BenchGreenpathToll : shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "Fungus1_31"; break;*/
+                case SplitName.BenchGreenpathStag : shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "Fungus1_16_alt"; break;/*
+                case SplitName.BenchLakeOfUnn : shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "Room_Slug_Shrine"; break;
+                case SplitName.BenchSheo : shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "Fungus1_16"; break;
+                case SplitName.BenchArchives : shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "Fungus3_Archive"; break;*/
+                case SplitName.BenchQueensStation : shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "Fungus2_02"; break;/*
+                case SplitName.BenchLegEater : shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "Fungus2_26"; break;
+                case SplitName.BenchBretta : shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "Fungus2_13"; break;
+                case SplitName.BenchMantisVillage : shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "Fungus2_31"; break;
+                case SplitName.BenchQuirrel : shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "Ruins1_02"; break;
+                case SplitName.BenchCityToll : shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "Ruins1_31"; break;*/
+                case SplitName.BenchStorerooms : shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "Ruins1_29"; break;/*
+                case SplitName.BenchSpire : shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "Ruins1_18"; break;*/
+                case SplitName.BenchKingsStation : shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "Ruins2_08"; break;/*
+                case SplitName.BenchPleasureHouse : shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "Ruins_Bathhouse"; break;
+                case SplitName.BenchWaterways : shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "Waterways"; break;
+                case SplitName.BenchDeepnestHotsprings : shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "Deepnest_30"; break;
+                case SplitName.BenchFailedTramway : shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "Deepnest_14"; break;
+                case SplitName.BenchDeepnestSpiderTown : shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "Deepnest_Spider_Town"; break;
+                case SplitName.BenchBasinToll : shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "Abyss_18"; break;*/
+                case SplitName.BenchHiddenStation : shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "Abyss_22"; break;/*
+                case SplitName.BenchOro : shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "Deepnest_East_06"; break;
+                case SplitName.BenchCamp : shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "Deepnest_East_13"; break;
+                case SplitName.BenchColosseum : shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName.StartsWith("Room_Colosseum"); break;
+                case SplitName.BenchHive : shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName.StartsWith("Hive"); break;
+                case SplitName.BenchDarkRoom : shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "Mines_29"; break;
+                case SplitName.BenchCG1 : shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "Mines_18"; break;*/
+                case SplitName.BenchRGStag : shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "RestingGrounds_09"; break;/*
+                case SplitName.BenchFlowerQuest : shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "RestingGrounds_12"; break;
+                case SplitName.BenchQGCornifer : shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "Fungus1_24"; break;
+                case SplitName.BenchQGToll : shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "Fungus3_50"; break;*/
+                case SplitName.BenchQGStag : shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "Fungus3_40"; break;/*
+                case SplitName.BenchTram : shouldSplit = mem.PlayerData<bool>(Offset.atBench) && (sceneName == "Room_Tram" || sceneName == "Room_Tram_RG"); break;
+                case SplitName.BenchWhitePalaceEntrance : shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "White_Palace_01"; break;
+                case SplitName.BenchWhitePalaceAtrium : shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "White_Palace_03"; break;
+                case SplitName.BenchWhitePalaceBalcony : shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "White_Palace_06"; break;
+                case SplitName.BenchGodhomeAtrium : shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "GG_Atrium"; break;
+                case SplitName.BenchHallOfGods : shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "GG_Workshop"; break;                
+                */
+
                 case SplitName.TollBenchQG: shouldSplit = mem.PlayerData<bool>(Offset.tollBenchQueensGardens); break;
                 case SplitName.TollBenchCity: shouldSplit = mem.PlayerData<bool>(Offset.tollBenchCity); break;
                 case SplitName.TollBenchBasin: shouldSplit = mem.PlayerData<bool>(Offset.tollBenchAbyss); break;
 
                 case SplitName.CityGateOpen: shouldSplit = mem.PlayerData<bool>(Offset.openedCityGate); break;
+                case SplitName.CityGateAndMantisLords: shouldSplit = mem.PlayerData<bool>(Offset.openedCityGate) && mem.PlayerData<bool>(Offset.defeatedMantisLords); break;
                 case SplitName.NailsmithKilled: shouldSplit = mem.PlayerData<bool>(Offset.nailsmithKilled); break;
 
                 /*
@@ -770,6 +823,7 @@ namespace LiveSplit.HollowKnight {
                         && mem.PlayerData<int>(Offset.fireballLevel) == 2;
                     break;
                 case SplitName.EnterAnyDream: shouldSplit = nextScene.StartsWith("Dream_") && nextScene != sceneName; break;
+                case SplitName.EnterGodhome: shouldSplit = nextScene.StartsWith("GG_Atrium") && nextScene != sceneName; break;
                 case SplitName.DgateKingdomsEdgeAcid:
                     shouldSplit =
                         mem.PlayerDataString<string>(Offset.dreamGateScene).StartsWith("Deepnest_East_04") &&
@@ -965,6 +1019,7 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.OnObtainWanderersJournal: shouldSplit = store.CheckIncremented(Offset.trinket1); break;
                 case SplitName.OnObtainHallownestSeal: shouldSplit = store.CheckIncremented(Offset.trinket2); break;
                 case SplitName.OnObtainKingsIdol: shouldSplit = store.CheckIncremented(Offset.trinket3); break;
+                case SplitName.ArcaneEgg8: shouldSplit = mem.PlayerData<int>(Offset.trinket4) == 8; break;
                 case SplitName.OnObtainArcaneEgg: shouldSplit = store.CheckIncremented(Offset.trinket4); break;
                 case SplitName.OnObtainRancidEgg: shouldSplit = store.CheckIncremented(Offset.rancidEggs); break;
                 case SplitName.OnObtainMaskShard:
@@ -984,6 +1039,9 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.ColosseumBronzeUnlocked: shouldSplit = mem.PlayerData<bool>(Offset.colosseumBronzeOpened); break;
                 case SplitName.ColosseumSilverUnlocked: shouldSplit = mem.PlayerData<bool>(Offset.colosseumSilverOpened); break;
                 case SplitName.ColosseumGoldUnlocked: shouldSplit = mem.PlayerData<bool>(Offset.colosseumGoldOpened); break;
+                case SplitName.ColosseumBronzeEntry: shouldSplit = nextScene.StartsWith("Room_Colosseum_Bronze") && nextScene != sceneName; break;
+                case SplitName.ColosseumSilverEntry: shouldSplit = nextScene.StartsWith("Room_Colosseum_Silver") && nextScene != sceneName; break;
+                case SplitName.ColosseumGoldEntry: shouldSplit = nextScene.StartsWith("Room_Colosseum_Gold") && nextScene != sceneName; break;
                 case SplitName.ColosseumBronzeExit: shouldSplit = mem.PlayerData<bool>(Offset.colosseumBronzeCompleted) && !nextScene.StartsWith("Room_Colosseum_Bronze") && nextScene != sceneName; break;
                 case SplitName.ColosseumSilverExit: shouldSplit = mem.PlayerData<bool>(Offset.colosseumSilverCompleted) && !nextScene.StartsWith("Room_Colosseum_Silver") && nextScene != sceneName; break;
                 case SplitName.ColosseumGoldExit: shouldSplit = mem.PlayerData<bool>(Offset.colosseumGoldCompleted) && !nextScene.StartsWith("Room_Colosseum_Gold") && nextScene != sceneName; break;
