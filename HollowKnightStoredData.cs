@@ -80,7 +80,9 @@ namespace LiveSplit.HollowKnight
                 pdInts[offset] = mem.PlayerData<int>(offset);
             }
             
-            if (mem.HeroTransitionState() != HeroTransitionState.WAITING_TO_TRANSITION || mem.GameState() is GameState.EXITING_LEVEL or GameState.LOADING) {
+            if (mem.HeroTransitionState() != HeroTransitionState.WAITING_TO_TRANSITION 
+                || mem.GameState() is GameState.EXITING_LEVEL or GameState.LOADING
+                || mem.SceneName() != mem.NextSceneName()) {
                 // In transition
                 TraitorLordDeadOnEntry = mem.PlayerData<bool>(Offset.killedTraitorLord);
             } else {
