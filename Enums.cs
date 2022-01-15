@@ -189,6 +189,7 @@
         bossDoorStateTier5,
         newDataBindingSeal,
         killedZombieMiner,
+        killsZombieMiner,
         royalCharmState,
         visitedOutskirts,
         seenColosseumTitle,
@@ -358,7 +359,8 @@
         whiteDefenderDefeats,
         greyPrinceDefeats,
         savedCloth,
-        atBench
+        atBench,
+        soulLimited
     }
     public enum GameState {
         INACTIVE,

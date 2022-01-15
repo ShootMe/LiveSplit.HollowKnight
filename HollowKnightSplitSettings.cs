@@ -420,6 +420,8 @@ namespace LiveSplit.HollowKnight {
         CityGateAndMantisLords,
         [Description("Death (Event)"), ToolTip("Splits when player hp is 0")]
         PlayerDeath,
+        [Description("Shade Killed (Event)"), ToolTip("Splits when the shade is killed")]
+        ShadeKilled,
         [Description("Ending (Event)"), ToolTip("Splits on any credits rolling")]
         EndingSplit,
         [Description("Flower Quest (Event)"), ToolTip("Splits when placing the flower at the grave of the Traitors' Child")]
@@ -450,6 +452,8 @@ namespace LiveSplit.HollowKnight {
         RidingStag,
         [Description("Saved Cloth (Event)"), ToolTip("Splits when saving Cloth in Ancient Basin")]
         SavedCloth,
+        [Description("Crystal Peaks Lift Opened (Event)"), ToolTip("Splits when opening the lever for the lift between Dirtmouth and Crystal Peaks")]
+        MineLiftOpened,
         [Description("Colosseum Unlocked 1 (Trial)"), ToolTip("Splits when the knight unlocks the trial at Little Fool")]
         ColosseumBronzeUnlocked,
         [Description("Colosseum Unlocked 2 (Trial)"), ToolTip("Splits when the knight unlocks the trial at Little Fool")]
@@ -599,7 +603,7 @@ namespace LiveSplit.HollowKnight {
 
         [Description("Ancient Basin (Transition)"), ToolTip("Splits on transition to Basin, alternative to the (Area) split")]
         BasinEntry,
-        [Description("Blue Lake (Transition)"), ToolTip("Splits on transition to Blue Lake from Gruz Mother scene (requires Ordered Splits)")]
+        [Description("Blue Lake (Transition)"), ToolTip("Splits on transition to Blue Lake (from either side)")]
         BlueLake,
         [Description("Crystal Peak Entry (Transition)"), ToolTip("Splits on transition to the room where the dive and toll entrances meet, or the room right of Dirtmouth")]
         CrystalPeakEntry,
@@ -1343,6 +1347,26 @@ namespace LiveSplit.HollowKnight {
         TransitionAfterSaveState,
         [Description("Manual Split (Misc)"), ToolTip("Never splits. Use this when you need to manually split while using ordered splits")]
         ManualSplit,
+
+        [Description("Enter Hornet 1 (Transition)"), ToolTip("Splits when entering Hornet 1 boss arena transition")]
+        EnterHornet1,
+        [Description("Enter Soul Master (Transition)"), ToolTip("Splits when entering Soul Master boss arena transition")]
+        EnterSoulMaster,
+        [Description("Enter Hornet 2 (Transition)"), ToolTip("Splits when entering Hornet 2 boss arena transition")]
+        EnterHornet2,
+        [Description("Enter Hive Knight (Transition)"), ToolTip("Splits when entering Hive Knight boss arena transition")]
+        EnterHiveKnight,
+        [Description("Enter Troupe Master Grimm (Transition)"), ToolTip("Splits when entering Grimm tent with requirements to trigger Troupe Master Grimm boss")]
+        EnterTMG,
+
+        [Description("Vengefly King Killed (Transition)"), ToolTip("Splits on transition after Vengefly King in Greenpath killed")]
+        VengeflyKingTrans,
+        [Description("Massive Moss Charger Killed (Transition)"), ToolTip("Splits on transition after Massive Moss Charger is killed")]
+        MegaMossChargerTrans,
+
+        [Description("Glade Idol (Relic)"), ToolTip("Splits when picking up the King's Idol in the Spirits' Glade")]
+        GladeIdol,
+
 
         /*
         [Description("Mage Door (Test)"), ToolTip("Splits when Nailsmith is spared")]
