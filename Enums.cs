@@ -322,6 +322,7 @@
         soldTrinket2,
         soldTrinket3,
         soldTrinket4,
+        geo,
 
         nailsmithConvoArt,
         slySimpleKey,
@@ -358,7 +359,8 @@
         whiteDefenderDefeats,
         greyPrinceDefeats,
         savedCloth,
-        soulLimited
+        soulLimited,
+        atBench
     }
     public enum GameState {
         INACTIVE,
