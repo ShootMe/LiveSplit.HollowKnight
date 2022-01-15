@@ -189,6 +189,7 @@
         bossDoorStateTier5,
         newDataBindingSeal,
         killedZombieMiner,
+        killsZombieMiner,
         royalCharmState,
         visitedOutskirts,
         seenColosseumTitle,

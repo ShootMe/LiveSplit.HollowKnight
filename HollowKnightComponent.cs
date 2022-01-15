@@ -347,7 +347,7 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.Hornet2: shouldSplit = mem.PlayerData<bool>(Offset.hornetOutskirtsDefeated); break;
                 case SplitName.HowlingWraiths: shouldSplit = mem.PlayerData<int>(Offset.screamLevel) == 1; break;
                 case SplitName.HuntersMark: shouldSplit = mem.PlayerData<bool>(Offset.killedHunterMark); break;
-                case SplitName.HuskMiner: shouldSplit = mem.PlayerData<bool>(Offset.killedZombieMiner); break;
+                case SplitName.HuskMiner: shouldSplit = store.CheckIncreasedBy(Offset.killsZombieMiner, -1); break;
                 case SplitName.InfectedCrossroads: shouldSplit = mem.PlayerData<bool>(Offset.crossroadsInfected) && mem.PlayerData<bool>(Offset.visitedCrossroads); break;
                 case SplitName.IsmasTear: shouldSplit = mem.PlayerData<bool>(Offset.hasAcidArmour); break;
                 case SplitName.JonisBlessing: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_27); break;
