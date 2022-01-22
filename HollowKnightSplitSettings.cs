@@ -197,8 +197,10 @@ namespace LiveSplit.HollowKnight {
         CrystalGuardian2,
         [Description("Dung Defender (Boss)"), ToolTip("Splits when killing Dung Defender")]
         DungDefender,
-        [Description("Dung Defender Idol (Trinket)"), ToolTip("Splits when picking up Dung Defender idol as the first idol")]
+        [Description("Dung Defender Idol (Item)"), ToolTip("Splits when picking up Dung Defender idol as the first idol")]
         DungDefenderIdol,
+        [Description("Glade Idol (Item)"), ToolTip("Splits when picking up the King's Idol in the Spirits' Glade")]
+        GladeIdol,
         [Description("Elder Hu (Boss)"), ToolTip("Splits when killing Elder Hu")]
         ElderHu,
         [Description("Elder Hu (Essence)"), ToolTip("Splits when absorbing essence from Elder Hu")]
@@ -406,7 +408,7 @@ namespace LiveSplit.HollowKnight {
         PreGrimmShop,
         [Description("106% Pre-Grimm Shop (Transition)"), ToolTip("Splits when Lantern + Vessel Fragment(5) + Mask Shard(4) have been acquired")]
         PreGrimmShopTrans,
-        [Description("1xx% Sly Final Shop (Event / Transition)"), ToolTip("Splits on leaving Sly's shop after having bough Sprintmaster and Vessel Frag 8")]
+        [Description("1xx% Sly Final Shop (Transition)"), ToolTip("Splits on leaving Sly's shop after having bough Sprintmaster and Vessel Frag 8")]
         SlyShopFinished,
         [Description("Can Overcharm (Event)"), ToolTip("Splits when overcharming is enabled")]
         CanOvercharm,
@@ -1079,7 +1081,7 @@ namespace LiveSplit.HollowKnight {
         Essence2300,
         [Description("2400 Essence (Essence)"), ToolTip("Essence")]
         Essence2400,
-        
+
         [Description("Any Bench (Bench)"), ToolTip("Splits when sitting on a bench")]
         BenchAny,/*
         [Description("Dirtmouth (Bench)"), ToolTip("Splits when sitting on the bench in Dirtmouth")]
@@ -1176,7 +1178,7 @@ namespace LiveSplit.HollowKnight {
         BenchGodhomeAtrium,
         [Description("Hall of Gods (Bench)"), ToolTip("Splits when sitting on the bench in the Godhome Atrium")]
         BenchHallOfGods,*/
-        
+
         [Description("Queen's Garden Bench (Toll)"), ToolTip("Splits when buying Queen's Garden toll bench")]
         TollBenchQG,
         [Description("Sanctum Bench (Toll)"), ToolTip("Splits when buying City/Sanctum toll bench by Cornifer's location")]
@@ -1238,6 +1240,21 @@ namespace LiveSplit.HollowKnight {
 
         [Description("Soul Master Encountered (Practice)"), ToolTip("Splits when Soul Master is activated the first time and the gate closes")]
         SoulMasterEncountered,
+        [Description("Enter Hornet 1 (Transition)"), ToolTip("Splits when entering Hornet 1 boss arena transition")]
+        EnterHornet1,
+        [Description("Enter Soul Master (Transition)"), ToolTip("Splits when entering Soul Master boss arena transition")]
+        EnterSoulMaster,
+        [Description("Enter Hornet 2 (Transition)"), ToolTip("Splits when entering Hornet 2 boss arena transition")]
+        EnterHornet2,
+        [Description("Enter Hive Knight (Transition)"), ToolTip("Splits when entering Hive Knight boss arena transition")]
+        EnterHiveKnight,
+        [Description("Enter Troupe Master Grimm (Transition)"), ToolTip("Splits when entering Grimm tent with requirements to trigger Troupe Master Grimm boss")]
+        EnterTMG,
+
+        [Description("Vengefly King Killed (Transition)"), ToolTip("Splits on transition after Vengefly King in Greenpath killed")]
+        VengeflyKingTrans,
+        [Description("Massive Moss Charger Killed (Transition)"), ToolTip("Splits on transition after Massive Moss Charger is killed")]
+        MegaMossChargerTrans,
 
         [Description("Godhome Bench (Transition)"), ToolTip("Splits when leaving a Godhome Bench room")]
         GodhomeBench,
@@ -1348,24 +1365,6 @@ namespace LiveSplit.HollowKnight {
         [Description("Manual Split (Misc)"), ToolTip("Never splits. Use this when you need to manually split while using ordered splits")]
         ManualSplit,
 
-        [Description("Enter Hornet 1 (Transition)"), ToolTip("Splits when entering Hornet 1 boss arena transition")]
-        EnterHornet1,
-        [Description("Enter Soul Master (Transition)"), ToolTip("Splits when entering Soul Master boss arena transition")]
-        EnterSoulMaster,
-        [Description("Enter Hornet 2 (Transition)"), ToolTip("Splits when entering Hornet 2 boss arena transition")]
-        EnterHornet2,
-        [Description("Enter Hive Knight (Transition)"), ToolTip("Splits when entering Hive Knight boss arena transition")]
-        EnterHiveKnight,
-        [Description("Enter Troupe Master Grimm (Transition)"), ToolTip("Splits when entering Grimm tent with requirements to trigger Troupe Master Grimm boss")]
-        EnterTMG,
-
-        [Description("Vengefly King Killed (Transition)"), ToolTip("Splits on transition after Vengefly King in Greenpath killed")]
-        VengeflyKingTrans,
-        [Description("Massive Moss Charger Killed (Transition)"), ToolTip("Splits on transition after Massive Moss Charger is killed")]
-        MegaMossChargerTrans,
-
-        [Description("Glade Idol (Relic)"), ToolTip("Splits when picking up the King's Idol in the Spirits' Glade")]
-        GladeIdol,
 
 
         /*

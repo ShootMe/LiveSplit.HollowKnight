@@ -5,10 +5,18 @@
         <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
       </files>
       <changelog>
-        <change>Leave Sly hut transition split with 106% items (lantern, shard, vfrag) bought. Fixes fake golds from shoptimising differently. (cerpin)</change>
-        <change>Renamed shopping splits from (event) to (transition) when appropriate. (cerpin)</change>
         <change>Fixed auto-start on transition and auto-end on transition both happening on the same transition. (cerpin)</change>
         <change>Fixed Transition Excluding Save State to account for new debug mod implementation. (slaurent)</change>
+        <change>Fixed Myla (Husk Miner) to split when a new husk miner is killed to prevent fake splits. (slaurent)</change>
+        <change>Fixed descriptions and tooltips of several autosplits. (mayonnaisical, VioletBlight)</change>
+        <change>Renamed shopping splits from (event) to (transition) when appropriate. (cerpin)</change>
+        <change>Add "106% Pre-Grimm Shop (Transition)": leave Sly hut transition split with 106% items (lantern, shard, vfrag) bought. Fixes fake golds from shoptimising differently. (cerpin)</change>
+        <change>Added "Shade Killed (Event)" autosplit. (slaurent)</change>
+        <change>Added "Crystal Peaks Lift Opened (Event)" autosplit. (slaurent)</change>
+        <change>Added "Any Bench (Bench)" and several "Specific Bench (Bench)" autosplits. (mayonnaisical)</change>
+        <change>Added "City Gate w/ Mantis Lords defeated (Event)" autosplit. (mayonnaisical)</change>
+        <change>Added "Godhome (Transition)" and "Colosseum Entrance 1/2/3 (Transition)" autosplits. (mayonnaisical)</change>
+        <change>Added various "Enter Boss (Transition)" and "Boss Killed (Transition)" autosplits. (VioletBlight)</change>
       </changelog>
     </update>
     <update version="3.1.0">
