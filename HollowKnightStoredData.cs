@@ -5,6 +5,7 @@ namespace LiveSplit.HollowKnight
     public class HollowKnightStoredData {
 
         private ConcurrentDictionary<Offset, int> pdInts = new ConcurrentDictionary<Offset, int>();
+        private ConcurrentDictionary<Offset, bool> pdBools = new ConcurrentDictionary<Offset, bool>();
         public bool TraitorLordDeadOnEntry { get; private set; } = false;
         /// <summary>
         /// Returns true if the knight is currently in a transition and has already split there
@@ -19,6 +20,7 @@ namespace LiveSplit.HollowKnight
         /// </summary>
         public void Reset() {
             pdInts.Clear();
+            pdBools.Clear();
             TraitorLordDeadOnEntry = false;
             SplitThisTransition = false;
             GladeEssence = 0;
@@ -29,6 +31,13 @@ namespace LiveSplit.HollowKnight
                 pdInts[offset] = mem.PlayerData<int>(offset);
             }
             return pdInts[offset];
+        }
+
+        private bool GetBoolValue(Offset offset) {
+            if (!pdBools.ContainsKey(offset)) {
+                pdBools[offset] = mem.PlayerData<bool>(offset);
+            }
+            return pdBools[offset];
         }
 
         /// <summary>
@@ -68,6 +77,39 @@ namespace LiveSplit.HollowKnight
             return ans;
         }
 
+        /// <summary>
+        /// Checks if the PD bool given by offset has toggled since the last update
+        /// </summary>
+        /// <param name="offset"></param>
+        /// <returns></returns>
+        public bool CheckToggled(Offset offset) {
+            bool current = mem.PlayerData<bool>(offset);
+            bool previous = GetBoolValue(offset);
+            return current != previous;
+        }
+
+        /// <summary>
+        /// Checks if the PD bool given by offset has toggled from False to True since the last update
+        /// </summary>
+        /// <param name="offset"></param>
+        /// <returns></returns>
+        public bool CheckToggledTrue(Offset offset) {
+            bool current = mem.PlayerData<bool>(offset);
+            bool previous = GetBoolValue(offset);
+            return (current == true) && (previous == false);
+        }
+
+        /// <summary>
+        /// Checks if the PD bool given by offset has toggled from True to False since the last update
+        /// </summary>
+        /// <param name="offset"></param>
+        /// <returns></returns>
+        public bool CheckToggledFalse(Offset offset) {
+            bool current = mem.PlayerData<bool>(offset);
+            bool previous = GetBoolValue(offset);
+            return (current == false) && (previous == true);
+        }
+
         public HollowKnightStoredData(HollowKnightMemory mem) {
             this.mem = mem;
         }
@@ -79,8 +121,13 @@ namespace LiveSplit.HollowKnight
             foreach (Offset offset in pdInts.Keys) {
                 pdInts[offset] = mem.PlayerData<int>(offset);
             }
-            
-            if (mem.HeroTransitionState() != HeroTransitionState.WAITING_TO_TRANSITION || mem.GameState() is GameState.EXITING_LEVEL or GameState.LOADING) {
+            foreach (Offset offset in pdBools.Keys) {
+                pdBools[offset] = mem.PlayerData<bool>(offset);
+            }
+
+            if (mem.HeroTransitionState() != HeroTransitionState.WAITING_TO_TRANSITION 
+                || mem.GameState() is GameState.EXITING_LEVEL or GameState.LOADING
+                || mem.SceneName() != mem.NextSceneName()) {
                 // In transition
                 TraitorLordDeadOnEntry = mem.PlayerData<bool>(Offset.killedTraitorLord);
             } else {

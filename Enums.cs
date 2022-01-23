@@ -189,6 +189,7 @@
         bossDoorStateTier5,
         newDataBindingSeal,
         killedZombieMiner,
+        killsZombieMiner,
         royalCharmState,
         visitedOutskirts,
         seenColosseumTitle,
@@ -321,6 +322,7 @@
         soldTrinket2,
         soldTrinket3,
         soldTrinket4,
+        geo,
 
         nailsmithConvoArt,
         slySimpleKey,
@@ -356,7 +358,9 @@
         ordealAchieved,
         whiteDefenderDefeats,
         greyPrinceDefeats,
-        savedCloth
+        savedCloth,
+        soulLimited,
+        atBench
     }
     public enum GameState {
         INACTIVE,
