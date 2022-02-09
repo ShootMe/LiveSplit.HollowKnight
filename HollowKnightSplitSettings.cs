@@ -1347,8 +1347,6 @@ namespace LiveSplit.HollowKnight {
         OnObtainHallownestSeal,
         [Description("King's Idol (Obtain)"), ToolTip("Splits when obtaining a King's Idol")]
         OnObtainKingsIdol,
-        [Description("Glade Idol (Relic)"), ToolTip("Splits when picking up the King's Idol in the Spirits' Glade")]
-        GladeIdol,
         [Description("Arcane Egg 8 (Obtain)"), ToolTip("Splits when obtaining 8 Arcane Eggs")]
         ArcaneEgg8,
         [Description("Arcane Egg (Obtain)"), ToolTip("Splits when obtaining an Arcane Egg")]
