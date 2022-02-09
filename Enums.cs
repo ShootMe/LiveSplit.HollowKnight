@@ -359,8 +359,8 @@
         whiteDefenderDefeats,
         greyPrinceDefeats,
         savedCloth,
-        soulLimited,
-        atBench
+        atBench,
+        soulLimited
     }
     public enum GameState {
         INACTIVE,

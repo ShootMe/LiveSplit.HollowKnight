@@ -124,7 +124,6 @@ namespace LiveSplit.HollowKnight
             foreach (Offset offset in pdBools.Keys) {
                 pdBools[offset] = mem.PlayerData<bool>(offset);
             }
-
             if (mem.HeroTransitionState() != HeroTransitionState.WAITING_TO_TRANSITION 
                 || mem.GameState() is GameState.EXITING_LEVEL or GameState.LOADING
                 || mem.SceneName() != mem.NextSceneName()) {

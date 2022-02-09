@@ -1,5 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <updates>
+    <update version="3.1.2">
+      <files>
+        <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+      </files>
+      <changelog>
+        <change>Leave Sly hut transition split with lantern bought (cerpin)</change>
+        <change>Added splits with the old dreamer timings for 'save-quit -> load-in early control' timesave (cerpin)</change>
+        <change>Filler Abyss (Lighthouse lit + Abyss gate opened) split points because I wanted them for practice points :) (cerpin)</change>
+        <change>Resorted some splits so they should be together with their pairings (ie. enter boss + defeated boss by each other) in non-alphabetical order (cerpin)</change>
+        <change>Renamed 'ending' to 'Credits Roll (Event)'. Useful for All Achievements (cerpin) </change>
+      </changelog>
+    </update>
     <update version="3.1.1">
       <files>
         <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
