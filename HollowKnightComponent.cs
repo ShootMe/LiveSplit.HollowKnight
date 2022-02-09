@@ -337,6 +337,7 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.GruzMother: shouldSplit = mem.PlayerData<bool>(Offset.killedBigFly); break;
                 case SplitName.HeavyBlow: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_15); break;
                 case SplitName.Hegemol: shouldSplit = mem.PlayerData<bool>(Offset.maskBrokenHegemol); break;
+                case SplitName.HegemolDreamer: shouldSplit = mem.PlayerData<bool>(Offset.hegemolDefeated); break;
                 case SplitName.HiddenStationStation: shouldSplit = mem.PlayerData<bool>(Offset.openedHiddenStation); break;
                 case SplitName.Hive: shouldSplit = mem.PlayerData<bool>(Offset.visitedHive); break;
                 case SplitName.Hiveblood: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_29); break;
@@ -365,6 +366,7 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.LoveKey: shouldSplit = mem.PlayerData<bool>(Offset.hasLoveKey); break;
                 case SplitName.LumaflyLantern: shouldSplit = mem.PlayerData<bool>(Offset.hasLantern); break;
                 case SplitName.Lurien: shouldSplit = mem.PlayerData<bool>(Offset.maskBrokenLurien); break;
+                case SplitName.LurienDreamer: shouldSplit = mem.PlayerData<bool>(Offset.lurienDefeated); break;
                 case SplitName.MantisClaw: shouldSplit = mem.PlayerData<bool>(Offset.hasWallJump); break;
                 case SplitName.MantisLords: shouldSplit = mem.PlayerData<bool>(Offset.defeatedMantisLords); break;
                 case SplitName.MarkOfPride: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_13); break;
@@ -391,6 +393,7 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.MenderBug: shouldSplit = mem.PlayerData<bool>(Offset.killedMenderBug); break;
                 case SplitName.MonarchWings: shouldSplit = mem.PlayerData<bool>(Offset.hasDoubleJump); break;
                 case SplitName.Monomon: shouldSplit = mem.PlayerData<bool>(Offset.maskBrokenMonomon); break;
+                case SplitName.MonomonDreamer: shouldSplit = mem.PlayerData<bool>(Offset.monomonDefeated); break;
                 case SplitName.MossKnight: shouldSplit = mem.PlayerData<bool>(Offset.killedMossKnight); break;
                 case SplitName.MothwingCloak: shouldSplit = mem.PlayerData<bool>(Offset.hasDash); break;
                 case SplitName.MrMushroom1: shouldSplit = mem.PlayerData<int>(Offset.mrMushroomState) == 2; break;
@@ -1056,7 +1059,9 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.MegaMossChargerTrans: shouldSplit = mem.PlayerData<bool>(Offset.megaMossChargerDefeated) && nextScene != sceneName; break;
 
                 case SplitName.GladeIdol: shouldSplit = store.CheckIncreased(Offset.trinket3) && sceneName.StartsWith("RestingGrounds_08"); break;
-
+                case SplitName.AbyssDoor: shouldSplit = mem.PlayerData<bool>(Offset.abyssGateOpened); break;
+                case SplitName.AbyssLighthouse: shouldSplit = mem.PlayerData<bool>(Offset.abyssLighthouse); break;
+                case SplitName.LumaflyLanternTransition: shouldSplit = mem.PlayerData<bool>(Offset.hasLantern) && !sceneName.StartsWith("Room_shop"); break;
                 default:
                     //throw new Exception(split + " does not have a defined shouldsplit value");
                     if (!failedValues.Contains(split)) {
@@ -1202,6 +1207,8 @@ namespace LiveSplit.HollowKnight {
             splitsDone.Clear();
             store.Reset();
             failedValues.Clear();
+            store.SplitThisTransition = true;
+            store.Update();
             WriteLog("---------New Game-------------------------------");
         }
         public void OnUndoSplit(object sender, EventArgs e) {
@@ -1215,6 +1222,8 @@ namespace LiveSplit.HollowKnight {
         }
         public void OnSplit(object sender, EventArgs e) {
             currentSplit++;
+            store.SplitThisTransition = true;
+            store.Update();
 
             state = 0;
         }
