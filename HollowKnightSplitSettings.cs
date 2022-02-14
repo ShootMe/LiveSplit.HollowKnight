@@ -261,6 +261,8 @@ namespace LiveSplit.HollowKnight {
         MarmuEssence,
         [Description("Massive Moss Charger (Boss)"), ToolTip("Splits when killing Massive Moss Charger")]
         MegaMossCharger,
+        [Description("Massive Moss Charger Killed (Transition)"), ToolTip("Splits on transition after Massive Moss Charger is killed")]
+        MegaMossChargerTrans,
         [Description("Nightmare King Grimm (Boss)"), ToolTip("Splits when killing Nightmare King Grimm")]
         NightmareKingGrimm,
         [Description("No Eyes (Boss)"), ToolTip("Splits when killing No Eyes")]
@@ -547,6 +549,8 @@ namespace LiveSplit.HollowKnight {
         MushroomBrawler,
         [Description("Zote Rescued - Vengefly King (Mini Boss)"), ToolTip("Splits when rescuing Zote from the Vengefly King")]
         Zote1,
+        [Description("Vengefly King Killed (Transition)"), ToolTip("Splits on transition after Vengefly King in Greenpath killed")]
+        VengeflyKingTrans,
         [Description("Zote Rescued - Deepnest (Mini Boss)"), ToolTip("Splits when rescuing Zote in Deepnest")]
         Zote2,
         [Description("Zote Defeated - Colosseum (Mini Boss)"), ToolTip("Splits when defeating Zote in the Colosseum")]
@@ -1489,12 +1493,6 @@ namespace LiveSplit.HollowKnight {
         TransitionAfterSaveState,
         [Description("Manual Split (Misc)"), ToolTip("Never splits. Use this when you need to manually split while using ordered splits")]
         ManualSplit,
-
-        [Description("Vengefly King Killed (Transition)"), ToolTip("Splits on transition after Vengefly King in Greenpath killed")]
-        VengeflyKingTrans,
-        [Description("Massive Moss Charger Killed (Transition)"), ToolTip("Splits on transition after Massive Moss Charger is killed")]
-        MegaMossChargerTrans,
-
         [Description("Rando Wake (Event)"), ToolTip("Splits when gaining control after waking up in Rando")]
         RandoWake,
 
