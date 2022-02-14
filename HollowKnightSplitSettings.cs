@@ -1378,6 +1378,8 @@ namespace LiveSplit.HollowKnight {
         [Description("Massive Moss Charger Killed (Transition)"), ToolTip("Splits on transition after Massive Moss Charger is killed")]
         MegaMossChargerTrans,
 
+        [Description("Rando Wake (Event)"), ToolTip("Splits when gaining control after waking up in Rando")]
+        RandoWake,
 
         /*
         [Description("Mage Door (Test)"), ToolTip("Splits when Nailsmith is spared")]
