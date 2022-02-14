@@ -1065,6 +1065,7 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.OnUseSimpleKey: shouldSplit = store.CheckIncreasedBy(Offset.simpleKeys, -1); break;
                 case SplitName.OnObtainGrub: shouldSplit = store.CheckIncremented(Offset.grubsCollected); break;
                 case SplitName.OnObtainPaleOre: shouldSplit = store.CheckIncremented(Offset.ore); break;
+                case SplitName.OnObtainWhiteFragment: shouldSplit = store.CheckIncreased(Offset.royalCharmState); break;
                 case SplitName.OnDefeatGPZ: shouldSplit = store.CheckIncremented(Offset.greyPrinceDefeats); break;
                 case SplitName.OnDefeatWhiteDefender: shouldSplit = store.CheckIncremented(Offset.whiteDefenderDefeats); break;
 
