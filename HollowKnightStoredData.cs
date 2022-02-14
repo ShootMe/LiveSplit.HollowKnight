@@ -13,6 +13,34 @@ namespace LiveSplit.HollowKnight
         public bool SplitThisTransition { get; set; } = false;
         public int GladeEssence { get; set; } = 0;
 
+        // Colosseum enemies
+        public int killsColShieldStart { get; set; }
+        public int killsColRollerStart { get; set; }
+        public int killsColMinerStart { get; set; }
+        public int killsSpitterStart { get; set; }
+        public int killsBuzzerStart { get; set; }
+        public int killsBigBuzzerStart { get; set; }
+        public int killsBurstingBouncerStart { get; set; }
+        public int killsBigFlyStart { get; set; }
+        public int killsColWormStart { get; set; }
+        public int killsColFlyingSentryStart { get; set; }
+        public int killsColMosquitoStart { get; set; }
+        public int killsCeilingDropperStart { get; set; }
+        public int killsColHopperStart { get; set; }
+        public int killsGiantHopperStart { get; set; }
+        public int killsGrubMimicStart { get; set; }
+        public int killsBlobbleStart { get; set; }
+        public int killsOblobbleStart { get; set; }
+        public int killsAngryBuzzerStart { get; set; }
+        public int killsHeavyMantisStart { get; set; }
+        public int killsHeavyMantisFlyerStart { get; set; }
+        public int killsMageKnightStart { get; set; }
+        public int killsMageStart { get; set; }
+        public int killsElectricMageStart { get; set; }
+        public int killsLesserMawlekStart { get; set; }
+        public int killsMawlekStart { get; set; }
+        public int killsLobsterLancerStart { get; set; }
+
         private HollowKnightMemory mem;
 
         /// <summary>
@@ -25,6 +53,37 @@ namespace LiveSplit.HollowKnight
             SplitThisTransition = false;
             GladeEssence = 0;
         }
+
+        public void ResetKills()
+        {
+            killsColShieldStart = mem.PlayerData<int>(Offset.killsColShield);
+            killsColRollerStart = mem.PlayerData<int>(Offset.killsColRoller);
+            killsColMinerStart = mem.PlayerData<int>(Offset.killsColMiner);
+            killsSpitterStart = mem.PlayerData<int>(Offset.killsSpitter);
+            killsBuzzerStart = mem.PlayerData<int>(Offset.killsBuzzer);
+            killsBigBuzzerStart = mem.PlayerData<int>(Offset.killsBigBuzzer);
+            killsBurstingBouncerStart = mem.PlayerData<int>(Offset.killsBurstingBouncer);
+            killsBigFlyStart = mem.PlayerData<int>(Offset.killsBigFly);
+            killsColWormStart = mem.PlayerData<int>(Offset.killsColWorm);
+            killsColFlyingSentryStart = mem.PlayerData<int>(Offset.killsColFlyingSentry);
+            killsColMosquitoStart = mem.PlayerData<int>(Offset.killsColMosquito);
+            killsCeilingDropperStart = mem.PlayerData<int>(Offset.killsCeilingDropper);
+            killsColHopperStart = mem.PlayerData<int>(Offset.killsColHopper);
+            killsGiantHopperStart = mem.PlayerData<int>(Offset.killsGiantHopper);
+            killsGrubMimicStart = mem.PlayerData<int>(Offset.killsGrubMimic);
+            killsBlobbleStart = mem.PlayerData<int>(Offset.killsBlobble);
+            killsOblobbleStart = mem.PlayerData<int>(Offset.killsOblobble);
+            killsAngryBuzzerStart = mem.PlayerData<int>(Offset.killsAngryBuzzer);
+            killsHeavyMantisStart = mem.PlayerData<int>(Offset.killsHeavyMantis);
+            killsHeavyMantisFlyerStart = mem.PlayerData<int>(Offset.killsMantisHeavyFlyer);
+            killsMageKnightStart = mem.PlayerData<int>(Offset.killsMageKnight);
+            killsMageStart = mem.PlayerData<int>(Offset.killsMage);
+            killsElectricMageStart = mem.PlayerData<int>(Offset.killsElectricMage);
+            killsLesserMawlekStart = mem.PlayerData<int>(Offset.killsLesserMawlek);
+            killsMawlekStart = mem.PlayerData<int>(Offset.killsMawlek);
+            killsLobsterLancerStart = mem.PlayerData<int>(Offset.killsLobsterLancer);
+        }
+
 
         private int GetValue(Offset offset) {
             if (!pdInts.ContainsKey(offset)) {
