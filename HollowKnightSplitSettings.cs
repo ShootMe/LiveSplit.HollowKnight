@@ -1373,7 +1373,7 @@ namespace LiveSplit.HollowKnight {
         OnObtainGrub,
         [Description("Pale Ore (Obtain)"), ToolTip("Splits when obtaining a Pale Ore")]
         OnObtainPaleOre,
-        [Description("White Fragment (Obtain)"), ToolTip("Splits when obtaining a White Fragment, Kingsoul or Void Heart")]
+        [Description("White Fragment (Obtain)"), ToolTip("Splits when obtaining any White Fragment, or Void Heart")]
         OnObtainWhiteFragment,
 
         [Description("Colo 1 Wave 1a"), ToolTip("Splits upon killing the first Sheilded Fool in wave 1\nRecommended for use with a pre-set save file")]
