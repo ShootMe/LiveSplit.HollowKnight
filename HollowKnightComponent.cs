@@ -365,7 +365,7 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.GreyPrince: shouldSplit = mem.PlayerData<bool>(Offset.killedGreyPrince); break;
                 case SplitName.GruzMother: shouldSplit = mem.PlayerData<bool>(Offset.killedBigFly); break;
                 case SplitName.HeavyBlow: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_15); break;
-                case SplitName.Herrah: shouldSplit = mem.PlayerData<bool>(Offset.maskBrokenHegemol); break;
+                case SplitName.Hegemol: shouldSplit = mem.PlayerData<bool>(Offset.maskBrokenHegemol); break;
                 case SplitName.HegemolDreamer: shouldSplit = mem.PlayerData<bool>(Offset.hegemolDefeated); break;
                 case SplitName.HiddenStationStation: shouldSplit = mem.PlayerData<bool>(Offset.openedHiddenStation); break;
                 case SplitName.Hive: shouldSplit = mem.PlayerData<bool>(Offset.visitedHive); break;

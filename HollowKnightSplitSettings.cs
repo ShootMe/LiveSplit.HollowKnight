@@ -408,7 +408,7 @@ namespace LiveSplit.HollowKnight {
         NightmareKingGrimmP,
 
         [Description("Herrah the Beast (Dreamer)"), ToolTip("Splits when you see the mask for Herrah")]
-        Herrah,
+        Hegemol,
         [Description("Lurien the Watcher (Dreamer)"), ToolTip("Splits when you see the mask for Lurien")]
         Lurien,
         [Description("Monomon the Teacher (Dreamer)"), ToolTip("Splits when you see the mask for Monomon")]
