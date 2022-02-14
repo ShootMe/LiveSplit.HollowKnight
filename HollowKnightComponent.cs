@@ -330,7 +330,7 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.ElegantKey: shouldSplit = mem.PlayerData<bool>(Offset.hasWhiteKey); break;
                 case SplitName.EternalOrdealAchieved: shouldSplit = mem.PlayerData<bool>(Offset.ordealAchieved); break;
                 case SplitName.EternalOrdealUnlocked: shouldSplit = mem.PlayerData<bool>(Offset.zoteStatueWallBroken); break;
-                case SplitName.FailedChampion: shouldSplit = mem.PlayerData<bool>(Offset.falseKnightDreamDefeated); break;
+                case SplitName.FailedKnight: shouldSplit = mem.PlayerData<bool>(Offset.falseKnightDreamDefeated); break;
                 case SplitName.FalseKnight: shouldSplit = mem.PlayerData<bool>(Offset.killedFalseKnight); break;
                 case SplitName.Flukemarm: shouldSplit = mem.PlayerData<bool>(Offset.killedFlukeMother); break;
                 case SplitName.Flukenest: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_11); break;

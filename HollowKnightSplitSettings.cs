@@ -210,7 +210,7 @@ namespace LiveSplit.HollowKnight {
         [Description("False Knight (Boss)"), ToolTip("Splits when killing False Knight")]
         FalseKnight,
         [Description("Failed Champion (Boss)"), ToolTip("Splits when killing Failed Champion")]
-        FailedChampion,
+        FailedKnight,
         [Description("Failed Champion (Essence)"), ToolTip("Splits when getting Failed Champion essence")]
         FailedChampionEssence,
         [Description("Flukemarm (Boss)"), ToolTip("Splits when killing Flukemarm")]
