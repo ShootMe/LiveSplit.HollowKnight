@@ -52,6 +52,7 @@ namespace LiveSplit.HollowKnight
             TraitorLordDeadOnEntry = false;
             SplitThisTransition = false;
             GladeEssence = 0;
+            ResetKills();
         }
 
         public void ResetKills()
