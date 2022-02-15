@@ -1073,9 +1073,9 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.ColosseumBronzeUnlocked: shouldSplit = mem.PlayerData<bool>(Offset.colosseumBronzeOpened); break;
                 case SplitName.ColosseumSilverUnlocked: shouldSplit = mem.PlayerData<bool>(Offset.colosseumSilverOpened); break;
                 case SplitName.ColosseumGoldUnlocked: shouldSplit = mem.PlayerData<bool>(Offset.colosseumGoldOpened); break;
-                case SplitName.ColosseumBronzeEntry: shouldSplit = nextScene.StartsWith("Room_Colosseum_Bronze") && nextScene != sceneName; break;
-                case SplitName.ColosseumSilverEntry: shouldSplit = nextScene.StartsWith("Room_Colosseum_Silver") && nextScene != sceneName; break;
-                case SplitName.ColosseumGoldEntry: shouldSplit = nextScene.StartsWith("Room_Colosseum_Gold") && nextScene != sceneName; break;
+                case SplitName.ColosseumBronzeEntry: shouldSplit = sceneName == "Room_Colosseum_01" && nextScene == "Room_Colosseum_Bronze"; break;
+                case SplitName.ColosseumSilverEntry: shouldSplit = sceneName == "Room_Colosseum_01" && nextScene == "Room_Colosseum_Silver"; break;
+                case SplitName.ColosseumGoldEntry: shouldSplit = sceneName == "Room_Colosseum_01" && nextScene == "Room_Colosseum_Gold"; break;
                 case SplitName.ColosseumBronzeExit: shouldSplit = mem.PlayerData<bool>(Offset.colosseumBronzeCompleted) && !nextScene.StartsWith("Room_Colosseum_Bronze") && nextScene != sceneName; break;
                 case SplitName.ColosseumSilverExit: shouldSplit = mem.PlayerData<bool>(Offset.colosseumSilverCompleted) && !nextScene.StartsWith("Room_Colosseum_Silver") && nextScene != sceneName; break;
                 case SplitName.ColosseumGoldExit: shouldSplit = mem.PlayerData<bool>(Offset.colosseumGoldCompleted) && !nextScene.StartsWith("Room_Colosseum_Gold") && nextScene != sceneName; break;
