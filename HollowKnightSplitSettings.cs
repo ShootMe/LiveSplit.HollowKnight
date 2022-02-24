@@ -1123,15 +1123,18 @@ namespace LiveSplit.HollowKnight {
         Essence2400,
 
         [Description("Any Bench (Bench)"), ToolTip("Splits when sitting on a bench")]
-        BenchAny,/*
+        BenchAny,
+        /*
         [Description("Dirtmouth (Bench)"), ToolTip("Splits when sitting on the bench in Dirtmouth")]
         BenchDirtmouth,
         [Description("Mato (Bench)"), ToolTip("Splits when sitting on the bench in Mato's Hut")]
         BenchMato,
         [Description("Crossroads Hotsprings (Bench)"), ToolTip("Splits when sitting on the hotsprings bench in Crossroads")]
-        BenchCrossroadsHotsprings,*/
+        BenchCrossroadsHotsprings,
+        */
         [Description("Crossroads Stag (Bench)"), ToolTip("Splits when sitting on the bench at Crossroads Stag")]
-        BenchCrossroadsStag,/*
+        BenchCrossroadsStag,
+        /*
         [Description("Salubra (Bench)"), ToolTip("Splits when sitting on the bench by Salubra")]
         BenchSalubra,
         [Description("Ancestral Mound (Bench)"), ToolTip("Splits when sitting on the bench in Ancestral Mound")]
@@ -1143,17 +1146,21 @@ namespace LiveSplit.HollowKnight {
         [Description("Stone Sanctuary (Bench)"), ToolTip("Splits when sitting on the bench by Stone Sanctuary")]
         BenchStoneSanctuary,
         [Description("Greenpath Toll (Bench)"), ToolTip("Splits when sitting on the toll bench in Greenpath")]
-        BenchGreenpathToll,*/
+        BenchGreenpathToll,
+        */
         [Description("Greenpath Stag (Bench)"), ToolTip("Splits when sitting on the bench at Greenpath Stag")]
-        BenchGreenpathStag,/*
+        BenchGreenpathStag,
+        /*
         [Description("Lake of Unn (Bench)"), ToolTip("Splits when sitting on the bench at the Lake of Unn")]
         BenchLakeOfUnn,
         [Description("Sheo (Bench)"), ToolTip("Splits when sitting on the bench by Sheo's hut")]
         BenchSheo,
         [Description("Teacher's Archives (Bench)"), ToolTip("Splits when sitting on the bench in Teacher's Archives")]
-        BenchArchives,*/
+        BenchArchives,
+        */
         [Description("Queen's Station (Bench)"), ToolTip("Splits when sitting on the bench in Queen's Station")]
-        BenchQueensStation,/*
+        BenchQueensStation,
+        /*
         [Description("Leg Eater (Bench)"), ToolTip("Splits when sitting on the bench at Leg Eater")]
         BenchLegEater,
         [Description("Bretta (Bench)"), ToolTip("Splits when sitting on the bench by Bretta")]
@@ -1163,13 +1170,17 @@ namespace LiveSplit.HollowKnight {
         [Description("Quirrel (Bench)"), ToolTip("Splits when sitting on the bench Quirrel sits at in City of Tears")]
         BenchQuirrel,
         [Description("City Toll (Bench)"), ToolTip("Splits when sitting on the toll bench in City of Tears")]
-        BenchCityToll,*/
+        BenchCityToll,
+        */
         [Description("Storerooms (Bench)"), ToolTip("Splits when sitting on the bench in City Storerooms")]
-        BenchStorerooms,/*
+        BenchStorerooms,
+        /*
         [Description("Watcher's Spire (Bench)"), ToolTip("Splits when sitting on the bench in Watcher's Spire")]
-        BenchSpire,*/
+        BenchSpire,
+        */
         [Description("King's Station (Bench)"), ToolTip("Splits when sitting on the bench in King's Station")]
-        BenchKingsStation,/*
+        BenchKingsStation,
+        /*
         [Description("Pleasure House (Bench)"), ToolTip("Splits when sitting on the bench in Pleasure House")]
         BenchPleasureHouse,
         [Description("Waterways (Bench)"), ToolTip("Splits when sitting on the bench in Royal Waterways")]
@@ -1181,9 +1192,11 @@ namespace LiveSplit.HollowKnight {
         [Description("Beast's Den (Bench)"), ToolTip("Splits when sitting on the bench in Beast's Den")]
         BenchDeepnestSpiderTown,
         [Description("Basin Toll (Bench)"), ToolTip("Splits when sitting on the toll bench in Ancient Basin")]
-        BenchBasinToll,*/
+        BenchBasinToll,
+        */
         [Description("Hidden Station (Bench)"), ToolTip("Splits when sitting on the bench in Hidden Station")]
-        BenchHiddenStation,/*
+        BenchHiddenStation,
+        /*
         [Description("Oro (Bench)"), ToolTip("Splits when sitting on the bench at Oro's hut")]
         BenchOro,
         [Description("Camp (Bench)"), ToolTip("Splits when sitting on the bench at the camp in Kingdom's Edge")]
@@ -1191,9 +1204,11 @@ namespace LiveSplit.HollowKnight {
         [Description("Colosseum (Bench)"), ToolTip("Splits when sitting on the bench at the Colosseum")]
         BenchColosseum,
         [Description("Hive (Bench)"), ToolTip("Splits when sitting on the bench in the Hive")]
-        BenchHive,*/
+        BenchHive,
+        */
         [Description("Resting Grounds Stag (Bench)"), ToolTip("Splits when sitting on the bench at Resting Grounds Stag")]
-        BenchRGStag,/*
+        BenchRGStag,
+        /*
         [Description("Crystal Peak Dark Room (Bench)"), ToolTip("Splits when sitting on the dark room bench in Crystal Peak")]
         BenchDarkRoom,
         [Description("Crystal Guardian (Bench)"), ToolTip("Splits when sitting on the Crystal Guardian's bench")]
@@ -1203,9 +1218,11 @@ namespace LiveSplit.HollowKnight {
         [Description("Queen's Garden Cornifer (Bench)"), ToolTip("Splits when sitting on the bench by Cornifer in Queen's Gardens")]
         BenchQGCornifer,
         [Description("Queen's Gardens Toll (Bench)"), ToolTip("Splits when sitting on the toll bench in Queen's Gardens")]
-        BenchQGToll,*/
+        BenchQGToll,
+        */
         [Description("Queen's Gardens Stag (Bench)"), ToolTip("Splits when sitting on the bench at Queen's Gardens Stag")]
-        BenchQGStag,/*
+        BenchQGStag,
+        /*
         [Description("Tram (Bench)"), ToolTip("Splits when sitting on the bench in a tram")]
         BenchTram,
         [Description("White Palace Entrance (Bench)"), ToolTip("Splits when sitting on the bench inside the entrance to White Palace")]
@@ -1217,7 +1234,8 @@ namespace LiveSplit.HollowKnight {
         [Description("Godhome Atrium (Bench)"), ToolTip("Splits when sitting on the bench in the Godhome Atrium")]
         BenchGodhomeAtrium,
         [Description("Hall of Gods (Bench)"), ToolTip("Splits when sitting on the bench in the Godhome Atrium")]
-        BenchHallOfGods,*/
+        BenchHallOfGods,
+        */
 
         [Description("Queen's Garden Bench (Toll)"), ToolTip("Splits when buying Queen's Garden toll bench")]
         TollBenchQG,
