@@ -665,6 +665,10 @@ namespace LiveSplit.HollowKnight {
         TransVS,
         [Description("Has Descending Dark (Transition)"), ToolTip("Splits on transition after Descending Dark acquired")]
         TransDescendingDark,
+        [Description("Has Isma's Tear (Transition)"), ToolTip("Splits on transition after Isma's Tear acquired")]
+        TransTear,
+        [Description("Isma's Tear with Grub (Transition)"), ToolTip("Splits on transition after collecting Isma's Tear and saving the grub in Isma's Grove")]
+        TransTearWithGrub,
         [Description("Hive (Transition)"), ToolTip("Splits on transition to Hive")]
         HiveEntry,
         [Description("King's Pass (Transition)"), ToolTip("Splits when entering Dirtmouth from King's Pass")]
@@ -687,6 +691,8 @@ namespace LiveSplit.HollowKnight {
         EnterSanctum,
         [Description("Soul Sanctum w/ Shade Soul (Transition)"), ToolTip("Splits when entering Soul Sanctum after obtaining Shade Soul")]
         EnterSanctumWithShadeSoul,
+        [Description("Tower of Love (Transition)"), ToolTip("Splits when entering the Tower of Love")]
+        EnterLoveTower,
         [Description("Waterways Manhole (Transition)"), ToolTip("Splits on transition to Waterways through the Simple Key manhole")]
         WaterwaysEntry,
         [Description("White Palace Entry (Transition)"), ToolTip("Splits when entering the first White Palace scene")]
