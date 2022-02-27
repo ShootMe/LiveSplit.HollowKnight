@@ -175,7 +175,7 @@ namespace LiveSplit.HollowKnight
         }
 
         public void Update() {
-            if (CheckIncremented(Offset.dreamOrbs) && mem.SceneName() == "RestingGrounds_08") {
+            if (mem.SceneName() == "RestingGrounds_08" && CheckIncremented(Offset.dreamOrbs)) {
                 GladeEssence++;
             }
             foreach (Offset offset in pdInts.Keys) {
