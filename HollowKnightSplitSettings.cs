@@ -499,7 +499,7 @@ namespace LiveSplit.HollowKnight {
         [Description("Colosseum Fight 3 (Trial)"), ToolTip("Splits when beating the Trial of the Warrior")]
         ColosseumGold,
         [Description("Colosseum Entrance 1 (Transition)"), ToolTip("Splits on the transition into the Trial of the Warrior")]
-        ColosseumBronzeEntry, 
+        ColosseumBronzeEntry,
         [Description("Colosseum Entrance 2 (Transition)"), ToolTip("Splits on the transition into the Trial of the Conqueror")]
         ColosseumSilverEntry,
         [Description("Colosseum Entrance 3 (Transition)"), ToolTip("Splits on the transition into the Trial of the Warrior")]
@@ -641,7 +641,7 @@ namespace LiveSplit.HollowKnight {
         BasinEntry,
         [Description("Blue Lake (Transition)"), ToolTip("Splits on transition to Blue Lake from either side")]
         BlueLake,
-        [Description("Catacombs Entry (Transition"), ToolTip("Splits on entry to the catacombs below Resting Grounds")]
+        [Description("Catacombs Entry (Transition)"), ToolTip("Splits on entry to the catacombs below Resting Grounds")]
         CatacombsEntry,
         [Description("Crystal Peak Entry (Transition)"), ToolTip("Splits on transition to the room where the dive and toll entrances meet, or the room right of Dirtmouth")]
         CrystalPeakEntry,
