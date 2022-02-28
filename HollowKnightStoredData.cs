@@ -4,8 +4,20 @@ namespace LiveSplit.HollowKnight
 {
     public class HollowKnightStoredData {
 
-        private ConcurrentDictionary<Offset, int> pdInts = new ConcurrentDictionary<Offset, int>();
-        private ConcurrentDictionary<Offset, bool> pdBools = new ConcurrentDictionary<Offset, bool>();
+        private class Tracked<T> {
+            public T current;
+            public T previous;
+            public Tracked(T initialValue) {
+                previous = current = initialValue;
+            }
+            public void Update(T val) {
+                previous = current;
+                current = val;
+            }
+        }
+
+        private ConcurrentDictionary<Offset, Tracked<int>> pdInts = new ConcurrentDictionary<Offset, Tracked<int>>();
+        private ConcurrentDictionary<Offset, Tracked<bool>> pdBools = new ConcurrentDictionary<Offset, Tracked<bool>>();
         public bool TraitorLordDeadOnEntry { get; private set; } = false;
         /// <summary>
         /// Returns true if the knight is currently in a transition and has already split there
@@ -84,18 +96,16 @@ namespace LiveSplit.HollowKnight
             killsMawlekStart = mem.PlayerData<int>(Offset.killsMawlek);
             killsLobsterLancerStart = mem.PlayerData<int>(Offset.killsLobsterLancer);
         }
-
-
-        private int GetValue(Offset offset) {
+        private Tracked<int> GetValue(Offset offset) {
             if (!pdInts.ContainsKey(offset)) {
-                pdInts[offset] = mem.PlayerData<int>(offset);
+                pdInts[offset] = new Tracked<int>(mem.PlayerData<int>(offset));
             }
             return pdInts[offset];
         }
 
-        private bool GetBoolValue(Offset offset) {
+        private Tracked<bool> GetBoolValue(Offset offset) {
             if (!pdBools.ContainsKey(offset)) {
-                pdBools[offset] = mem.PlayerData<bool>(offset);
+                pdBools[offset] = new Tracked<bool>(mem.PlayerData<bool>(offset));
             }
             return pdBools[offset];
         }
@@ -107,8 +117,8 @@ namespace LiveSplit.HollowKnight
         /// <param name="value"></param>
         /// <returns></returns>
         public bool CheckIncreasedBy(Offset offset, int value) {
-            bool ans = mem.PlayerData<int>(offset) == GetValue(offset) + value;
-            return ans;
+            Tracked<int> tracked = GetValue(offset);
+            return tracked.current - tracked.previous == value;
         }
         /// <summary>
         /// Checks if the PD int given by offset has increased by 1 since the last update
@@ -124,8 +134,8 @@ namespace LiveSplit.HollowKnight
         /// <param name="offset"></param>
         /// <returns></returns>
         public bool CheckChanged(Offset offset) {
-            bool ans = mem.PlayerData<int>(offset) != GetValue(offset);
-            return ans;
+            Tracked<int> tracked = GetValue(offset);
+            return tracked.current != tracked.previous;
         }
         /// <summary>
         /// Checks if the PD int given by offset has increased since the last update
@@ -133,8 +143,8 @@ namespace LiveSplit.HollowKnight
         /// <param name="offset"></param>
         /// <returns></returns>
         public bool CheckIncreased(Offset offset) {
-            bool ans = mem.PlayerData<int>(offset) > GetValue(offset);
-            return ans;
+            Tracked<int> tracked = GetValue(offset);
+            return tracked.current > tracked.previous;
         }
 
         /// <summary>
@@ -143,9 +153,8 @@ namespace LiveSplit.HollowKnight
         /// <param name="offset"></param>
         /// <returns></returns>
         public bool CheckToggled(Offset offset) {
-            bool current = mem.PlayerData<bool>(offset);
-            bool previous = GetBoolValue(offset);
-            return current != previous;
+            Tracked<bool> tracked = GetBoolValue(offset);
+            return tracked.current != tracked.previous;
         }
 
         /// <summary>
@@ -154,9 +163,8 @@ namespace LiveSplit.HollowKnight
         /// <param name="offset"></param>
         /// <returns></returns>
         public bool CheckToggledTrue(Offset offset) {
-            bool current = mem.PlayerData<bool>(offset);
-            bool previous = GetBoolValue(offset);
-            return (current == true) && (previous == false);
+            Tracked<bool> tracked = GetBoolValue(offset);
+            return tracked.current && !tracked.previous;
         }
 
         /// <summary>
@@ -165,9 +173,8 @@ namespace LiveSplit.HollowKnight
         /// <param name="offset"></param>
         /// <returns></returns>
         public bool CheckToggledFalse(Offset offset) {
-            bool current = mem.PlayerData<bool>(offset);
-            bool previous = GetBoolValue(offset);
-            return (current == false) && (previous == true);
+            Tracked<bool> tracked = GetBoolValue(offset);
+            return tracked.previous && !tracked.current;
         }
 
         public HollowKnightStoredData(HollowKnightMemory mem) {
@@ -179,10 +186,10 @@ namespace LiveSplit.HollowKnight
                 GladeEssence++;
             }
             foreach (Offset offset in pdInts.Keys) {
-                pdInts[offset] = mem.PlayerData<int>(offset);
+                pdInts[offset].Update(mem.PlayerData<int>(offset));
             }
             foreach (Offset offset in pdBools.Keys) {
-                pdBools[offset] = mem.PlayerData<bool>(offset);
+                pdBools[offset].Update(mem.PlayerData<bool>(offset));
             }
             if (mem.HeroTransitionState() != HeroTransitionState.WAITING_TO_TRANSITION 
                 || mem.GameState() is GameState.EXITING_LEVEL or GameState.LOADING
