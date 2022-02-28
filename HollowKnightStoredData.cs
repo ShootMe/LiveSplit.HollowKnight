@@ -4,6 +4,9 @@ namespace LiveSplit.HollowKnight
 {
     public class HollowKnightStoredData {
 
+        /// <summary>
+        /// Tracks a value of type T so that each time it updates, the previous value is stored
+        /// </summary>
         private class Tracked<T> {
             public T current;
             public T previous;
