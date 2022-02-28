@@ -85,6 +85,20 @@ namespace LiveSplit.HollowKnight {
                 state.OnSplit += OnSplit;
                 state.OnUndoSplit += OnUndoSplit;
                 state.OnSkipSplit += OnSkipSplit;
+
+                if (state.CurrentTimingMethod == TimingMethod.RealTime) {
+                    var timingMessage = MessageBox.Show(
+                        "Hollow Knight uses Time without Loads (Game Time) as the main timing method.\n" +
+                        "LiveSplit is currently set to show Real Time (RTA).\n" +
+                        "Would you like to set the timing method to Game Time?",
+                        "LiveSplit | Hollow Knight",
+                        MessageBoxButtons.YesNo, MessageBoxIcon.Question
+                    );
+
+                    if (timingMessage == DialogResult.Yes) {
+                        state.CurrentTimingMethod = TimingMethod.GameTime;
+                    }
+                }
             }
         }
 #else
