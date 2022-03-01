@@ -1,5 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <updates>
+    <update version="3.1.3">
+        <files>
+          <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+          <change>Add warning if comparing to real time (slaurent)</change>
+          <change>Fix location grubs and "(Obtain)" splits (flibber)</change>
+          <change>Updated names/tooltips of various splits (mayo)</change>
+          <change>Radiance Dream Entry (Event) is now skipped if THK is defeated, allowing for TE runs to pivot to any%. (mayo)</change>
+          <change>Forgotten Crossroads (Area) is now skipped if you aren't in Crossroads, as this split is the default for unrecognized splits caused by an outdated autosplitter version. (mayo)</change>
+          <change>New autosplits: Collector Defeated (Transition), Ancestral Mound (Transition), Catacombs Entry (Transition), Has Isma's Tear (Transition), Isma's Tear with Grub (Transition), Tower of Love (Transition), White Fragment (Obtain), Colo waves (multiple), Rando Wake (Event) (flibber, mayo, violet)</change>
+        </changelog>
+      </update>
     <update version="3.1.2">
       <files>
         <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
