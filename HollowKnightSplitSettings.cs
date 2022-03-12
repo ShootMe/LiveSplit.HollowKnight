@@ -464,6 +464,8 @@ namespace LiveSplit.HollowKnight {
         HappyCouplePlayerDataEvent,
         [Description("Nailsmith Killed (Event)"), ToolTip("Splits when Nailsmith is killed")]
         NailsmithKilled,
+        [Description("Nailsmith Killed/Spared (Event)"), ToolTip("Splits when Nailsmith is killed\nSkips when nailsmith is spared")]
+        NailsmithChoice,
         [Description("Nightmare Lantern Lit (Event)"), ToolTip("Splits when initially lighting the Nightmare Lantern")]
         NightmareLantern,
         [Description("Nightmare Lantern Destroyed (Event)"), ToolTip("Splits when destroying the Nightmare Lantern")]
@@ -1401,6 +1403,9 @@ namespace LiveSplit.HollowKnight {
         OnObtainPaleOre,
         [Description("White Fragment (Obtain)"), ToolTip("Splits when obtaining any White Fragment, or Void Heart")]
         OnObtainWhiteFragment,
+
+        [Description("Pure Snail (Heal)"), ToolTip("Splits when recovering health with Spore Shroom, Quick Slash, Baldur Shell and Shape of Unn equipped")]
+        PureSnail,
 
         [Description("Colo 1 Wave 1a"), ToolTip("Splits upon killing the first Sheilded Fool in wave 1\nRecommended for use with a pre-set save file")]
         Bronze1a,
