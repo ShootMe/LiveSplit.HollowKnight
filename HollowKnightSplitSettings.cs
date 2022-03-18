@@ -488,7 +488,7 @@ namespace LiveSplit.HollowKnight {
         SavedCloth,
         [Description("Crystal Peak Lift Opened (Event)"), ToolTip("Splits when opening the lever for the lift between Dirtmouth and Crystal Peak")]
         MineLiftOpened,
-        [Description("Shape of Unn Synergies / Pure Snail (Event)"), ToolTip("Splits when recovering health with Spore Shroom, Quick Focus, Baldur Shell and Shape of Unn equipped")]
+        [Description("Shape of Unn Synergies / Pure Snail (Event)"), ToolTip("Splits when recovering health with Spore Shroom, Quick Focus, Baldur Shell, and Shape of Unn equipped")]
         PureSnail,
         [Description("Colosseum Unlocked 1 (Trial)"), ToolTip("Splits when the knight unlocks the Trial of the Warrior at Little Fool")]
         ColosseumBronzeUnlocked,
@@ -1406,7 +1406,7 @@ namespace LiveSplit.HollowKnight {
         [Description("White Fragment (Obtain)"), ToolTip("Splits when obtaining any White Fragment, or Void Heart")]
         OnObtainWhiteFragment,
 
-        [Description("Colo 1 Wave 1a (Wave)"), ToolTip("Splits upon killing the first Sheilded Fool in wave 1\nRecommended for use with a pre-set save file")]
+        [Description("Colo 1 Wave 1a"), ToolTip("Splits upon killing the first Sheilded Fool in wave 1\nRecommended for use with a pre-set save file")]
         Bronze1a,
         [Description("Colo 1 Wave 1b"), ToolTip("Splits upon killing the pair of Sheilded fools in wave 1\nRecommended for use with a pre-set save file")]
         Bronze1b,
