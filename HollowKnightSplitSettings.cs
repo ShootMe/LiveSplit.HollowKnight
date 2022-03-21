@@ -1048,6 +1048,17 @@ namespace LiveSplit.HollowKnight {
         [Description("Rescued Grub Waterways Isma (Grub)"), ToolTip("Splits when rescuing the grub in Waterways_13")]
         GrubWaterwaysIsma,
 
+        [Description("Mimic 1 (Killed)"), ToolTip("Splits when rescuing mimic #1")]
+        Mimic1,
+        [Description("Mimic 2 (Killed)"), ToolTip("Splits when rescuing mimic #2")]
+        Mimic2,
+        [Description("Mimic 3 (Killed)"), ToolTip("Splits when rescuing mimic #3")]
+        Mimic3,
+        [Description("Mimic 4 (Killed)"), ToolTip("Splits when rescuing mimic #4")]
+        Mimic4,
+        [Description("Mimic 5 (Killed)"), ToolTip("Splits when rescuing mimic #5")]
+        Mimic5,
+
         [Description("Whispering Root (Ancestral Mound)"), ToolTip("Splits upon completing the whispering root in the Ancestral Mound")]
         TreeMound,
         [Description("Whispering Root (City of Tears)"), ToolTip("Splits upon completing the whispering root in the City of Tears")]

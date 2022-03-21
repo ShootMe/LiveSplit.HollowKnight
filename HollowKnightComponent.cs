@@ -660,6 +660,12 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.GrubWaterwaysHwurmps:         shouldSplit = store.CheckIncremented(Offset.grubsCollected) && sceneName == "Waterways_14"; break;
                 case SplitName.GrubWaterwaysIsma:            shouldSplit = store.CheckIncremented(Offset.grubsCollected) && sceneName == "Waterways_13"; break;
 
+                case SplitName.Mimic1: shouldSplit = mem.PlayerData<int>(Offset.killsGrubMimic) == 4; break;
+                case SplitName.Mimic2: shouldSplit = mem.PlayerData<int>(Offset.killsGrubMimic) == 3; break;
+                case SplitName.Mimic3: shouldSplit = mem.PlayerData<int>(Offset.killsGrubMimic) == 2; break;
+                case SplitName.Mimic4: shouldSplit = mem.PlayerData<int>(Offset.killsGrubMimic) == 1; break;
+                case SplitName.Mimic5: shouldSplit = mem.PlayerData<int>(Offset.killsGrubMimic) == 0; break;
+
                 case SplitName.TreeCity: shouldSplit = mem.PlayerDataStringList(Offset.scenesEncounteredDreamPlantC).Contains("Ruins1_17"); break;
                 case SplitName.TreeCliffs: shouldSplit = mem.PlayerDataStringList(Offset.scenesEncounteredDreamPlantC).Contains("Cliffs_01"); break;
                 case SplitName.TreeCrossroads: shouldSplit = mem.PlayerDataStringList(Offset.scenesEncounteredDreamPlantC).Contains("Crossroads_07"); break;
