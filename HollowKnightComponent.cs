@@ -660,6 +660,12 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.GrubWaterwaysHwurmps:         shouldSplit = store.CheckIncremented(Offset.grubsCollected) && sceneName == "Waterways_14"; break;
                 case SplitName.GrubWaterwaysIsma:            shouldSplit = store.CheckIncremented(Offset.grubsCollected) && sceneName == "Waterways_13"; break;
 
+                case SplitName.Mimic1: shouldSplit = mem.PlayerData<int>(Offset.killsGrubMimic) == 4; break;
+                case SplitName.Mimic2: shouldSplit = mem.PlayerData<int>(Offset.killsGrubMimic) == 3; break;
+                case SplitName.Mimic3: shouldSplit = mem.PlayerData<int>(Offset.killsGrubMimic) == 2; break;
+                case SplitName.Mimic4: shouldSplit = mem.PlayerData<int>(Offset.killsGrubMimic) == 1; break;
+                case SplitName.Mimic5: shouldSplit = mem.PlayerData<int>(Offset.killsGrubMimic) == 0; break;
+
                 case SplitName.TreeCity: shouldSplit = mem.PlayerDataStringList(Offset.scenesEncounteredDreamPlantC).Contains("Ruins1_17"); break;
                 case SplitName.TreeCliffs: shouldSplit = mem.PlayerDataStringList(Offset.scenesEncounteredDreamPlantC).Contains("Cliffs_01"); break;
                 case SplitName.TreeCrossroads: shouldSplit = mem.PlayerDataStringList(Offset.scenesEncounteredDreamPlantC).Contains("Crossroads_07"); break;
@@ -837,6 +843,11 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.CityGateOpen: shouldSplit = mem.PlayerData<bool>(Offset.openedCityGate); break;
                 case SplitName.CityGateAndMantisLords: shouldSplit = mem.PlayerData<bool>(Offset.openedCityGate) && mem.PlayerData<bool>(Offset.defeatedMantisLords); break;
                 case SplitName.NailsmithKilled: shouldSplit = mem.PlayerData<bool>(Offset.nailsmithKilled); break;
+                case SplitName.NailsmithChoice: 
+                    shouldSplit = mem.PlayerData<bool>(Offset.nailsmithKilled);
+                    shouldSkip = mem.PlayerData<bool>(Offset.nailsmithSpared);
+                    break;
+
 
                 /*
                  case SplitName.NailsmithSpared: shouldSplit = mem.PlayerData<bool>(Offset.nailsmithSpared); break;
@@ -1119,6 +1130,16 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.AbyssDoor: shouldSplit = mem.PlayerData<bool>(Offset.abyssGateOpened); break;
                 case SplitName.AbyssLighthouse: shouldSplit = mem.PlayerData<bool>(Offset.abyssLighthouse); break;
                 case SplitName.LumaflyLanternTransition: shouldSplit = mem.PlayerData<bool>(Offset.hasLantern) && !sceneName.StartsWith("Room_shop"); break;
+
+                // Spore Shroom : 17, Shape of Unn : 28, Quick Focus : 7, Baldur Shell : 5
+                case SplitName.PureSnail: 
+                    shouldSplit = store.CheckIncreasedBy(Offset.health, 1) &&
+                        mem.PlayerData<bool>(Offset.equippedCharm_5) &&
+                        mem.PlayerData<bool>(Offset.equippedCharm_7) &&
+                        mem.PlayerData<bool>(Offset.equippedCharm_17) &&
+                        mem.PlayerData<bool>(Offset.equippedCharm_28);
+                    break;
+
 
                 #region Trial of the Warrior
                 case SplitName.Bronze1a: // 1 × Shielded Fool

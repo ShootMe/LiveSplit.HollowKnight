@@ -272,6 +272,11 @@
         maskBrokenHegemol,
         maskBrokenMonomon,
 
+        equippedCharm_5,
+        equippedCharm_7,
+        equippedCharm_17,
+        equippedCharm_28,
+
         equippedCharm_23,
         brokenCharm_23,
         brokenCharm_24,
