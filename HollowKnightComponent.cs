@@ -1118,6 +1118,7 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.EnterSoulMaster: shouldSplit = nextScene.StartsWith("Ruins1_24") && nextScene != sceneName; break;
                 case SplitName.EnterHiveKnight: shouldSplit = nextScene.StartsWith("Hive_05") && nextScene != sceneName; break;
                 case SplitName.EnterHornet2: shouldSplit = nextScene.StartsWith("Deepnest_East_Hornet") && nextScene != sceneName; break;
+                case SplitName.EnterBroodingMawlek: shouldSplit = nextScene.StartsWith("Crossroads_09") && nextScene != sceneName; break;
                 case SplitName.EnterTMG:
                     shouldSplit = nextScene.StartsWith("Grimm_Main_Tent") && nextScene != sceneName
                     && mem.PlayerData<int>(Offset.grimmChildLevel) == 2
