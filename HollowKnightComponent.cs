@@ -100,13 +100,19 @@ namespace LiveSplit.HollowKnight {
                     }
                 }
             }
+
+            store.ResetKills();
+
         }
 #else
 		public HollowKnightComponent() {
-			mem = new HollowKnightMemory();
-			settings = new HollowKnightSettings();
-			foreach (string key in keys) {
-				currentValues[key] = "";
+        mem = new HollowKnightMemory();
+        settings = new HollowKnightSettings();
+        foreach (string key in keys) {
+            currentValues[key] = "";
+
+        store.ResetKills();
+
 			}
 		}
 #endif
@@ -175,9 +181,12 @@ namespace LiveSplit.HollowKnight {
 
         private void LoadRemoval(GameState gameState, UIState uIState, string nextScene, string sceneName) {
             uIState = mem.UIState();
-            bool loadingMenu = (sceneName != "Menu_Title" && string.IsNullOrEmpty(nextScene))
+
+            bool loadingMenu = 
+                (sceneName != "Menu_Title" && string.IsNullOrEmpty(nextScene))
                 || (sceneName != "Menu_Title" && nextScene == "Menu_Title"
                 || (sceneName == "Quit_To_Menu"));
+
             if (gameState == GameState.PLAYING && lastGameState == GameState.MAIN_MENU) {
                 lookForTeleporting = true;
             }
@@ -851,12 +860,12 @@ namespace LiveSplit.HollowKnight {
 
                 /*
                  case SplitName.NailsmithSpared: shouldSplit = mem.PlayerData<bool>(Offset.nailsmithSpared); break;
-            case SplitName.MageDoor: shouldSplit = mem.PlayerData<bool>(Offset.openedMageDoor); break;
-            case SplitName.MageWindow: shouldSplit = mem.PlayerData<bool>(Offset.brokenMageWindow); break;
-            case SplitName.MageLordEncountered: shouldSplit = mem.PlayerData<bool>(Offset.mageLordEncountered); break;
-            case SplitName.MageDoor2: shouldSplit = mem.PlayerData<bool>(Offset.openedMageDoor_v2); break;
-            case SplitName.MageWindowGlass: shouldSplit = mem.PlayerData<bool>(Offset.brokenMageWindowGlass); break;
-            case SplitName.MageLordEncountered2: shouldSplit = mem.PlayerData<bool>(Offset.mageLordEncountered_2); break;
+                case SplitName.MageDoor: shouldSplit = mem.PlayerData<bool>(Offset.openedMageDoor); break;
+                case SplitName.MageWindow: shouldSplit = mem.PlayerData<bool>(Offset.brokenMageWindow); break;
+                case SplitName.MageLordEncountered: shouldSplit = mem.PlayerData<bool>(Offset.mageLordEncountered); break;
+                case SplitName.MageDoor2: shouldSplit = mem.PlayerData<bool>(Offset.openedMageDoor_v2); break;
+                case SplitName.MageWindowGlass: shouldSplit = mem.PlayerData<bool>(Offset.brokenMageWindowGlass); break;
+                case SplitName.MageLordEncountered2: shouldSplit = mem.PlayerData<bool>(Offset.mageLordEncountered_2); break;
                 */
                 case SplitName.TramDeepnest: shouldSplit = mem.PlayerData<bool>(Offset.openedTramLower); break;
                 case SplitName.WaterwaysManhole: shouldSplit = mem.PlayerData<bool>(Offset.openedWaterwaysManhole); break;
@@ -1118,7 +1127,6 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.EnterSoulMaster: shouldSplit = nextScene.StartsWith("Ruins1_24") && nextScene != sceneName; break;
                 case SplitName.EnterHiveKnight: shouldSplit = nextScene.StartsWith("Hive_05") && nextScene != sceneName; break;
                 case SplitName.EnterHornet2: shouldSplit = nextScene.StartsWith("Deepnest_East_Hornet") && nextScene != sceneName; break;
-                case SplitName.EnterBroodingMawlek: shouldSplit = nextScene.StartsWith("Crossroads_09") && nextScene != sceneName; break;
                 case SplitName.EnterTMG:
                     shouldSplit = nextScene.StartsWith("Grimm_Main_Tent") && nextScene != sceneName
                     && mem.PlayerData<int>(Offset.grimmChildLevel) == 2
@@ -1690,6 +1698,7 @@ namespace LiveSplit.HollowKnight {
 
             if (shouldReset) {
                 action = SplitterAction.Reset;
+                store.ResetKills();
             } else if (shouldSkip) {
                 action = SplitterAction.Skip;
             } else if (shouldSplit) {
@@ -1697,9 +1706,6 @@ namespace LiveSplit.HollowKnight {
             } else {
                 action = SplitterAction.Pass;
             }
-
-            if ( (clearKills && action != SplitterAction.Pass) || shouldReset ) 
-                store.ResetKills();
 
             return action;
         }
