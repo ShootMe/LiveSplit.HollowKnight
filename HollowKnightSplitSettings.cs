@@ -189,7 +189,6 @@ namespace LiveSplit.HollowKnight {
         MaskShardMawlek,
         [Description("Grub Reward Mask Shard"), ToolTip("Splits when getting the Mask Shard given by Grubfather")]
         MaskShardGrubfather,
-
         [Description("Goam Mask Shard"), ToolTip("Splits when getting the Goam Mask Shard in Forgotten Crossroads")]
         MaskShardGoam,
         [Description("Queen's Station Mask Shard"), ToolTip("Splits when getting the Mask Shard in Queen's Station")]
@@ -694,6 +693,8 @@ namespace LiveSplit.HollowKnight {
         CrystalPeakEntry,
         [Description("Crystal Mound Exit (Transition)"), ToolTip("Splits on transition from Crystal Mound")]
         CrystalMoundExit,
+        [Description("Deepnest (Transition)"), ToolTip("Splits on transition into Deepnest")]
+        EnterDeepnest,
         [Description("Enter Any Dream (Transition)"), ToolTip("Splits when entering any dream world")]
         EnterAnyDream,
         [Description("Fog Canyon (Transition)"), ToolTip("Splits on transition to East Fog Canyon")]
@@ -708,6 +709,8 @@ namespace LiveSplit.HollowKnight {
         EnterGreenpath,
         [Description("Greenpath w/ Unlocked Overcharm (Transition)"), ToolTip("Splits when entering Greenpath with overcharming unlocked")]
         EnterGreenpathWithOvercharm,
+        [Description("Hallownest's Crown (Transition)"), ToolTip("Splits on transition into the room with the Whispering Root at the base of Hallownest's Crown")]
+        EnterCrown,
         [Description("Has Claw (Transition)"), ToolTip("Splits on transition after Mantis Claw acquired")]
         TransClaw,
         [Description("Has Fireball (Transition)"), ToolTip("Splits on transition after Vengeful Spirit acquired")]
@@ -718,6 +721,8 @@ namespace LiveSplit.HollowKnight {
         TransTear,
         [Description("Isma's Tear with Grub (Transition)"), ToolTip("Splits on transition after collecting Isma's Tear and saving the grub in Isma's Grove")]
         TransTearWithGrub,
+        [Description("Junk Pit (Transition)"), ToolTip("Splits on transition into Junk Pit")]
+        EnterJunkPit,
         [Description("Hive (Transition)"), ToolTip("Splits on transition to Hive")]
         HiveEntry,
         [Description("King's Pass (Transition)"), ToolTip("Splits when entering Dirtmouth from King's Pass")]
@@ -1236,6 +1241,8 @@ namespace LiveSplit.HollowKnight {
         BenchStorerooms,
         [Description("Watcher's Spire (Bench)"), ToolTip("Splits when sitting on the bench in Watcher's Spire")]
         BenchSpire,
+        [Description("Watcher's Spire + Killed Great Husk Sentry (Bench)"), ToolTip("Splits when sitting on the bench in Watcher's Spire  after killing a Great Husk Sentry")]
+        BenchSpireGHS,
         [Description("King's Station (Bench)"), ToolTip("Splits when sitting on the bench in King's Station")]
         BenchKingsStation,
         /*
