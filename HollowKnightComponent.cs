@@ -1087,7 +1087,8 @@ namespace LiveSplit.HollowKnight {
                     break;
 
                 case SplitName.MaskShardMawlek:             if (sceneName == "Crossroads_09") { goto case SplitName.OnObtainMaskShard; } break;
-                case SplitName.MaskShardGrubdaddy:          if (sceneName == "Crossroads_38") { goto case SplitName.OnObtainMaskShard; } break;
+                case SplitName.MaskShardGrubfather:         if (sceneName == "Crossroads_38") { goto case SplitName.OnObtainMaskShard; } break;
+
                 case SplitName.MaskShardBretta:             if (sceneName == "Room_Bretta") { goto case SplitName.OnObtainMaskShard; } break;
                 case SplitName.MaskShardQueensStation:      if (sceneName == "Fungus2_01") { goto case SplitName.OnObtainMaskShard; } break;
                 case SplitName.MaskShardEnragedGuardian:    if (sceneName == "Mines_32") { goto case SplitName.OnObtainMaskShard; } break;
