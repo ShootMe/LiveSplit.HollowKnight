@@ -188,7 +188,8 @@ namespace LiveSplit.HollowKnight {
         [Description("Brooding Mawlek Mask Shard"), ToolTip("Splits when getting the Mask Shard from Brooding Mawlek")]
         MaskShardMawlek,
         [Description("Grub Reward Mask Shard"), ToolTip("Splits when getting the Mask Shard given by Grubfather")]
-        MaskShardGrubdaddy,
+        MaskShardGrubfather,
+
         [Description("Goam Mask Shard"), ToolTip("Splits when getting the Goam Mask Shard in Forgotten Crossroads")]
         MaskShardGoam,
         [Description("Queen's Station Mask Shard"), ToolTip("Splits when getting the Mask Shard in Queen's Station")]
