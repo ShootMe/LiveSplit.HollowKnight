@@ -100,15 +100,20 @@ namespace LiveSplit.HollowKnight {
                     }
                 }
             }
+
+            store.ResetKills();
+
         }
 #else
 		public HollowKnightComponent() {
-			mem = new HollowKnightMemory();
-			settings = new HollowKnightSettings();
-			foreach (string key in keys) {
-				currentValues[key] = "";
+        mem = new HollowKnightMemory();
+        settings = new HollowKnightSettings();
+        foreach (string key in keys) {
+            currentValues[key] = "";
+
+        store.ResetKills();
+
 			}
-		}
 #endif
 
         public void GetValues() {
@@ -132,9 +137,9 @@ namespace LiveSplit.HollowKnight {
                 if (settings.AutosplitStartRuns != null) {
                     action = CheckSplit(settings.AutosplitStartRuns.Value, nextScene, sceneName);
                 } else {
-                    action = ((nextScene.Equals("Tutorial_01", StringComparison.OrdinalIgnoreCase) && 
+                    action = ((nextScene.Equals("Tutorial_01", StringComparison.OrdinalIgnoreCase) &&
                         mem.GameState() == GameState.ENTERING_LEVEL) ||
-                        nextScene is "GG_Vengefly_V" or "GG_Boss_Door_Entrance" or "GG_Entrance_Cutscene" ) ? SplitterAction.Split : SplitterAction.Pass;
+                        nextScene is "GG_Vengefly_V" or "GG_Boss_Door_Entrance" or "GG_Entrance_Cutscene") ? SplitterAction.Split : SplitterAction.Pass;
                 }
             } else if (Model.CurrentState.CurrentPhase == TimerPhase.Running && settings.Splits.Count > 0) {
                 GameState gameState = mem.GameState();
@@ -212,8 +217,7 @@ namespace LiveSplit.HollowKnight {
             foreach (SplitName Split in settings.Splits) {
                 if (splitsDone.Contains(Split)) {
                     continue;
-                }
-                else if (Split.ToString().StartsWith("Menu")) {
+                } else if (Split.ToString().StartsWith("Menu")) {
                     if (!menuSplitHelper)
                         menuSplitHelper = Split == SplitName.Menu ||
                             CheckSplit(Split, nextScene, sceneName) == SplitterAction.Split && !((gameState == GameState.INACTIVE && uIState == UIState.INACTIVE) || (gameState == GameState.MAIN_MENU));
@@ -226,8 +230,7 @@ namespace LiveSplit.HollowKnight {
                             return SplitterAction.Split;
                         }
                     }
-                }
-                else if (!((gameState == GameState.INACTIVE && uIState == UIState.INACTIVE) || (gameState == GameState.MAIN_MENU))) {
+                } else if (!((gameState == GameState.INACTIVE && uIState == UIState.INACTIVE) || (gameState == GameState.MAIN_MENU))) {
                     if (CheckSplit(Split, nextScene, sceneName) == SplitterAction.Split) {
                         splitsDone.Add(Split);
                         lastSplitDone = Split;
@@ -291,7 +294,6 @@ namespace LiveSplit.HollowKnight {
             bool shouldSplit = false;
             bool shouldSkip = false;
             bool shouldReset = false;
-            bool clearKills = false;
             SplitterAction action;
 
             switch (split) {
@@ -503,7 +505,8 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.SpiritGladeOpen: shouldSplit = mem.PlayerData<bool>(Offset.gladeDoorOpened); break;
                 case SplitName.Sprintmaster: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_37); break;
                 case SplitName.StalwartShell: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_4); break;
-                case SplitName.StagnestStation: shouldSplit = nextScene.Equals("Cliffs_03", StringComparison.OrdinalIgnoreCase)
+                case SplitName.StagnestStation:
+                    shouldSplit = nextScene.Equals("Cliffs_03", StringComparison.OrdinalIgnoreCase)
                                                               && mem.PlayerData<bool>(Offset.travelling)
                                                               && mem.PlayerData<bool>(Offset.openedStagNest); break;
                 case SplitName.SteadyBody: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_14); break;
@@ -614,51 +617,51 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.Grub45: shouldSplit = mem.PlayerData<int>(Offset.grubsCollected) == 45; break;
                 case SplitName.Grub46: shouldSplit = mem.PlayerData<int>(Offset.grubsCollected) == 46; break;
 
-                case SplitName.GrubBasinDive:                shouldSplit = store.CheckIncremented(Offset.grubsCollected) && sceneName == "Abyss_17"; break;
-                case SplitName.GrubBasinWings:               shouldSplit = store.CheckIncremented(Offset.grubsCollected) && sceneName == "Abyss_19"; break;
-                case SplitName.GrubCityBelowLoveTower:       shouldSplit = store.CheckIncremented(Offset.grubsCollected) && sceneName == "Ruins2_07"; break;
-                case SplitName.GrubCityBelowSanctum:         shouldSplit = store.CheckIncremented(Offset.grubsCollected) && sceneName == "Ruins1_05"; break;
-                case SplitName.GrubCityCollector:            shouldSplit = store.CheckIncremented(Offset.grubsCollected) && sceneName == "Ruins2_11"; break;
-                case SplitName.GrubCityCollectorAll:         shouldSplit = mem.PlayerDataStringList(Offset.scenesGrubRescued).Contains("Ruins2_11"); break;
-                case SplitName.GrubCityGuardHouse:           shouldSplit = store.CheckIncremented(Offset.grubsCollected) && sceneName == "Ruins_House_01"; break;
-                case SplitName.GrubCitySanctum:              shouldSplit = store.CheckIncremented(Offset.grubsCollected) && sceneName == "Ruins1_32"; break;
-                case SplitName.GrubCitySpire:                shouldSplit = store.CheckIncremented(Offset.grubsCollected) && sceneName == "Ruins2_03"; break;
-                case SplitName.GrubCliffsBaldurShell:        shouldSplit = store.CheckIncremented(Offset.grubsCollected) && sceneName == "Fungus1_28"; break;
-                case SplitName.GrubCrossroadsAcid:           shouldSplit = store.CheckIncremented(Offset.grubsCollected) && sceneName == "Crossroads_35"; break;
-                case SplitName.GrubCrossroadsGuarded:        shouldSplit = store.CheckIncremented(Offset.grubsCollected) && sceneName == "Crossroads_48"; break;
-                case SplitName.GrubCrossroadsSpikes:         shouldSplit = store.CheckIncremented(Offset.grubsCollected) && sceneName == "Crossroads_31"; break;
-                case SplitName.GrubCrossroadsVengefly:       shouldSplit = store.CheckIncremented(Offset.grubsCollected) && sceneName == "Crossroads_05"; break;
-                case SplitName.GrubCrossroadsWall:           shouldSplit = store.CheckIncremented(Offset.grubsCollected) && sceneName == "Crossroads_03"; break;
-                case SplitName.GrubCrystalPeaksBottomLever:  shouldSplit = store.CheckIncremented(Offset.grubsCollected) && sceneName == "Mines_04"; break;
-                case SplitName.GrubCrystalPeaksCrown:        shouldSplit = store.CheckIncremented(Offset.grubsCollected) && sceneName == "Mines_24"; break;
-                case SplitName.GrubCrystalPeaksCrushers:     shouldSplit = store.CheckIncremented(Offset.grubsCollected) && sceneName == "Mines_19"; break;
+                case SplitName.GrubBasinDive: shouldSplit = store.CheckIncremented(Offset.grubsCollected) && sceneName == "Abyss_17"; break;
+                case SplitName.GrubBasinWings: shouldSplit = store.CheckIncremented(Offset.grubsCollected) && sceneName == "Abyss_19"; break;
+                case SplitName.GrubCityBelowLoveTower: shouldSplit = store.CheckIncremented(Offset.grubsCollected) && sceneName == "Ruins2_07"; break;
+                case SplitName.GrubCityBelowSanctum: shouldSplit = store.CheckIncremented(Offset.grubsCollected) && sceneName == "Ruins1_05"; break;
+                case SplitName.GrubCityCollector: shouldSplit = store.CheckIncremented(Offset.grubsCollected) && sceneName == "Ruins2_11"; break;
+                case SplitName.GrubCityCollectorAll: shouldSplit = mem.PlayerDataStringList(Offset.scenesGrubRescued).Contains("Ruins2_11"); break;
+                case SplitName.GrubCityGuardHouse: shouldSplit = store.CheckIncremented(Offset.grubsCollected) && sceneName == "Ruins_House_01"; break;
+                case SplitName.GrubCitySanctum: shouldSplit = store.CheckIncremented(Offset.grubsCollected) && sceneName == "Ruins1_32"; break;
+                case SplitName.GrubCitySpire: shouldSplit = store.CheckIncremented(Offset.grubsCollected) && sceneName == "Ruins2_03"; break;
+                case SplitName.GrubCliffsBaldurShell: shouldSplit = store.CheckIncremented(Offset.grubsCollected) && sceneName == "Fungus1_28"; break;
+                case SplitName.GrubCrossroadsAcid: shouldSplit = store.CheckIncremented(Offset.grubsCollected) && sceneName == "Crossroads_35"; break;
+                case SplitName.GrubCrossroadsGuarded: shouldSplit = store.CheckIncremented(Offset.grubsCollected) && sceneName == "Crossroads_48"; break;
+                case SplitName.GrubCrossroadsSpikes: shouldSplit = store.CheckIncremented(Offset.grubsCollected) && sceneName == "Crossroads_31"; break;
+                case SplitName.GrubCrossroadsVengefly: shouldSplit = store.CheckIncremented(Offset.grubsCollected) && sceneName == "Crossroads_05"; break;
+                case SplitName.GrubCrossroadsWall: shouldSplit = store.CheckIncremented(Offset.grubsCollected) && sceneName == "Crossroads_03"; break;
+                case SplitName.GrubCrystalPeaksBottomLever: shouldSplit = store.CheckIncremented(Offset.grubsCollected) && sceneName == "Mines_04"; break;
+                case SplitName.GrubCrystalPeaksCrown: shouldSplit = store.CheckIncremented(Offset.grubsCollected) && sceneName == "Mines_24"; break;
+                case SplitName.GrubCrystalPeaksCrushers: shouldSplit = store.CheckIncremented(Offset.grubsCollected) && sceneName == "Mines_19"; break;
                 case SplitName.GrubCrystalPeaksCrystalHeart: shouldSplit = store.CheckIncremented(Offset.grubsCollected) && sceneName == "Mines_31"; break;
-                case SplitName.GrubCrystalPeaksMimics:       shouldSplit = store.CheckIncremented(Offset.grubsCollected) && sceneName == "Mines_16"; break;
-                case SplitName.GrubCrystalPeaksMound:        shouldSplit = store.CheckIncremented(Offset.grubsCollected) && sceneName == "Mines_35"; break;
-                case SplitName.GrubCrystalPeaksSpikes:       shouldSplit = store.CheckIncremented(Offset.grubsCollected) && sceneName == "Mines_03"; break;
-                case SplitName.GrubDeepnestBeastsDen:        shouldSplit = store.CheckIncremented(Offset.grubsCollected) && sceneName == "Deepnest_Spider_Town"; break;
-                case SplitName.GrubDeepnestDark:             shouldSplit = store.CheckIncremented(Offset.grubsCollected) && sceneName == "Deepnest_39"; break;
-                case SplitName.GrubDeepnestMimics:           shouldSplit = store.CheckIncremented(Offset.grubsCollected) && sceneName == "Deepnest_36"; break;
-                case SplitName.GrubDeepnestNosk:             shouldSplit = store.CheckIncremented(Offset.grubsCollected) && sceneName == "Deepnest_31"; break;
-                case SplitName.GrubDeepnestSpikes:           shouldSplit = store.CheckIncremented(Offset.grubsCollected) && sceneName == "Deepnest_03"; break;
-                case SplitName.GrubFogCanyonArchives:        shouldSplit = store.CheckIncremented(Offset.grubsCollected) && sceneName == "Fungus3_47"; break;
-                case SplitName.GrubFungalBouncy:             shouldSplit = store.CheckIncremented(Offset.grubsCollected) && sceneName == "Fungus2_18"; break;
-                case SplitName.GrubFungalSporeShroom:        shouldSplit = store.CheckIncremented(Offset.grubsCollected) && sceneName == "Fungus2_20"; break;
-                case SplitName.GrubGreenpathCornifer:        shouldSplit = store.CheckIncremented(Offset.grubsCollected) && sceneName == "Fungus1_06"; break;
-                case SplitName.GrubGreenpathHunter:          shouldSplit = store.CheckIncremented(Offset.grubsCollected) && sceneName == "Fungus1_07"; break;
-                case SplitName.GrubGreenpathMossKnight:      shouldSplit = store.CheckIncremented(Offset.grubsCollected) && sceneName == "Fungus1_21"; break;
-                case SplitName.GrubGreenpathVesselFragment:  shouldSplit = store.CheckIncremented(Offset.grubsCollected) && sceneName == "Fungus1_13"; break;
-                case SplitName.GrubHiveExternal:             shouldSplit = store.CheckIncremented(Offset.grubsCollected) && sceneName == "Hive_03"; break;
-                case SplitName.GrubHiveInternal:             shouldSplit = store.CheckIncremented(Offset.grubsCollected) && sceneName == "Hive_04"; break;
-                case SplitName.GrubKingdomsEdgeCenter:       shouldSplit = store.CheckIncremented(Offset.grubsCollected) && sceneName == "Deepnest_East_11"; break;
-                case SplitName.GrubKingdomsEdgeOro:          shouldSplit = store.CheckIncremented(Offset.grubsCollected) && sceneName == "Deepnest_East_14"; break;
-                case SplitName.GrubQueensGardensBelowStag:   shouldSplit = store.CheckIncremented(Offset.grubsCollected) && sceneName == "Fungus3_10"; break;
-                case SplitName.GrubQueensGardensUpper:       shouldSplit = store.CheckIncremented(Offset.grubsCollected) && sceneName == "Fungus3_22"; break;
-                case SplitName.GrubQueensGardensWhiteLady:   shouldSplit = store.CheckIncremented(Offset.grubsCollected) && sceneName == "Fungus3_48"; break;
-                case SplitName.GrubRestingGroundsCrypts:     shouldSplit = store.CheckIncremented(Offset.grubsCollected) && sceneName == "RestingGrounds_10"; break;
-                case SplitName.GrubWaterwaysCenter:          shouldSplit = store.CheckIncremented(Offset.grubsCollected) && sceneName == "Waterways_04"; break;
-                case SplitName.GrubWaterwaysHwurmps:         shouldSplit = store.CheckIncremented(Offset.grubsCollected) && sceneName == "Waterways_14"; break;
-                case SplitName.GrubWaterwaysIsma:            shouldSplit = store.CheckIncremented(Offset.grubsCollected) && sceneName == "Waterways_13"; break;
+                case SplitName.GrubCrystalPeaksMimics: shouldSplit = store.CheckIncremented(Offset.grubsCollected) && sceneName == "Mines_16"; break;
+                case SplitName.GrubCrystalPeaksMound: shouldSplit = store.CheckIncremented(Offset.grubsCollected) && sceneName == "Mines_35"; break;
+                case SplitName.GrubCrystalPeaksSpikes: shouldSplit = store.CheckIncremented(Offset.grubsCollected) && sceneName == "Mines_03"; break;
+                case SplitName.GrubDeepnestBeastsDen: shouldSplit = store.CheckIncremented(Offset.grubsCollected) && sceneName == "Deepnest_Spider_Town"; break;
+                case SplitName.GrubDeepnestDark: shouldSplit = store.CheckIncremented(Offset.grubsCollected) && sceneName == "Deepnest_39"; break;
+                case SplitName.GrubDeepnestMimics: shouldSplit = store.CheckIncremented(Offset.grubsCollected) && sceneName == "Deepnest_36"; break;
+                case SplitName.GrubDeepnestNosk: shouldSplit = store.CheckIncremented(Offset.grubsCollected) && sceneName == "Deepnest_31"; break;
+                case SplitName.GrubDeepnestSpikes: shouldSplit = store.CheckIncremented(Offset.grubsCollected) && sceneName == "Deepnest_03"; break;
+                case SplitName.GrubFogCanyonArchives: shouldSplit = store.CheckIncremented(Offset.grubsCollected) && sceneName == "Fungus3_47"; break;
+                case SplitName.GrubFungalBouncy: shouldSplit = store.CheckIncremented(Offset.grubsCollected) && sceneName == "Fungus2_18"; break;
+                case SplitName.GrubFungalSporeShroom: shouldSplit = store.CheckIncremented(Offset.grubsCollected) && sceneName == "Fungus2_20"; break;
+                case SplitName.GrubGreenpathCornifer: shouldSplit = store.CheckIncremented(Offset.grubsCollected) && sceneName == "Fungus1_06"; break;
+                case SplitName.GrubGreenpathHunter: shouldSplit = store.CheckIncremented(Offset.grubsCollected) && sceneName == "Fungus1_07"; break;
+                case SplitName.GrubGreenpathMossKnight: shouldSplit = store.CheckIncremented(Offset.grubsCollected) && sceneName == "Fungus1_21"; break;
+                case SplitName.GrubGreenpathVesselFragment: shouldSplit = store.CheckIncremented(Offset.grubsCollected) && sceneName == "Fungus1_13"; break;
+                case SplitName.GrubHiveExternal: shouldSplit = store.CheckIncremented(Offset.grubsCollected) && sceneName == "Hive_03"; break;
+                case SplitName.GrubHiveInternal: shouldSplit = store.CheckIncremented(Offset.grubsCollected) && sceneName == "Hive_04"; break;
+                case SplitName.GrubKingdomsEdgeCenter: shouldSplit = store.CheckIncremented(Offset.grubsCollected) && sceneName == "Deepnest_East_11"; break;
+                case SplitName.GrubKingdomsEdgeOro: shouldSplit = store.CheckIncremented(Offset.grubsCollected) && sceneName == "Deepnest_East_14"; break;
+                case SplitName.GrubQueensGardensBelowStag: shouldSplit = store.CheckIncremented(Offset.grubsCollected) && sceneName == "Fungus3_10"; break;
+                case SplitName.GrubQueensGardensUpper: shouldSplit = store.CheckIncremented(Offset.grubsCollected) && sceneName == "Fungus3_22"; break;
+                case SplitName.GrubQueensGardensWhiteLady: shouldSplit = store.CheckIncremented(Offset.grubsCollected) && sceneName == "Fungus3_48"; break;
+                case SplitName.GrubRestingGroundsCrypts: shouldSplit = store.CheckIncremented(Offset.grubsCollected) && sceneName == "RestingGrounds_10"; break;
+                case SplitName.GrubWaterwaysCenter: shouldSplit = store.CheckIncremented(Offset.grubsCollected) && sceneName == "Waterways_04"; break;
+                case SplitName.GrubWaterwaysHwurmps: shouldSplit = store.CheckIncremented(Offset.grubsCollected) && sceneName == "Waterways_14"; break;
+                case SplitName.GrubWaterwaysIsma: shouldSplit = store.CheckIncremented(Offset.grubsCollected) && sceneName == "Waterways_13"; break;
 
                 case SplitName.Mimic1: shouldSplit = mem.PlayerData<int>(Offset.killsGrubMimic) == 4; break;
                 case SplitName.Mimic2: shouldSplit = mem.PlayerData<int>(Offset.killsGrubMimic) == 3; break;
@@ -682,15 +685,15 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.TreeRestingGrounds: shouldSplit = mem.PlayerDataStringList(Offset.scenesEncounteredDreamPlantC).Contains("RestingGrounds_05"); break;
                 case SplitName.TreeWaterways: shouldSplit = mem.PlayerDataStringList(Offset.scenesEncounteredDreamPlantC).Contains("Abyss_01"); break;
 
-                case SplitName.Essence100:  shouldSplit = mem.PlayerData<int>(Offset.dreamOrbs) >= 100; break;
-                case SplitName.Essence200:  shouldSplit = mem.PlayerData<int>(Offset.dreamOrbs) >= 200; break;
-                case SplitName.Essence300:  shouldSplit = mem.PlayerData<int>(Offset.dreamOrbs) >= 300; break;
-                case SplitName.Essence400:  shouldSplit = mem.PlayerData<int>(Offset.dreamOrbs) >= 400; break;
-                case SplitName.Essence500:  shouldSplit = mem.PlayerData<int>(Offset.dreamOrbs) >= 500; break;
-                case SplitName.Essence600:  shouldSplit = mem.PlayerData<int>(Offset.dreamOrbs) >= 600; break;
-                case SplitName.Essence700:  shouldSplit = mem.PlayerData<int>(Offset.dreamOrbs) >= 700; break;
-                case SplitName.Essence800:  shouldSplit = mem.PlayerData<int>(Offset.dreamOrbs) >= 800; break;
-                case SplitName.Essence900:  shouldSplit = mem.PlayerData<int>(Offset.dreamOrbs) >= 900; break;
+                case SplitName.Essence100: shouldSplit = mem.PlayerData<int>(Offset.dreamOrbs) >= 100; break;
+                case SplitName.Essence200: shouldSplit = mem.PlayerData<int>(Offset.dreamOrbs) >= 200; break;
+                case SplitName.Essence300: shouldSplit = mem.PlayerData<int>(Offset.dreamOrbs) >= 300; break;
+                case SplitName.Essence400: shouldSplit = mem.PlayerData<int>(Offset.dreamOrbs) >= 400; break;
+                case SplitName.Essence500: shouldSplit = mem.PlayerData<int>(Offset.dreamOrbs) >= 500; break;
+                case SplitName.Essence600: shouldSplit = mem.PlayerData<int>(Offset.dreamOrbs) >= 600; break;
+                case SplitName.Essence700: shouldSplit = mem.PlayerData<int>(Offset.dreamOrbs) >= 700; break;
+                case SplitName.Essence800: shouldSplit = mem.PlayerData<int>(Offset.dreamOrbs) >= 800; break;
+                case SplitName.Essence900: shouldSplit = mem.PlayerData<int>(Offset.dreamOrbs) >= 900; break;
                 case SplitName.Essence1000: shouldSplit = mem.PlayerData<int>(Offset.dreamOrbs) >= 1000; break;
                 case SplitName.Essence1100: shouldSplit = mem.PlayerData<int>(Offset.dreamOrbs) >= 1100; break;
                 case SplitName.Essence1200: shouldSplit = mem.PlayerData<int>(Offset.dreamOrbs) >= 1200; break;
@@ -785,49 +788,51 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.WhiteFragmentLeft: shouldSplit = mem.PlayerData<bool>(Offset.gotQueenFragment); break;
                 case SplitName.WhiteFragmentRight: shouldSplit = mem.PlayerData<bool>(Offset.gotKingFragment); break;
 
-                case SplitName.BenchAny : shouldSplit = mem.PlayerData<bool>(Offset.atBench); break;
+                // sit at benches
+                case SplitName.BenchAny: shouldSplit = mem.PlayerData<bool>(Offset.atBench); break;
                 /*
                 case SplitName.BenchDirtmouth : shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "Town"; break;
                 case SplitName.BenchMato : shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "Room_Naimlaster"; break;
                 case SplitName.BenchCrossroadsHotsprings : shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "Crossroads_30"; break;*/
-                case SplitName.BenchCrossroadsStag : shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "Crossroads_47"; break;/*
+                case SplitName.BenchCrossroadsStag: shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "Crossroads_47"; break;/*
                 case SplitName.BenchSalubra : shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "Crossroads_04"; break;
                 case SplitName.BenchAncestralMound : shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "Crossroads_ShamanTemple"; break;
                 case SplitName.BenchBlackEgg : shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "Room_Final_Boss_Atrium"; break;
                 case SplitName.BenchWaterfall : shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "Fungus1_01b"; break;
                 case SplitName.BenchStoneSanctuary : shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "Fungus1_37"; break;
                 case SplitName.BenchGreenpathToll : shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "Fungus1_31"; break;*/
-                case SplitName.BenchGreenpathStag : shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "Fungus1_16_alt"; break;/*
+                case SplitName.BenchGreenpathStag: shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "Fungus1_16_alt"; break;/*
                 case SplitName.BenchLakeOfUnn : shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "Room_Slug_Shrine"; break;
                 case SplitName.BenchSheo : shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "Fungus1_16"; break;
                 case SplitName.BenchArchives : shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "Fungus3_Archive"; break;*/
-                case SplitName.BenchQueensStation : shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "Fungus2_02"; break;/*
+                case SplitName.BenchQueensStation: shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "Fungus2_02"; break;/*
                 case SplitName.BenchLegEater : shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "Fungus2_26"; break;
                 case SplitName.BenchBretta : shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "Fungus2_13"; break;
                 case SplitName.BenchMantisVillage : shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "Fungus2_31"; break;
                 case SplitName.BenchQuirrel : shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "Ruins1_02"; break;
                 case SplitName.BenchCityToll : shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "Ruins1_31"; break;*/
-                case SplitName.BenchStorerooms : shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "Ruins1_29"; break;/*
-                case SplitName.BenchSpire : shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "Ruins1_18"; break;*/
-                case SplitName.BenchKingsStation : shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "Ruins2_08"; break;/*
+                case SplitName.BenchStorerooms: shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "Ruins1_29"; break;
+                case SplitName.BenchSpire: shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "Ruins1_18"; break;
+                case SplitName.BenchSpireGHS: shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "Ruins1_18" && mem.PlayerData<int>(Offset.killsGreatShieldZombie) < 10; break;
+                case SplitName.BenchKingsStation: shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "Ruins2_08"; break;/*
                 case SplitName.BenchPleasureHouse : shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "Ruins_Bathhouse"; break;
                 case SplitName.BenchWaterways : shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "Waterways"; break;
                 case SplitName.BenchDeepnestHotsprings : shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "Deepnest_30"; break;
                 case SplitName.BenchFailedTramway : shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "Deepnest_14"; break;
                 case SplitName.BenchDeepnestSpiderTown : shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "Deepnest_Spider_Town"; break;
                 case SplitName.BenchBasinToll : shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "Abyss_18"; break;*/
-                case SplitName.BenchHiddenStation : shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "Abyss_22"; break;/*
+                case SplitName.BenchHiddenStation: shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "Abyss_22"; break;/*
                 case SplitName.BenchOro : shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "Deepnest_East_06"; break;
                 case SplitName.BenchCamp : shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "Deepnest_East_13"; break;
                 case SplitName.BenchColosseum : shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName.StartsWith("Room_Colosseum"); break;
                 case SplitName.BenchHive : shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName.StartsWith("Hive"); break;
                 case SplitName.BenchDarkRoom : shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "Mines_29"; break;
                 case SplitName.BenchCG1 : shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "Mines_18"; break;*/
-                case SplitName.BenchRGStag : shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "RestingGrounds_09"; break;/*
+                case SplitName.BenchRGStag: shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "RestingGrounds_09"; break;/*
                 case SplitName.BenchFlowerQuest : shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "RestingGrounds_12"; break;
                 case SplitName.BenchQGCornifer : shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "Fungus1_24"; break;
                 case SplitName.BenchQGToll : shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "Fungus3_50"; break;*/
-                case SplitName.BenchQGStag : shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "Fungus3_40"; break;/*
+                case SplitName.BenchQGStag: shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "Fungus3_40"; break;/*
                 case SplitName.BenchTram : shouldSplit = mem.PlayerData<bool>(Offset.atBench) && (sceneName == "Room_Tram" || sceneName == "Room_Tram_RG"); break;
                 case SplitName.BenchWhitePalaceEntrance : shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "White_Palace_01"; break;
                 case SplitName.BenchWhitePalaceAtrium : shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "White_Palace_03"; break;
@@ -836,6 +841,7 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.BenchHallOfGods : shouldSplit = mem.PlayerData<bool>(Offset.atBench) && sceneName == "GG_Workshop"; break;                
                 */
 
+                // unlock toll benches
                 case SplitName.TollBenchQG: shouldSplit = mem.PlayerData<bool>(Offset.tollBenchQueensGardens); break;
                 case SplitName.TollBenchCity: shouldSplit = mem.PlayerData<bool>(Offset.tollBenchCity); break;
                 case SplitName.TollBenchBasin: shouldSplit = mem.PlayerData<bool>(Offset.tollBenchAbyss); break;
@@ -843,11 +849,10 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.CityGateOpen: shouldSplit = mem.PlayerData<bool>(Offset.openedCityGate); break;
                 case SplitName.CityGateAndMantisLords: shouldSplit = mem.PlayerData<bool>(Offset.openedCityGate) && mem.PlayerData<bool>(Offset.defeatedMantisLords); break;
                 case SplitName.NailsmithKilled: shouldSplit = mem.PlayerData<bool>(Offset.nailsmithKilled); break;
-                case SplitName.NailsmithChoice: 
+                case SplitName.NailsmithChoice:
                     shouldSplit = mem.PlayerData<bool>(Offset.nailsmithKilled);
                     shouldSkip = mem.PlayerData<bool>(Offset.nailsmithSpared);
                     break;
-
 
                 /*
                  case SplitName.NailsmithSpared: shouldSplit = mem.PlayerData<bool>(Offset.nailsmithSpared); break;
@@ -904,6 +909,16 @@ namespace LiveSplit.HollowKnight {
                         (mem.PlayerData<float>(Offset.dreamGateX) > 27.0f && mem.PlayerData<float>(Offset.dreamGateX) < 29f) &&
                         (mem.PlayerData<float>(Offset.dreamGateY) > 7.0f && mem.PlayerData<float>(Offset.dreamGateY) < 9f);
                     break;
+                case SplitName.EnterJunkPit: shouldSplit = nextScene.Equals("GG_Waterways") && nextScene != sceneName; break;
+                case SplitName.EnterDeepnest:
+                    shouldSplit =
+                        nextScene.Equals("Fungus2_25") ||
+                        nextScene.Equals("Deepnest_42") ||
+                        nextScene.Equals("Deepnest_01b") &&
+                        nextScene != sceneName;
+                    break;
+
+                case SplitName.EnterCrown: shouldSplit = nextScene.Equals("Mines_23") && nextScene != sceneName; break;
 
                 case SplitName.FailedChampionEssence: shouldSplit = mem.PlayerData<bool>(Offset.falseKnightOrbsCollected); break;
                 case SplitName.SoulTyrantEssence: shouldSplit = mem.PlayerData<bool>(Offset.mageLordOrbsCollected); break;
@@ -913,12 +928,12 @@ namespace LiveSplit.HollowKnight {
 
                 case SplitName.PreGrimmShop:
                     shouldSplit = mem.PlayerData<bool>(Offset.hasLantern)
-                        && mem.PlayerData<int>(Offset.maxHealthBase) == 6 
+                        && mem.PlayerData<int>(Offset.maxHealthBase) == 6
                         && (mem.PlayerData<int>(Offset.vesselFragments) == 4 || (mem.PlayerData<int>(Offset.MPReserveMax) == 33 && mem.PlayerData<int>(Offset.vesselFragments) == 2));
                     break;
                 case SplitName.PreGrimmShopTrans:
-                    shouldSplit = mem.PlayerData<bool>(Offset.hasLantern) 
-                        && mem.PlayerData<int>(Offset.maxHealthBase) == 6 
+                    shouldSplit = mem.PlayerData<bool>(Offset.hasLantern)
+                        && mem.PlayerData<int>(Offset.maxHealthBase) == 6
                         && (mem.PlayerData<int>(Offset.vesselFragments) == 4 || (mem.PlayerData<int>(Offset.MPReserveMax) == 33 && mem.PlayerData<int>(Offset.vesselFragments) == 2))
                         && !sceneName.StartsWith("Room_shop");
                     break;
@@ -976,7 +991,8 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.TransGorgeousHusk: shouldSplit = mem.PlayerData<bool>(Offset.killedGorgeousHusk) && nextScene != sceneName; break;
                 case SplitName.TransDescendingDark: shouldSplit = mem.PlayerData<int>(Offset.quakeLevel) == 2 && nextScene != sceneName; break;
                 case SplitName.TransTear: shouldSplit = mem.PlayerData<bool>(Offset.hasAcidArmour) && nextScene != sceneName; break;
-                case SplitName.TransTearWithGrub: shouldSplit =
+                case SplitName.TransTearWithGrub:
+                    shouldSplit =
                         mem.PlayerData<bool>(Offset.hasAcidArmour) &&
                         mem.PlayerDataStringList(Offset.scenesGrubRescued).Contains("Waterways_13") &&
 
@@ -1043,8 +1059,8 @@ namespace LiveSplit.HollowKnight {
                         shouldSplit = !(debugSaveStateSceneNames.Contains(nextScene) || debugSaveStateSceneNames.Contains(sceneName));
                     }
                     break;
-                case SplitName.RandoWake: 
-                    shouldSplit = !mem.PlayerData<bool>(Offset.disablePause) && mem.GameState() == GameState.PLAYING && !menuingSceneNames.Contains(sceneName); 
+                case SplitName.RandoWake:
+                    shouldSplit = !mem.PlayerData<bool>(Offset.disablePause) && mem.GameState() == GameState.PLAYING && !menuingSceneNames.Contains(sceneName);
                     break;
                 case SplitName.RidingStag: shouldSplit = mem.PlayerData<bool>(Offset.travelling); break;
                 case SplitName.WhitePalaceLowerEntry: shouldSplit = nextScene.StartsWith("White_Palace_01") && nextScene != sceneName; break;
@@ -1081,6 +1097,27 @@ namespace LiveSplit.HollowKnight {
                     }
                     break;
 
+                case SplitName.MaskShardMawlek: if (sceneName == "Crossroads_09") { goto case SplitName.OnObtainMaskShard; } break;
+                case SplitName.MaskShardGrubfather: if (sceneName == "Crossroads_38") { goto case SplitName.OnObtainMaskShard; } break;
+                case SplitName.MaskShardBretta: if (sceneName == "Room_Bretta") { goto case SplitName.OnObtainMaskShard; } break;
+                case SplitName.MaskShardQueensStation: if (sceneName == "Fungus2_01") { goto case SplitName.OnObtainMaskShard; } break;
+                case SplitName.MaskShardEnragedGuardian: if (sceneName == "Mines_32") { goto case SplitName.OnObtainMaskShard; } break;
+                case SplitName.MaskShardSeer: if (sceneName == "RestingGrounds_07") { goto case SplitName.OnObtainMaskShard; } break;
+                case SplitName.MaskShardGoam: if (sceneName == "Crossroads_13") { goto case SplitName.OnObtainMaskShard; } break;
+                case SplitName.MaskShardStoneSanctuary: if (sceneName == "Fungus1_36") { goto case SplitName.OnObtainMaskShard; } break;
+                case SplitName.MaskShardWaterways: if (sceneName == "Waterways_04b") { goto case SplitName.OnObtainMaskShard; } break;
+                case SplitName.MaskShardFungalCore: if (sceneName == "Fungus2_30") { goto case SplitName.OnObtainMaskShard; } break;
+                case SplitName.MaskShardHive: if (sceneName == "Hive_04") { goto case SplitName.OnObtainMaskShard; } break;
+                case SplitName.MaskShardFlower: if (sceneName == "Room_Mansion") { goto case SplitName.OnObtainMaskShard; } break;
+
+                case SplitName.VesselFragGreenpath: if (sceneName == "Fungus1_13") { goto case SplitName.OnObtainVesselFragment; } break;
+                case SplitName.VesselFragCrossroadsLift: if (sceneName == "Crossroads_37") { goto case SplitName.OnObtainVesselFragment; } break;
+                case SplitName.VesselFragKingsStation: if (sceneName == "Ruins2_08") { goto case SplitName.OnObtainVesselFragment; } break;
+                case SplitName.VesselFragGarpedes: if (sceneName == "Deepnest_38") { goto case SplitName.OnObtainVesselFragment; } break;
+                case SplitName.VesselFragStagNest: if (sceneName == "Cliffs_03") { goto case SplitName.OnObtainVesselFragment; } break;
+                case SplitName.VesselFragSeer: if (sceneName == "RestingGrounds_07") { goto case SplitName.OnObtainVesselFragment; } break;
+                case SplitName.VesselFragFountain: if (sceneName == "Abyss_04") { goto case SplitName.OnObtainVesselFragment; } break;
+
                 case SplitName.OnObtainWanderersJournal: shouldSplit = store.CheckIncremented(Offset.trinket1); break;
                 case SplitName.OnObtainHallownestSeal: shouldSplit = store.CheckIncremented(Offset.trinket2); break;
                 case SplitName.OnObtainKingsIdol: shouldSplit = store.CheckIncremented(Offset.trinket3); break;
@@ -1105,9 +1142,9 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.ColosseumBronzeUnlocked: shouldSplit = mem.PlayerData<bool>(Offset.colosseumBronzeOpened); break;
                 case SplitName.ColosseumSilverUnlocked: shouldSplit = mem.PlayerData<bool>(Offset.colosseumSilverOpened); break;
                 case SplitName.ColosseumGoldUnlocked: shouldSplit = mem.PlayerData<bool>(Offset.colosseumGoldOpened); break;
-                case SplitName.ColosseumBronzeEntry: shouldSplit = sceneName == "Room_Colosseum_01" && nextScene == "Room_Colosseum_Bronze"; break;
-                case SplitName.ColosseumSilverEntry: shouldSplit = sceneName == "Room_Colosseum_01" && nextScene == "Room_Colosseum_Silver"; break;
-                case SplitName.ColosseumGoldEntry: shouldSplit = sceneName == "Room_Colosseum_01" && nextScene == "Room_Colosseum_Gold"; break;
+                case SplitName.ColosseumBronzeEntry: shouldSplit = sceneName == "Room_Colosseum_01" && nextScene == "Room_Colosseum_Bronze"; break;
+                case SplitName.ColosseumSilverEntry: shouldSplit = sceneName == "Room_Colosseum_01" && nextScene == "Room_Colosseum_Silver"; break;
+                case SplitName.ColosseumGoldEntry: shouldSplit = sceneName == "Room_Colosseum_01" && nextScene == "Room_Colosseum_Gold"; break;
                 case SplitName.ColosseumBronzeExit: shouldSplit = mem.PlayerData<bool>(Offset.colosseumBronzeCompleted) && !nextScene.StartsWith("Room_Colosseum_Bronze") && nextScene != sceneName; break;
                 case SplitName.ColosseumSilverExit: shouldSplit = mem.PlayerData<bool>(Offset.colosseumSilverCompleted) && !nextScene.StartsWith("Room_Colosseum_Silver") && nextScene != sceneName; break;
                 case SplitName.ColosseumGoldExit: shouldSplit = mem.PlayerData<bool>(Offset.colosseumGoldCompleted) && !nextScene.StartsWith("Room_Colosseum_Gold") && nextScene != sceneName; break;
@@ -1133,7 +1170,7 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.LumaflyLanternTransition: shouldSplit = mem.PlayerData<bool>(Offset.hasLantern) && !sceneName.StartsWith("Room_shop"); break;
 
                 // Spore Shroom : 17, Shape of Unn : 28, Quick Focus : 7, Baldur Shell : 5
-                case SplitName.PureSnail: 
+                case SplitName.PureSnail:
                     shouldSplit = store.CheckIncreasedBy(Offset.health, 1) &&
                         mem.PlayerData<bool>(Offset.equippedCharm_5) &&
                         mem.PlayerData<bool>(Offset.equippedCharm_7) &&
@@ -1183,7 +1220,7 @@ namespace LiveSplit.HollowKnight {
                     shouldSplit =
                         store.killsSpitterStart - mem.PlayerData<int>(Offset.killsSpitter) == 6 &&
                         store.killsColRollerStart - mem.PlayerData<int>(Offset.killsColRoller) == 9;
-                    shouldSkip = mem.PlayerData<int>(Offset.killsSpitter) == 0 || mem.PlayerData<int>(Offset.killsColRoller) == 0 ||
+                    shouldSkip = mem.PlayerData<int>(Offset.killsSpitter) == 0 || mem.PlayerData<int>(Offset.killsColRoller) == 0 ||
                         store.killsSpitterStart - mem.PlayerData<int>(Offset.killsSpitter) > 6 ||
                         store.killsColRollerStart - mem.PlayerData<int>(Offset.killsColRoller) > 9;
                     break;
@@ -1192,7 +1229,7 @@ namespace LiveSplit.HollowKnight {
                     shouldSkip = mem.PlayerData<int>(Offset.killsBuzzer) == 0 || store.killsBuzzerStart - mem.PlayerData<int>(Offset.killsBuzzer) > 4;
                     break;
                 case SplitName.Bronze8b: // 1 × Vengefly King
-                    shouldSplit = store.killsBigBuzzerStart - mem.PlayerData<int>(Offset.killsBigBuzzer) == 1; 
+                    shouldSplit = store.killsBigBuzzerStart - mem.PlayerData<int>(Offset.killsBigBuzzer) == 1;
                     shouldSkip = mem.PlayerData<int>(Offset.killsBigBuzzer) == 0 || store.killsBigBuzzerStart - mem.PlayerData<int>(Offset.killsBigBuzzer) > 1;
                     break;
                 case SplitName.Bronze9: // 3 × Sturdy Fool, 2 × Shielded Fool, 2 × Aspid, 2 × Baldur
@@ -1211,7 +1248,7 @@ namespace LiveSplit.HollowKnight {
                         store.killsColShieldStart - mem.PlayerData<int>(Offset.killsColShield) > 5;
                     break;
                 case SplitName.Bronze10: // 3 × Baldur
-                    shouldSplit = store.killsColRollerStart - mem.PlayerData<int>(Offset.killsColRoller) == 13; 
+                    shouldSplit = store.killsColRollerStart - mem.PlayerData<int>(Offset.killsColRoller) == 13;
                     shouldSkip = mem.PlayerData<int>(Offset.killsColRoller) == 0 || store.killsColRollerStart - mem.PlayerData<int>(Offset.killsColRoller) > 13;
                     break;
                 case SplitName.Bronze11a: // 2 × Infected Gruzzer
@@ -1224,12 +1261,12 @@ namespace LiveSplit.HollowKnight {
                     break;
                 case SplitName.BronzeEnd: // 2 × Gruz Mom
                     shouldSplit = store.killsBigFlyStart - mem.PlayerData<int>(Offset.killsBigFly) == 2;
-                    shouldSkip = 
+                    shouldSkip =
                         mem.PlayerData<int>(Offset.killsBigFly) == 0 &&
                         sceneName.StartsWith("Room_Colosseum_Bronze") &&
                         nextScene != sceneName;
                     break;
-                    #endregion
+                #endregion
 
                 #region Trial of the Conqueror
                 case SplitName.Silver1: // 2 × Heavy Fool, 3 × Winged Fool
@@ -1316,15 +1353,15 @@ namespace LiveSplit.HollowKnight {
                     break;
                 case SplitName.Silver11: // 2 × Shielded fool, 2 × Winged Fool, 1 × Heavy Fool, 2 × Squit
                     shouldSplit =
-                        store.killsColMosquitoStart - mem.PlayerData<int>(Offset.killsColMosquito) == 9 &&
-                        store.killsColFlyingSentryStart - mem.PlayerData<int>(Offset.killsColFlyingSentry) == 6 &&
+                        store.killsColMosquitoStart - mem.PlayerData<int>(Offset.killsColMosquito) == 9 &&
+                        store.killsColFlyingSentryStart - mem.PlayerData<int>(Offset.killsColFlyingSentry) == 6 &&
                         store.killsColWormStart - mem.PlayerData<int>(Offset.killsColWorm) == 4;
                     shouldSkip =
                         mem.PlayerData<int>(Offset.killsColMosquito) == 0 ||
                         mem.PlayerData<int>(Offset.killsColWorm) == 0 ||
                         mem.PlayerData<int>(Offset.killsColFlyingSentry) == 0 ||
-                        store.killsColMosquitoStart - mem.PlayerData<int>(Offset.killsColMosquito) > 9 ||
-                        store.killsColFlyingSentryStart - mem.PlayerData<int>(Offset.killsColFlyingSentry) > 6 ||
+                        store.killsColMosquitoStart - mem.PlayerData<int>(Offset.killsColMosquito) > 9 ||
+                        store.killsColFlyingSentryStart - mem.PlayerData<int>(Offset.killsColFlyingSentry) > 6 ||
                         store.killsColWormStart - mem.PlayerData<int>(Offset.killsColWorm) > 4;
                     break;
                 case SplitName.Silver12: // 1 × Heavy Fool, 1 × Winged Fool
@@ -1333,351 +1370,363 @@ namespace LiveSplit.HollowKnight {
                         store.killsColWormStart - mem.PlayerData<int>(Offset.killsColWorm) == 5;
                     shouldSkip =
                         mem.PlayerData<int>(Offset.killsColWorm) == 0 ||
-                        mem.PlayerData<int>(Offset.killsColFlyingSentry) == 0 || 
+                        mem.PlayerData<int>(Offset.killsColFlyingSentry) == 0 ||
                         store.killsColFlyingSentryStart - mem.PlayerData<int>(Offset.killsColFlyingSentry) > 7 ||
                         store.killsColWormStart - mem.PlayerData<int>(Offset.killsColWorm) > 5;
                     break;
                 case SplitName.Silver13: // 1 × Winged Fool, 3 × Squit
                     shouldSplit =
-                        store.killsColMosquitoStart - mem.PlayerData<int>(Offset.killsColMosquito) == 12 &&
+                        store.killsColMosquitoStart - mem.PlayerData<int>(Offset.killsColMosquito) == 12 &&
                         store.killsColFlyingSentryStart - mem.PlayerData<int>(Offset.killsColFlyingSentry) == 8;
                     shouldSkip =
                         mem.PlayerData<int>(Offset.killsColMosquito) == 0 ||
                         mem.PlayerData<int>(Offset.killsColFlyingSentry) == 0 ||
-                        store.killsColMosquitoStart - mem.PlayerData<int>(Offset.killsColMosquito) > 12 ||
+                        store.killsColMosquitoStart - mem.PlayerData<int>(Offset.killsColMosquito) > 12 ||
                         store.killsColFlyingSentryStart - mem.PlayerData<int>(Offset.killsColFlyingSentry) > 8;
                     break;
                 case SplitName.Silver14: // 3 × Winged Fool, 2 × Squit
                     shouldSplit =
-                        store.killsColMosquitoStart - mem.PlayerData<int>(Offset.killsColMosquito) == 14 &&
+                        store.killsColMosquitoStart - mem.PlayerData<int>(Offset.killsColMosquito) == 14 &&
                         store.killsColFlyingSentryStart - mem.PlayerData<int>(Offset.killsColFlyingSentry) == 11;
                     shouldSkip =
                         mem.PlayerData<int>(Offset.killsColMosquito) == 0 ||
                         mem.PlayerData<int>(Offset.killsColFlyingSentry) == 0 ||
-                        store.killsColMosquitoStart - mem.PlayerData<int>(Offset.killsColMosquito) > 14 ||
+                        store.killsColMosquitoStart - mem.PlayerData<int>(Offset.killsColMosquito) > 14 ||
                         store.killsColFlyingSentryStart - mem.PlayerData<int>(Offset.killsColFlyingSentry) > 11;
                     break;
                 case SplitName.Silver15: // 9 × Obbles
-                    shouldSplit = 
+                    shouldSplit =
                         store.killsBlobbleStart - mem.PlayerData<int>(Offset.killsBlobble) == 9;
                     shouldSkip =
                         store.killsBlobbleStart - mem.PlayerData<int>(Offset.killsBlobble) > 9 ||
                         mem.PlayerData<int>(Offset.killsBlobble) == 0;
                     break;
                 case SplitName.Silver16: // 4 × Obbles
-                    shouldSplit = 
+                    shouldSplit =
                         store.killsBlobbleStart - mem.PlayerData<int>(Offset.killsBlobble) == 13;
                     shouldSkip =
                         store.killsBlobbleStart - mem.PlayerData<int>(Offset.killsBlobble) > 13 ||
                         mem.PlayerData<int>(Offset.killsBlobble) == 0;
                     break;
                 case SplitName.SilverEnd: // 2 × Oblobbles
-                    shouldSplit = 
+                    shouldSplit =
                         store.killsOblobbleStart - mem.PlayerData<int>(Offset.killsOblobble) == 2;
-                    shouldSkip = 
+                    shouldSkip =
                         mem.PlayerData<int>(Offset.killsOblobble) == 0 &&
                         sceneName.StartsWith("Room_Colosseum_Silver") &&
                         nextScene != sceneName;
                     break;
                 #endregion
-                
+
                 #region Trial of the Fool
                 case SplitName.Gold1:
                     #region
-                    shouldSplit = 
-                        store.killsColWormStart -           mem.PlayerData<int>(Offset.killsColWorm)                == 1 &&  // 1 Heavy Fool
-                        store.killsColMinerStart -          mem.PlayerData<int>(Offset.killsColMiner)               == 1 &&  // 1 Sturdy Fool
-                        store.killsColMosquitoStart -       mem.PlayerData<int>(Offset.killsColMosquito)            == 2 &&  // 2 Squit
-                        store.killsColShieldStart -         mem.PlayerData<int>(Offset.killsColShield)              == 2 &&  // 2 Shielded Fool
-                        store.killsSpitterStart -           mem.PlayerData<int>(Offset.killsSpitter)                == 1 &&  // 1 Aspid
-                        store.killsColFlyingSentryStart -   mem.PlayerData<int>(Offset.killsColFlyingSentry)        == 2 &&  // 2 Winged Fool
-                        store.killsColRollerStart -         mem.PlayerData<int>(Offset.killsColRoller)              == 2;    // 2 Baldurs
-                    shouldSkip = 
-                        mem.PlayerData<int>(Offset.killsColWorm)            == 0 ||
-                        mem.PlayerData<int>(Offset.killsColMiner)           == 0 ||
-                        mem.PlayerData<int>(Offset.killsColMosquito)        == 0 || 
-                        mem.PlayerData<int>(Offset.killsColShield)          == 0 || 
-                        mem.PlayerData<int>(Offset.killsSpitter)            == 0 ||
-                        mem.PlayerData<int>(Offset.killsColFlyingSentry)    == 0 ||
-                        mem.PlayerData<int>(Offset.killsColRoller)          == 0 ||
-                        store.killsColWormStart -           mem.PlayerData<int>(Offset.killsColWorm)            > 1 ||
-                        store.killsColMinerStart -          mem.PlayerData<int>(Offset.killsColMiner)           > 1 ||
-                        store.killsColMosquitoStart -       mem.PlayerData<int>(Offset.killsColMosquito)        > 2 || 
-                        store.killsColShieldStart -         mem.PlayerData<int>(Offset.killsColShield)          > 2 || 
-                        store.killsSpitterStart -           mem.PlayerData<int>(Offset.killsSpitter)            > 1 ||
-                        store.killsColFlyingSentryStart -   mem.PlayerData<int>(Offset.killsColFlyingSentry)    > 2 ||
-                        store.killsColRollerStart -         mem.PlayerData<int>(Offset.killsColRoller)          > 2;
+                    shouldSplit =
+                        store.killsColWormStart - mem.PlayerData<int>(Offset.killsColWorm) == 1 &&  // 1 Heavy Fool
+                        store.killsColMinerStart - mem.PlayerData<int>(Offset.killsColMiner) == 1 &&  // 1 Sturdy Fool
+                        store.killsColMosquitoStart - mem.PlayerData<int>(Offset.killsColMosquito) == 2 &&  // 2 Squit
+                        store.killsColShieldStart - mem.PlayerData<int>(Offset.killsColShield) == 2 &&  // 2 Shielded Fool
+                        store.killsSpitterStart - mem.PlayerData<int>(Offset.killsSpitter) == 1 &&  // 1 Aspid
+                        store.killsColFlyingSentryStart - mem.PlayerData<int>(Offset.killsColFlyingSentry) == 2 &&  // 2 Winged Fool
+                        store.killsColRollerStart - mem.PlayerData<int>(Offset.killsColRoller) == 2;    // 2 Baldurs
+                    shouldSkip =
+                        mem.PlayerData<int>(Offset.killsColWorm) == 0 ||
+                        mem.PlayerData<int>(Offset.killsColMiner) == 0 ||
+                        mem.PlayerData<int>(Offset.killsColMosquito) == 0 ||
+                        mem.PlayerData<int>(Offset.killsColShield) == 0 ||
+                        mem.PlayerData<int>(Offset.killsSpitter) == 0 ||
+                        mem.PlayerData<int>(Offset.killsColFlyingSentry) == 0 ||
+                        mem.PlayerData<int>(Offset.killsColRoller) == 0 ||
+                        store.killsColWormStart - mem.PlayerData<int>(Offset.killsColWorm) > 1 ||
+                        store.killsColMinerStart - mem.PlayerData<int>(Offset.killsColMiner) > 1 ||
+                        store.killsColMosquitoStart - mem.PlayerData<int>(Offset.killsColMosquito) > 2 ||
+                        store.killsColShieldStart - mem.PlayerData<int>(Offset.killsColShield) > 2 ||
+                        store.killsSpitterStart - mem.PlayerData<int>(Offset.killsSpitter) > 1 ||
+                        store.killsColFlyingSentryStart - mem.PlayerData<int>(Offset.killsColFlyingSentry) > 2 ||
+                        store.killsColRollerStart - mem.PlayerData<int>(Offset.killsColRoller) > 2;
                     break;
-                    #endregion
+                #endregion
                 // Wave 2 splits inconsistently since the enemies are killed by the spikes on the floor automatically
                 case SplitName.Gold3:
                     #region
                     shouldSplit =
-                        store.killsBlobbleStart -           mem.PlayerData<int>(Offset.killsBlobble)                == 3 &&  // 3 Obble
-                        store.killsColFlyingSentryStart -   mem.PlayerData<int>(Offset.killsColFlyingSentry)        == 3 &&  // 1 Winged Fool
-                        store.killsAngryBuzzerStart -       mem.PlayerData<int>(Offset.killsAngryBuzzer)            == 2;    // 2 Infected Vengefly
-                    shouldSkip = 
-                        mem.PlayerData<int>(Offset.killsBlobble)            == 0 ||
-                        mem.PlayerData<int>(Offset.killsColFlyingSentry)    == 0 ||
-                        mem.PlayerData<int>(Offset.killsAngryBuzzer)        == 0 ||
-                        store.killsBlobbleStart -           mem.PlayerData<int>(Offset.killsBlobble)                > 3 ||
-                        store.killsColFlyingSentryStart -   mem.PlayerData<int>(Offset.killsColFlyingSentry)        > 3 ||
-                        store.killsAngryBuzzerStart -       mem.PlayerData<int>(Offset.killsAngryBuzzer)            > 2; 
+                        store.killsBlobbleStart - mem.PlayerData<int>(Offset.killsBlobble) == 3 &&  // 3 Obble
+                        store.killsColFlyingSentryStart - mem.PlayerData<int>(Offset.killsColFlyingSentry) == 3 &&  // 1 Winged Fool
+                        store.killsAngryBuzzerStart - mem.PlayerData<int>(Offset.killsAngryBuzzer) == 2;    // 2 Infected Vengefly
+                    shouldSkip =
+                        mem.PlayerData<int>(Offset.killsBlobble) == 0 ||
+                        mem.PlayerData<int>(Offset.killsColFlyingSentry) == 0 ||
+                        mem.PlayerData<int>(Offset.killsAngryBuzzer) == 0 ||
+                        store.killsBlobbleStart - mem.PlayerData<int>(Offset.killsBlobble) > 3 ||
+                        store.killsColFlyingSentryStart - mem.PlayerData<int>(Offset.killsColFlyingSentry) > 3 ||
+                        store.killsAngryBuzzerStart - mem.PlayerData<int>(Offset.killsAngryBuzzer) > 2;
                     break;
-                    #endregion
+                #endregion
                 case SplitName.Gold4:
                     #region
-                    shouldSplit = 
-                        store.killsColWormStart -           mem.PlayerData<int>(Offset.killsColWorm)                == 3 &&  // 2 Heavy Fool
-                        store.killsCeilingDropperStart -    mem.PlayerData<int>(Offset.killsCeilingDropper)         == 6;    // 6 Belflies
-                    shouldSkip = 
-                        mem.PlayerData<int>(Offset.killsColWorm)            == 0 ||
-                        mem.PlayerData<int>(Offset.killsCeilingDropper)     == 0 ||
-                        store.killsColWormStart -           mem.PlayerData<int>(Offset.killsColWorm)                > 3 ||
-                        store.killsCeilingDropperStart -    mem.PlayerData<int>(Offset.killsCeilingDropper)         > 6;
+                    shouldSplit =
+                        store.killsColWormStart - mem.PlayerData<int>(Offset.killsColWorm) == 3 &&  // 2 Heavy Fool
+                        store.killsCeilingDropperStart - mem.PlayerData<int>(Offset.killsCeilingDropper) == 6;    // 6 Belflies
+                    shouldSkip =
+                        mem.PlayerData<int>(Offset.killsColWorm) == 0 ||
+                        mem.PlayerData<int>(Offset.killsCeilingDropper) == 0 ||
+                        store.killsColWormStart - mem.PlayerData<int>(Offset.killsColWorm) > 3 ||
+                        store.killsCeilingDropperStart - mem.PlayerData<int>(Offset.killsCeilingDropper) > 6;
                     break;
-                    #endregion
+                #endregion
                 case SplitName.Gold5:
                     #region
-                    shouldSplit = 
-                        store.killsColHopperStart -         mem.PlayerData<int>(Offset.killsColHopper)              == 3;    // 3 Loodle
-                    shouldSkip = 
-                        mem.PlayerData<int>(Offset.killsColHopper)          == 0 ||
-                        store.killsColHopperStart -         mem.PlayerData<int>(Offset.killsColHopper)              > 3;
+                    shouldSplit =
+                        store.killsColHopperStart - mem.PlayerData<int>(Offset.killsColHopper) == 3;    // 3 Loodle
+                    shouldSkip =
+                        mem.PlayerData<int>(Offset.killsColHopper) == 0 ||
+                        store.killsColHopperStart - mem.PlayerData<int>(Offset.killsColHopper) > 3;
                     break;
-                    #endregion
+                #endregion
                 case SplitName.Gold6:
                     #region
-                    shouldSplit = 
-                        store.killsColHopperStart -         mem.PlayerData<int>(Offset.killsColHopper)              == 8;    // 5 Loodle
-                    shouldSkip = 
-                        mem.PlayerData<int>(Offset.killsColHopper)          == 0 ||
-                        store.killsColHopperStart -         mem.PlayerData<int>(Offset.killsColHopper)              > 8;
+                    shouldSplit =
+                        store.killsColHopperStart - mem.PlayerData<int>(Offset.killsColHopper) == 8;    // 5 Loodle
+                    shouldSkip =
+                        mem.PlayerData<int>(Offset.killsColHopper) == 0 ||
+                        store.killsColHopperStart - mem.PlayerData<int>(Offset.killsColHopper) > 8;
                     break;
-                    #endregion
+                #endregion
                 case SplitName.Gold7:
                     #region
-                    shouldSplit = 
-                        store.killsColHopperStart -         mem.PlayerData<int>(Offset.killsColHopper)              == 11;   // 3 Loodle
-                    shouldSkip = 
-                        mem.PlayerData<int>(Offset.killsColHopper)          == 0 ||
-                        store.killsColHopperStart -         mem.PlayerData<int>(Offset.killsColHopper)              > 11;
+                    shouldSplit =
+                        store.killsColHopperStart - mem.PlayerData<int>(Offset.killsColHopper) == 11;   // 3 Loodle
+                    shouldSkip =
+                        mem.PlayerData<int>(Offset.killsColHopper) == 0 ||
+                        store.killsColHopperStart - mem.PlayerData<int>(Offset.killsColHopper) > 11;
                     break;
-                    #endregion
+                #endregion
+                case SplitName.Gold8a:
+                    #region
+                    shouldSplit =
+                        store.killsColMosquitoStart - mem.PlayerData<int>(Offset.killsColMosquito) == 4 &&  // 2 Squit
+                        store.killsSpitterStart - mem.PlayerData<int>(Offset.killsSpitter) == 5 &&  // 3 Aspid
+                        store.killsColFlyingSentryStart - mem.PlayerData<int>(Offset.killsColFlyingSentry) == 4;    // 1 Winged Fool
+                    shouldSkip =
+                        mem.PlayerData<int>(Offset.killsColMosquito) == 0 ||
+                        mem.PlayerData<int>(Offset.killsSpitter) == 0 ||
+                        mem.PlayerData<int>(Offset.killsColFlyingSentry) == 0 ||
+                        store.killsColMosquitoStart - mem.PlayerData<int>(Offset.killsColMosquito) > 4 ||
+                        store.killsSpitterStart - mem.PlayerData<int>(Offset.killsSpitter) > 5 ||
+                        store.killsColFlyingSentryStart - mem.PlayerData<int>(Offset.killsColFlyingSentry) > 4;
+                    break;
+                #endregion
                 case SplitName.Gold8:
                     #region
                     shouldSplit =
-                        store.killsColMosquitoStart -       mem.PlayerData<int>(Offset.killsColMosquito)            == 6 &&  // 4 Squit
-                        store.killsSpitterStart -           mem.PlayerData<int>(Offset.killsSpitter)                == 5 &&  // 3 Aspid
-                        store.killsColFlyingSentryStart -   mem.PlayerData<int>(Offset.killsColFlyingSentry)        == 5;    // 2 Winged Fool
-                    shouldSkip = 
-                        mem.PlayerData<int>(Offset.killsColMosquito)        == 0 ||
-                        mem.PlayerData<int>(Offset.killsSpitter)            == 0 ||
-                        mem.PlayerData<int>(Offset.killsColFlyingSentry)    == 0 ||
-                        store.killsColMosquitoStart -       mem.PlayerData<int>(Offset.killsColMosquito)            > 6 ||
-                        store.killsSpitterStart -           mem.PlayerData<int>(Offset.killsSpitter)                > 5 ||
-                        store.killsColFlyingSentryStart -   mem.PlayerData<int>(Offset.killsColFlyingSentry)        > 5;
+                        store.killsColMosquitoStart - mem.PlayerData<int>(Offset.killsColMosquito) == 6 &&  // 2 Squit
+                        store.killsColFlyingSentryStart - mem.PlayerData<int>(Offset.killsColFlyingSentry) == 5;    // 1 Winged Fool
+                    shouldSkip =
+                        mem.PlayerData<int>(Offset.killsColMosquito) == 0 ||
+                        mem.PlayerData<int>(Offset.killsColFlyingSentry) == 0 ||
+                        store.killsColMosquitoStart - mem.PlayerData<int>(Offset.killsColMosquito) > 6 ||
+                        store.killsColFlyingSentryStart - mem.PlayerData<int>(Offset.killsColFlyingSentry) > 5;
                     break;
-                    #endregion
+                #endregion
                 case SplitName.Gold9a:
                     #region
                     shouldSplit =
-                        store.killsColShieldStart -         mem.PlayerData<int>(Offset.killsColShield)              == 3 &&  // 1 Shielded Fool
-                        store.killsColWormStart -           mem.PlayerData<int>(Offset.killsColWorm)                == 5 &&  // 2 Heavy Fool
-                        store.killsSpitterStart -           mem.PlayerData<int>(Offset.killsSpitter)                == 6 &&  // 1 Aspid
-                        store.killsHeavyMantisStart -       mem.PlayerData<int>(Offset.killsHeavyMantis)            == 2 &&  // 2 Mantis Traitor
-                        store.killsHeavyMantisFlyerStart -  mem.PlayerData<int>(Offset.killsMantisHeavyFlyer)       == 4;    // 4 Mantis Petra
+                        store.killsColShieldStart - mem.PlayerData<int>(Offset.killsColShield) == 3 &&  // 1 Shielded Fool
+                        store.killsColWormStart - mem.PlayerData<int>(Offset.killsColWorm) == 5 &&  // 2 Heavy Fool
+                        store.killsSpitterStart - mem.PlayerData<int>(Offset.killsSpitter) == 6 &&  // 1 Aspid
+                        store.killsHeavyMantisStart - mem.PlayerData<int>(Offset.killsHeavyMantis) == 2 &&  // 2 Mantis Traitor
+                        store.killsHeavyMantisFlyerStart - mem.PlayerData<int>(Offset.killsMantisHeavyFlyer) == 4;    // 4 Mantis Petra
                     shouldSkip =
-                        mem.PlayerData<int>(Offset.killsColShield)          == 0 ||
-                        mem.PlayerData<int>(Offset.killsColWorm)            == 0 ||
-                        mem.PlayerData<int>(Offset.killsSpitter)            == 0 ||
-                        mem.PlayerData<int>(Offset.killsHeavyMantis)        == 0 ||
-                        mem.PlayerData<int>(Offset.killsMantisHeavyFlyer)   == 0 ||
-                        store.killsColShieldStart -         mem.PlayerData<int>(Offset.killsColShield)          > 3 ||
-                        store.killsColWormStart -           mem.PlayerData<int>(Offset.killsColWorm)            > 5 ||
-                        store.killsSpitterStart -           mem.PlayerData<int>(Offset.killsSpitter)            > 6 ||
-                        store.killsHeavyMantisStart -       mem.PlayerData<int>(Offset.killsHeavyMantis)        > 2 ||
-                        store.killsHeavyMantisFlyerStart -  mem.PlayerData<int>(Offset.killsMantisHeavyFlyer)   > 4;
+                        mem.PlayerData<int>(Offset.killsColShield) == 0 ||
+                        mem.PlayerData<int>(Offset.killsColWorm) == 0 ||
+                        mem.PlayerData<int>(Offset.killsSpitter) == 0 ||
+                        mem.PlayerData<int>(Offset.killsHeavyMantis) == 0 ||
+                        mem.PlayerData<int>(Offset.killsMantisHeavyFlyer) == 0 ||
+                        store.killsColShieldStart - mem.PlayerData<int>(Offset.killsColShield) > 3 ||
+                        store.killsColWormStart - mem.PlayerData<int>(Offset.killsColWorm) > 5 ||
+                        store.killsSpitterStart - mem.PlayerData<int>(Offset.killsSpitter) > 6 ||
+                        store.killsHeavyMantisStart - mem.PlayerData<int>(Offset.killsHeavyMantis) > 2 ||
+                        store.killsHeavyMantisFlyerStart - mem.PlayerData<int>(Offset.killsMantisHeavyFlyer) > 4;
                     break;
-                    #endregion
+                #endregion
                 case SplitName.Gold9b:
                     #region
                     shouldSplit =
-                        store.killsMageKnightStart -        mem.PlayerData<int>(Offset.killsMageKnight)             == 1;    // 1 Soul Warrior
-                    shouldSkip = 
-                        mem.PlayerData<int>(Offset.killsMageKnight)         == 0 ||
-                        store.killsMageKnightStart -        mem.PlayerData<int>(Offset.killsMageKnight)             > 1;
+                        store.killsMageKnightStart - mem.PlayerData<int>(Offset.killsMageKnight) == 1;    // 1 Soul Warrior
+                    shouldSkip =
+                        mem.PlayerData<int>(Offset.killsMageKnight) == 0 ||
+                        store.killsMageKnightStart - mem.PlayerData<int>(Offset.killsMageKnight) > 1;
                     break;
-                    #endregion
+                #endregion
                 case SplitName.Gold10:
                     #region
-                    shouldSplit = 
-                        store.killsElectricMageStart -      mem.PlayerData<int>(Offset.killsElectricMage)           == 3 &&  // 3 Volt Twister
-                        store.killsMageStart -              mem.PlayerData<int>(Offset.killsMage)                   == 4;    // 2 Soul Twister
-                    shouldSkip = 
-                        mem.PlayerData<int>(Offset.killsElectricMage)       == 0 ||
-                        mem.PlayerData<int>(Offset.killsMage)               == 0 ||
-                        store.killsElectricMageStart -      mem.PlayerData<int>(Offset.killsElectricMage)           > 3 ||
-                        store.killsMageStart -              mem.PlayerData<int>(Offset.killsMage)                   > 4;
+                    shouldSplit =
+                        store.killsElectricMageStart - mem.PlayerData<int>(Offset.killsElectricMage) == 3 &&  // 3 Volt Twister
+                        store.killsMageStart - mem.PlayerData<int>(Offset.killsMage) == 4;    // 2 Soul Twister
+                    shouldSkip =
+                        mem.PlayerData<int>(Offset.killsElectricMage) == 0 ||
+                        mem.PlayerData<int>(Offset.killsMage) == 0 ||
+                        store.killsElectricMageStart - mem.PlayerData<int>(Offset.killsElectricMage) > 3 ||
+                        store.killsMageStart - mem.PlayerData<int>(Offset.killsMage) > 4;
                     break;
-                    #endregion
+                #endregion
                 case SplitName.Gold11:
                     #region
                     shouldSplit =
-                        store.killsMageKnightStart -        mem.PlayerData<int>(Offset.killsMageKnight)             == 2 &&  // 1 Soul Warrior
-                        store.killsMageStart -              mem.PlayerData<int>(Offset.killsMage)                   == 5;    // 1 Soul Twister
-                    shouldSkip = 
-                        mem.PlayerData<int>(Offset.killsMageKnight)         == 0 ||
-                        store.killsMageKnightStart -        mem.PlayerData<int>(Offset.killsMageKnight)             > 2 ||
-                        store.killsMageStart -              mem.PlayerData<int>(Offset.killsMage)                   > 5; 
+                        store.killsMageKnightStart - mem.PlayerData<int>(Offset.killsMageKnight) == 2 &&  // 1 Soul Warrior
+                        store.killsMageStart - mem.PlayerData<int>(Offset.killsMage) == 5;    // 1 Soul Twister
+                    shouldSkip =
+                        mem.PlayerData<int>(Offset.killsMageKnight) == 0 ||
+                        store.killsMageKnightStart - mem.PlayerData<int>(Offset.killsMageKnight) > 2 ||
+                        store.killsMageStart - mem.PlayerData<int>(Offset.killsMage) > 5;
                     break;
-                    #endregion
+                #endregion
                 case SplitName.Gold12a:
                     #region
                     shouldSplit =
-                        store.killsColFlyingSentryStart -   mem.PlayerData<int>(Offset.killsColFlyingSentry)        == 7 &&  // 2 Winged Fool
-                        store.killsColMinerStart -          mem.PlayerData<int>(Offset.killsColMiner)               == 4 &&  // 1 Sturdy Fool
-                        store.killsLesserMawlekStart -      mem.PlayerData<int>(Offset.killsLesserMawlek)           == 4;    // 4 Lesser Mawlek
-                    shouldSkip = 
-                        mem.PlayerData<int>(Offset.killsColFlyingSentry)    == 0 ||
-                        mem.PlayerData<int>(Offset.killsColMiner)           == 0 ||
-                        mem.PlayerData<int>(Offset.killsLesserMawlek)       == 0 ||
-                        store.killsColFlyingSentryStart -   mem.PlayerData<int>(Offset.killsColFlyingSentry)        > 7 ||
-                        store.killsColMinerStart -          mem.PlayerData<int>(Offset.killsColMiner)               > 4 ||
-                        store.killsLesserMawlekStart -      mem.PlayerData<int>(Offset.killsLesserMawlek)           > 4;
+                        store.killsColFlyingSentryStart - mem.PlayerData<int>(Offset.killsColFlyingSentry) == 7 &&  // 2 Winged Fool
+                        store.killsColMinerStart - mem.PlayerData<int>(Offset.killsColMiner) == 4 &&  // 1 Sturdy Fool
+                        store.killsLesserMawlekStart - mem.PlayerData<int>(Offset.killsLesserMawlek) == 4;    // 4 Lesser Mawlek
+                    shouldSkip =
+                        mem.PlayerData<int>(Offset.killsColFlyingSentry) == 0 ||
+                        mem.PlayerData<int>(Offset.killsColMiner) == 0 ||
+                        mem.PlayerData<int>(Offset.killsLesserMawlek) == 0 ||
+                        store.killsColFlyingSentryStart - mem.PlayerData<int>(Offset.killsColFlyingSentry) > 7 ||
+                        store.killsColMinerStart - mem.PlayerData<int>(Offset.killsColMiner) > 4 ||
+                        store.killsLesserMawlekStart - mem.PlayerData<int>(Offset.killsLesserMawlek) > 4;
                     break;
-                    #endregion
+                #endregion
                 case SplitName.Gold12b:
                     #region
                     shouldSplit =
-                        store.killsMawlekStart -            mem.PlayerData<int>(Offset.killsMawlek)                 == 1;    // 1 Brooding Mawlek
+                        store.killsMawlekStart - mem.PlayerData<int>(Offset.killsMawlek) == 1;    // 1 Brooding Mawlek
                     shouldSkip =
-                        mem.PlayerData<int>(Offset.killsMawlek)             == 0 ||
-                        store.killsMawlekStart -            mem.PlayerData<int>(Offset.killsMawlek)                 > 1;
+                        mem.PlayerData<int>(Offset.killsMawlek) == 0 ||
+                        store.killsMawlekStart - mem.PlayerData<int>(Offset.killsMawlek) > 1;
                     break;
-                    #endregion
+                #endregion
                 // Wave 13 doesn't really exist, it's just vertical Garpedes so there's nothing to Split on
                 case SplitName.Gold14a:
                     #region
                     shouldSplit =
-                        store.killsColMosquitoStart -       mem.PlayerData<int>(Offset.killsColMosquito)            == 10 && // 1 Squit
-                        store.killsSpitterStart -           mem.PlayerData<int>(Offset.killsSpitter)                == 7 &&  // 1 Aspid
-                        store.killsHeavyMantisFlyerStart -  mem.PlayerData<int>(Offset.killsMantisHeavyFlyer)       == 5;    // 1 Mantis Petra
-                    shouldSkip = 
-                        mem.PlayerData<int>(Offset.killsColMosquito)        == 0 ||
-                        mem.PlayerData<int>(Offset.killsMantisHeavyFlyer)   == 0 ||
-                        mem.PlayerData<int>(Offset.killsSpitter)            == 0 ||
-                        store.killsColMosquitoStart -       mem.PlayerData<int>(Offset.killsColMosquito)            > 10 ||
-                        store.killsHeavyMantisFlyerStart -  mem.PlayerData<int>(Offset.killsMantisHeavyFlyer)       > 5 ||
-                        store.killsSpitterStart -           mem.PlayerData<int>(Offset.killsSpitter) - 1            > 7;
+                        store.killsColMosquitoStart - mem.PlayerData<int>(Offset.killsColMosquito) == 10 && // 1 Squit
+                        store.killsSpitterStart - mem.PlayerData<int>(Offset.killsSpitter) == 7 &&  // 1 Aspid
+                        store.killsHeavyMantisFlyerStart - mem.PlayerData<int>(Offset.killsMantisHeavyFlyer) == 5;    // 1 Mantis Petra
+                    shouldSkip =
+                        mem.PlayerData<int>(Offset.killsColMosquito) == 0 ||
+                        mem.PlayerData<int>(Offset.killsMantisHeavyFlyer) == 0 ||
+                        mem.PlayerData<int>(Offset.killsSpitter) == 0 ||
+                        store.killsColMosquitoStart - mem.PlayerData<int>(Offset.killsColMosquito) > 10 ||
+                        store.killsHeavyMantisFlyerStart - mem.PlayerData<int>(Offset.killsMantisHeavyFlyer) > 5 ||
+                        store.killsSpitterStart - mem.PlayerData<int>(Offset.killsSpitter) - 1 > 7;
                     break;
-                    #endregion
+                #endregion
                 case SplitName.Gold14b:
                     #region
                     shouldSplit =
-                        store.killsColFlyingSentryStart -   mem.PlayerData<int>(Offset.killsColFlyingSentry)        == 10 && // 2 Winged Fool
-                        store.killsBlobbleStart -           mem.PlayerData<int>(Offset.killsBlobble)                == 7;    // 4 Obble
+                        store.killsColFlyingSentryStart - mem.PlayerData<int>(Offset.killsColFlyingSentry) == 10 && // 2 Winged Fool
+                        store.killsBlobbleStart - mem.PlayerData<int>(Offset.killsBlobble) == 7;    // 4 Obble
                     shouldSkip =
-                        mem.PlayerData<int>(Offset.killsColFlyingSentry)    == 0 ||
-                        mem.PlayerData<int>(Offset.killsBlobble)            == 0 ||
-                        store.killsColFlyingSentryStart -   mem.PlayerData<int>(Offset.killsColFlyingSentry)        > 10 ||
-                        store.killsBlobbleStart -           mem.PlayerData<int>(Offset.killsBlobble)                > 7;
+                        mem.PlayerData<int>(Offset.killsColFlyingSentry) == 0 ||
+                        mem.PlayerData<int>(Offset.killsBlobble) == 0 ||
+                        store.killsColFlyingSentryStart - mem.PlayerData<int>(Offset.killsColFlyingSentry) > 10 ||
+                        store.killsBlobbleStart - mem.PlayerData<int>(Offset.killsBlobble) > 7;
                     break;
-                    #endregion
+                #endregion
                 case SplitName.Gold15:
                     #region
                     shouldSplit =
-                        store.killsColMosquitoStart -       mem.PlayerData<int>(Offset.killsColMosquito)            == 12;    // 2 Squit
-                    shouldSkip = 
-                        mem.PlayerData<int>(Offset.killsColMosquito)        == 0 ||
-                        store.killsColMosquitoStart -       mem.PlayerData<int>(Offset.killsColMosquito)            > 12; 
+                        store.killsColMosquitoStart - mem.PlayerData<int>(Offset.killsColMosquito) == 12;    // 2 Squit
+                    shouldSkip =
+                        mem.PlayerData<int>(Offset.killsColMosquito) == 0 ||
+                        store.killsColMosquitoStart - mem.PlayerData<int>(Offset.killsColMosquito) > 12;
                     break;
-                    #endregion
+                #endregion
                 case SplitName.Gold16:
                     #region
-                    shouldSplit = 
-                        store.killsColHopperStart -         mem.PlayerData<int>(Offset.killsColHopper)              == 25;    // 14 Loodle elderC
-                    shouldSkip = 
-                        mem.PlayerData<int>(Offset.killsColHopper)          == 0 ||
-                        store.killsColHopperStart -         mem.PlayerData<int>(Offset.killsColHopper)              > 25;
+                    shouldSplit =
+                        store.killsColHopperStart - mem.PlayerData<int>(Offset.killsColHopper) == 25;    // 14 Loodle elderC
+                    shouldSkip =
+                        mem.PlayerData<int>(Offset.killsColHopper) == 0 ||
+                        store.killsColHopperStart - mem.PlayerData<int>(Offset.killsColHopper) > 25;
                     break;
-                    #endregion
+                #endregion
                 case SplitName.Gold17a:
                     #region
-                    shouldSplit = 
-                        store.killsColWormStart -           mem.PlayerData<int>(Offset.killsColWorm)                == 6 &&  // 1 Heavy Fool
-                        store.killsColMinerStart -          mem.PlayerData<int>(Offset.killsColMiner)               == 5 &&  // 1 Sturdy Fool
-                        store.killsColShieldStart -         mem.PlayerData<int>(Offset.killsColShield)              == 4 &&  // 1 Shielded Fool
-                        store.killsHeavyMantisFlyerStart -  mem.PlayerData<int>(Offset.killsMantisHeavyFlyer)       == 6 &&  // 1 Mantis Petra
-                        store.killsHeavyMantisStart -       mem.PlayerData<int>(Offset.killsHeavyMantis)            == 3 &&  // 1 Mantis Traitor
-                        store.killsColFlyingSentryStart -   mem.PlayerData<int>(Offset.killsColFlyingSentry)        == 11;   // 1 Winged Fool
+                    shouldSplit =
+                        store.killsColWormStart - mem.PlayerData<int>(Offset.killsColWorm) == 6 &&  // 1 Heavy Fool
+                        store.killsColMinerStart - mem.PlayerData<int>(Offset.killsColMiner) == 5 &&  // 1 Sturdy Fool
+                        store.killsColShieldStart - mem.PlayerData<int>(Offset.killsColShield) == 4 &&  // 1 Shielded Fool
+                        store.killsHeavyMantisFlyerStart - mem.PlayerData<int>(Offset.killsMantisHeavyFlyer) == 6 &&  // 1 Mantis Petra
+                        store.killsHeavyMantisStart - mem.PlayerData<int>(Offset.killsHeavyMantis) == 3 &&  // 1 Mantis Traitor
+                        store.killsColFlyingSentryStart - mem.PlayerData<int>(Offset.killsColFlyingSentry) == 11;   // 1 Winged Fool
                     shouldSkip =
-                        mem.PlayerData<int>(Offset.killsColWorm)            == 0 ||
-                        mem.PlayerData<int>(Offset.killsColMiner)           == 0 ||
-                        mem.PlayerData<int>(Offset.killsColShield)          == 0 ||
-                        mem.PlayerData<int>(Offset.killsMantisHeavyFlyer)   == 0 ||
-                        mem.PlayerData<int>(Offset.killsHeavyMantis)        == 0 ||
-                        mem.PlayerData<int>(Offset.killsColFlyingSentry)    == 0 ||
-                        store.killsColWormStart -           mem.PlayerData<int>(Offset.killsColWorm)                > 6 ||
-                        store.killsColMinerStart -          mem.PlayerData<int>(Offset.killsColMiner)               > 5 ||
-                        store.killsColShieldStart -         mem.PlayerData<int>(Offset.killsColShield)              > 4 ||
-                        store.killsHeavyMantisFlyerStart -  mem.PlayerData<int>(Offset.killsMantisHeavyFlyer) - 1   > 6 ||
-                        store.killsHeavyMantisStart -       mem.PlayerData<int>(Offset.killsHeavyMantis)            > 3 ||
-                        store.killsColFlyingSentryStart -   mem.PlayerData<int>(Offset.killsColFlyingSentry) - 1    > 11;
+                        mem.PlayerData<int>(Offset.killsColWorm) == 0 ||
+                        mem.PlayerData<int>(Offset.killsColMiner) == 0 ||
+                        mem.PlayerData<int>(Offset.killsColShield) == 0 ||
+                        mem.PlayerData<int>(Offset.killsMantisHeavyFlyer) == 0 ||
+                        mem.PlayerData<int>(Offset.killsHeavyMantis) == 0 ||
+                        mem.PlayerData<int>(Offset.killsColFlyingSentry) == 0 ||
+                        store.killsColWormStart - mem.PlayerData<int>(Offset.killsColWorm) > 6 ||
+                        store.killsColMinerStart - mem.PlayerData<int>(Offset.killsColMiner) > 5 ||
+                        store.killsColShieldStart - mem.PlayerData<int>(Offset.killsColShield) > 4 ||
+                        store.killsHeavyMantisFlyerStart - mem.PlayerData<int>(Offset.killsMantisHeavyFlyer) - 1 > 6 ||
+                        store.killsHeavyMantisStart - mem.PlayerData<int>(Offset.killsHeavyMantis) > 3 ||
+                        store.killsColFlyingSentryStart - mem.PlayerData<int>(Offset.killsColFlyingSentry) - 1 > 11;
                     break;
-                    #endregion
+                #endregion
                 case SplitName.Gold17b:
                     #region
-                    shouldSplit = 
-                        store.killsColWormStart -           mem.PlayerData<int>(Offset.killsColWorm)                == 7 &&  // 1 Heavy Fool
-                        store.killsColShieldStart -         mem.PlayerData<int>(Offset.killsColShield)              == 5 &&  // 1 Shielded Fool
-                        store.killsMageStart -              mem.PlayerData<int>(Offset.killsMage)                   == 6 &&  // 1 Soul Twister
-                        store.killsElectricMageStart -      mem.PlayerData<int>(Offset.killsElectricMage)           == 4;    // 1 Volt Twister
+                    shouldSplit =
+                        store.killsColWormStart - mem.PlayerData<int>(Offset.killsColWorm) == 7 &&  // 1 Heavy Fool
+                        store.killsColShieldStart - mem.PlayerData<int>(Offset.killsColShield) == 5 &&  // 1 Shielded Fool
+                        store.killsMageStart - mem.PlayerData<int>(Offset.killsMage) == 6 &&  // 1 Soul Twister
+                        store.killsElectricMageStart - mem.PlayerData<int>(Offset.killsElectricMage) == 4;    // 1 Volt Twister
                     shouldSkip =
-                        mem.PlayerData<int>(Offset.killsColWorm)            == 0 ||
-                        mem.PlayerData<int>(Offset.killsColShield)          == 0 ||
-                        mem.PlayerData<int>(Offset.killsMage)               == 0 ||
-                        mem.PlayerData<int>(Offset.killsElectricMage)       == 0 ||
-                        store.killsColWormStart -           mem.PlayerData<int>(Offset.killsColWorm)                > 7 ||
-                        store.killsColShieldStart -         mem.PlayerData<int>(Offset.killsColShield)              > 5 ||
-                        store.killsMageStart -              mem.PlayerData<int>(Offset.killsMage)                   > 6 ||
-                        store.killsElectricMageStart -      mem.PlayerData<int>(Offset.killsElectricMage)           > 4;
+                        mem.PlayerData<int>(Offset.killsColWorm) == 0 ||
+                        mem.PlayerData<int>(Offset.killsColShield) == 0 ||
+                        mem.PlayerData<int>(Offset.killsMage) == 0 ||
+                        mem.PlayerData<int>(Offset.killsElectricMage) == 0 ||
+                        store.killsColWormStart - mem.PlayerData<int>(Offset.killsColWorm) > 7 ||
+                        store.killsColShieldStart - mem.PlayerData<int>(Offset.killsColShield) > 5 ||
+                        store.killsMageStart - mem.PlayerData<int>(Offset.killsMage) > 6 ||
+                        store.killsElectricMageStart - mem.PlayerData<int>(Offset.killsElectricMage) > 4;
                     break;
-                    #endregion
+                #endregion
                 case SplitName.Gold17c:
                     #region
-                    shouldSplit = 
-                        store.killsColRollerStart -         mem.PlayerData<int>(Offset.killsColRoller)              == 4 &&  // 2 Baldur
-                        store.killsColMosquitoStart -       mem.PlayerData<int>(Offset.killsColMosquito)            == 14 && // 2 Squit
-                        store.killsColWormStart -           mem.PlayerData<int>(Offset.killsColWorm)                == 8 &&  // 1 Heavy Fool
-                        store.killsColShieldStart -         mem.PlayerData<int>(Offset.killsColShield)              == 6 &&  // 1 Shielded Fool
-                        store.killsColMinerStart -          mem.PlayerData<int>(Offset.killsColMiner)               == 6 &&  // 1 Sturdy Fool
-                        store.killsColFlyingSentryStart -   mem.PlayerData<int>(Offset.killsColFlyingSentry)        == 12;   // 1 Winged Fool
+                    shouldSplit =
+                        store.killsColRollerStart - mem.PlayerData<int>(Offset.killsColRoller) == 4 &&  // 2 Baldur
+                        store.killsColMosquitoStart - mem.PlayerData<int>(Offset.killsColMosquito) == 14 && // 2 Squit
+                        store.killsColWormStart - mem.PlayerData<int>(Offset.killsColWorm) == 8 &&  // 1 Heavy Fool
+                        store.killsColShieldStart - mem.PlayerData<int>(Offset.killsColShield) == 6 &&  // 1 Shielded Fool
+                        store.killsColMinerStart - mem.PlayerData<int>(Offset.killsColMiner) == 6 &&  // 1 Sturdy Fool
+                        store.killsColFlyingSentryStart - mem.PlayerData<int>(Offset.killsColFlyingSentry) == 12;   // 1 Winged Fool
                     shouldSkip =
-                        mem.PlayerData<int>(Offset.killsColWorm)            == 0 ||
-                        mem.PlayerData<int>(Offset.killsColShield)          == 0 ||
-                        mem.PlayerData<int>(Offset.killsColMiner)           == 0 ||
-                        mem.PlayerData<int>(Offset.killsColFlyingSentry)    == 0 ||
-                        mem.PlayerData<int>(Offset.killsColRoller)          == 0 ||
-                        mem.PlayerData<int>(Offset.killsColShield)          == 0 ||
-                        store.killsColRollerStart -         mem.PlayerData<int>(Offset.killsColRoller)              > 4 ||
-                        store.killsColShieldStart -         mem.PlayerData<int>(Offset.killsColShield)              > 14 ||
-                        store.killsColWormStart -           mem.PlayerData<int>(Offset.killsColWorm)                > 8 ||
-                        store.killsColShieldStart -         mem.PlayerData<int>(Offset.killsColShield)              > 6 ||
-                        store.killsColMinerStart -          mem.PlayerData<int>(Offset.killsColMiner)               > 6 ||
-                        store.killsColFlyingSentryStart -   mem.PlayerData<int>(Offset.killsColFlyingSentry)        > 12;
+                        mem.PlayerData<int>(Offset.killsColWorm) == 0 ||
+                        mem.PlayerData<int>(Offset.killsColShield) == 0 ||
+                        mem.PlayerData<int>(Offset.killsColMiner) == 0 ||
+                        mem.PlayerData<int>(Offset.killsColFlyingSentry) == 0 ||
+                        mem.PlayerData<int>(Offset.killsColRoller) == 0 ||
+                        mem.PlayerData<int>(Offset.killsColShield) == 0 ||
+                        store.killsColRollerStart - mem.PlayerData<int>(Offset.killsColRoller) > 4 ||
+                        store.killsColShieldStart - mem.PlayerData<int>(Offset.killsColShield) > 14 ||
+                        store.killsColWormStart - mem.PlayerData<int>(Offset.killsColWorm) > 8 ||
+                        store.killsColShieldStart - mem.PlayerData<int>(Offset.killsColShield) > 6 ||
+                        store.killsColMinerStart - mem.PlayerData<int>(Offset.killsColMiner) > 6 ||
+                        store.killsColFlyingSentryStart - mem.PlayerData<int>(Offset.killsColFlyingSentry) > 12;
                     break;
-                    #endregion
+                #endregion
                 case SplitName.GoldEnd:
                     #region
                     shouldSplit =
-                        store.killsLobsterLancerStart -     mem.PlayerData<int>(Offset.killsLobsterLancer)          == 1;    // God Tamer
-                    shouldSkip = 
+                        store.killsLobsterLancerStart - mem.PlayerData<int>(Offset.killsLobsterLancer) == 1;    // God Tamer
+                    shouldSkip =
                         mem.PlayerData<int>(Offset.killsLobsterLancer) == 0 &&
                         sceneName.StartsWith("Room_Colosseum_Gold") &&
                         nextScene != sceneName;
                     break;
-                    #endregion
+                #endregion
                 #endregion
 
                 default:
@@ -1690,6 +1739,7 @@ namespace LiveSplit.HollowKnight {
 
             if (shouldReset) {
                 action = SplitterAction.Reset;
+                store.ResetKills();
             } else if (shouldSkip) {
                 action = SplitterAction.Skip;
             } else if (shouldSplit) {
@@ -1697,9 +1747,6 @@ namespace LiveSplit.HollowKnight {
             } else {
                 action = SplitterAction.Pass;
             }
-
-            if ( (clearKills && action != SplitterAction.Pass) || shouldReset ) 
-                store.ResetKills();
 
             return action;
         }

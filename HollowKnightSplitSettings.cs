@@ -185,6 +185,46 @@ namespace LiveSplit.HollowKnight {
         [Description("Soul Vessel 3 (Upgrade)"), ToolTip("Splits when upgrading to 3 Soul Vessels (9 Soul Vessel Fragments")]
         Vessel3,
 
+        [Description("Brooding Mawlek Mask Shard"), ToolTip("Splits when getting the Mask Shard from Brooding Mawlek")]
+        MaskShardMawlek,
+        [Description("Grub Reward Mask Shard"), ToolTip("Splits when getting the Mask Shard given by Grubfather")]
+        MaskShardGrubfather,
+        [Description("Goam Mask Shard"), ToolTip("Splits when getting the Goam Mask Shard in Forgotten Crossroads")]
+        MaskShardGoam,
+        [Description("Queen's Station Mask Shard"), ToolTip("Splits when getting the Mask Shard in Queen's Station")]
+        MaskShardQueensStation,
+        [Description("Bretta Mask Shard"), ToolTip("Splits when getting the Mask Shard in Bretta's hut in Dirtmouth")]
+        MaskShardBretta,
+        [Description("Stone Sanctuary Mask Shard"), ToolTip("Splits when getting the Mask Shard in Stone Sanctuary")]
+        MaskShardStoneSanctuary,
+        [Description("Waterways Mask Shard"), ToolTip("Splits when getting the Mask Shard in Royal Wayerways")]
+        MaskShardWaterways,
+        [Description("Fungal Core Mask Shard"), ToolTip("Splits when getting the Mask Shard below Fungal Core")]
+        MaskShardFungalCore,
+        [Description("Enraged Guardian Mask Shard"), ToolTip("Splits when getting the Mask Shard from Enraged Guardian")]
+        MaskShardEnragedGuardian,
+        [Description("Hive Mask Shard"), ToolTip("Splits when getting the Mask Shard in the Hive")]
+        MaskShardHive,
+        [Description("Seer Mask Shard"), ToolTip("Splits when getting the Mask Shard from Seer")]
+        MaskShardSeer,
+        [Description("Grey Mourner Mask Shard"), ToolTip("Splits when getting the Mask Shard from Grey Mourner")]
+        MaskShardFlower,
+
+        [Description("Greenpath Vessel Fragment"), ToolTip("Splits when getting Vessel Fragment in Greenpath")]
+        VesselFragGreenpath,
+        [Description("Crossroads Vessel Fragment"), ToolTip("Splits when getting the Vessel Fragment in Forgotten Crossroads")]
+        VesselFragCrossroadsLift,
+        [Description("King's Station Vessel Fragment"), ToolTip("Splits when getting the Vessel Fragment after the arena above King's Station")]
+        VesselFragKingsStation,
+        [Description("Deepnest Vessel Fragment"), ToolTip("Splits when getting the Vessel Fragment in Deepnest")]
+        VesselFragGarpedes,
+        [Description("Stag Nest Vessel Fragment"), ToolTip("Splits when getting the Vessel Fragment in Stag Nest")]
+        VesselFragStagNest,
+        [Description("Seer Vessel Fragment"), ToolTip("Splits when getting the Vessel Fragment from Seer")]
+        VesselFragSeer,
+        [Description("Basin Fountain Vessel Fragment"), ToolTip("Splits when getting the Vessel Fragment from the fountain in Ancient Basin")]
+        VesselFragFountain,
+
         [Description("Broken Vessel (Boss)"), ToolTip("Splits when killing Broken Vessel")]
         BrokenVessel,
         [Description("Brooding Mawlek (Boss)"), ToolTip("Splits when killing Brooding Mawlek")]
@@ -653,6 +693,8 @@ namespace LiveSplit.HollowKnight {
         CrystalPeakEntry,
         [Description("Crystal Mound Exit (Transition)"), ToolTip("Splits on transition from Crystal Mound")]
         CrystalMoundExit,
+        [Description("Deepnest (Transition)"), ToolTip("Splits on transition into Deepnest")]
+        EnterDeepnest,
         [Description("Enter Any Dream (Transition)"), ToolTip("Splits when entering any dream world")]
         EnterAnyDream,
         [Description("Fog Canyon (Transition)"), ToolTip("Splits on transition to East Fog Canyon")]
@@ -667,6 +709,8 @@ namespace LiveSplit.HollowKnight {
         EnterGreenpath,
         [Description("Greenpath w/ Unlocked Overcharm (Transition)"), ToolTip("Splits when entering Greenpath with overcharming unlocked")]
         EnterGreenpathWithOvercharm,
+        [Description("Hallownest's Crown (Transition)"), ToolTip("Splits on transition into the room with the Whispering Root at the base of Hallownest's Crown")]
+        EnterCrown,
         [Description("Has Claw (Transition)"), ToolTip("Splits on transition after Mantis Claw acquired")]
         TransClaw,
         [Description("Has Fireball (Transition)"), ToolTip("Splits on transition after Vengeful Spirit acquired")]
@@ -677,6 +721,8 @@ namespace LiveSplit.HollowKnight {
         TransTear,
         [Description("Isma's Tear with Grub (Transition)"), ToolTip("Splits on transition after collecting Isma's Tear and saving the grub in Isma's Grove")]
         TransTearWithGrub,
+        [Description("Junk Pit (Transition)"), ToolTip("Splits on transition into Junk Pit")]
+        EnterJunkPit,
         [Description("Hive (Transition)"), ToolTip("Splits on transition to Hive")]
         HiveEntry,
         [Description("King's Pass (Transition)"), ToolTip("Splits when entering Dirtmouth from King's Pass")]
@@ -1193,10 +1239,10 @@ namespace LiveSplit.HollowKnight {
         */
         [Description("Storerooms (Bench)"), ToolTip("Splits when sitting on the bench in City Storerooms")]
         BenchStorerooms,
-        /*
         [Description("Watcher's Spire (Bench)"), ToolTip("Splits when sitting on the bench in Watcher's Spire")]
         BenchSpire,
-        */
+        [Description("Watcher's Spire + Killed Great Husk Sentry (Bench)"), ToolTip("Splits when sitting on the bench in Watcher's Spire  after killing a Great Husk Sentry")]
+        BenchSpireGHS,
         [Description("King's Station (Bench)"), ToolTip("Splits when sitting on the bench in King's Station")]
         BenchKingsStation,
         /*
@@ -1501,7 +1547,9 @@ namespace LiveSplit.HollowKnight {
         Gold6,
         [Description("Colo 3 Wave 7"), ToolTip("Splits upon killing the second wave of 3 Loodles\nRecommended for use with a pre-set save file")]
         Gold7,
-        [Description("Colo 3 Wave 8"), ToolTip("Splits upon completing wave 8\nRecommended for use with a pre-set save file")]
+        [Description("Colo 3 Wave 8a"), ToolTip("Splits upon completing the first half of wave 8, before the garpedes\nRecommended for use with a pre-set save file")]
+        Gold8a,
+        [Description("Colo 3 Wave 8b"), ToolTip("Splits upon completing wave 8\nRecommended for use with a pre-set save file")]
         Gold8,
         [Description("Colo 3 Wave 9a"), ToolTip("Splits upon killing the fools and mantises in wave 9\nRecommended for use with a pre-set save file")]
         Gold9a,
