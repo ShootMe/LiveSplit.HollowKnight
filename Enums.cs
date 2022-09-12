@@ -365,6 +365,7 @@
         savedCloth,
         atBench,
         soulLimited,
+        encounteredMegaJelly,
 
         killsAngryBuzzer,
         killsBigBuzzer,

@@ -521,6 +521,7 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.UnbreakableStrength: shouldSplit = mem.PlayerData<bool>(Offset.fragileStrength_unbreakable); break;
                 case SplitName.UnchainedHollowKnight: shouldSplit = mem.PlayerData<bool>(Offset.unchainedHollowKnight); break;
                 case SplitName.Uumuu: shouldSplit = mem.PlayerData<bool>(Offset.killedMegaJellyfish); break;
+                case SplitName.UumuuEncountered: shouldSplit = mem.PlayerData<bool>(Offset.encounteredMegaJelly); break;
                 case SplitName.VengefulSpirit: shouldSplit = mem.PlayerData<int>(Offset.fireballLevel) == 1; break;
                 case SplitName.TransVS: shouldSplit = mem.PlayerData<int>(Offset.fireballLevel) == 1 && nextScene != sceneName; break;
                 case SplitName.VesselFragment1: shouldSplit = mem.PlayerData<int>(Offset.MPReserveMax) == 0 && mem.PlayerData<int>(Offset.vesselFragments) == 1; break;
@@ -1106,13 +1107,13 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.MaskShardGoam: if (sceneName == "Crossroads_13") { goto case SplitName.OnObtainMaskShard; } break;
                 case SplitName.MaskShardStoneSanctuary: if (sceneName == "Fungus1_36") { goto case SplitName.OnObtainMaskShard; } break;
                 case SplitName.MaskShardWaterways: if (sceneName == "Waterways_04b") { goto case SplitName.OnObtainMaskShard; } break;
-                case SplitName.MaskShardFungalCore: if (sceneName == "Fungus2_30") { goto case SplitName.OnObtainMaskShard; } break;
+                case SplitName.MaskShardFungalCore: if (sceneName == "Fungus2_25") { goto case SplitName.OnObtainMaskShard; } break;
                 case SplitName.MaskShardHive: if (sceneName == "Hive_04") { goto case SplitName.OnObtainMaskShard; } break;
                 case SplitName.MaskShardFlower: if (sceneName == "Room_Mansion") { goto case SplitName.OnObtainMaskShard; } break;
 
                 case SplitName.VesselFragGreenpath: if (sceneName == "Fungus1_13") { goto case SplitName.OnObtainVesselFragment; } break;
                 case SplitName.VesselFragCrossroadsLift: if (sceneName == "Crossroads_37") { goto case SplitName.OnObtainVesselFragment; } break;
-                case SplitName.VesselFragKingsStation: if (sceneName == "Ruins2_08") { goto case SplitName.OnObtainVesselFragment; } break;
+                case SplitName.VesselFragKingsStation: if (sceneName == "Ruins2_09") { goto case SplitName.OnObtainVesselFragment; } break;
                 case SplitName.VesselFragGarpedes: if (sceneName == "Deepnest_38") { goto case SplitName.OnObtainVesselFragment; } break;
                 case SplitName.VesselFragStagNest: if (sceneName == "Cliffs_03") { goto case SplitName.OnObtainVesselFragment; } break;
                 case SplitName.VesselFragSeer: if (sceneName == "RestingGrounds_07") { goto case SplitName.OnObtainVesselFragment; } break;
@@ -1164,6 +1165,9 @@ namespace LiveSplit.HollowKnight {
 
                 case SplitName.VengeflyKingTrans: shouldSplit = mem.PlayerData<bool>(Offset.zoteRescuedBuzzer) && nextScene != sceneName; break;
                 case SplitName.MegaMossChargerTrans: shouldSplit = mem.PlayerData<bool>(Offset.megaMossChargerDefeated) && nextScene != sceneName; break;
+                case SplitName.ElderHuTrans: shouldSplit = mem.PlayerData<bool>(Offset.killedGhostHu) && nextScene != sceneName; break;
+                case SplitName.BlackKnightTrans: shouldSplit = mem.PlayerData<bool>(Offset.killedBlackKnight) && nextScene != sceneName; break;
+
                 case SplitName.GladeIdol: shouldSplit = store.CheckIncreased(Offset.trinket3) && sceneName.StartsWith("RestingGrounds_08"); break;
                 case SplitName.AbyssDoor: shouldSplit = mem.PlayerData<bool>(Offset.abyssGateOpened); break;
                 case SplitName.AbyssLighthouse: shouldSplit = mem.PlayerData<bool>(Offset.abyssLighthouse); break;

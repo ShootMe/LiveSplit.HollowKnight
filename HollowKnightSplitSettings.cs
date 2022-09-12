@@ -185,44 +185,44 @@ namespace LiveSplit.HollowKnight {
         [Description("Soul Vessel 3 (Upgrade)"), ToolTip("Splits when upgrading to 3 Soul Vessels (9 Soul Vessel Fragments")]
         Vessel3,
 
-        [Description("Brooding Mawlek Mask Shard"), ToolTip("Splits when getting the Mask Shard from Brooding Mawlek")]
+        [Description("Brooding Mawlek Mask Shard (Obtain)"), ToolTip("Splits when getting the Mask Shard from Brooding Mawlek")]
         MaskShardMawlek,
-        [Description("Grub Reward Mask Shard"), ToolTip("Splits when getting the Mask Shard given by Grubfather")]
+        [Description("Grub Reward Mask Shard (Obtain)"), ToolTip("Splits when getting the Mask Shard given by Grubfather")]
         MaskShardGrubfather,
-        [Description("Goam Mask Shard"), ToolTip("Splits when getting the Goam Mask Shard in Forgotten Crossroads")]
+        [Description("Goam Mask Shard (Obtain)"), ToolTip("Splits when getting the Goam Mask Shard in Forgotten Crossroads")]
         MaskShardGoam,
-        [Description("Queen's Station Mask Shard"), ToolTip("Splits when getting the Mask Shard in Queen's Station")]
+        [Description("Queen's Station Mask Shard (Obtain)"), ToolTip("Splits when getting the Mask Shard in Queen's Station")]
         MaskShardQueensStation,
-        [Description("Bretta Mask Shard"), ToolTip("Splits when getting the Mask Shard in Bretta's hut in Dirtmouth")]
+        [Description("Bretta Mask Shard (Obtain)"), ToolTip("Splits when getting the Mask Shard in Bretta's hut in Dirtmouth")]
         MaskShardBretta,
-        [Description("Stone Sanctuary Mask Shard"), ToolTip("Splits when getting the Mask Shard in Stone Sanctuary")]
+        [Description("Stone Sanctuary Mask Shard (Obtain)"), ToolTip("Splits when getting the Mask Shard in Stone Sanctuary")]
         MaskShardStoneSanctuary,
-        [Description("Waterways Mask Shard"), ToolTip("Splits when getting the Mask Shard in Royal Wayerways")]
+        [Description("Waterways Mask Shard (Obtain)"), ToolTip("Splits when getting the Mask Shard in Royal Wayerways")]
         MaskShardWaterways,
-        [Description("Fungal Core Mask Shard"), ToolTip("Splits when getting the Mask Shard below Fungal Core")]
+        [Description("Fungal Core Mask Shard (Obtain)"), ToolTip("Splits when getting the Mask Shard below Fungal Core")]
         MaskShardFungalCore,
-        [Description("Enraged Guardian Mask Shard"), ToolTip("Splits when getting the Mask Shard from Enraged Guardian")]
+        [Description("Enraged Guardian Mask Shard (Obtain)"), ToolTip("Splits when getting the Mask Shard from Enraged Guardian")]
         MaskShardEnragedGuardian,
-        [Description("Hive Mask Shard"), ToolTip("Splits when getting the Mask Shard in the Hive")]
+        [Description("Hive Mask Shard (Obtain)"), ToolTip("Splits when getting the Mask Shard in the Hive")]
         MaskShardHive,
-        [Description("Seer Mask Shard"), ToolTip("Splits when getting the Mask Shard from Seer")]
+        [Description("Seer Mask Shard (Obtain)"), ToolTip("Splits when getting the Mask Shard from Seer")]
         MaskShardSeer,
-        [Description("Grey Mourner Mask Shard"), ToolTip("Splits when getting the Mask Shard from Grey Mourner")]
+        [Description("Grey Mourner Mask Shard (Obtain)"), ToolTip("Splits when getting the Mask Shard from Grey Mourner")]
         MaskShardFlower,
 
-        [Description("Greenpath Vessel Fragment"), ToolTip("Splits when getting Vessel Fragment in Greenpath")]
+        [Description("Greenpath Vessel Fragment (Obtain)"), ToolTip("Splits when getting Vessel Fragment in Greenpath")]
         VesselFragGreenpath,
-        [Description("Crossroads Vessel Fragment"), ToolTip("Splits when getting the Vessel Fragment in Forgotten Crossroads")]
+        [Description("Crossroads Vessel Fragment (Obtain)"), ToolTip("Splits when getting the Vessel Fragment in Forgotten Crossroads")]
         VesselFragCrossroadsLift,
-        [Description("King's Station Vessel Fragment"), ToolTip("Splits when getting the Vessel Fragment after the arena above King's Station")]
+        [Description("King's Station Vessel Fragment (Obtain)"), ToolTip("Splits when getting the Vessel Fragment after the arena above King's Station")]
         VesselFragKingsStation,
-        [Description("Deepnest Vessel Fragment"), ToolTip("Splits when getting the Vessel Fragment in Deepnest")]
+        [Description("Deepnest Vessel Fragment (Obtain)"), ToolTip("Splits when getting the Vessel Fragment in Deepnest")]
         VesselFragGarpedes,
-        [Description("Stag Nest Vessel Fragment"), ToolTip("Splits when getting the Vessel Fragment in Stag Nest")]
+        [Description("Stag Nest Vessel Fragment (Obtain)"), ToolTip("Splits when getting the Vessel Fragment in Stag Nest")]
         VesselFragStagNest,
-        [Description("Seer Vessel Fragment"), ToolTip("Splits when getting the Vessel Fragment from Seer")]
+        [Description("Seer Vessel Fragment (Obtain)"), ToolTip("Splits when getting the Vessel Fragment from Seer")]
         VesselFragSeer,
-        [Description("Basin Fountain Vessel Fragment"), ToolTip("Splits when getting the Vessel Fragment from the fountain in Ancient Basin")]
+        [Description("Basin Fountain Vessel Fragment (Obtain)"), ToolTip("Splits when getting the Vessel Fragment from the fountain in Ancient Basin")]
         VesselFragFountain,
 
         [Description("Broken Vessel (Boss)"), ToolTip("Splits when killing Broken Vessel")]
@@ -249,6 +249,8 @@ namespace LiveSplit.HollowKnight {
         ElderHu,
         [Description("Elder Hu (Essence)"), ToolTip("Splits when absorbing essence from Elder Hu")]
         ElderHuEssence,
+        [Description("Elder Hu Killed (Transition)"), ToolTip("Splits on the transition after killing Elder Hu")]
+        ElderHuTrans,
         [Description("False Knight (Boss)"), ToolTip("Splits when killing False Knight")]
         FalseKnight,
         [Description("Failed Champion (Boss)"), ToolTip("Splits when killing Failed Champion")]
@@ -331,7 +333,7 @@ namespace LiveSplit.HollowKnight {
         SoulMaster,
         [Description("Enter Soul Master (Transition)"), ToolTip("Splits when entering Soul Master boss arena transition")]
         EnterSoulMaster,
-        [Description("Soul Master Encountered (Practice)"), ToolTip("Splits when Soul Master is activated the first time as the gate closes")]
+        [Description("Soul Master Encountered (Boss)"), ToolTip("Splits when Soul Master is activated the first time as the gate closes")]
         SoulMasterEncountered,
         [Description("Soul Tyrant (Boss)"), ToolTip("Splits when killing Soul Tyrant")]
         SoulTyrant,
@@ -347,8 +349,12 @@ namespace LiveSplit.HollowKnight {
         EnterTMG,
         [Description("Uumuu (Boss)"), ToolTip("Splits when killing Uumuu")]
         Uumuu,
+        [Description("Uumuu Encountered (Boss)"), ToolTip("Splits Uumuu is activated the first time as the gate closes")]
+        UumuuEncountered,
         [Description("Watcher Knight (Boss)"), ToolTip("Splits when killing Watcher Knight")]
         BlackKnight,
+        [Description("Watcher Knight Killed (Transition)"), ToolTip("Splits on the transition after killing Watcher Knight")]
+        BlackKnightTrans,
         [Description("White Defender (Boss)"), ToolTip("Splits when killing White Defender")]
         WhiteDefender,
         [Description("White Defender (Essence)"), ToolTip("Splits when getting White Defender essence")]
