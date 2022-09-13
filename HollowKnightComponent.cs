@@ -912,10 +912,11 @@ namespace LiveSplit.HollowKnight {
                     break;
                 case SplitName.EnterJunkPit: shouldSplit = nextScene.Equals("GG_Waterways") && nextScene != sceneName; break;
                 case SplitName.EnterDeepnest:
-                    shouldSplit =
-                        nextScene.Equals("Fungus2_25") ||
+                    shouldSplit = 
+                        (nextScene.Equals("Fungus2_25") ||
                         nextScene.Equals("Deepnest_42") ||
-                        nextScene.Equals("Deepnest_01b") &&
+                        nextScene.Equals("Abyss_03b") ||
+                        nextScene.Equals("Deepnest_01b")) &&
                         nextScene != sceneName;
                     break;
 
