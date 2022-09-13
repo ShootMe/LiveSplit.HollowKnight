@@ -1,5 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <updates>
+    <update version="3.1.6">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change>Add 12 location-specific mask shard autosplits, e.g. "Bretta Mask Shard (Obtain)"</change>
+            <change>Add 7 location-specific vessel fragment autosplits, e.g. "Greenpath Vessel Fragment (Obtain)"</change>
+            <change>Add "Elder Hu Killed (Transition)", "Watcher Knight Killed (Transition)", and "Uumuu Encountered (Boss)"</change>
+            <change>Add "Deepnest (Transition)", "Hallownest's Crown (Transition)", and "Junk Pit (Transition)"</change>
+            <change>Add "Watcher's Spire (Bench)" and "Watcher's Spire + Killed Great Husk Sentry (Bench)"</change>
+            <change>Update colosseum wave autosplits, including breaking Colo 3 Wave 8 into 8a and 8b. Existing splits files with Colo 3 Wave 8 will split on 8b (the end of the wave)</change>
+            <change>Update colosseum waves autosplits, including splitting</change>
+        </changelog>
+    </update>
     <update version="3.1.5">
         <files>
             <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
