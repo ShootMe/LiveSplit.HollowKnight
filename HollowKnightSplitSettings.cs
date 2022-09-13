@@ -351,9 +351,9 @@ namespace LiveSplit.HollowKnight {
         Uumuu,
         [Description("Uumuu Encountered (Boss)"), ToolTip("Splits Uumuu is activated the first time as the gate closes")]
         UumuuEncountered,
-        [Description("Watcher Knight (Boss)"), ToolTip("Splits when killing Watcher Knight")]
+        [Description("Watcher Knight (Boss)"), ToolTip("Splits when killing Watcher Knights")]
         BlackKnight,
-        [Description("Watcher Knight Killed (Transition)"), ToolTip("Splits on the transition after killing Watcher Knight")]
+        [Description("Watcher Knight Killed (Transition)"), ToolTip("Splits on the transition after killing Watcher Knights")]
         BlackKnightTrans,
         [Description("White Defender (Boss)"), ToolTip("Splits when killing White Defender")]
         WhiteDefender,
