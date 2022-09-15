@@ -365,6 +365,7 @@
         savedCloth,
         atBench,
         soulLimited,
+        encounteredMegaJelly,
 
         killsAngryBuzzer,
         killsBigBuzzer,
@@ -393,7 +394,8 @@
         killsMageKnight,
         killsMantisHeavyFlyer,
         killsMawlek,
-        killsSuperSpitter
+        killsSuperSpitter,
+        killsGreatShieldZombie
     }
     public enum GameState {
         INACTIVE,
