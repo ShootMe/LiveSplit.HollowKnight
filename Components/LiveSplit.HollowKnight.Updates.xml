@@ -11,7 +11,6 @@
             <change>Add "Deepnest (Transition)", "Hallownest's Crown (Transition)", and "Junk Pit (Transition)"</change>
             <change>Add "Watcher's Spire (Bench)" and "Watcher's Spire + Killed Great Husk Sentry (Bench)"</change>
             <change>Update colosseum wave autosplits, including breaking Colo 3 Wave 8 into 8a and 8b. Existing splits files with Colo 3 Wave 8 will split on 8b (the end of the wave)</change>
-            <change>Update colosseum waves autosplits, including splitting</change>
         </changelog>
     </update>
     <update version="3.1.5">
