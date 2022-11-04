@@ -701,6 +701,8 @@ namespace LiveSplit.HollowKnight {
         CrystalMoundExit,
         [Description("Deepnest (Transition)"), ToolTip("Splits on transition into Deepnest")]
         EnterDeepnest,
+        [Description("Dirtmouth (Transition)"), ToolTip("Splits on any transition into Dirtmouth Town")]
+        EnterDirtmouth,
         [Description("Enter Any Dream (Transition)"), ToolTip("Splits when entering any dream world")]
         EnterAnyDream,
         [Description("Fog Canyon (Transition)"), ToolTip("Splits on transition to East Fog Canyon")]
@@ -717,6 +719,9 @@ namespace LiveSplit.HollowKnight {
         EnterGreenpathWithOvercharm,
         [Description("Hallownest's Crown (Transition)"), ToolTip("Splits on transition into the room with the Whispering Root at the base of Hallownest's Crown")]
         EnterCrown,
+        [Description("Rafters (Transition)"), ToolTip("Splits on any transition into the City Rafters room")]
+        EnterRafters,
+
         [Description("Has Claw (Transition)"), ToolTip("Splits on transition after Mantis Claw acquired")]
         TransClaw,
         [Description("Has Fireball (Transition)"), ToolTip("Splits on transition after Vengeful Spirit acquired")]

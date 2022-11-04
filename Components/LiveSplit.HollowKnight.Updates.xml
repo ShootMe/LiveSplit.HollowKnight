@@ -1,5 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <updates>
+    <update version="3.1.7">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change>New autosplits: "Rafters (Transition)" and "Dirtmouth (Transition)"</change>
+        </changelog>
+    </update>
     <update version="3.1.6">
         <files>
             <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
