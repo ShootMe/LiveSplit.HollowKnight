@@ -288,7 +288,8 @@
         metXun,
         hasXunFlower,
         xunRewardGiven,
-
+        ghostCoins,
+        
         currentArea,
         killedMageKnight,
         killedMage,

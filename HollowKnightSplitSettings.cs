@@ -209,6 +209,8 @@ namespace LiveSplit.HollowKnight {
         MaskShardSeer,
         [Description("Grey Mourner Mask Shard (Obtain)"), ToolTip("Splits when getting the Mask Shard from Grey Mourner")]
         MaskShardFlower,
+        [Description("Ghost Coins (Obtain)"), ToolTip("Splits on incrementing ghost coins; unused by main game, so can be used by mods to split")]
+        OnIncrementGhostCoins,
 
         [Description("Greenpath Vessel Fragment (Obtain)"), ToolTip("Splits when getting Vessel Fragment in Greenpath")]
         VesselFragGreenpath,
@@ -227,6 +229,8 @@ namespace LiveSplit.HollowKnight {
 
         [Description("Broken Vessel (Boss)"), ToolTip("Splits when killing Broken Vessel")]
         BrokenVessel,
+        [Description("Broken Vessel (Transition)"), ToolTip("Splits on transition after defeating Broken Vessel")]
+        BrokenVesselTrans,
         [Description("Brooding Mawlek (Boss)"), ToolTip("Splits when killing Brooding Mawlek")]
         BroodingMawlek,
         [Description("Enter Brooding Mawlek (Transition)"), ToolTip("Splits when entering the Brooding Mawlek arena transition in Forgotten Crossroads")]
@@ -315,6 +319,8 @@ namespace LiveSplit.HollowKnight {
         NoEyesEssence,
         [Description("Nosk (Boss)"), ToolTip("Splits when killing Nosk")]
         Nosk,
+        [Description("Nosk (Transition)"), ToolTip("Splits when entering Nosk boss arena transition")]
+        EnterNosk,
         [Description("Oblobbles (Boss)"), ToolTip("Splits when 2 Oblobbles are deafeated (ideally the first pair you encounter in Colo 2)")]
         KilledOblobbles,
         [Description("Oro & Mato Nail Bros (Boss)"), ToolTip("Splits when defeating Brothers Oro & Mato")]
@@ -331,6 +337,8 @@ namespace LiveSplit.HollowKnight {
         SlyNailsage,
         [Description("Soul Master (Boss)"), ToolTip("Splits when killing Soul Master")]
         SoulMaster,
+        [Description("Soul Master - Fake Dive (Boss)"), ToolTip("Splits when encountering Soul Master phase 2")]
+        SoulMasterPhase1,
         [Description("Enter Soul Master (Transition)"), ToolTip("Splits when entering Soul Master boss arena transition")]
         EnterSoulMaster,
         [Description("Soul Master Encountered (Boss)"), ToolTip("Splits when Soul Master is activated the first time as the gate closes")]
@@ -1387,7 +1395,9 @@ namespace LiveSplit.HollowKnight {
         MenuClaw,
         [Description("Main Menu w/ Ghusk (Menu)"), ToolTip("Splits on transition to the main menu after Gorgeous Husk defeated")]
         MenuGorgeousHusk,
-
+        [Description("Main Menu w/ Isma's Tear (Menu)"), ToolTip("Splits on transition to the main menu after Isma's Tear acquired")]
+        MenuIsmasTear,
+        
         [Description("Cornifer at Home (Transition)"), ToolTip("Splits when entering Iselda's hut while Cornifer is sleeping")]
         CorniferAtHome,
         [Description("All Seals (Item)"), ToolTip("Splits when 17 Hallownest Seals have been collected")]
