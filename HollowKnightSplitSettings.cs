@@ -229,7 +229,7 @@ namespace LiveSplit.HollowKnight {
 
         [Description("Broken Vessel (Boss)"), ToolTip("Splits when killing Broken Vessel")]
         BrokenVessel,
-        [Description("Broken Vessel (Transition)"), ToolTip("Splits on transition after defeating Broken Vessel")]
+        [Description("Broken Vessel (Transition)"), ToolTip("Splits on any non-death transition after defeating Broken Vessel")]
         BrokenVesselTrans,
         [Description("Brooding Mawlek (Boss)"), ToolTip("Splits when killing Brooding Mawlek")]
         BroodingMawlek,
@@ -1469,6 +1469,8 @@ namespace LiveSplit.HollowKnight {
         ArcaneEgg8,
         [Description("Arcane Egg (Obtain)"), ToolTip("Splits when obtaining an Arcane Egg")]
         OnObtainArcaneEgg,
+        [Description("Charm Notch (Obtain)"), ToolTip("Splits when obtaining a new Charm Slot")]
+        OnObtainCharmNotch,
         [Description("Rancid Egg (Obtain)"), ToolTip("Splits when obtaining a Rancid Egg")]
         OnObtainRancidEgg,
         [Description("Mask Shard (Obtain)"), ToolTip("Splits when obtaining a Mask Shard or upgrade for complete Mask")]

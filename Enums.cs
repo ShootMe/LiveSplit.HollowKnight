@@ -57,6 +57,7 @@
         openedDeepnest,
         openedStagNest,
         openedHiddenStation,
+        charmSlots,
         gotCharm_1,
         gotCharm_2,
         gotCharm_3,
