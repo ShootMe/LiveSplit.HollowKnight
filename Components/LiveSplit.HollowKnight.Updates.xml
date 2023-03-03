@@ -1,5 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <updates>
+    <update version="3.1.8">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change>New transition autosplits: 'Broken Vessel' and 'Nosk'</change>
+            <change>New boss autosplit: 'Soul Master - Fake Dive' TODO: NAME IT BETTER</change>
+            <change>New splits: 'Main Menu w/ Isma's Tear (Menu)' and 'Charm Notch (Obtain)' </change>
+            <change>'Ghost Coins (Obtain)' to be used for mods to easily set autosplit points</change>
+        </changelog>
+    </update>
     <update version="3.1.7">
         <files>
             <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>

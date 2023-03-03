@@ -1067,7 +1067,7 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.RandoWake:
                     shouldSplit = !mem.PlayerData<bool>(Offset.disablePause) && mem.GameState() == GameState.PLAYING && !menuingSceneNames.Contains(sceneName);
                     break;
-                case SplitName.RidingStag: shouldSplit = mem.PlayerData<bool>(Offset.travelling); break;
+                case SplitName.RidingStag: shouldSplit = mem.PlayerData<bool>(Offset.travelling) && !store.SplitThisTransition; break;
                 case SplitName.WhitePalaceLowerEntry: shouldSplit = nextScene.StartsWith("White_Palace_01") && nextScene != sceneName; break;
                 case SplitName.WhitePalaceLowerOrb: shouldSplit = nextScene.StartsWith("White_Palace_02") && nextScene != sceneName; break;
                 case SplitName.QueensGardensPostArenaTransition: shouldSplit = nextScene.StartsWith("Fungus3_13") && nextScene != sceneName; break;
