@@ -1065,6 +1065,9 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.RandoWake:
                     shouldSplit = !mem.PlayerData<bool>(Offset.disablePause) && mem.GameState() == GameState.PLAYING && !menuingSceneNames.Contains(sceneName);
                     break;
+                case SplitName.OnGhostCoinsIncremented:
+                    shouldSplit = store.CheckIncremented(Offset.ghostCoins);
+                    break;
                 case SplitName.RidingStag: shouldSplit = mem.PlayerData<bool>(Offset.travelling); break;
                 case SplitName.WhitePalaceLowerEntry: shouldSplit = nextScene.StartsWith("White_Palace_01") && nextScene != sceneName; break;
                 case SplitName.WhitePalaceLowerOrb: shouldSplit = nextScene.StartsWith("White_Palace_02") && nextScene != sceneName; break;
