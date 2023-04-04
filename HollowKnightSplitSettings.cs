@@ -1599,6 +1599,8 @@ namespace LiveSplit.HollowKnight {
         ManualSplit,
         [Description("Rando Wake (Event)"), ToolTip("Splits when gaining control after waking up in Rando")]
         RandoWake,
+        [Description("Ghost Coins Incremented (Event)"), ToolTip("Splits when the normally-unused ghostCoins PlayerData is updated, usually by a mod.")]
+        OnGhostCoinsIncremented,
 
         /*
         [Description("Mage Door (Test)"), ToolTip("Splits when Nailsmith is spared")]

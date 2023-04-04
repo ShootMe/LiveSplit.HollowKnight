@@ -395,7 +395,9 @@
         killsMantisHeavyFlyer,
         killsMawlek,
         killsSuperSpitter,
-        killsGreatShieldZombie
+        killsGreatShieldZombie,
+
+        ghostCoins
     }
     public enum GameState {
         INACTIVE,
