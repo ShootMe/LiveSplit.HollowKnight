@@ -8,8 +8,8 @@
             <change>New transition autosplits: 'Broken Vessel', 'Salubra Exit', and 'Nosk'</change>
             <change>New boss autosplit: 'Soul Master - Fake Spell Pickup (Boss)'</change>
             <change>New splits: 'Main Menu w/ Isma's Tear (Menu)' and 'Charm Notch (Obtain)'</change>
-            <change>'Ghost Coins (Obtain)' to be used for mods to easily set autosplit points</change>
-            <change>Optimised RAM-earching when searching for relevant pointers</change>
+            <change>'Ghost Coins (Obtain)' to be used for mods to easily set custom autosplit points</change>
+            <change>Optimised RAM-searching when searching pointers</change>
         </changelog>
     </update>
     <update version="3.1.7">
