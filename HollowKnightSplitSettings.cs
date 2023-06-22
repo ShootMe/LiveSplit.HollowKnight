@@ -209,8 +209,6 @@ namespace LiveSplit.HollowKnight {
         MaskShardSeer,
         [Description("Grey Mourner Mask Shard (Obtain)"), ToolTip("Splits when getting the Mask Shard from Grey Mourner")]
         MaskShardFlower,
-        [Description("Ghost Coins (Obtain)"), ToolTip("Splits on incrementing ghost coins; unused by main game, so can be used by mods to split")]
-        OnIncrementGhostCoins,
 
         [Description("Greenpath Vessel Fragment (Obtain)"), ToolTip("Splits when getting Vessel Fragment in Greenpath")]
         VesselFragGreenpath,
@@ -1613,6 +1611,8 @@ namespace LiveSplit.HollowKnight {
         ManualSplit,
         [Description("Rando Wake (Event)"), ToolTip("Splits when gaining control after waking up in Rando")]
         RandoWake,
+        [Description("Ghost Coins Incremented (Event)"), ToolTip("Splits when the ghostCoins PlayerData is updated. Unused by unmodded game, intended for use with mods.")]
+        OnGhostCoinsIncremented,
 
         /*
         [Description("Mage Door (Test)"), ToolTip("Splits when Nailsmith is spared")]
