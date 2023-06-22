@@ -337,7 +337,7 @@ namespace LiveSplit.HollowKnight {
         SlyNailsage,
         [Description("Soul Master (Boss)"), ToolTip("Splits when killing Soul Master")]
         SoulMaster,
-        [Description("Soul Master - Fake Dive (Boss)"), ToolTip("Splits when encountering Soul Master phase 2")]
+        [Description("Soul Master - Fake Spell Pickup (Boss)"), ToolTip("Splits when triggering Soul Master phase 2 the first time")]
         SoulMasterPhase1,
         [Description("Enter Soul Master (Transition)"), ToolTip("Splits when entering Soul Master boss arena transition")]
         EnterSoulMaster,
