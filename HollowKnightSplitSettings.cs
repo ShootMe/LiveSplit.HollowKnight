@@ -729,6 +729,8 @@ namespace LiveSplit.HollowKnight {
         EnterCrown,
         [Description("Rafters (Transition)"), ToolTip("Splits on any transition into the City Rafters room")]
         EnterRafters,
+        [Description("Salubra Exit (Transition)", ToolTip("Splits on the transition out of Salubra's Hut"))]
+        SalubraExit,
 
         [Description("Has Claw (Transition)"), ToolTip("Splits on transition after Mantis Claw acquired")]
         TransClaw,

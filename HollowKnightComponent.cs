@@ -923,6 +923,7 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.EnterCrown: shouldSplit = nextScene.Equals("Mines_23") && nextScene != sceneName; break;
                 case SplitName.EnterDirtmouth: shouldSplit = nextScene.Equals("Town") && nextScene != sceneName; break;
                 case SplitName.EnterRafters: shouldSplit = nextScene.Equals("Ruins1_03") && nextScene != sceneName; break;
+                case SplitName.SalubraExit: shouldSplit = sceneName.Equals("Room_Charm_Shop") && nextScene != sceneName; break;
 
                 case SplitName.FailedChampionEssence: shouldSplit = mem.PlayerData<bool>(Offset.falseKnightOrbsCollected); break;
                 case SplitName.SoulTyrantEssence: shouldSplit = mem.PlayerData<bool>(Offset.mageLordOrbsCollected); break;
