@@ -158,7 +158,7 @@ namespace LiveSplit.HollowKnight {
         private IntPtr GetPointer(Process program, string asmName) {
             if (string.IsNullOrEmpty(asmName)) {
                 Searcher.MemoryFilter = delegate (MemInfo info) {
-                    return (info.State & 0x1000) != 0 && (info.Protect & 0x40) != 0 && (info.Protect & 0x100) == 0;
+                    return (info.State & 0x1000) != 0 && (info.Type & 0x20000) != 0 && (info.Protect & 0xe0) != 0 && (info.Protect & 0x101) == 0;
                 };
             } else {
                 Tuple<IntPtr, IntPtr> range = ProgramPointer.GetAddressRange(program, asmName);

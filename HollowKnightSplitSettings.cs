@@ -227,6 +227,8 @@ namespace LiveSplit.HollowKnight {
 
         [Description("Broken Vessel (Boss)"), ToolTip("Splits when killing Broken Vessel")]
         BrokenVessel,
+        [Description("Broken Vessel (Transition)"), ToolTip("Splits on any non-death transition after defeating Broken Vessel")]
+        BrokenVesselTrans,
         [Description("Brooding Mawlek (Boss)"), ToolTip("Splits when killing Brooding Mawlek")]
         BroodingMawlek,
         [Description("Enter Brooding Mawlek (Transition)"), ToolTip("Splits when entering the Brooding Mawlek arena transition in Forgotten Crossroads")]
@@ -315,6 +317,8 @@ namespace LiveSplit.HollowKnight {
         NoEyesEssence,
         [Description("Nosk (Boss)"), ToolTip("Splits when killing Nosk")]
         Nosk,
+        [Description("Nosk (Transition)"), ToolTip("Splits when entering Nosk boss arena transition")]
+        EnterNosk,
         [Description("Oblobbles (Boss)"), ToolTip("Splits when 2 Oblobbles are deafeated (ideally the first pair you encounter in Colo 2)")]
         KilledOblobbles,
         [Description("Oro & Mato Nail Bros (Boss)"), ToolTip("Splits when defeating Brothers Oro & Mato")]
@@ -331,6 +335,8 @@ namespace LiveSplit.HollowKnight {
         SlyNailsage,
         [Description("Soul Master (Boss)"), ToolTip("Splits when killing Soul Master")]
         SoulMaster,
+        [Description("Soul Master - Fake Spell Pickup (Boss)"), ToolTip("Splits when triggering Soul Master phase 2 the first time")]
+        SoulMasterPhase1,
         [Description("Enter Soul Master (Transition)"), ToolTip("Splits when entering Soul Master boss arena transition")]
         EnterSoulMaster,
         [Description("Soul Master Encountered (Boss)"), ToolTip("Splits when Soul Master is activated the first time as the gate closes")]
@@ -721,7 +727,7 @@ namespace LiveSplit.HollowKnight {
         EnterCrown,
         [Description("Rafters (Transition)"), ToolTip("Splits on any transition into the City Rafters room")]
         EnterRafters,
-        [Description("Salubra Exit (Transition)", ToolTip("Splits on the transition out of Salubra's Hut"))]
+        [Description("Salubra Exit (Transition)"), ToolTip("Splits on the transition out of Salubra's Hut")]
         SalubraExit,
 
         [Description("Has Claw (Transition)"), ToolTip("Splits on transition after Mantis Claw acquired")]
@@ -1389,7 +1395,9 @@ namespace LiveSplit.HollowKnight {
         MenuClaw,
         [Description("Main Menu w/ Ghusk (Menu)"), ToolTip("Splits on transition to the main menu after Gorgeous Husk defeated")]
         MenuGorgeousHusk,
-
+        [Description("Main Menu w/ Isma's Tear (Menu)"), ToolTip("Splits on transition to the main menu after Isma's Tear acquired")]
+        MenuIsmasTear,
+        
         [Description("Cornifer at Home (Transition)"), ToolTip("Splits when entering Iselda's hut while Cornifer is sleeping")]
         CorniferAtHome,
         [Description("All Seals (Item)"), ToolTip("Splits when 17 Hallownest Seals have been collected")]
@@ -1461,6 +1469,8 @@ namespace LiveSplit.HollowKnight {
         ArcaneEgg8,
         [Description("Arcane Egg (Obtain)"), ToolTip("Splits when obtaining an Arcane Egg")]
         OnObtainArcaneEgg,
+        [Description("Charm Notch (Obtain)"), ToolTip("Splits when obtaining a new Charm Slot")]
+        OnObtainCharmNotch,
         [Description("Rancid Egg (Obtain)"), ToolTip("Splits when obtaining a Rancid Egg")]
         OnObtainRancidEgg,
         [Description("Mask Shard (Obtain)"), ToolTip("Splits when obtaining a Mask Shard or upgrade for complete Mask")]
@@ -1601,6 +1611,8 @@ namespace LiveSplit.HollowKnight {
         ManualSplit,
         [Description("Rando Wake (Event)"), ToolTip("Splits when gaining control after waking up in Rando")]
         RandoWake,
+        [Description("Ghost Coins Incremented (Event)"), ToolTip("Splits when the ghostCoins PlayerData is updated. Unused by unmodded game, intended for use with mods.")]
+        OnGhostCoinsIncremented,
 
         /*
         [Description("Mage Door (Test)"), ToolTip("Splits when Nailsmith is spared")]
