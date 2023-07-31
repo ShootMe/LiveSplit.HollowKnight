@@ -155,12 +155,12 @@ namespace LiveSplit.HollowKnight {
                             action = OrderedSplits(gameState, uIState, nextScene, sceneName);
                         }
                     } else {
-                        action = (nextScene.StartsWith("Cinematic_Ending", StringComparison.OrdinalIgnoreCase) || nextScene == "GG_End_Sequence") ? SplitterAction.Split : SplitterAction.Pass;
+                        action = IsEnding(nextScene) ? SplitterAction.Split : SplitterAction.Pass;
                     }
                 } else {
                     if (currentSplit < Model.CurrentState.Run.Count) {
                         if (currentSplit + 1 == Model.CurrentState.Run.Count) {
-                            action = (nextScene.StartsWith("Cinematic_Ending", StringComparison.OrdinalIgnoreCase) || nextScene == "GG_End_Sequence") ? SplitterAction.Split : SplitterAction.Pass;
+                            action = IsEnding(nextScene) ? SplitterAction.Split : SplitterAction.Pass;
                         }
                         if (action == SplitterAction.Pass) {
                             if (!settings.Ordered) {
@@ -176,6 +176,10 @@ namespace LiveSplit.HollowKnight {
 
             store.Update();
             HandleSplit(action);
+        }
+
+        private bool IsEnding(string nextScene) {
+            return nextScene.StartsWith("Cinematic_Ending", StringComparison.OrdinalIgnoreCase);
         }
 
         private void LoadRemoval(GameState gameState, UIState uIState, string nextScene, string sceneName) {
@@ -1159,7 +1163,7 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.ColosseumSilverExit: shouldSplit = mem.PlayerData<bool>(Offset.colosseumSilverCompleted) && !nextScene.StartsWith("Room_Colosseum_Silver") && nextScene != sceneName; break;
                 case SplitName.ColosseumGoldExit: shouldSplit = mem.PlayerData<bool>(Offset.colosseumGoldCompleted) && !nextScene.StartsWith("Room_Colosseum_Gold") && nextScene != sceneName; break;
                 case SplitName.SoulTyrantEssenceWithSanctumGrub: shouldSplit = mem.PlayerData<bool>(Offset.mageLordOrbsCollected) && mem.PlayerDataStringList(Offset.scenesGrubRescued).Contains("Ruins1_32"); break;
-                case SplitName.EndingSplit: shouldSplit = nextScene.StartsWith("Cinematic_Ending", StringComparison.OrdinalIgnoreCase) || nextScene == "GG_End_Sequence"; break;
+                case SplitName.EndingSplit: shouldSplit = IsEnding(nextScene); break;
 
                 case SplitName.EnterHornet1: shouldSplit = nextScene.StartsWith("Fungus1_04") && nextScene != sceneName; break;
                 case SplitName.EnterSoulMaster: shouldSplit = nextScene.StartsWith("Ruins1_24") && nextScene != sceneName; break;
