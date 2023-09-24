@@ -396,6 +396,7 @@
         killsMageKnight,
         killsMantisHeavyFlyer,
         killsMawlek,
+        killsPrayerSlug,
         killsSuperSpitter,
         killsGreatShieldZombie,
         

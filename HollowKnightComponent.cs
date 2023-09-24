@@ -415,6 +415,7 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.LumaflyLantern: shouldSplit = mem.PlayerData<bool>(Offset.hasLantern); break;
                 case SplitName.Lurien: shouldSplit = mem.PlayerData<bool>(Offset.maskBrokenLurien); break;
                 case SplitName.LurienDreamer: shouldSplit = mem.PlayerData<bool>(Offset.lurienDefeated); break;
+                case SplitName.Maggots: shouldSplit = mem.PlayerData<int>(Offset.killsPrayerSlug) == 0; break;
                 case SplitName.MantisClaw: shouldSplit = mem.PlayerData<bool>(Offset.hasWallJump); break;
                 case SplitName.MantisLords: shouldSplit = mem.PlayerData<bool>(Offset.defeatedMantisLords); break;
                 case SplitName.MarkOfPride: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_13); break;
@@ -786,6 +787,7 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.PathOfPainTransition1: shouldSplit = nextScene.StartsWith("White_Palace_17") && sceneName.StartsWith("White_Palace_18"); break;
                 case SplitName.PathOfPainTransition2: shouldSplit = nextScene.StartsWith("White_Palace_19") && sceneName.StartsWith("White_Palace_17"); break;
                 case SplitName.PathOfPainTransition3: shouldSplit = nextScene.StartsWith("White_Palace_20") && sceneName.StartsWith("White_Palace_19"); break;
+                case SplitName.PathOfPainRoom4DDark: shouldSplit = sceneName.StartsWith("White_Palace_20") && mem.OnGround() && mem.Spellquake(); break;
 
                 case SplitName.WhiteFragmentLeft: shouldSplit = mem.PlayerData<bool>(Offset.gotQueenFragment); break;
                 case SplitName.WhiteFragmentRight: shouldSplit = mem.PlayerData<bool>(Offset.gotKingFragment); break;
