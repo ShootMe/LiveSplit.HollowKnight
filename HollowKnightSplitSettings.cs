@@ -592,6 +592,8 @@ namespace LiveSplit.HollowKnight {
         Aluba,
         //[Description("Al2ba (Killed)"), ToolTip("Splits when killing two Alubas")]
         //Al2ba,
+        [Description("Maggots (Killed)"), ToolTip("Splits when killing both Maggots")]
+        Maggots,
         [Description("Husk Miner (Killed)"), ToolTip("Splits when killing a Husk Miner")]
         HuskMiner,
         [Description("Great Hopper (Killed)"), ToolTip("Splits when killing a Great Hopper")]
@@ -1398,6 +1400,8 @@ namespace LiveSplit.HollowKnight {
         PathOfPainTransition2,
         [Description("Path of Pain Room 4 (Room)"), ToolTip("Splits on transition to the fourth room in PoP (Final room)")]
         PathOfPainTransition3,
+        [Description("Path of Pain Room 4 DDark (Dive)"), ToolTip("Splits on landing with Descending Dark in fourth room of PoP")]
+        PathOfPainRoom4DDark,
 
         [Description("Kingdom's Edge Acid (Dreamgate)"), ToolTip("Splits when placing Dreamgate by KE Acid (hopefully)")]
         DgateKingdomsEdgeAcid,
