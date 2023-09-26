@@ -60,6 +60,8 @@ namespace LiveSplit.HollowKnight {
             actorState = 0x374;
             transistionState = 0x37c;
             hazardRespawning = 0x26;
+            onGround = 0x9;
+            spellquake = 0x37;
 
             int versionString = 0x1c;
             string version;
@@ -204,6 +206,13 @@ namespace LiveSplit.HollowKnight {
                             uiState = 0x128;
                             menuState = 0x12c;
                             tilemapDirty = 0xcf;
+                            if (gameManager.Read<IntPtr>(Program, 0x0, uiManager) == IntPtr.Zero) {
+                                uiManager = 0x9c;
+                                gameState = 0xa4;
+                                tilemapDirty = 0xd7;
+                                uiState = 0x12c;
+                                menuState = 0x130;
+                            }
                         } else if (lastVersion.Minor == 0) {
                             // 10??
                             uiState = 0x12c;
