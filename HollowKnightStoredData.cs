@@ -33,6 +33,7 @@ namespace LiveSplit.HollowKnight
         public int killsColRollerStart { get; set; }
         public int killsColMinerStart { get; set; }
         public int killsSpitterStart { get; set; }
+        public int killsSuperSpitterStart { get; set; }
         public int killsBuzzerStart { get; set; }
         public int killsBigBuzzerStart { get; set; }
         public int killsBurstingBouncerStart { get; set; }
@@ -76,6 +77,7 @@ namespace LiveSplit.HollowKnight
             killsColRollerStart = mem.PlayerData<int>(Offset.killsColRoller);
             killsColMinerStart = mem.PlayerData<int>(Offset.killsColMiner);
             killsSpitterStart = mem.PlayerData<int>(Offset.killsSpitter);
+            killsSuperSpitterStart = mem.PlayerData<int>(Offset.killsSuperSpitter);
             killsBuzzerStart = mem.PlayerData<int>(Offset.killsBuzzer);
             killsBigBuzzerStart = mem.PlayerData<int>(Offset.killsBigBuzzer);
             killsBurstingBouncerStart = mem.PlayerData<int>(Offset.killsBurstingBouncer);

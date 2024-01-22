@@ -1338,15 +1338,18 @@ namespace LiveSplit.HollowKnight {
                         store.killsColMosquitoStart - mem.PlayerData<int>(Offset.killsColMosquito) > 5 ||
                         store.killsColFlyingSentryStart - mem.PlayerData<int>(Offset.killsColFlyingSentry) > 4;
                     break;
-                case SplitName.Silver5: // 2 × Aspid, 2 × Squit, 5 × Infected Gruzzer, not checking for aspid kills here because i think something weird is going on with their journal data stuff
+                case SplitName.Silver5: // 2 × Aspid, 2 × Squit, 5 × Infected Gruzzer, aspid kills in Colo 2 use killsSuperSpitter, even though Colo 1 and 3 use killsSpitter
                     shouldSplit =
                         store.killsBurstingBouncerStart - mem.PlayerData<int>(Offset.killsBurstingBouncer) == 5 &&
-                        store.killsColMosquitoStart - mem.PlayerData<int>(Offset.killsColMosquito) == 7;
+                        store.killsColMosquitoStart - mem.PlayerData<int>(Offset.killsColMosquito) == 7 &&
+                        store.killsSuperSpitterStart - mem.PlayerData<int>(Offset.killsSuperSpitter) == 2;
                     shouldSkip =
                         mem.PlayerData<int>(Offset.killsBurstingBouncer) == 0 ||
                         mem.PlayerData<int>(Offset.killsColMosquito) == 0 ||
+                        mem.PlayerData<int>(Offset.killsSuperSpitter) == 0 ||
                         store.killsBurstingBouncerStart - mem.PlayerData<int>(Offset.killsBurstingBouncer) > 5 &&
-                        store.killsColMosquitoStart - mem.PlayerData<int>(Offset.killsColMosquito) > 7;
+                        store.killsColMosquitoStart - mem.PlayerData<int>(Offset.killsColMosquito) > 7 &&
+                        store.killsSuperSpitterStart - mem.PlayerData<int>(Offset.killsSuperSpitter) > 2;
                     break;
                 case SplitName.Silver6: // 1 × Heavy Fool, 3 × Belfly
                     shouldSplit =
