@@ -927,9 +927,9 @@ namespace LiveSplit.HollowKnight {
         [Description("Grimm Flame 3 (Flame)"), ToolTip("Splits after obtaining the third flame.")]
         Flame3,
 
-        [Description("Grimm Flame 1 (Transition)"), ToolTip("Splits on transition obtaining the first flame on current Grimmchild cycle.")]
+        [Description("Grimm Flame 1 (Transition)"), ToolTip("Splits on transition after obtaining the first flame on current Grimmchild cycle.")]
         TransFlame1,
-        [Description("Grimm Flame 2 (Transition)"), ToolTip("Splits on transition obtaining the second flame on current Grimmchild cycle.")]
+        [Description("Grimm Flame 2 (Transition)"), ToolTip("Splits on transition after obtaining the second flame on current Grimmchild cycle.")]
         TransFlame2,
         [Description("Grimm Flame 3 (Transition)"), ToolTip("Splits on transition after obtaining the third flame on current Grimmchild cycle.")]
         TransFlame3,
