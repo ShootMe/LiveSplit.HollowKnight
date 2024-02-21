@@ -262,6 +262,9 @@
         openedWaterwaysManhole,
         waterwaysAcidDrained,
         dungDefenderWallBroken,
+        dungDefenderAwoken,
+        dungDefenderLeft,
+        dungDefenderAwakeConvo,
         openedLoveDoor,
 
         hasCityKey,

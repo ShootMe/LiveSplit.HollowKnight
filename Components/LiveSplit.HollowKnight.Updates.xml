@@ -1,5 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <updates>
+    <update version="3.1.10">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change>New transition autosplits: `Has Shade Soul`, `Grimm Flame 1-3`, `Beast Den`</change>
+            <change>New menu autosplit: `Main Menu w/ Shade Soul`</change>
+            <change>New fun split: `Stinky`</change>>
+        </changelog>
+    </update>
     <update version="3.1.9">
         <files>
             <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
