@@ -992,7 +992,7 @@ namespace LiveSplit.HollowKnight {
                         sceneName == "Waterways_15"
                         && mem.PlayerData<bool>(Offset.dungDefenderAwoken)
                         && mem.PlayerData<bool>(Offset.dungDefenderLeft)
-                        && mem.PlayerData<bool>(Offset.dungDefenderAwakeConvo)
+                        && store.DungDefenderAwakeConvoOnEntry
                         && (mem.GetCameraTarget().X < 29.5);
                     break;
                     

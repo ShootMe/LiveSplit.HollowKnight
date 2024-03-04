@@ -22,6 +22,7 @@ namespace LiveSplit.HollowKnight
         private ConcurrentDictionary<Offset, Tracked<int>> pdInts = new ConcurrentDictionary<Offset, Tracked<int>>();
         private ConcurrentDictionary<Offset, Tracked<bool>> pdBools = new ConcurrentDictionary<Offset, Tracked<bool>>();
         public bool TraitorLordDeadOnEntry { get; private set; } = false;
+        public bool DungDefenderAwakeConvoOnEntry { get; private set; } = false;
         /// <summary>
         /// Returns true if the knight is currently in a transition and has already split there
         /// </summary>
@@ -66,6 +67,7 @@ namespace LiveSplit.HollowKnight
             pdInts.Clear();
             pdBools.Clear();
             TraitorLordDeadOnEntry = false;
+            DungDefenderAwakeConvoOnEntry = false;
             SplitThisTransition = false;
             GladeEssence = 0;
             ResetKills();
@@ -201,6 +203,7 @@ namespace LiveSplit.HollowKnight
                 || mem.SceneName() != mem.NextSceneName()) {
                 // In transition
                 TraitorLordDeadOnEntry = mem.PlayerData<bool>(Offset.killedTraitorLord);
+                DungDefenderAwakeConvoOnEntry = mem.PlayerData<bool>(Offset.dungDefenderAwakeConvo);
             } else {
                 // Not in transition
                 SplitThisTransition = false;
