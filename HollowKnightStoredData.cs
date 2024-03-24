@@ -22,6 +22,7 @@ namespace LiveSplit.HollowKnight
         private ConcurrentDictionary<Offset, Tracked<int>> pdInts = new ConcurrentDictionary<Offset, Tracked<int>>();
         private ConcurrentDictionary<Offset, Tracked<bool>> pdBools = new ConcurrentDictionary<Offset, Tracked<bool>>();
         public bool TraitorLordDeadOnEntry { get; private set; } = false;
+        public bool DungDefenderAwakeConvoOnEntry { get; private set; } = false;
         /// <summary>
         /// Returns true if the knight is currently in a transition and has already split there
         /// </summary>
@@ -33,6 +34,7 @@ namespace LiveSplit.HollowKnight
         public int killsColRollerStart { get; set; }
         public int killsColMinerStart { get; set; }
         public int killsSpitterStart { get; set; }
+        public int killsSuperSpitterStart { get; set; }
         public int killsBuzzerStart { get; set; }
         public int killsBigBuzzerStart { get; set; }
         public int killsBurstingBouncerStart { get; set; }
@@ -65,6 +67,7 @@ namespace LiveSplit.HollowKnight
             pdInts.Clear();
             pdBools.Clear();
             TraitorLordDeadOnEntry = false;
+            DungDefenderAwakeConvoOnEntry = false;
             SplitThisTransition = false;
             GladeEssence = 0;
             ResetKills();
@@ -76,6 +79,7 @@ namespace LiveSplit.HollowKnight
             killsColRollerStart = mem.PlayerData<int>(Offset.killsColRoller);
             killsColMinerStart = mem.PlayerData<int>(Offset.killsColMiner);
             killsSpitterStart = mem.PlayerData<int>(Offset.killsSpitter);
+            killsSuperSpitterStart = mem.PlayerData<int>(Offset.killsSuperSpitter);
             killsBuzzerStart = mem.PlayerData<int>(Offset.killsBuzzer);
             killsBigBuzzerStart = mem.PlayerData<int>(Offset.killsBigBuzzer);
             killsBurstingBouncerStart = mem.PlayerData<int>(Offset.killsBurstingBouncer);
@@ -199,6 +203,7 @@ namespace LiveSplit.HollowKnight
                 || mem.SceneName() != mem.NextSceneName()) {
                 // In transition
                 TraitorLordDeadOnEntry = mem.PlayerData<bool>(Offset.killedTraitorLord);
+                DungDefenderAwakeConvoOnEntry = mem.PlayerData<bool>(Offset.dungDefenderAwakeConvo);
             } else {
                 // Not in transition
                 SplitThisTransition = false;
