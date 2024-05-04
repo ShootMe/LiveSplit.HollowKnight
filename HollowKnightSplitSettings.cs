@@ -814,6 +814,8 @@ namespace LiveSplit.HollowKnight {
         Grimmchild3,
         [Description("Grimmchild Lvl 4 (Charm)"), ToolTip("Splits when upgrading Grimmchild to level 4")]
         Grimmchild4,
+        [Description("Carefree Melody (Charm)"), ToolTip("Splits when obtaining the Carefree Melody charm")]
+        CarefreeMelody,
         [Description("Grubberfly's Elegy (Charm)"), ToolTip("Splits when obtaining the Grubberfly's Elegy charm")]
         GrubberflysElegy,
         [Description("Grubsong (Charm)"), ToolTip("Splits when obtaining the Grubsong charm")]
