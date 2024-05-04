@@ -1,5 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <updates>
+    <update version="3.1.12">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change>New charm autosplit: `Carefree Melody`</change>
+        </changelog>
+    </update>
     <update version="3.1.11">
         <files>
             <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
