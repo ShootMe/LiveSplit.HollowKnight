@@ -959,8 +959,16 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.DungDefenderIdol:
                     shouldSplit = store.CheckIncreased(Offset.trinket3) && sceneName.StartsWith("Waterways_15");
                     break;
-                case SplitName.WaterwaysEntry: shouldSplit = nextScene.StartsWith("Waterways_01") && nextScene != sceneName; break;
-                case SplitName.FogCanyonEntry: shouldSplit = nextScene.StartsWith("Fungus3_26") && nextScene != sceneName; break;
+                case SplitName.WaterwaysEntry:
+                    shouldSplit = (nextScene.StartsWith("Waterways_01") // Simple Key manhole entrance
+                        || nextScene.StartsWith("Waterways_07") // Right of Spike-tunnel, also where Tram entrance meets the rest
+                        ) && nextScene != sceneName; break;
+                case SplitName.FogCanyonEntry:
+                    shouldSplit = (nextScene.StartsWith("Fungus3_01") // West Fog Canyon entrance from Greenpath
+                        || nextScene.StartsWith("Fungus3_02") // West Fog Canyon entrance from Queen's Station or QGA
+                        || nextScene.StartsWith("Fungus3_24") // West Fog Canyon entrance from Queen's Gardens via Overgrown Mound
+                        || nextScene.StartsWith("Fungus3_26") // East Fog Canyon, where the Crossroads acid and Leg Eater acid entrances meet
+                        ) && nextScene != sceneName; break;
                 case SplitName.FungalWastesEntry:
                     shouldSplit = (nextScene.StartsWith("Fungus2_06") // Room outside Leg Eater
                         || nextScene.StartsWith("Fungus2_03") // From Queens' Station
