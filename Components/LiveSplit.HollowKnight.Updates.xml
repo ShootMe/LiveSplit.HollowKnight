@@ -1,5 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <updates>
+    <update version="3.1.13">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change>The Fog Canyon Entry split now also splits when entering from Greenpath, Queen's Station, or Queen's Gardens, in addition to Crossroads</change>
+            <change>The Waterways Entry split now also splits when entering right of Spike-tunnel, in addition to the Simple Key manhole</change>
+        </changelog>
+    </update>
     <update version="3.1.12">
         <files>
             <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
