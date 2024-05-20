@@ -718,7 +718,7 @@ namespace LiveSplit.HollowKnight {
         EnterDirtmouth,
         [Description("Enter Any Dream (Transition)"), ToolTip("Splits when entering any dream world")]
         EnterAnyDream,
-        [Description("Fog Canyon (Transition)"), ToolTip("Splits on transition to East Fog Canyon")]
+        [Description("Fog Canyon (Transition)"), ToolTip("Splits on transition to Fog Canyon\n(Room below Greenpath, left of Queen's Station, right of Overgrown Mound, or below Crossroads)")]
         FogCanyonEntry,
         [Description("Fungal Wastes Entry (Transition)"), ToolTip("Splits on transition to Fungal Wastes\n(Room below Crossroads, right of Queen's Station, left of Waterways or Spore Shroom room)")]
         FungalWastesEntry,
