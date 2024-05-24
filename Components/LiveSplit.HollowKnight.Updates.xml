@@ -1,5 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <updates>
+    <update version="3.1.14">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change>Fixed Dream Nail Vespa: HiveBlood is no longer required</change>
+        </changelog>
+    </update>
     <update version="3.1.13">
         <files>
             <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
