@@ -1123,7 +1123,9 @@ namespace LiveSplit.HollowKnight {
                     shouldSplit = store.CheckIncremented(Offset.dreamOrbs) && sceneName == "Fungus3_23" && store.TraitorLordDeadOnEntry;
                     break;
                 case SplitName.OnObtainGhostVespa:
-                    shouldSplit = store.CheckIncremented(Offset.dreamOrbs) && sceneName == "Hive_05" && mem.PlayerData<bool>(Offset.gotCharm_29);
+                    // UsesSceneTransitionRoutine is true on patches where Hive Knight exists
+                    bool hiveKnightBeenDead = !mem.UsesSceneTransitionRoutine() || store.CheckBeenTrue(Offset.killedHiveKnight);
+                    shouldSplit = store.CheckIncremented(Offset.dreamOrbs) && sceneName == "Hive_05" && hiveKnightBeenDead;
                     break;
                 case SplitName.OnObtainGhostRevek:
                     if (sceneName == "RestingGrounds_08") {

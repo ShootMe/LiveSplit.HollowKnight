@@ -411,6 +411,7 @@ namespace LiveSplit.HollowKnight {
              * 1.3.1.5 and above swap from using LoadSceneAdditive to a SceneTransitionRoutine triggered
              * by BeginSceneTransitionRoutine, which doesn't set tilemapDirty back to false when you enter dnail
              * However, the early control glitch can only be performed on early patches so we can avoid this check entirely
+             * Also used as Hive Knight exists, in OnObtainGhostVespa
              */
             return lastVersion?.Minor >= 3;
         }

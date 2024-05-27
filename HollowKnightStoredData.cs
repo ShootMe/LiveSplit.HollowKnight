@@ -184,6 +184,16 @@ namespace LiveSplit.HollowKnight
             return tracked.previous && !tracked.current;
         }
 
+        /// <summary>
+        /// Checks if the PD bool given by offset has been True since the last update
+        /// </summary>
+        /// <param name="offset"></param>
+        /// <returns></returns>
+        public bool CheckBeenTrue(Offset offset) {
+            Tracked<bool> tracked = GetBoolValue(offset);
+            return tracked.previous && tracked.current;
+        }
+
         public HollowKnightStoredData(HollowKnightMemory mem) {
             this.mem = mem;
         }
