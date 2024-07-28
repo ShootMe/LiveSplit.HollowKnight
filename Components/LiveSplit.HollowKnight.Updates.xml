@@ -1,5 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <updates>
+    <update version="3.1.15">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change>New transition autosplit: Spire Bench Exit (Transition)</change>
+            <change>New enemy autosplit: Great Husk Sentry (Killed)</change>
+        </changelog>
+    </update>
     <update version="3.1.14">
         <files>
             <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
