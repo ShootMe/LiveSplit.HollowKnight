@@ -596,6 +596,8 @@ namespace LiveSplit.HollowKnight {
         HuskMiner,
         [Description("Great Hopper (Killed)"), ToolTip("Splits when killing a Great Hopper")]
         GreatHopper,
+        [Description("Great Husk Sentry (Killed)"), ToolTip("Splits when killing a Great Husk Sentry")]
+        GreatHuskSentry,
         [Description("Gorgeous Husk (Killed)"), ToolTip("Splits when killing Gorgeous Husk")]
         GorgeousHusk,
         [Description("Menderbug (Killed)"), ToolTip("Splits when killing Menderbug")]
@@ -736,6 +738,8 @@ namespace LiveSplit.HollowKnight {
         EnterRafters,
         [Description("Salubra Exit (Transition)"), ToolTip("Splits on the transition out of Salubra's Hut")]
         SalubraExit,
+        [Description("Spire Bench Exit (Transition)"), ToolTip("Splits on the transition out of the bench room in Watcher's Spire")]
+        SpireBenchExit,
 
         [Description("Has Claw (Transition)"), ToolTip("Splits on transition after Mantis Claw acquired")]
         TransClaw,

@@ -379,6 +379,7 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.GrubberflysElegy: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_35); break;
                 case SplitName.Grubsong: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_3); break;
                 case SplitName.GreatHopper: shouldSplit = mem.PlayerData<bool>(Offset.killedGiantHopper); break;
+                case SplitName.GreatHuskSentry: shouldSplit = mem.PlayerData<bool>(Offset.killedGreatShieldZombie); break;
                 case SplitName.GreyPrince: shouldSplit = mem.PlayerData<bool>(Offset.killedGreyPrince); break;
                 case SplitName.GruzMother: shouldSplit = mem.PlayerData<bool>(Offset.killedBigFly); break;
                 case SplitName.HeavyBlow: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_15); break;
@@ -930,6 +931,8 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.EnterDirtmouth: shouldSplit = nextScene.Equals("Town") && nextScene != sceneName; break;
                 case SplitName.EnterRafters: shouldSplit = nextScene.Equals("Ruins1_03") && nextScene != sceneName; break;
                 case SplitName.SalubraExit: shouldSplit = sceneName.Equals("Room_Charm_Shop") && nextScene != sceneName; break;
+                // since Ruins1_18 has both bench and bridge, don't include Ruins1_18 bridge to Ruins2_03b
+                case SplitName.SpireBenchExit: shouldSplit = sceneName.StartsWith("Ruins1_18") && nextScene.StartsWith("Ruins2_01"); break;
 
                 case SplitName.FailedChampionEssence: shouldSplit = mem.PlayerData<bool>(Offset.falseKnightOrbsCollected); break;
                 case SplitName.SoulTyrantEssence: shouldSplit = mem.PlayerData<bool>(Offset.mageLordOrbsCollected); break;

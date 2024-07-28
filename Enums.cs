@@ -201,6 +201,7 @@
         spiderCapture,
         unchainedHollowKnight,
         killedGiantHopper,
+        killedGreatShieldZombie,
         killedGorgeousHusk,
         gladeDoorOpened,
         killedLazyFlyer,
