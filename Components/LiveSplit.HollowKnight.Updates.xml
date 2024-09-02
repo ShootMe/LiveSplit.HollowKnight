@@ -1,5 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <updates>
+    <update version="3.1.16">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change>New journal autosplits: Little Baldurs (AlexKnauth), Maggots (Peeka)</change>
+            <change>New event autosplit: Path of Pain Room 4 DDark (Peeka)</change>
+            <change>Fixed 1.0.2.8 modapi (Peeka)</change>
+        </changelog>
+    </update>
     <update version="3.1.15">
         <files>
             <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
