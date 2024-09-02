@@ -1402,7 +1402,7 @@ namespace LiveSplit.HollowKnight {
         PathOfPainTransition2,
         [Description("Path of Pain Room 4 (Room)"), ToolTip("Splits on transition to the fourth room in PoP (Final room)")]
         PathOfPainTransition3,
-        [Description("Path of Pain Room 4 DDark (Dive)"), ToolTip("Splits on landing with Descending Dark in fourth room of PoP")]
+        [Description("Path of Pain Room 4 DDark (Event)"), ToolTip("Splits on landing with Descending Dark in fourth room of PoP")]
         PathOfPainRoom4DDark,
 
         [Description("Kingdom's Edge Acid (Dreamgate)"), ToolTip("Splits when placing Dreamgate by KE Acid (hopefully)")]
