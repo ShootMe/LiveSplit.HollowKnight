@@ -401,6 +401,7 @@
         killsMantisHeavyFlyer,
         killsMawlek,
         killsPrayerSlug,
+        killsRoller,
         killsSuperSpitter,
         killsGreatShieldZombie,
         

@@ -592,6 +592,8 @@ namespace LiveSplit.HollowKnight {
         Aluba,
         //[Description("Al2ba (Killed)"), ToolTip("Splits when killing two Alubas")]
         //Al2ba,
+        [Description("Little Baldur Hunter's Notes (Killed)"), ToolTip("Splits when killing all little Baldurs needed for Hunter's Notes journal completion")]
+        RollerHuntersNotes,
         [Description("Maggots (Killed)"), ToolTip("Splits when killing both Maggots")]
         Maggots,
         [Description("Husk Miner (Killed)"), ToolTip("Splits when killing a Husk Miner")]
