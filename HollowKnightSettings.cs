@@ -12,9 +12,12 @@ namespace LiveSplit.HollowKnight {
         public bool Ordered { get; set; }
         public bool AutosplitEndRuns { get; set; }
         public SplitName? AutosplitStartRuns { get; set; }
+        public HitsMethod HitCounter { get; set; }
+        public List<int> ComparisonHits { get; set; }
         private bool isLoading;
         private List<string> availableSplits = new List<string>();
         private List<string> availableSplitsAlphaSorted = new List<string>();
+        private List<string> hitCounters = new List<string>();
 
         public HollowKnightSettings() {
             isLoading = true;
@@ -26,6 +29,7 @@ namespace LiveSplit.HollowKnight {
             this.versionLabel.Text = "Autosplitter Version: " + version;
 
             Splits = new List<SplitName>();
+            ComparisonHits = new List<int>();
             isLoading = false;
         }
 
@@ -47,6 +51,11 @@ namespace LiveSplit.HollowKnight {
             chkOrdered.Checked = Ordered;
             chkAutosplitEndRuns.Checked = AutosplitEndRuns;
             chkAutosplitStartRuns.Checked = AutosplitStartRuns != null;
+
+            cboHitCounter.DataSource = GetHitCounters();
+            MemberInfo hitCounterInfo = typeof(HitsMethod).GetMember(HitCounter.ToString())[0];
+            DescriptionAttribute hitCounterDescription = (DescriptionAttribute)hitCounterInfo.GetCustomAttributes(typeof(DescriptionAttribute), false)[0];
+            cboHitCounter.Text = hitCounterDescription.Description;
 
             foreach (SplitName split in Splits) {
                 MemberInfo info = typeof(SplitName).GetMember(split.ToString())[0];
@@ -142,6 +151,8 @@ namespace LiveSplit.HollowKnight {
             AutosplitStartRuns = chkAutosplitStartRuns.Checked ?
                 HollowKnightSplitSettings.GetSplitName(cboStartTriggerName.Text) : null;
 
+            HitCounter = GetHitsMethod(cboHitCounter.Text);
+
             Splits.Clear();
             foreach (Control c in flowMain.Controls) {
                 if (c is HollowKnightSplitSettings) {
@@ -168,6 +179,10 @@ namespace LiveSplit.HollowKnight {
             xmlAutosplitStartRuns.InnerText = AutosplitStartRuns.ToString();
             xmlSettings.AppendChild(xmlAutosplitStartRuns);
 
+            XmlElement xmlHitCounter = document.CreateElement("HitCounter");
+            xmlHitCounter.InnerText = HitCounter.ToString();
+            xmlSettings.AppendChild(xmlHitCounter);
+
             XmlElement xmlSplits = document.CreateElement("Splits");
             xmlSettings.AppendChild(xmlSplits);
 
@@ -178,12 +193,23 @@ namespace LiveSplit.HollowKnight {
                 xmlSplits.AppendChild(xmlSplit);
             }
 
+            XmlElement xmlComparisonHits = document.CreateElement("ComparisonHits");
+            xmlSettings.AppendChild(xmlComparisonHits);
+
+            foreach (int item in ComparisonHits) {
+                XmlElement xmlItem = document.CreateElement("Item");
+                xmlItem.InnerText = item.ToString();
+
+                xmlComparisonHits.AppendChild(xmlItem);
+            }
+
             return xmlSettings;
         }
         public void SetSettings(XmlNode settings) {
             XmlNode orderedNode = settings.SelectSingleNode(".//Ordered");
             XmlNode AutosplitEndRunsNode = settings.SelectSingleNode(".//AutosplitEndRuns");
             XmlNode AutosplitStartRunsNode = settings.SelectSingleNode(".//AutosplitStartRuns");
+            XmlNode HitCounterNode = settings.SelectSingleNode(".//HitCounter");
             bool isOrdered = false;
             bool isAutosplitEndRuns = false;
 
@@ -207,12 +233,29 @@ namespace LiveSplit.HollowKnight {
             Ordered = isOrdered;
             AutosplitEndRuns = isAutosplitEndRuns;
 
+            if (HitCounterNode != null) {
+                string hitCounterDescription = HitCounterNode.InnerText.Trim();
+                HitCounter = GetHitsMethod(hitCounterDescription);
+                MemberInfo info = typeof(HitsMethod).GetMember(HitCounter.ToString())[0];
+                DescriptionAttribute description = (DescriptionAttribute)info.GetCustomAttributes(typeof(DescriptionAttribute), false)[0];
+                cboHitCounter.Text = description.Description;
+            }
+
             Splits.Clear();
             XmlNodeList splitNodes = settings.SelectNodes(".//Splits/Split");
             foreach (XmlNode splitNode in splitNodes) {
                 string splitDescription = splitNode.InnerText;
                 SplitName split = HollowKnightSplitSettings.GetSplitName(splitDescription);
                 Splits.Add(split);
+            }
+
+            ComparisonHits.Clear();
+            XmlNodeList comparisonHitsNodes = settings.SelectNodes(".//ComparisonHits/Item");
+            foreach (XmlNode itemNode in comparisonHitsNodes) {
+                string item = itemNode.InnerText.Trim();
+                if (int.TryParse(item, out int i)) {
+                    ComparisonHits.Add(i);
+                }
             }
         }
         private HollowKnightSplitSettings createSetting() {
@@ -248,6 +291,16 @@ namespace LiveSplit.HollowKnight {
                 });
             }
             return rdAlpha.Checked ? availableSplitsAlphaSorted : availableSplits;
+        }
+        private List<string> GetHitCounters() {
+            if (hitCounters.Count == 0) {
+                foreach (HitsMethod hm in Enum.GetValues(typeof(HitsMethod))) {
+                    MemberInfo info = typeof(HitsMethod).GetMember(hm.ToString())[0];
+                    DescriptionAttribute description = (DescriptionAttribute)info.GetCustomAttributes(typeof(DescriptionAttribute), false)[0];
+                    hitCounters.Add(description.Description);
+                }
+            }
+            return hitCounters;
         }
         private void radio_CheckedChanged(object sender, EventArgs e) {
             foreach (Control c in flowMain.Controls) {
@@ -310,6 +363,32 @@ namespace LiveSplit.HollowKnight {
 
         private void cboStartTriggerName_SelectedIndexChanged(object sender, EventArgs e) {
             UpdateSplits();
+        }
+
+        private void cboHitCounter_SelectedIndexChanged(object sender, EventArgs e) {
+            UpdateSplits();
+        }
+
+        public enum HitsMethod {
+            [Description("None")]
+            None,
+            [Description("Hits / dream falls")]
+            HitsDreamFalls,
+            [Description("Hits / damage")]
+            HitsDamage,
+        }
+
+        public static HitsMethod GetHitsMethod(string text) {
+            foreach (HitsMethod hm in Enum.GetValues(typeof(HitsMethod))) {
+                string name = hm.ToString();
+                MemberInfo info = typeof(HitsMethod).GetMember(name)[0];
+                DescriptionAttribute description = (DescriptionAttribute)info.GetCustomAttributes(typeof(DescriptionAttribute), false)[0];
+
+                if (name.Equals(text, StringComparison.OrdinalIgnoreCase) || description.Description.Equals(text, StringComparison.OrdinalIgnoreCase)) {
+                    return hm;
+                }
+            }
+            return HitsMethod.None;
         }
     }
 }
