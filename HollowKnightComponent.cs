@@ -958,6 +958,22 @@ namespace LiveSplit.HollowKnight {
 
                 #endregion Events
 
+                #region Grimm Quest
+
+                case SplitName.Flame1: shouldSplit = mem.PlayerData<int>(Offset.flamesCollected) == 1; break;
+                case SplitName.Flame2: shouldSplit = mem.PlayerData<int>(Offset.flamesCollected) == 2; break;
+                case SplitName.Flame3: shouldSplit = mem.PlayerData<int>(Offset.flamesCollected) == 3; break;
+                case SplitName.TransFlame1: shouldSplit = mem.PlayerData<int>(Offset.flamesCollected) == 1 && nextScene != currScene; break;
+                case SplitName.TransFlame2: shouldSplit = mem.PlayerData<int>(Offset.flamesCollected) == 2 && nextScene != currScene; break;
+                case SplitName.TransFlame3: shouldSplit = mem.PlayerData<int>(Offset.flamesCollected) == 3 && nextScene != currScene; break;
+                // Brumm's flame is in NPC Interactions #region
+
+                case SplitName.NightmareLantern: shouldSplit = mem.PlayerData<bool>(Offset.nightmareLanternLit); break;
+                case SplitName.NightmareLanternDestroyed: shouldSplit = mem.PlayerData<bool>(Offset.destroyedNightmareLantern); break;
+                // NKG boss fight sorted under Bosses #region
+
+                #endregion Grimm Quest
+
                 case SplitName.ColosseumBronze: shouldSplit = mem.PlayerData<bool>(Offset.colosseumBronzeCompleted); break;
                 case SplitName.ColosseumGold: shouldSplit = mem.PlayerData<bool>(Offset.colosseumGoldCompleted); break;
                 case SplitName.ColosseumSilver: shouldSplit = mem.PlayerData<bool>(Offset.colosseumSilverCompleted); break;
@@ -988,8 +1004,6 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.NailUpgrade2: shouldSplit = mem.PlayerData<int>(Offset.nailSmithUpgrades) == 2; break;
                 case SplitName.NailUpgrade3: shouldSplit = mem.PlayerData<int>(Offset.nailSmithUpgrades) == 3; break;
                 case SplitName.NailUpgrade4: shouldSplit = mem.PlayerData<int>(Offset.nailSmithUpgrades) == 4; break;
-                case SplitName.NightmareLantern: shouldSplit = mem.PlayerData<bool>(Offset.nightmareLanternLit); break;
-                case SplitName.NightmareLanternDestroyed: shouldSplit = mem.PlayerData<bool>(Offset.destroyedNightmareLantern); break;
                 case SplitName.PaleOre: shouldSplit = mem.PlayerData<int>(Offset.ore) > 0; break;
                 case SplitName.Pantheon1: shouldSplit = mem.PlayerData<bool>(Offset.bossDoorStateTier1); break;
                 case SplitName.Pantheon2: shouldSplit = mem.PlayerData<bool>(Offset.bossDoorStateTier2); break;
@@ -1005,14 +1019,6 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.VesselFragment7: shouldSplit = mem.PlayerData<int>(Offset.vesselFragments) == 7 || (mem.PlayerData<int>(Offset.MPReserveMax) == 66 && mem.PlayerData<int>(Offset.vesselFragments) == 1); break;
                 case SplitName.VesselFragment8: shouldSplit = mem.PlayerData<int>(Offset.vesselFragments) == 8 || (mem.PlayerData<int>(Offset.MPReserveMax) == 66 && mem.PlayerData<int>(Offset.vesselFragments) == 2); break;
                 case SplitName.Vessel3: shouldSplit = mem.PlayerData<int>(Offset.MPReserveMax) == 99; break;
-
-                case SplitName.Flame1: shouldSplit = mem.PlayerData<int>(Offset.flamesCollected) == 1; break;
-                case SplitName.Flame2: shouldSplit = mem.PlayerData<int>(Offset.flamesCollected) == 2; break;
-                case SplitName.Flame3: shouldSplit = mem.PlayerData<int>(Offset.flamesCollected) == 3; break;
-                
-                case SplitName.TransFlame1: shouldSplit = mem.PlayerData<int>(Offset.flamesCollected) == 1 && nextScene != sceneName; break;
-                case SplitName.TransFlame2: shouldSplit = mem.PlayerData<int>(Offset.flamesCollected) == 2 && nextScene != sceneName; break;
-                case SplitName.TransFlame3: shouldSplit = mem.PlayerData<int>(Offset.flamesCollected) == 3 && nextScene != sceneName; break;
 
                 case SplitName.Ore1:
                 case SplitName.Ore2:
