@@ -1338,6 +1338,39 @@ namespace LiveSplit.HollowKnight {
 
                 #endregion Maps
 
+                #region Overworld Ghosts
+
+                case SplitName.OnObtainGhostMarissa:
+                    shouldSplit = store.CheckIncremented(Offset.dreamOrbs) && currScene == "Ruins_Bathhouse";
+                    break;
+                case SplitName.OnObtainGhostCaelifFera:
+                    shouldSplit = store.CheckIncremented(Offset.dreamOrbs) && currScene == "Fungus1_24";
+                    break;
+                case SplitName.OnObtainGhostPoggy:
+                    shouldSplit = store.CheckIncremented(Offset.dreamOrbs) && currScene == "Ruins_Elevator";
+                    break;
+                case SplitName.OnObtainGhostGravedigger:
+                    shouldSplit = store.CheckIncremented(Offset.dreamOrbs) && currScene == "Town";
+                    break;
+                case SplitName.OnObtainGhostJoni:
+                    shouldSplit = store.CheckIncremented(Offset.dreamOrbs) && currScene == "Cliffs_05";
+                    break;
+                case SplitName.OnObtainGhostCloth:
+                    shouldSplit = store.CheckIncremented(Offset.dreamOrbs) && currScene == "Fungus3_23" && store.TraitorLordDeadOnEntry;
+                    break;
+                case SplitName.OnObtainGhostVespa:
+                    // UsesSceneTransitionRoutine is true on patches where Hive Knight exists
+                    bool hiveKnightBeenDead = !mem.UsesSceneTransitionRoutine() || store.CheckBeenTrue(Offset.killedHiveKnight);
+                    shouldSplit = store.CheckIncremented(Offset.dreamOrbs) && currScene == "Hive_05" && hiveKnightBeenDead;
+                    break;
+                case SplitName.OnObtainGhostRevek:
+                    if (currScene == "RestingGrounds_08") {
+                        shouldSplit = store.GladeEssence == 19 || store.GladeEssence == 18 && store.CheckIncremented(Offset.dreamOrbs);
+                    }
+                    break;
+
+                #endregion Overworld Ghosts
+
                 case SplitName.ColosseumBronze: shouldSplit = mem.PlayerData<bool>(Offset.colosseumBronzeCompleted); break;
                 case SplitName.ColosseumGold: shouldSplit = mem.PlayerData<bool>(Offset.colosseumGoldCompleted); break;
                 case SplitName.ColosseumSilver: shouldSplit = mem.PlayerData<bool>(Offset.colosseumSilverCompleted); break;
@@ -1385,35 +1418,6 @@ namespace LiveSplit.HollowKnight {
 
                 //case SplitName.AreaTestingSanctum: shouldSplit = mem.PlayerData<int>(Offset.currentArea) == (int)MapZone.SOUL_SOCIETY; break;
                 //case SplitName.AreaTestingSanctumUpper: shouldSplit = mem.PlayerData<int>(Offset.currentArea) == (int)MapZone.MAGE_TOWER; break;
-
-                case SplitName.OnObtainGhostMarissa:
-                    shouldSplit = store.CheckIncremented(Offset.dreamOrbs) && sceneName == "Ruins_Bathhouse";
-                    break;
-                case SplitName.OnObtainGhostCaelifFera:
-                    shouldSplit = store.CheckIncremented(Offset.dreamOrbs) && sceneName == "Fungus1_24";
-                    break;
-                case SplitName.OnObtainGhostPoggy:
-                    shouldSplit = store.CheckIncremented(Offset.dreamOrbs) && sceneName == "Ruins_Elevator";
-                    break;
-                case SplitName.OnObtainGhostGravedigger:
-                    shouldSplit = store.CheckIncremented(Offset.dreamOrbs) && sceneName == "Town";
-                    break;
-                case SplitName.OnObtainGhostJoni:
-                    shouldSplit = store.CheckIncremented(Offset.dreamOrbs) && sceneName == "Cliffs_05";
-                    break;
-                case SplitName.OnObtainGhostCloth:
-                    shouldSplit = store.CheckIncremented(Offset.dreamOrbs) && sceneName == "Fungus3_23" && store.TraitorLordDeadOnEntry;
-                    break;
-                case SplitName.OnObtainGhostVespa:
-                    // UsesSceneTransitionRoutine is true on patches where Hive Knight exists
-                    bool hiveKnightBeenDead = !mem.UsesSceneTransitionRoutine() || store.CheckBeenTrue(Offset.killedHiveKnight);
-                    shouldSplit = store.CheckIncremented(Offset.dreamOrbs) && sceneName == "Hive_05" && hiveKnightBeenDead;
-                    break;
-                case SplitName.OnObtainGhostRevek:
-                    if (sceneName == "RestingGrounds_08") {
-                        shouldSplit = store.GladeEssence == 19 || store.GladeEssence == 18 && store.CheckIncremented(Offset.dreamOrbs);
-                    }
-                    break;
 
                 case SplitName.MaskShardMawlek: if (sceneName == "Crossroads_09") { goto case SplitName.OnObtainMaskShard; } break;
                 case SplitName.MaskShardGrubfather: if (sceneName == "Crossroads_38") { goto case SplitName.OnObtainMaskShard; } break;
