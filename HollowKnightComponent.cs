@@ -1430,18 +1430,39 @@ namespace LiveSplit.HollowKnight {
 
                 #endregion Mask Shards
 
-                case SplitName.ColosseumBronze: shouldSplit = mem.PlayerData<bool>(Offset.colosseumBronzeCompleted); break;
-                case SplitName.ColosseumGold: shouldSplit = mem.PlayerData<bool>(Offset.colosseumGoldCompleted); break;
-                case SplitName.ColosseumSilver: shouldSplit = mem.PlayerData<bool>(Offset.colosseumSilverCompleted); break;
+                #region Vessel Fragments
+
+                case SplitName.OnObtainVesselFragment:
+                    shouldSplit =
+                        store.CheckIncreasedBy(Offset.MPReserveMax, 33) // && mem.UIState() != UIState.PLAYING
+                        || (store.CheckIncremented(Offset.vesselFragments) && mem.PlayerData<int>(Offset.vesselFragments) < 3);
+                    break;
+
+                case SplitName.VesselFragGreenpath: if (currScene == "Fungus1_13") { goto case SplitName.OnObtainVesselFragment; } break;
+                case SplitName.VesselFragCrossroadsLift: if (currScene == "Crossroads_37") { goto case SplitName.OnObtainVesselFragment; } break;
+                case SplitName.VesselFragKingsStation: if (currScene == "Ruins2_09") { goto case SplitName.OnObtainVesselFragment; } break;
+                case SplitName.VesselFragGarpedes: if (currScene == "Deepnest_38") { goto case SplitName.OnObtainVesselFragment; } break;
+                case SplitName.VesselFragStagNest: if (currScene == "Cliffs_03") { goto case SplitName.OnObtainVesselFragment; } break;
+                case SplitName.VesselFragSeer: if (currScene == "RestingGrounds_07") { goto case SplitName.OnObtainVesselFragment; } break;
+                case SplitName.VesselFragFountain: if (currScene == "Abyss_04") { goto case SplitName.OnObtainVesselFragment; } break;
+
                 case SplitName.VesselFragment1: shouldSplit = mem.PlayerData<int>(Offset.MPReserveMax) == 0 && mem.PlayerData<int>(Offset.vesselFragments) == 1; break;
                 case SplitName.VesselFragment2: shouldSplit = mem.PlayerData<int>(Offset.MPReserveMax) == 0 && mem.PlayerData<int>(Offset.vesselFragments) == 2; break;
                 case SplitName.Vessel1: shouldSplit = mem.PlayerData<int>(Offset.MPReserveMax) == 33; break;
+
                 case SplitName.VesselFragment4: shouldSplit = mem.PlayerData<int>(Offset.vesselFragments) == 4 || (mem.PlayerData<int>(Offset.MPReserveMax) == 33 && mem.PlayerData<int>(Offset.vesselFragments) == 1); break;
                 case SplitName.VesselFragment5: shouldSplit = mem.PlayerData<int>(Offset.vesselFragments) == 5 || (mem.PlayerData<int>(Offset.MPReserveMax) == 33 && mem.PlayerData<int>(Offset.vesselFragments) == 2); break;
                 case SplitName.Vessel2: shouldSplit = mem.PlayerData<int>(Offset.MPReserveMax) == 66; break;
+
                 case SplitName.VesselFragment7: shouldSplit = mem.PlayerData<int>(Offset.vesselFragments) == 7 || (mem.PlayerData<int>(Offset.MPReserveMax) == 66 && mem.PlayerData<int>(Offset.vesselFragments) == 1); break;
                 case SplitName.VesselFragment8: shouldSplit = mem.PlayerData<int>(Offset.vesselFragments) == 8 || (mem.PlayerData<int>(Offset.MPReserveMax) == 66 && mem.PlayerData<int>(Offset.vesselFragments) == 2); break;
                 case SplitName.Vessel3: shouldSplit = mem.PlayerData<int>(Offset.MPReserveMax) == 99; break;
+
+                #endregion Vessel Fragments
+
+                case SplitName.ColosseumBronze: shouldSplit = mem.PlayerData<bool>(Offset.colosseumBronzeCompleted); break;
+                case SplitName.ColosseumGold: shouldSplit = mem.PlayerData<bool>(Offset.colosseumGoldCompleted); break;
+                case SplitName.ColosseumSilver: shouldSplit = mem.PlayerData<bool>(Offset.colosseumSilverCompleted); break;
 
                 /*
                  case SplitName.NailsmithSpared: shouldSplit = mem.PlayerData<bool>(Offset.nailsmithSpared); break;
@@ -1461,18 +1482,6 @@ namespace LiveSplit.HollowKnight {
 
                 //case SplitName.AreaTestingSanctum: shouldSplit = mem.PlayerData<int>(Offset.currentArea) == (int)MapZone.SOUL_SOCIETY; break;
                 //case SplitName.AreaTestingSanctumUpper: shouldSplit = mem.PlayerData<int>(Offset.currentArea) == (int)MapZone.MAGE_TOWER; break;
-
-                case SplitName.VesselFragGreenpath: if (sceneName == "Fungus1_13") { goto case SplitName.OnObtainVesselFragment; } break;
-                case SplitName.VesselFragCrossroadsLift: if (sceneName == "Crossroads_37") { goto case SplitName.OnObtainVesselFragment; } break;
-                case SplitName.VesselFragKingsStation: if (sceneName == "Ruins2_09") { goto case SplitName.OnObtainVesselFragment; } break;
-                case SplitName.VesselFragGarpedes: if (sceneName == "Deepnest_38") { goto case SplitName.OnObtainVesselFragment; } break;
-                case SplitName.VesselFragStagNest: if (sceneName == "Cliffs_03") { goto case SplitName.OnObtainVesselFragment; } break;
-                case SplitName.VesselFragSeer: if (sceneName == "RestingGrounds_07") { goto case SplitName.OnObtainVesselFragment; } break;
-                case SplitName.VesselFragFountain: if (sceneName == "Abyss_04") { goto case SplitName.OnObtainVesselFragment; } break;
-
-                case SplitName.OnObtainVesselFragment:
-                    shouldSplit = store.CheckIncreasedBy(Offset.MPReserveMax, 33) || (store.CheckIncremented(Offset.vesselFragments) && mem.PlayerData<int>(Offset.vesselFragments) < 3);
-                    break;
 
                 case SplitName.ColosseumBronzeUnlocked: shouldSplit = mem.PlayerData<bool>(Offset.colosseumBronzeOpened); break;
                 case SplitName.ColosseumSilverUnlocked: shouldSplit = mem.PlayerData<bool>(Offset.colosseumSilverOpened); break;

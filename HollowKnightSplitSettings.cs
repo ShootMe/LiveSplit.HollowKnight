@@ -205,7 +205,7 @@ namespace LiveSplit.HollowKnight {
         VesselFragment7,
         [Description("Vessel Fragment 8 (Fragment)"), ToolTip("Splits when getting 8th Soul Vessel Fragment")]
         VesselFragment8,
-        [Description("Soul Vessel 3 (Upgrade)"), ToolTip("Splits when upgrading to 3 Soul Vessels (9 Soul Vessel Fragments")]
+        [Description("Soul Vessel 3 (Upgrade)"), ToolTip("Splits when upgrading to 3 Soul Vessels (9 Soul Vessel Fragments)")]
         Vessel3,
 
         [Description("Brooding Mawlek Mask Shard (Obtain)"), ToolTip("Splits when getting the Mask Shard from Brooding Mawlek")]
