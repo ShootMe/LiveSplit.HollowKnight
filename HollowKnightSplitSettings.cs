@@ -486,6 +486,8 @@ namespace LiveSplit.HollowKnight {
         NoskHornetP,
         [Description("Nightmare King Grimm (Pantheon)"), ToolTip("Splits after killing Nightmare King Grimm in Pantheon 5")]
         NightmareKingGrimmP,
+        [Description("Absolute Radiance (Ending)"), ToolTip("Splits after killing Absolute Radiance in Pantheon 5")]
+        RadianceP,
 
         [Description("Herrah the Beast (Dreamer)"), ToolTip("Splits when you see the mask for Herrah")]
         Hegemol,

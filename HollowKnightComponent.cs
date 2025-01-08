@@ -1188,6 +1188,66 @@ namespace LiveSplit.HollowKnight {
 
                 #endregion Boss Essence
 
+                #region Pantheons
+
+                case SplitName.Pantheon1: shouldSplit = mem.PlayerData<bool>(Offset.bossDoorStateTier1); break;
+                case SplitName.Pantheon2: shouldSplit = mem.PlayerData<bool>(Offset.bossDoorStateTier2); break;
+                case SplitName.Pantheon3: shouldSplit = mem.PlayerData<bool>(Offset.bossDoorStateTier3); break;
+                case SplitName.Pantheon4: shouldSplit = mem.PlayerData<bool>(Offset.bossDoorStateTier4); break;
+                case SplitName.Pantheon5: shouldSplit = mem.PlayerData<bool>(Offset.bossDoorStateTier5); break;
+
+                case SplitName.VengeflyKingP: shouldSplit = currScene.StartsWith("GG_Vengefly") && nextScene.StartsWith("GG_Gruz_Mother"); break;
+                case SplitName.GruzMotherP: shouldSplit = currScene.StartsWith("GG_Gruz_Mother") && nextScene.StartsWith("GG_False_Knight"); break;
+                case SplitName.FalseKnightP: shouldSplit = currScene.StartsWith("GG_False_Knight") && nextScene.StartsWith("GG_Mega_Moss_Charger"); break;
+                case SplitName.MassiveMossChargerP: shouldSplit = currScene.StartsWith("GG_Mega_Moss_Charger") && nextScene.StartsWith("GG_Hornet_1"); break;
+                case SplitName.Hornet1P: shouldSplit = currScene.StartsWith("GG_Hornet_1") && (nextScene == "GG_Spa" || nextScene == "GG_Engine"); break;
+                case SplitName.GorbP: shouldSplit = currScene.StartsWith("GG_Ghost_Gorb") && nextScene.StartsWith("GG_Dung_Defender"); break;
+                case SplitName.DungDefenderP: shouldSplit = currScene.StartsWith("GG_Dung_Defender") && nextScene.StartsWith("GG_Mage_Knight"); break;
+                case SplitName.SoulWarriorP: shouldSplit = currScene.StartsWith("GG_Mage_Knight") && nextScene.StartsWith("GG_Brooding_Mawlek"); break;
+                case SplitName.BroodingMawlekP: shouldSplit = currScene.StartsWith("GG_Brooding_Mawlek") && (nextScene == "GG_Engine" || nextScene.StartsWith("GG_Nailmasters")); break;
+                case SplitName.OroMatoNailBrosP: shouldSplit = currScene.StartsWith("GG_Nailmasters") && (nextScene == "GG_End_Sequence" || nextScene == "GG_Spa"); break;
+
+                case SplitName.XeroP: shouldSplit = currScene.StartsWith("GG_Ghost_Xero") && nextScene.StartsWith("GG_Crystal_Guardian"); break;
+                case SplitName.CrystalGuardianP: shouldSplit = currScene.StartsWith("GG_Crystal_Guardian") && nextScene.StartsWith("GG_Soul_Master"); break;
+                case SplitName.SoulMasterP: shouldSplit = currScene.StartsWith("GG_Soul_Master") && nextScene.StartsWith("GG_Oblobbles"); break;
+                case SplitName.OblobblesP: shouldSplit = currScene.StartsWith("GG_Oblobbles") && nextScene.StartsWith("GG_Mantis_Lords"); break;
+                case SplitName.MantisLordsP: shouldSplit = currScene.StartsWith("GG_Mantis_Lords") && nextScene == "GG_Spa"; break;
+                case SplitName.MarmuP: shouldSplit = currScene.StartsWith("GG_Ghost_Marmu") && (nextScene.StartsWith("GG_Nosk") || nextScene.StartsWith("GG_Flukemarm")); break;
+                case SplitName.NoskP: shouldSplit = currScene.StartsWith("GG_Nosk") && nextScene.StartsWith("GG_Flukemarm"); break;
+                case SplitName.FlukemarmP: shouldSplit = currScene.StartsWith("GG_Flukemarm") && nextScene.StartsWith("GG_Broken_Vessel"); break;
+                case SplitName.BrokenVesselP: shouldSplit = currScene.StartsWith("GG_Broken_Vessel") && (nextScene == "GG_Engine" || nextScene.StartsWith("GG_Ghost_Galien")); break;
+                case SplitName.SheoPaintmasterP: shouldSplit = currScene.StartsWith("GG_Painter") && (nextScene == "GG_End_Sequence" || nextScene == "GG_Spa"); break;
+
+                case SplitName.HiveKnightP: shouldSplit = currScene.StartsWith("GG_Hive_Knight") && nextScene.StartsWith("GG_Ghost_Hu"); break;
+                case SplitName.ElderHuP: shouldSplit = currScene.StartsWith("GG_Ghost_Hu") && nextScene.StartsWith("GG_Collector"); break;
+                case SplitName.CollectorP: shouldSplit = currScene.StartsWith("GG_Collector") && nextScene.StartsWith("GG_God_Tamer"); break;
+                case SplitName.GodTamerP: shouldSplit = currScene.StartsWith("GG_God_Tamer") && nextScene.StartsWith("GG_Grimm"); break;
+                case SplitName.TroupeMasterGrimmP: shouldSplit = currScene.StartsWith("GG_Grimm") && nextScene == "GG_Spa"; break;
+                case SplitName.GalienP: shouldSplit = currScene.StartsWith("GG_Ghost_Galien") && (nextScene.StartsWith("GG_Grey_Prince_Zote") || nextScene.StartsWith("GG_Painter") || nextScene.StartsWith("GG_Uumuu")); break;
+                case SplitName.GreyPrinceZoteP: shouldSplit = currScene.StartsWith("GG_Grey_Prince_Zote") && (nextScene.StartsWith("GG_Uumuu") || nextScene.StartsWith("GG_Failed_Champion")); break;
+                case SplitName.UumuuP: shouldSplit = currScene.StartsWith("GG_Uumuu") && (nextScene.StartsWith("GG_Hornet_2") || nextScene.StartsWith("GG_Nosk_Hornet")); break;
+                case SplitName.Hornet2P: shouldSplit = currScene.StartsWith("GG_Hornet_2") && (nextScene == "GG_Engine" || nextScene == "GG_Spa"); break;
+                case SplitName.SlyP: shouldSplit = currScene.StartsWith("GG_Sly") && (nextScene == "GG_End_Sequence" || nextScene.StartsWith("GG_Hornet_2")); break;
+
+                case SplitName.EnragedGuardianP: shouldSplit = currScene.StartsWith("GG_Crystal_Guardian_2") && nextScene.StartsWith("GG_Lost_Kin"); break;
+                case SplitName.LostKinP: shouldSplit = currScene.StartsWith("GG_Lost_Kin") && nextScene.StartsWith("GG_Ghost_No_Eyes"); break;
+                case SplitName.NoEyesP: shouldSplit = currScene.StartsWith("GG_Ghost_No_Eyes") && nextScene.StartsWith("GG_Traitor_Lord"); break;
+                case SplitName.TraitorLordP: shouldSplit = currScene.StartsWith("GG_Traitor_Lord") && nextScene.StartsWith("GG_White_Defender"); break;
+                case SplitName.WhiteDefenderP: shouldSplit = currScene.StartsWith("GG_White_Defender") && nextScene == "GG_Spa"; break;
+                case SplitName.FailedChampionP: shouldSplit = currScene.StartsWith("GG_Failed_Champion") && (nextScene.StartsWith("GG_Ghost_Markoth") || nextScene.StartsWith("GG_Grimm_Nightmare")); break;
+                case SplitName.MarkothP: shouldSplit = currScene.StartsWith("GG_Ghost_Markoth") && (nextScene.StartsWith("GG_Watcher_Knights") || nextScene.StartsWith("GG_Grey_Prince_Zote") || nextScene.StartsWith("GG_Failed_Champion")); break;
+                case SplitName.WatcherKnightsP: shouldSplit = currScene.StartsWith("GG_Watcher_Knights") && (nextScene.StartsWith("GG_Soul_Tyrant") || nextScene.StartsWith("GG_Uumuu")); break;
+                case SplitName.SoulTyrantP: shouldSplit = currScene.StartsWith("GG_Soul_Tyrant") && (nextScene == "GG_Engine_Prime" || nextScene.StartsWith("GG_Ghost_Markoth")); break;
+                // Pure Vessel (Pantheon) can transition from PV to either GG_Door_5_Finale for first P4 cutscene, GG_End_Sequence for subsequent P4s, or GG_Radiance in P5
+                case SplitName.PureVesselP: shouldSplit = currScene.StartsWith("GG_Hollow_Knight") && (nextScene == "GG_End_Sequence" || nextScene.StartsWith("GG_Radiance") || nextScene == "GG_Door_5_Finale"); break;
+
+                case SplitName.NoskHornetP: shouldSplit = currScene.StartsWith("GG_Nosk_Hornet") && nextScene.StartsWith("GG_Sly"); break;
+                case SplitName.NightmareKingGrimmP: shouldSplit = currScene.StartsWith("GG_Grimm_Nightmare") && nextScene == "GG_Spa"; break;
+                // Absolute Radiance (Pantheon) can transition from AbsRad to either Cinematic_Ending_D for void ending or Cinematic_Ending_E for flower ending
+                case SplitName.RadianceP: shouldSplit = currScene.StartsWith("GG_Radiance") && nextScene.StartsWith("Cinematic_Ending"); break;
+
+                #endregion Pantheons
+
                 case SplitName.ColosseumBronze: shouldSplit = mem.PlayerData<bool>(Offset.colosseumBronzeCompleted); break;
                 case SplitName.ColosseumGold: shouldSplit = mem.PlayerData<bool>(Offset.colosseumGoldCompleted); break;
                 case SplitName.ColosseumSilver: shouldSplit = mem.PlayerData<bool>(Offset.colosseumSilverCompleted); break;
@@ -1207,11 +1267,6 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.MaskFragment14: shouldSplit = mem.PlayerData<int>(Offset.heartPieces) == 14 || (mem.PlayerData<int>(Offset.maxHealthBase) == 8 && mem.PlayerData<int>(Offset.heartPieces) == 2); break;
                 case SplitName.MaskFragment15: shouldSplit = mem.PlayerData<int>(Offset.heartPieces) == 15 || (mem.PlayerData<int>(Offset.maxHealthBase) == 8 && mem.PlayerData<int>(Offset.heartPieces) == 3); break;
                 case SplitName.Mask4: shouldSplit = mem.PlayerData<int>(Offset.maxHealthBase) == 9; break;
-                case SplitName.Pantheon1: shouldSplit = mem.PlayerData<bool>(Offset.bossDoorStateTier1); break;
-                case SplitName.Pantheon2: shouldSplit = mem.PlayerData<bool>(Offset.bossDoorStateTier2); break;
-                case SplitName.Pantheon3: shouldSplit = mem.PlayerData<bool>(Offset.bossDoorStateTier3); break;
-                case SplitName.Pantheon4: shouldSplit = mem.PlayerData<bool>(Offset.bossDoorStateTier4); break;
-                case SplitName.Pantheon5: shouldSplit = mem.PlayerData<bool>(Offset.bossDoorStateTier5); break;
                 case SplitName.VesselFragment1: shouldSplit = mem.PlayerData<int>(Offset.MPReserveMax) == 0 && mem.PlayerData<int>(Offset.vesselFragments) == 1; break;
                 case SplitName.VesselFragment2: shouldSplit = mem.PlayerData<int>(Offset.MPReserveMax) == 0 && mem.PlayerData<int>(Offset.vesselFragments) == 2; break;
                 case SplitName.Vessel1: shouldSplit = mem.PlayerData<int>(Offset.MPReserveMax) == 33; break;
@@ -1221,53 +1276,6 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.VesselFragment7: shouldSplit = mem.PlayerData<int>(Offset.vesselFragments) == 7 || (mem.PlayerData<int>(Offset.MPReserveMax) == 66 && mem.PlayerData<int>(Offset.vesselFragments) == 1); break;
                 case SplitName.VesselFragment8: shouldSplit = mem.PlayerData<int>(Offset.vesselFragments) == 8 || (mem.PlayerData<int>(Offset.MPReserveMax) == 66 && mem.PlayerData<int>(Offset.vesselFragments) == 2); break;
                 case SplitName.Vessel3: shouldSplit = mem.PlayerData<int>(Offset.MPReserveMax) == 99; break;
-
-                case SplitName.VengeflyKingP: shouldSplit = sceneName.StartsWith("GG_Vengefly") && nextScene.StartsWith("GG_Gruz_Mother"); break;
-                case SplitName.GruzMotherP: shouldSplit = sceneName.StartsWith("GG_Gruz_Mother") && nextScene.StartsWith("GG_False_Knight"); break;
-                case SplitName.FalseKnightP: shouldSplit = sceneName.StartsWith("GG_False_Knight") && nextScene.StartsWith("GG_Mega_Moss_Charger"); break;
-                case SplitName.MassiveMossChargerP: shouldSplit = sceneName.StartsWith("GG_Mega_Moss_Charger") && nextScene.StartsWith("GG_Hornet_1"); break;
-                case SplitName.Hornet1P: shouldSplit = sceneName.StartsWith("GG_Hornet_1") && (nextScene == "GG_Spa" || nextScene == "GG_Engine"); break;
-                case SplitName.GorbP: shouldSplit = sceneName.StartsWith("GG_Ghost_Gorb") && nextScene.StartsWith("GG_Dung_Defender"); break;
-                case SplitName.DungDefenderP: shouldSplit = sceneName.StartsWith("GG_Dung_Defender") && nextScene.StartsWith("GG_Mage_Knight"); break;
-                case SplitName.SoulWarriorP: shouldSplit = sceneName.StartsWith("GG_Mage_Knight") && nextScene.StartsWith("GG_Brooding_Mawlek"); break;
-                case SplitName.BroodingMawlekP: shouldSplit = sceneName.StartsWith("GG_Brooding_Mawlek") && (nextScene == "GG_Engine" || nextScene.StartsWith("GG_Nailmasters")); break;
-                case SplitName.OroMatoNailBrosP: shouldSplit = sceneName.StartsWith("GG_Nailmasters") && (nextScene == "GG_End_Sequence" || nextScene == "GG_Spa"); break;
-
-                case SplitName.XeroP: shouldSplit = sceneName.StartsWith("GG_Ghost_Xero") && nextScene.StartsWith("GG_Crystal_Guardian"); break;
-                case SplitName.CrystalGuardianP: shouldSplit = sceneName.StartsWith("GG_Crystal_Guardian") && nextScene.StartsWith("GG_Soul_Master"); break;
-                case SplitName.SoulMasterP: shouldSplit = sceneName.StartsWith("GG_Soul_Master") && nextScene.StartsWith("GG_Oblobbles"); break;
-                case SplitName.OblobblesP: shouldSplit = sceneName.StartsWith("GG_Oblobbles") && nextScene.StartsWith("GG_Mantis_Lords"); break;
-                case SplitName.MantisLordsP: shouldSplit = sceneName.StartsWith("GG_Mantis_Lords") && nextScene == "GG_Spa"; break;
-                case SplitName.MarmuP: shouldSplit = sceneName.StartsWith("GG_Ghost_Marmu") && (nextScene.StartsWith("GG_Nosk") || nextScene.StartsWith("GG_Flukemarm")); break;
-                case SplitName.NoskP: shouldSplit = sceneName.StartsWith("GG_Nosk") && nextScene.StartsWith("GG_Flukemarm"); break;
-                case SplitName.FlukemarmP: shouldSplit = sceneName.StartsWith("GG_Flukemarm") && nextScene.StartsWith("GG_Broken_Vessel"); break;
-                case SplitName.BrokenVesselP: shouldSplit = sceneName.StartsWith("GG_Broken_Vessel") && (nextScene == "GG_Engine" || nextScene.StartsWith("GG_Ghost_Galien")); break;
-                case SplitName.SheoPaintmasterP: shouldSplit = sceneName.StartsWith("GG_Painter") && (nextScene == "GG_End_Sequence" || nextScene == "GG_Spa"); break;
-
-                case SplitName.HiveKnightP: shouldSplit = sceneName.StartsWith("GG_Hive_Knight") && nextScene.StartsWith("GG_Ghost_Hu"); break;
-                case SplitName.ElderHuP: shouldSplit = sceneName.StartsWith("GG_Ghost_Hu") && nextScene.StartsWith("GG_Collector"); break;
-                case SplitName.CollectorP: shouldSplit = sceneName.StartsWith("GG_Collector") && nextScene.StartsWith("GG_God_Tamer"); break;
-                case SplitName.GodTamerP: shouldSplit = sceneName.StartsWith("GG_God_Tamer") && nextScene.StartsWith("GG_Grimm"); break;
-                case SplitName.TroupeMasterGrimmP: shouldSplit = sceneName.StartsWith("GG_Grimm") && nextScene == "GG_Spa"; break;
-                case SplitName.GalienP: shouldSplit = sceneName.StartsWith("GG_Ghost_Galien") && (nextScene.StartsWith("GG_Grey_Prince_Zote") || nextScene.StartsWith("GG_Painter") || nextScene.StartsWith("GG_Uumuu")); break;
-                case SplitName.GreyPrinceZoteP: shouldSplit = sceneName.StartsWith("GG_Grey_Prince_Zote") && (nextScene.StartsWith("GG_Uumuu") || nextScene.StartsWith("GG_Failed_Champion")); break;
-                case SplitName.UumuuP: shouldSplit = sceneName.StartsWith("GG_Uumuu") && (nextScene.StartsWith("GG_Hornet_2") || nextScene.StartsWith("GG_Nosk_Hornet")); break;
-                case SplitName.Hornet2P: shouldSplit = sceneName.StartsWith("GG_Hornet_2") && (nextScene == "GG_Engine" || nextScene == "GG_Spa"); break;
-                case SplitName.SlyP: shouldSplit = sceneName.StartsWith("GG_Sly") && (nextScene == "GG_End_Sequence" || nextScene.StartsWith("GG_Hornet_2")); break;
-
-                case SplitName.EnragedGuardianP: shouldSplit = sceneName.StartsWith("GG_Crystal_Guardian_2") && nextScene.StartsWith("GG_Lost_Kin"); break;
-                case SplitName.LostKinP: shouldSplit = sceneName.StartsWith("GG_Lost_Kin") && nextScene.StartsWith("GG_Ghost_No_Eyes"); break;
-                case SplitName.NoEyesP: shouldSplit = sceneName.StartsWith("GG_Ghost_No_Eyes") && nextScene.StartsWith("GG_Traitor_Lord"); break;
-                case SplitName.TraitorLordP: shouldSplit = sceneName.StartsWith("GG_Traitor_Lord") && nextScene.StartsWith("GG_White_Defender"); break;
-                case SplitName.WhiteDefenderP: shouldSplit = sceneName.StartsWith("GG_White_Defender") && nextScene == "GG_Spa"; break;
-                case SplitName.FailedChampionP: shouldSplit = sceneName.StartsWith("GG_Failed_Champion") && (nextScene.StartsWith("GG_Ghost_Markoth") || nextScene.StartsWith("GG_Grimm_Nightmare")); break;
-                case SplitName.MarkothP: shouldSplit = sceneName.StartsWith("GG_Ghost_Markoth") && (nextScene.StartsWith("GG_Watcher_Knights") || nextScene.StartsWith("GG_Grey_Prince_Zote") || nextScene.StartsWith("GG_Failed_Champion")); break;
-                case SplitName.WatcherKnightsP: shouldSplit = sceneName.StartsWith("GG_Watcher_Knights") && (nextScene.StartsWith("GG_Soul_Tyrant") || nextScene.StartsWith("GG_Uumuu")); break;
-                case SplitName.SoulTyrantP: shouldSplit = sceneName.StartsWith("GG_Soul_Tyrant") && (nextScene == "GG_Engine_Prime" || nextScene.StartsWith("GG_Ghost_Markoth")); break;
-                case SplitName.PureVesselP: shouldSplit = sceneName.StartsWith("GG_Hollow_Knight") && (nextScene == "GG_End_Sequence" || nextScene.StartsWith("GG_Radiance") || nextScene == "GG_Door_5_Finale"); break;
-
-                case SplitName.NoskHornetP: shouldSplit = sceneName.StartsWith("GG_Nosk_Hornet") && nextScene.StartsWith("GG_Sly"); break;
-                case SplitName.NightmareKingGrimmP: shouldSplit = sceneName.StartsWith("GG_Grimm_Nightmare") && nextScene == "GG_Spa"; break;
 
                 // sit at benches
                 case SplitName.BenchAny: shouldSplit = mem.PlayerData<bool>(Offset.atBench); break;
