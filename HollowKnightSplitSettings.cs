@@ -58,6 +58,33 @@ namespace LiveSplit.HollowKnight {
         }
     }
     public enum SplitName {
+
+        [Description("[DEPRECATED] Start Run (Start)"), ToolTip("Splits when autosplitter version 3 would have automatically started runs")]
+        LegacyStart,
+
+        [Description("Start New Game (Start)"), ToolTip("Splits when starting a new game, including Normal, Steel Soul, and Godseeker mode")]
+        StartNewGame,
+        [Description("Start Pantheon (Start)"), ToolTip("Splits when starting a Pantheon run")]
+        StartPantheon,
+        [Description("Rando Wake (Start)"), ToolTip("Splits when gaining control after waking up in Rando")]
+        RandoWake,
+
+        [Description("[DEPRECATED] End Run (Ending)"), ToolTip("Splits when autosplitter version 3 would have automatically ended runs")]
+        LegacyEnd,
+
+        [Description("Credits Roll (Ending)"), ToolTip("Splits on any credits rolling")]
+        EndingSplit,
+        [Description("The Hollow Knight (Ending)"), ToolTip("Splits on The Hollow Knight ending")]
+        EndingA,
+        [Description("Sealed Siblings (Ending)"), ToolTip("Splits on Sealed Siblings ending")]
+        EndingB,
+        [Description("Dream No More (Ending)"), ToolTip("Splits on Dream No More ending")]
+        EndingC,
+        [Description("Embrace the Void (Ending)"), ToolTip("Splits on Embrace the Void ending")]
+        EndingD,
+        [Description("Delicate Flower (Ending)"), ToolTip("Splits on Delicate Flower ending")]
+        EndingE,
+
         [Description("Abyss Shriek (Skill)"), ToolTip("Splits when obtaining Abyss Shriek")]
         AbyssShriek,
         [Description("Crystal Heart (Skill)"), ToolTip("Splits when obtaining Crystal Heart")]
@@ -505,8 +532,6 @@ namespace LiveSplit.HollowKnight {
         CityGateOpen,
         [Description("City Gate w/ Mantis Lords defeated (Event)"), ToolTip("To make sure you don't forget Mantis Lords")]
         CityGateAndMantisLords,
-        [Description("Credits Roll (Event)"), ToolTip("Splits on any credits rolling")]
-        EndingSplit,
         [Description("Death (Event)"), ToolTip("Splits when player HP is 0")]
         PlayerDeath,
         [Description("Shade Killed (Event)"), ToolTip("Splits when the Shade is killed")]
@@ -1639,8 +1664,6 @@ namespace LiveSplit.HollowKnight {
         TransitionAfterSaveState,
         [Description("Manual Split (Misc)"), ToolTip("Never splits. Use this when you need to manually split while using ordered splits")]
         ManualSplit,
-        [Description("Rando Wake (Event)"), ToolTip("Splits when gaining control after waking up in Rando")]
-        RandoWake,
         [Description("Ghost Coins Incremented (Event)"), ToolTip("Splits when the ghostCoins PlayerData is updated. Unused by unmodded game, intended for use with mods.")]
         OnGhostCoinsIncremented,
 
