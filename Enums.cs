@@ -283,6 +283,7 @@
         equippedCharm_28,
 
         equippedCharm_23,
+        equippedCharm_40,
         brokenCharm_23,
         brokenCharm_24,
         brokenCharm_25,
