@@ -1319,6 +1319,25 @@ namespace LiveSplit.HollowKnight {
 
                 #endregion Main Menu
 
+                #region Maps
+
+                case SplitName.mapDirtmouth: shouldSplit = mem.PlayerData<bool>(Offset.mapDirtmouth); break;
+                case SplitName.mapCrossroads: shouldSplit = mem.PlayerData<bool>(Offset.mapCrossroads); break;
+                case SplitName.mapGreenpath: shouldSplit = mem.PlayerData<bool>(Offset.mapGreenpath); break;
+                case SplitName.mapFogCanyon: shouldSplit = mem.PlayerData<bool>(Offset.mapFogCanyon); break;
+                case SplitName.mapRoyalGardens: shouldSplit = mem.PlayerData<bool>(Offset.mapRoyalGardens); break;
+                case SplitName.mapFungalWastes: shouldSplit = mem.PlayerData<bool>(Offset.mapFungalWastes); break;
+                case SplitName.mapCity: shouldSplit = mem.PlayerData<bool>(Offset.mapCity); break;
+                case SplitName.mapWaterways: shouldSplit = mem.PlayerData<bool>(Offset.mapWaterways); break;
+                case SplitName.mapMines: shouldSplit = mem.PlayerData<bool>(Offset.mapMines); break;
+                case SplitName.mapDeepnest: shouldSplit = mem.PlayerData<bool>(Offset.mapDeepnest); break;
+                case SplitName.mapCliffs: shouldSplit = mem.PlayerData<bool>(Offset.mapCliffs); break;
+                case SplitName.mapOutskirts: shouldSplit = mem.PlayerData<bool>(Offset.mapOutskirts); break;
+                case SplitName.mapRestingGrounds: shouldSplit = mem.PlayerData<bool>(Offset.mapRestingGrounds); break;
+                case SplitName.mapAbyss: shouldSplit = mem.PlayerData<bool>(Offset.mapAbyss); break;
+
+                #endregion Maps
+
                 case SplitName.ColosseumBronze: shouldSplit = mem.PlayerData<bool>(Offset.colosseumBronzeCompleted); break;
                 case SplitName.ColosseumGold: shouldSplit = mem.PlayerData<bool>(Offset.colosseumGoldCompleted); break;
                 case SplitName.ColosseumSilver: shouldSplit = mem.PlayerData<bool>(Offset.colosseumSilverCompleted); break;
@@ -1366,21 +1385,6 @@ namespace LiveSplit.HollowKnight {
 
                 //case SplitName.AreaTestingSanctum: shouldSplit = mem.PlayerData<int>(Offset.currentArea) == (int)MapZone.SOUL_SOCIETY; break;
                 //case SplitName.AreaTestingSanctumUpper: shouldSplit = mem.PlayerData<int>(Offset.currentArea) == (int)MapZone.MAGE_TOWER; break;
-
-                case SplitName.mapDirtmouth: shouldSplit = mem.PlayerData<bool>(Offset.mapDirtmouth); break;
-                case SplitName.mapCrossroads: shouldSplit = mem.PlayerData<bool>(Offset.mapCrossroads); break;
-                case SplitName.mapGreenpath: shouldSplit = mem.PlayerData<bool>(Offset.mapGreenpath); break;
-                case SplitName.mapFogCanyon: shouldSplit = mem.PlayerData<bool>(Offset.mapFogCanyon); break;
-                case SplitName.mapRoyalGardens: shouldSplit = mem.PlayerData<bool>(Offset.mapRoyalGardens); break;
-                case SplitName.mapFungalWastes: shouldSplit = mem.PlayerData<bool>(Offset.mapFungalWastes); break;
-                case SplitName.mapCity: shouldSplit = mem.PlayerData<bool>(Offset.mapCity); break;
-                case SplitName.mapWaterways: shouldSplit = mem.PlayerData<bool>(Offset.mapWaterways); break;
-                case SplitName.mapMines: shouldSplit = mem.PlayerData<bool>(Offset.mapMines); break;
-                case SplitName.mapDeepnest: shouldSplit = mem.PlayerData<bool>(Offset.mapDeepnest); break;
-                case SplitName.mapCliffs: shouldSplit = mem.PlayerData<bool>(Offset.mapCliffs); break;
-                case SplitName.mapOutskirts: shouldSplit = mem.PlayerData<bool>(Offset.mapOutskirts); break;
-                case SplitName.mapRestingGrounds: shouldSplit = mem.PlayerData<bool>(Offset.mapRestingGrounds); break;
-                case SplitName.mapAbyss: shouldSplit = mem.PlayerData<bool>(Offset.mapAbyss); break;
 
                 case SplitName.OnObtainGhostMarissa:
                     shouldSplit = store.CheckIncremented(Offset.dreamOrbs) && sceneName == "Ruins_Bathhouse";
