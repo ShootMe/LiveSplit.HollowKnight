@@ -1122,6 +1122,26 @@ namespace LiveSplit.HollowKnight {
 
                 #endregion Grubs & Mimics
 
+                #region Dream Trees
+
+                case SplitName.TreeCity: shouldSplit = mem.PlayerDataStringList(Offset.scenesEncounteredDreamPlantC).Contains("Ruins1_17"); break;
+                case SplitName.TreeCliffs: shouldSplit = mem.PlayerDataStringList(Offset.scenesEncounteredDreamPlantC).Contains("Cliffs_01"); break;
+                case SplitName.TreeCrossroads: shouldSplit = mem.PlayerDataStringList(Offset.scenesEncounteredDreamPlantC).Contains("Crossroads_07"); break;
+                case SplitName.TreeDeepnest: shouldSplit = mem.PlayerDataStringList(Offset.scenesEncounteredDreamPlantC).Contains("Deepnest_39"); break;
+                case SplitName.TreeGlade: shouldSplit = mem.PlayerDataStringList(Offset.scenesEncounteredDreamPlantC).Contains("RestingGrounds_08"); break;
+                case SplitName.TreeGreenpath: shouldSplit = mem.PlayerDataStringList(Offset.scenesEncounteredDreamPlantC).Contains("Fungus1_13"); break;
+                case SplitName.TreeHive: shouldSplit = mem.PlayerDataStringList(Offset.scenesEncounteredDreamPlantC).Contains("Hive_02"); break;
+                case SplitName.TreeKingdomsEdge: shouldSplit = mem.PlayerDataStringList(Offset.scenesEncounteredDreamPlantC).Contains("Deepnest_East_07"); break;
+                case SplitName.TreeLegEater: shouldSplit = mem.PlayerDataStringList(Offset.scenesEncounteredDreamPlantC).Contains("Fungus2_33"); break;
+                case SplitName.TreeMantisVillage: shouldSplit = mem.PlayerDataStringList(Offset.scenesEncounteredDreamPlantC).Contains("Fungus2_17"); break;
+                case SplitName.TreeMound: shouldSplit = mem.PlayerDataStringList(Offset.scenesEncounteredDreamPlantC).Contains("Crossroads_ShamanTemple"); break;
+                case SplitName.TreePeak: shouldSplit = mem.PlayerDataStringList(Offset.scenesEncounteredDreamPlantC).Contains("Mines_23"); break;
+                case SplitName.TreeQueensGardens: shouldSplit = mem.PlayerDataStringList(Offset.scenesEncounteredDreamPlantC).Contains("Fungus3_11"); break;
+                case SplitName.TreeRestingGrounds: shouldSplit = mem.PlayerDataStringList(Offset.scenesEncounteredDreamPlantC).Contains("RestingGrounds_05"); break;
+                case SplitName.TreeWaterways: shouldSplit = mem.PlayerDataStringList(Offset.scenesEncounteredDreamPlantC).Contains("Abyss_01"); break;
+
+                #endregion Dream Trees
+
                 case SplitName.ColosseumBronze: shouldSplit = mem.PlayerData<bool>(Offset.colosseumBronzeCompleted); break;
                 case SplitName.ColosseumGold: shouldSplit = mem.PlayerData<bool>(Offset.colosseumGoldCompleted); break;
                 case SplitName.ColosseumSilver: shouldSplit = mem.PlayerData<bool>(Offset.colosseumSilverCompleted); break;
@@ -1155,22 +1175,6 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.VesselFragment7: shouldSplit = mem.PlayerData<int>(Offset.vesselFragments) == 7 || (mem.PlayerData<int>(Offset.MPReserveMax) == 66 && mem.PlayerData<int>(Offset.vesselFragments) == 1); break;
                 case SplitName.VesselFragment8: shouldSplit = mem.PlayerData<int>(Offset.vesselFragments) == 8 || (mem.PlayerData<int>(Offset.MPReserveMax) == 66 && mem.PlayerData<int>(Offset.vesselFragments) == 2); break;
                 case SplitName.Vessel3: shouldSplit = mem.PlayerData<int>(Offset.MPReserveMax) == 99; break;
-
-                case SplitName.TreeCity: shouldSplit = mem.PlayerDataStringList(Offset.scenesEncounteredDreamPlantC).Contains("Ruins1_17"); break;
-                case SplitName.TreeCliffs: shouldSplit = mem.PlayerDataStringList(Offset.scenesEncounteredDreamPlantC).Contains("Cliffs_01"); break;
-                case SplitName.TreeCrossroads: shouldSplit = mem.PlayerDataStringList(Offset.scenesEncounteredDreamPlantC).Contains("Crossroads_07"); break;
-                case SplitName.TreeDeepnest: shouldSplit = mem.PlayerDataStringList(Offset.scenesEncounteredDreamPlantC).Contains("Deepnest_39"); break;
-                case SplitName.TreeGlade: shouldSplit = mem.PlayerDataStringList(Offset.scenesEncounteredDreamPlantC).Contains("RestingGrounds_08"); break;
-                case SplitName.TreeGreenpath: shouldSplit = mem.PlayerDataStringList(Offset.scenesEncounteredDreamPlantC).Contains("Fungus1_13"); break;
-                case SplitName.TreeHive: shouldSplit = mem.PlayerDataStringList(Offset.scenesEncounteredDreamPlantC).Contains("Hive_02"); break;
-                case SplitName.TreeKingdomsEdge: shouldSplit = mem.PlayerDataStringList(Offset.scenesEncounteredDreamPlantC).Contains("Deepnest_East_07"); break;
-                case SplitName.TreeLegEater: shouldSplit = mem.PlayerDataStringList(Offset.scenesEncounteredDreamPlantC).Contains("Fungus2_33"); break;
-                case SplitName.TreeMantisVillage: shouldSplit = mem.PlayerDataStringList(Offset.scenesEncounteredDreamPlantC).Contains("Fungus2_17"); break;
-                case SplitName.TreeMound: shouldSplit = mem.PlayerDataStringList(Offset.scenesEncounteredDreamPlantC).Contains("Crossroads_ShamanTemple"); break;
-                case SplitName.TreePeak: shouldSplit = mem.PlayerDataStringList(Offset.scenesEncounteredDreamPlantC).Contains("Mines_23"); break;
-                case SplitName.TreeQueensGardens: shouldSplit = mem.PlayerDataStringList(Offset.scenesEncounteredDreamPlantC).Contains("Fungus3_11"); break;
-                case SplitName.TreeRestingGrounds: shouldSplit = mem.PlayerDataStringList(Offset.scenesEncounteredDreamPlantC).Contains("RestingGrounds_05"); break;
-                case SplitName.TreeWaterways: shouldSplit = mem.PlayerDataStringList(Offset.scenesEncounteredDreamPlantC).Contains("Abyss_01"); break;
 
                 case SplitName.Essence100: shouldSplit = mem.PlayerData<int>(Offset.dreamOrbs) >= 100; break;
                 case SplitName.Essence200: shouldSplit = mem.PlayerData<int>(Offset.dreamOrbs) >= 200; break;
