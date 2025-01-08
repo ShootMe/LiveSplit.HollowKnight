@@ -774,12 +774,12 @@ namespace LiveSplit.HollowKnight {
 
         [Description("Has Claw (Transition)"), ToolTip("Splits on transition after Mantis Claw acquired")]
         TransClaw,
-        [Description("Has Fireball (Transition)"), ToolTip("Splits on transition after Vengeful Spirit acquired")]
+        [Description("Has Vengeful Spirit (Transition)"), ToolTip("Splits on transition after Vengeful Spirit acquired")]
         TransVS,
+        [Description("Has Shade Soul (Transition)"), ToolTip("Splits on transition after Shade Soul acquired (Room Dupe safe)")]
+        TransShadeSoul,
         [Description("Has Descending Dark (Transition)"), ToolTip("Splits on transition after Descending Dark acquired")]
         TransDescendingDark,
-        [Description("Has Shade Soul (Transition)"), ToolTip("Splits on transition after Shade Soul acquired")]
-        TransShadeSoul,
         [Description("Has Isma's Tear (Transition)"), ToolTip("Splits on transition after Isma's Tear acquired")]
         TransTear,
         [Description("Isma's Tear with Grub (Transition)"), ToolTip("Splits on transition after collecting Isma's Tear and saving the grub in Isma's Grove")]
@@ -814,6 +814,8 @@ namespace LiveSplit.HollowKnight {
         WaterwaysEntry,
         [Description("White Palace Entry (Transition)"), ToolTip("Splits when entering the first White Palace scene")]
         WhitePalaceEntry,
+        [Description("City Toll Bench Room (Transition)"), ToolTip("Splits when entering the city toll bench room")]
+        EnterCityTollBenchRoom,
 
         [Description("Baldur Shell (Charm)"), ToolTip("Splits when obtaining the Baldur Shell charm")]
         BaldurShell,
@@ -1664,6 +1666,8 @@ namespace LiveSplit.HollowKnight {
         AnyTransition,
         [Description("Transition excluding Save State (Transition)"), ToolTip("Splits when the knight enters a transition (excludes save states and Sly's basement)")]
         TransitionAfterSaveState,
+        [Description("Transition excluding discontinuities (Transition)"), ToolTip("Splits when the knight enters a transition (excludes discontinuities including save states, deaths, and dreamgates)")]
+        TransitionExcludingDiscontinuities,
         [Description("Manual Split (Misc)"), ToolTip("Never splits. Use this when you need to manually split while using ordered splits")]
         ManualSplit,
         [Description("Ghost Coins Incremented (Event)"), ToolTip("Splits when the ghostCoins PlayerData is updated. Unused by unmodded game, intended for use with mods.")]
