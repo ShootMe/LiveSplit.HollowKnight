@@ -727,6 +727,50 @@ namespace LiveSplit.HollowKnight {
 
                 #endregion Transitions
 
+                #region White Palace & Path of Pain
+
+                #region Orbs
+
+                case SplitName.WhitePalaceOrb1: shouldSplit = mem.PlayerData<bool>(Offset.whitePalaceOrb_1); break;
+                case SplitName.WhitePalaceOrb2: shouldSplit = mem.PlayerData<bool>(Offset.whitePalaceOrb_2); break;
+                case SplitName.WhitePalaceOrb3: shouldSplit = mem.PlayerData<bool>(Offset.whitePalaceOrb_3); break;
+
+                #endregion Orbs
+
+                #region Rooms
+
+                case SplitName.WhitePalaceLowerEntry: shouldSplit = nextScene.StartsWith("White_Palace_01") && nextScene != currScene; break;
+                case SplitName.WhitePalaceLowerOrb: shouldSplit = nextScene.StartsWith("White_Palace_02") && nextScene != currScene; break;
+                case SplitName.WhitePalaceSecretRoom: shouldSplit = mem.PlayerData<bool>(Offset.whitePalaceSecretRoomVisited); break;
+                case SplitName.WhitePalaceEntry: shouldSplit = nextScene.StartsWith("White_Palace_11") && nextScene != currScene; break;
+                case SplitName.WhitePalaceLeftEntry: shouldSplit = nextScene.StartsWith("White_Palace_04") && nextScene != currScene; break;
+                case SplitName.WhitePalaceLeftWingMid: shouldSplit = currScene.StartsWith("White_Palace_04") && nextScene.StartsWith("White_Palace_14"); break;
+                case SplitName.WhitePalaceRightEntry: shouldSplit = nextScene.StartsWith("White_Palace_15") && nextScene != currScene; break;
+                case SplitName.WhitePalaceRightClimb: shouldSplit = currScene.StartsWith("White_Palace_05") && nextScene.StartsWith("White_Palace_16"); break;
+                case SplitName.WhitePalaceRightSqueeze: shouldSplit = currScene.StartsWith("White_Palace_16") && nextScene.StartsWith("White_Palace_05"); break;
+                case SplitName.WhitePalaceRightDone: shouldSplit = currScene.StartsWith("White_Palace_05") && nextScene.StartsWith("White_Palace_15"); break;
+                case SplitName.WhitePalaceTopEntry: shouldSplit = currScene.StartsWith("White_Palace_03_hub") && nextScene.StartsWith("White_Palace_06"); break;
+                case SplitName.WhitePalaceTopClimb: shouldSplit = currScene.StartsWith("White_Palace_06") && nextScene.StartsWith("White_Palace_07"); break;
+                case SplitName.WhitePalaceTopLeverRoom: shouldSplit = currScene.StartsWith("White_Palace_07") && nextScene.StartsWith("White_Palace_12"); break;
+                case SplitName.WhitePalaceTopLastPlats: shouldSplit = currScene.StartsWith("White_Palace_12") && nextScene.StartsWith("White_Palace_13"); break;
+                case SplitName.WhitePalaceThroneRoom: shouldSplit = currScene.StartsWith("White_Palace_13") && nextScene.StartsWith("White_Palace_09"); break;
+                case SplitName.WhitePalaceAtrium: shouldSplit = nextScene.StartsWith("White_Palace_03_hub") && nextScene != currScene; break;
+
+                #endregion Rooms
+
+                #region Path of Pain
+
+                case SplitName.PathOfPainEntry: shouldSplit = nextScene.StartsWith("White_Palace_18") && currScene.StartsWith("White_Palace_06"); break;
+                case SplitName.PathOfPainTransition1: shouldSplit = nextScene.StartsWith("White_Palace_17") && currScene.StartsWith("White_Palace_18"); break;
+                case SplitName.PathOfPainTransition2: shouldSplit = nextScene.StartsWith("White_Palace_19") && currScene.StartsWith("White_Palace_17"); break;
+                case SplitName.PathOfPainTransition3: shouldSplit = nextScene.StartsWith("White_Palace_20") && currScene.StartsWith("White_Palace_19"); break;
+                case SplitName.PathOfPainRoom4DDark: shouldSplit = currScene.StartsWith("White_Palace_20") && mem.OnGround() && mem.Spellquake(); break;
+                case SplitName.PathOfPain: shouldSplit = mem.PlayerData<bool>(Offset.newDataBindingSeal); break;
+
+                #endregion Path of Pain
+
+                #endregion White Palace & Path of Pain
+
                 case SplitName.Abyss: shouldSplit = mem.PlayerData<bool>(Offset.visitedAbyss); break;
                 case SplitName.Aluba: shouldSplit = mem.PlayerData<bool>(Offset.killedLazyFlyer); break;
                 case SplitName.AspidHunter: shouldSplit = mem.PlayerData<int>(Offset.killsSpitter) == 17; break;
@@ -808,7 +852,6 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.Pantheon3: shouldSplit = mem.PlayerData<bool>(Offset.bossDoorStateTier3); break;
                 case SplitName.Pantheon4: shouldSplit = mem.PlayerData<bool>(Offset.bossDoorStateTier4); break;
                 case SplitName.Pantheon5: shouldSplit = mem.PlayerData<bool>(Offset.bossDoorStateTier5); break;
-                case SplitName.PathOfPain: shouldSplit = mem.PlayerData<bool>(Offset.newDataBindingSeal); break;
                 case SplitName.QueensGardens: shouldSplit = mem.PlayerData<bool>(Offset.visitedRoyalGardens); break;
                 case SplitName.QueensGardensStation: shouldSplit = mem.PlayerData<bool>(Offset.openedRoyalGardens); break;
                 case SplitName.QueensStationStation: shouldSplit = mem.PlayerData<bool>(Offset.openedFungalWastes); break;
@@ -1055,30 +1098,6 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.NoskHornetP: shouldSplit = sceneName.StartsWith("GG_Nosk_Hornet") && nextScene.StartsWith("GG_Sly"); break;
                 case SplitName.NightmareKingGrimmP: shouldSplit = sceneName.StartsWith("GG_Grimm_Nightmare") && nextScene == "GG_Spa"; break;
 
-                case SplitName.WhitePalaceOrb1: shouldSplit = mem.PlayerData<bool>(Offset.whitePalaceOrb_1); break;
-                case SplitName.WhitePalaceOrb2: shouldSplit = mem.PlayerData<bool>(Offset.whitePalaceOrb_2); break;
-                case SplitName.WhitePalaceOrb3: shouldSplit = mem.PlayerData<bool>(Offset.whitePalaceOrb_3); break;
-                case SplitName.WhitePalaceSecretRoom: shouldSplit = mem.PlayerData<bool>(Offset.whitePalaceSecretRoomVisited); break;
-
-                case SplitName.WhitePalaceLeftEntry: shouldSplit = nextScene.StartsWith("White_Palace_04") && nextScene != sceneName; break;
-                case SplitName.WhitePalaceLeftWingMid: shouldSplit = sceneName.StartsWith("White_Palace_04") && nextScene.StartsWith("White_Palace_14"); break;
-                case SplitName.WhitePalaceRightEntry: shouldSplit = nextScene.StartsWith("White_Palace_15") && nextScene != sceneName; break;
-                case SplitName.WhitePalaceRightClimb: shouldSplit = sceneName.StartsWith("White_Palace_05") && nextScene.StartsWith("White_Palace_16"); break;
-                case SplitName.WhitePalaceRightSqueeze: shouldSplit = sceneName.StartsWith("White_Palace_16") && nextScene.StartsWith("White_Palace_05"); break;
-                case SplitName.WhitePalaceRightDone: shouldSplit = sceneName.StartsWith("White_Palace_05") && nextScene.StartsWith("White_Palace_15"); break;
-                case SplitName.WhitePalaceTopEntry: shouldSplit = sceneName.StartsWith("White_Palace_03_hub") && nextScene.StartsWith("White_Palace_06"); break;
-                case SplitName.WhitePalaceTopClimb: shouldSplit = sceneName.StartsWith("White_Palace_06") && nextScene.StartsWith("White_Palace_07"); break;
-                case SplitName.WhitePalaceTopLeverRoom: shouldSplit = sceneName.StartsWith("White_Palace_07") && nextScene.StartsWith("White_Palace_12"); break;
-                case SplitName.WhitePalaceTopLastPlats: shouldSplit = sceneName.StartsWith("White_Palace_12") && nextScene.StartsWith("White_Palace_13"); break;
-                case SplitName.WhitePalaceThroneRoom: shouldSplit = sceneName.StartsWith("White_Palace_13") && nextScene.StartsWith("White_Palace_09"); break;
-                case SplitName.WhitePalaceAtrium: shouldSplit = nextScene.StartsWith("White_Palace_03_hub") && nextScene != sceneName; break;
-
-                case SplitName.PathOfPainEntry: shouldSplit = nextScene.StartsWith("White_Palace_18") && sceneName.StartsWith("White_Palace_06"); break;
-                case SplitName.PathOfPainTransition1: shouldSplit = nextScene.StartsWith("White_Palace_17") && sceneName.StartsWith("White_Palace_18"); break;
-                case SplitName.PathOfPainTransition2: shouldSplit = nextScene.StartsWith("White_Palace_19") && sceneName.StartsWith("White_Palace_17"); break;
-                case SplitName.PathOfPainTransition3: shouldSplit = nextScene.StartsWith("White_Palace_20") && sceneName.StartsWith("White_Palace_19"); break;
-                case SplitName.PathOfPainRoom4DDark: shouldSplit = sceneName.StartsWith("White_Palace_20") && mem.OnGround() && mem.Spellquake(); break;
-
                 // sit at benches
                 case SplitName.BenchAny: shouldSplit = mem.PlayerData<bool>(Offset.atBench); break;
                 /*
@@ -1262,14 +1281,11 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.givenWhiteLadyFlower: shouldSplit = mem.PlayerData<bool>(Offset.givenWhiteLadyFlower); break;
                 case SplitName.givenEmilitiaFlower: shouldSplit = mem.PlayerData<bool>(Offset.givenEmilitiaFlower); break;
 
-                case SplitName.WhitePalaceEntry: shouldSplit = nextScene.StartsWith("White_Palace_11") && nextScene != sceneName; break;
                 case SplitName.ManualSplit: shouldSplit = false; break;
                 case SplitName.OnGhostCoinsIncremented:
                     shouldSplit = store.CheckIncremented(Offset.ghostCoins);
                     break;
                 case SplitName.RidingStag: shouldSplit = store.CheckToggledTrue(Offset.travelling); break;
-                case SplitName.WhitePalaceLowerEntry: shouldSplit = nextScene.StartsWith("White_Palace_01") && nextScene != sceneName; break;
-                case SplitName.WhitePalaceLowerOrb: shouldSplit = nextScene.StartsWith("White_Palace_02") && nextScene != sceneName; break;
 
                 case SplitName.OnObtainGhostMarissa:
                     shouldSplit = store.CheckIncremented(Offset.dreamOrbs) && sceneName == "Ruins_Bathhouse";
