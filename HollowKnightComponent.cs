@@ -1142,6 +1142,35 @@ namespace LiveSplit.HollowKnight {
 
                 #endregion Dream Trees
 
+                #region Essence Count
+
+                case SplitName.Essence100: shouldSplit = mem.PlayerData<int>(Offset.dreamOrbs) >= 100; break;
+                case SplitName.Essence200: shouldSplit = mem.PlayerData<int>(Offset.dreamOrbs) >= 200; break;
+                case SplitName.Essence300: shouldSplit = mem.PlayerData<int>(Offset.dreamOrbs) >= 300; break;
+                case SplitName.Essence400: shouldSplit = mem.PlayerData<int>(Offset.dreamOrbs) >= 400; break;
+                case SplitName.Essence500: shouldSplit = mem.PlayerData<int>(Offset.dreamOrbs) >= 500; break;
+                case SplitName.Essence600: shouldSplit = mem.PlayerData<int>(Offset.dreamOrbs) >= 600; break;
+                case SplitName.Essence700: shouldSplit = mem.PlayerData<int>(Offset.dreamOrbs) >= 700; break;
+                case SplitName.Essence800: shouldSplit = mem.PlayerData<int>(Offset.dreamOrbs) >= 800; break;
+                case SplitName.Essence900: shouldSplit = mem.PlayerData<int>(Offset.dreamOrbs) >= 900; break;
+                case SplitName.Essence1000: shouldSplit = mem.PlayerData<int>(Offset.dreamOrbs) >= 1000; break;
+                case SplitName.Essence1100: shouldSplit = mem.PlayerData<int>(Offset.dreamOrbs) >= 1100; break;
+                case SplitName.Essence1200: shouldSplit = mem.PlayerData<int>(Offset.dreamOrbs) >= 1200; break;
+                case SplitName.Essence1300: shouldSplit = mem.PlayerData<int>(Offset.dreamOrbs) >= 1300; break;
+                case SplitName.Essence1400: shouldSplit = mem.PlayerData<int>(Offset.dreamOrbs) >= 1400; break;
+                case SplitName.Essence1500: shouldSplit = mem.PlayerData<int>(Offset.dreamOrbs) >= 1500; break;
+                case SplitName.Essence1600: shouldSplit = mem.PlayerData<int>(Offset.dreamOrbs) >= 1600; break;
+                case SplitName.Essence1700: shouldSplit = mem.PlayerData<int>(Offset.dreamOrbs) >= 1700; break;
+                case SplitName.Essence1800: shouldSplit = mem.PlayerData<int>(Offset.dreamOrbs) >= 1800; break;
+                case SplitName.Essence1900: shouldSplit = mem.PlayerData<int>(Offset.dreamOrbs) >= 1900; break;
+                case SplitName.Essence2000: shouldSplit = mem.PlayerData<int>(Offset.dreamOrbs) >= 2000; break;
+                case SplitName.Essence2100: shouldSplit = mem.PlayerData<int>(Offset.dreamOrbs) >= 2100; break;
+                case SplitName.Essence2200: shouldSplit = mem.PlayerData<int>(Offset.dreamOrbs) >= 2200; break;
+                case SplitName.Essence2300: shouldSplit = mem.PlayerData<int>(Offset.dreamOrbs) >= 2300; break;
+                case SplitName.Essence2400: shouldSplit = mem.PlayerData<int>(Offset.dreamOrbs) >= 2400; break;
+
+                #endregion Essence Count
+
                 case SplitName.ColosseumBronze: shouldSplit = mem.PlayerData<bool>(Offset.colosseumBronzeCompleted); break;
                 case SplitName.ColosseumGold: shouldSplit = mem.PlayerData<bool>(Offset.colosseumGoldCompleted); break;
                 case SplitName.ColosseumSilver: shouldSplit = mem.PlayerData<bool>(Offset.colosseumSilverCompleted); break;
@@ -1175,31 +1204,6 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.VesselFragment7: shouldSplit = mem.PlayerData<int>(Offset.vesselFragments) == 7 || (mem.PlayerData<int>(Offset.MPReserveMax) == 66 && mem.PlayerData<int>(Offset.vesselFragments) == 1); break;
                 case SplitName.VesselFragment8: shouldSplit = mem.PlayerData<int>(Offset.vesselFragments) == 8 || (mem.PlayerData<int>(Offset.MPReserveMax) == 66 && mem.PlayerData<int>(Offset.vesselFragments) == 2); break;
                 case SplitName.Vessel3: shouldSplit = mem.PlayerData<int>(Offset.MPReserveMax) == 99; break;
-
-                case SplitName.Essence100: shouldSplit = mem.PlayerData<int>(Offset.dreamOrbs) >= 100; break;
-                case SplitName.Essence200: shouldSplit = mem.PlayerData<int>(Offset.dreamOrbs) >= 200; break;
-                case SplitName.Essence300: shouldSplit = mem.PlayerData<int>(Offset.dreamOrbs) >= 300; break;
-                case SplitName.Essence400: shouldSplit = mem.PlayerData<int>(Offset.dreamOrbs) >= 400; break;
-                case SplitName.Essence500: shouldSplit = mem.PlayerData<int>(Offset.dreamOrbs) >= 500; break;
-                case SplitName.Essence600: shouldSplit = mem.PlayerData<int>(Offset.dreamOrbs) >= 600; break;
-                case SplitName.Essence700: shouldSplit = mem.PlayerData<int>(Offset.dreamOrbs) >= 700; break;
-                case SplitName.Essence800: shouldSplit = mem.PlayerData<int>(Offset.dreamOrbs) >= 800; break;
-                case SplitName.Essence900: shouldSplit = mem.PlayerData<int>(Offset.dreamOrbs) >= 900; break;
-                case SplitName.Essence1000: shouldSplit = mem.PlayerData<int>(Offset.dreamOrbs) >= 1000; break;
-                case SplitName.Essence1100: shouldSplit = mem.PlayerData<int>(Offset.dreamOrbs) >= 1100; break;
-                case SplitName.Essence1200: shouldSplit = mem.PlayerData<int>(Offset.dreamOrbs) >= 1200; break;
-                case SplitName.Essence1300: shouldSplit = mem.PlayerData<int>(Offset.dreamOrbs) >= 1300; break;
-                case SplitName.Essence1400: shouldSplit = mem.PlayerData<int>(Offset.dreamOrbs) >= 1400; break;
-                case SplitName.Essence1500: shouldSplit = mem.PlayerData<int>(Offset.dreamOrbs) >= 1500; break;
-                case SplitName.Essence1600: shouldSplit = mem.PlayerData<int>(Offset.dreamOrbs) >= 1600; break;
-                case SplitName.Essence1700: shouldSplit = mem.PlayerData<int>(Offset.dreamOrbs) >= 1700; break;
-                case SplitName.Essence1800: shouldSplit = mem.PlayerData<int>(Offset.dreamOrbs) >= 1800; break;
-                case SplitName.Essence1900: shouldSplit = mem.PlayerData<int>(Offset.dreamOrbs) >= 1900; break;
-                case SplitName.Essence2000: shouldSplit = mem.PlayerData<int>(Offset.dreamOrbs) >= 2000; break;
-                case SplitName.Essence2100: shouldSplit = mem.PlayerData<int>(Offset.dreamOrbs) >= 2100; break;
-                case SplitName.Essence2200: shouldSplit = mem.PlayerData<int>(Offset.dreamOrbs) >= 2200; break;
-                case SplitName.Essence2300: shouldSplit = mem.PlayerData<int>(Offset.dreamOrbs) >= 2300; break;
-                case SplitName.Essence2400: shouldSplit = mem.PlayerData<int>(Offset.dreamOrbs) >= 2400; break;
 
                 case SplitName.VengeflyKingP: shouldSplit = sceneName.StartsWith("GG_Vengefly") && nextScene.StartsWith("GG_Gruz_Mother"); break;
                 case SplitName.GruzMotherP: shouldSplit = sceneName.StartsWith("GG_Gruz_Mother") && nextScene.StartsWith("GG_False_Knight"); break;
