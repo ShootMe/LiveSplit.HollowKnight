@@ -1371,25 +1371,52 @@ namespace LiveSplit.HollowKnight {
 
                 #endregion Overworld Ghosts
 
-                case SplitName.ColosseumBronze: shouldSplit = mem.PlayerData<bool>(Offset.colosseumBronzeCompleted); break;
-                case SplitName.ColosseumGold: shouldSplit = mem.PlayerData<bool>(Offset.colosseumGoldCompleted); break;
-                case SplitName.ColosseumSilver: shouldSplit = mem.PlayerData<bool>(Offset.colosseumSilverCompleted); break;
+                #region Mask Shards
+
+                case SplitName.OnObtainMaskShard:
+                    shouldSplit =
+                        store.CheckIncremented(Offset.maxHealthBase) // && mem.UIState() != UIState.PLAYING
+                        || store.CheckIncremented(Offset.heartPieces) && mem.PlayerData<int>(Offset.heartPieces) < 4;
+                    break;
+
+                case SplitName.MaskShardMawlek: if (currScene == "Crossroads_09") { goto case SplitName.OnObtainMaskShard; } break;
+                case SplitName.MaskShardGrubfather: if (currScene == "Crossroads_38") { goto case SplitName.OnObtainMaskShard; } break;
+                case SplitName.MaskShardBretta: if (currScene == "Room_Bretta") { goto case SplitName.OnObtainMaskShard; } break;
+                case SplitName.MaskShardQueensStation: if (currScene == "Fungus2_01") { goto case SplitName.OnObtainMaskShard; } break;
+                case SplitName.MaskShardEnragedGuardian: if (currScene == "Mines_32") { goto case SplitName.OnObtainMaskShard; } break;
+                case SplitName.MaskShardSeer: if (currScene == "RestingGrounds_07") { goto case SplitName.OnObtainMaskShard; } break;
+                case SplitName.MaskShardGoam: if (currScene == "Crossroads_13") { goto case SplitName.OnObtainMaskShard; } break;
+                case SplitName.MaskShardStoneSanctuary: if (currScene == "Fungus1_36") { goto case SplitName.OnObtainMaskShard; } break;
+                case SplitName.MaskShardWaterways: if (currScene == "Waterways_04b") { goto case SplitName.OnObtainMaskShard; } break;
+                case SplitName.MaskShardFungalCore: if (currScene == "Fungus2_25") { goto case SplitName.OnObtainMaskShard; } break;
+                case SplitName.MaskShardHive: if (currScene == "Hive_04") { goto case SplitName.OnObtainMaskShard; } break;
+                case SplitName.MaskShardFlower: if (currScene == "Room_Mansion") { goto case SplitName.OnObtainMaskShard; } break;
+
                 case SplitName.MaskFragment1: shouldSplit = mem.PlayerData<int>(Offset.maxHealthBase) == 5 && mem.PlayerData<int>(Offset.heartPieces) == 1; break;
                 case SplitName.MaskFragment2: shouldSplit = mem.PlayerData<int>(Offset.maxHealthBase) == 5 && mem.PlayerData<int>(Offset.heartPieces) == 2; break;
                 case SplitName.MaskFragment3: shouldSplit = mem.PlayerData<int>(Offset.maxHealthBase) == 5 && mem.PlayerData<int>(Offset.heartPieces) == 3; break;
                 case SplitName.Mask1: shouldSplit = mem.PlayerData<int>(Offset.maxHealthBase) == 6; break;
+
                 case SplitName.MaskFragment5: shouldSplit = mem.PlayerData<int>(Offset.heartPieces) == 5 || (mem.PlayerData<int>(Offset.maxHealthBase) == 6 && mem.PlayerData<int>(Offset.heartPieces) == 1); break;
                 case SplitName.MaskFragment6: shouldSplit = mem.PlayerData<int>(Offset.heartPieces) == 6 || (mem.PlayerData<int>(Offset.maxHealthBase) == 6 && mem.PlayerData<int>(Offset.heartPieces) == 2); break;
                 case SplitName.MaskFragment7: shouldSplit = mem.PlayerData<int>(Offset.heartPieces) == 7 || (mem.PlayerData<int>(Offset.maxHealthBase) == 6 && mem.PlayerData<int>(Offset.heartPieces) == 3); break;
                 case SplitName.Mask2: shouldSplit = mem.PlayerData<int>(Offset.maxHealthBase) == 7; break;
+
                 case SplitName.MaskFragment9: shouldSplit = mem.PlayerData<int>(Offset.heartPieces) == 9 || (mem.PlayerData<int>(Offset.maxHealthBase) == 7 && mem.PlayerData<int>(Offset.heartPieces) == 1); break;
                 case SplitName.MaskFragment10: shouldSplit = mem.PlayerData<int>(Offset.heartPieces) == 10 || (mem.PlayerData<int>(Offset.maxHealthBase) == 7 && mem.PlayerData<int>(Offset.heartPieces) == 2); break;
                 case SplitName.MaskFragment11: shouldSplit = mem.PlayerData<int>(Offset.heartPieces) == 11 || (mem.PlayerData<int>(Offset.maxHealthBase) == 7 && mem.PlayerData<int>(Offset.heartPieces) == 3); break;
                 case SplitName.Mask3: shouldSplit = mem.PlayerData<int>(Offset.maxHealthBase) == 8; break;
+
                 case SplitName.MaskFragment13: shouldSplit = mem.PlayerData<int>(Offset.heartPieces) == 13 || (mem.PlayerData<int>(Offset.maxHealthBase) == 8 && mem.PlayerData<int>(Offset.heartPieces) == 1); break;
                 case SplitName.MaskFragment14: shouldSplit = mem.PlayerData<int>(Offset.heartPieces) == 14 || (mem.PlayerData<int>(Offset.maxHealthBase) == 8 && mem.PlayerData<int>(Offset.heartPieces) == 2); break;
                 case SplitName.MaskFragment15: shouldSplit = mem.PlayerData<int>(Offset.heartPieces) == 15 || (mem.PlayerData<int>(Offset.maxHealthBase) == 8 && mem.PlayerData<int>(Offset.heartPieces) == 3); break;
                 case SplitName.Mask4: shouldSplit = mem.PlayerData<int>(Offset.maxHealthBase) == 9; break;
+
+                #endregion Mask Shards
+
+                case SplitName.ColosseumBronze: shouldSplit = mem.PlayerData<bool>(Offset.colosseumBronzeCompleted); break;
+                case SplitName.ColosseumGold: shouldSplit = mem.PlayerData<bool>(Offset.colosseumGoldCompleted); break;
+                case SplitName.ColosseumSilver: shouldSplit = mem.PlayerData<bool>(Offset.colosseumSilverCompleted); break;
                 case SplitName.VesselFragment1: shouldSplit = mem.PlayerData<int>(Offset.MPReserveMax) == 0 && mem.PlayerData<int>(Offset.vesselFragments) == 1; break;
                 case SplitName.VesselFragment2: shouldSplit = mem.PlayerData<int>(Offset.MPReserveMax) == 0 && mem.PlayerData<int>(Offset.vesselFragments) == 2; break;
                 case SplitName.Vessel1: shouldSplit = mem.PlayerData<int>(Offset.MPReserveMax) == 33; break;
@@ -1419,19 +1446,6 @@ namespace LiveSplit.HollowKnight {
                 //case SplitName.AreaTestingSanctum: shouldSplit = mem.PlayerData<int>(Offset.currentArea) == (int)MapZone.SOUL_SOCIETY; break;
                 //case SplitName.AreaTestingSanctumUpper: shouldSplit = mem.PlayerData<int>(Offset.currentArea) == (int)MapZone.MAGE_TOWER; break;
 
-                case SplitName.MaskShardMawlek: if (sceneName == "Crossroads_09") { goto case SplitName.OnObtainMaskShard; } break;
-                case SplitName.MaskShardGrubfather: if (sceneName == "Crossroads_38") { goto case SplitName.OnObtainMaskShard; } break;
-                case SplitName.MaskShardBretta: if (sceneName == "Room_Bretta") { goto case SplitName.OnObtainMaskShard; } break;
-                case SplitName.MaskShardQueensStation: if (sceneName == "Fungus2_01") { goto case SplitName.OnObtainMaskShard; } break;
-                case SplitName.MaskShardEnragedGuardian: if (sceneName == "Mines_32") { goto case SplitName.OnObtainMaskShard; } break;
-                case SplitName.MaskShardSeer: if (sceneName == "RestingGrounds_07") { goto case SplitName.OnObtainMaskShard; } break;
-                case SplitName.MaskShardGoam: if (sceneName == "Crossroads_13") { goto case SplitName.OnObtainMaskShard; } break;
-                case SplitName.MaskShardStoneSanctuary: if (sceneName == "Fungus1_36") { goto case SplitName.OnObtainMaskShard; } break;
-                case SplitName.MaskShardWaterways: if (sceneName == "Waterways_04b") { goto case SplitName.OnObtainMaskShard; } break;
-                case SplitName.MaskShardFungalCore: if (sceneName == "Fungus2_25") { goto case SplitName.OnObtainMaskShard; } break;
-                case SplitName.MaskShardHive: if (sceneName == "Hive_04") { goto case SplitName.OnObtainMaskShard; } break;
-                case SplitName.MaskShardFlower: if (sceneName == "Room_Mansion") { goto case SplitName.OnObtainMaskShard; } break;
-
                 case SplitName.VesselFragGreenpath: if (sceneName == "Fungus1_13") { goto case SplitName.OnObtainVesselFragment; } break;
                 case SplitName.VesselFragCrossroadsLift: if (sceneName == "Crossroads_37") { goto case SplitName.OnObtainVesselFragment; } break;
                 case SplitName.VesselFragKingsStation: if (sceneName == "Ruins2_09") { goto case SplitName.OnObtainVesselFragment; } break;
@@ -1440,9 +1454,6 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.VesselFragSeer: if (sceneName == "RestingGrounds_07") { goto case SplitName.OnObtainVesselFragment; } break;
                 case SplitName.VesselFragFountain: if (sceneName == "Abyss_04") { goto case SplitName.OnObtainVesselFragment; } break;
 
-                case SplitName.OnObtainMaskShard:
-                    shouldSplit = store.CheckIncremented(Offset.maxHealthBase) || (store.CheckIncremented(Offset.heartPieces) && mem.PlayerData<int>(Offset.heartPieces) < 4);
-                    break;
                 case SplitName.OnObtainVesselFragment:
                     shouldSplit = store.CheckIncreasedBy(Offset.MPReserveMax, 33) || (store.CheckIncremented(Offset.vesselFragments) && mem.PlayerData<int>(Offset.vesselFragments) < 3);
                     break;
