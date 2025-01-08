@@ -1171,6 +1171,23 @@ namespace LiveSplit.HollowKnight {
 
                 #endregion Essence Count
 
+                #region Boss Essence
+
+                case SplitName.FailedChampionEssence: shouldSplit = mem.PlayerData<bool>(Offset.falseKnightOrbsCollected); break;
+                case SplitName.SoulTyrantEssence: shouldSplit = mem.PlayerData<bool>(Offset.mageLordOrbsCollected); break;
+                case SplitName.LostKinEssence: shouldSplit = mem.PlayerData<bool>(Offset.infectedKnightOrbsCollected); break;
+                case SplitName.WhiteDefenderEssence: shouldSplit = mem.PlayerData<bool>(Offset.whiteDefenderOrbsCollected); break;
+                case SplitName.GreyPrinceEssence: shouldSplit = mem.PlayerData<bool>(Offset.greyPrinceOrbsCollected); break;
+                case SplitName.ElderHuEssence: shouldSplit = mem.PlayerData<int>(Offset.elderHuDefeated) == 2; break;
+                case SplitName.GalienEssence: shouldSplit = mem.PlayerData<int>(Offset.galienDefeated) == 2; break;
+                case SplitName.GorbEssence: shouldSplit = mem.PlayerData<int>(Offset.aladarSlugDefeated) == 2; break;
+                case SplitName.MarmuEssence: shouldSplit = mem.PlayerData<int>(Offset.mumCaterpillarDefeated) == 2; break;
+                case SplitName.NoEyesEssence: shouldSplit = mem.PlayerData<int>(Offset.noEyesDefeated) == 2; break;
+                case SplitName.XeroEssence: shouldSplit = mem.PlayerData<int>(Offset.xeroDefeated) == 2; break;
+                case SplitName.MarkothEssence: shouldSplit = mem.PlayerData<int>(Offset.markothDefeated) == 2; break;
+
+                #endregion Boss Essence
+
                 case SplitName.ColosseumBronze: shouldSplit = mem.PlayerData<bool>(Offset.colosseumBronzeCompleted); break;
                 case SplitName.ColosseumGold: shouldSplit = mem.PlayerData<bool>(Offset.colosseumGoldCompleted); break;
                 case SplitName.ColosseumSilver: shouldSplit = mem.PlayerData<bool>(Offset.colosseumSilverCompleted); break;
@@ -1328,20 +1345,6 @@ namespace LiveSplit.HollowKnight {
 
                 //case SplitName.AreaTestingSanctum: shouldSplit = mem.PlayerData<int>(Offset.currentArea) == (int)MapZone.SOUL_SOCIETY; break;
                 //case SplitName.AreaTestingSanctumUpper: shouldSplit = mem.PlayerData<int>(Offset.currentArea) == (int)MapZone.MAGE_TOWER; break;
-
-                case SplitName.FailedChampionEssence: shouldSplit = mem.PlayerData<bool>(Offset.falseKnightOrbsCollected); break;
-                case SplitName.SoulTyrantEssence: shouldSplit = mem.PlayerData<bool>(Offset.mageLordOrbsCollected); break;
-                case SplitName.LostKinEssence: shouldSplit = mem.PlayerData<bool>(Offset.infectedKnightOrbsCollected); break;
-                case SplitName.WhiteDefenderEssence: shouldSplit = mem.PlayerData<bool>(Offset.whiteDefenderOrbsCollected); break;
-                case SplitName.GreyPrinceEssence: shouldSplit = mem.PlayerData<bool>(Offset.greyPrinceOrbsCollected); break;
-
-                case SplitName.ElderHuEssence: shouldSplit = mem.PlayerData<int>(Offset.elderHuDefeated) == 2; break;
-                case SplitName.GalienEssence: shouldSplit = mem.PlayerData<int>(Offset.galienDefeated) == 2; break;
-                case SplitName.GorbEssence: shouldSplit = mem.PlayerData<int>(Offset.aladarSlugDefeated) == 2; break;
-                case SplitName.MarmuEssence: shouldSplit = mem.PlayerData<int>(Offset.mumCaterpillarDefeated) == 2; break;
-                case SplitName.NoEyesEssence: shouldSplit = mem.PlayerData<int>(Offset.noEyesDefeated) == 2; break;
-                case SplitName.XeroEssence: shouldSplit = mem.PlayerData<int>(Offset.xeroDefeated) == 2; break;
-                case SplitName.MarkothEssence: shouldSplit = mem.PlayerData<int>(Offset.markothDefeated) == 2; break;
 
                 case SplitName.Menu: shouldSplit = sceneName == "Menu_Title"; break;
                 case SplitName.MenuClaw: shouldSplit = mem.PlayerData<bool>(Offset.hasWallJump); break;
