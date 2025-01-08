@@ -974,6 +974,18 @@ namespace LiveSplit.HollowKnight {
 
                 #endregion Grimm Quest
 
+                #region Mister Mushroom
+
+                case SplitName.MrMushroom1: shouldSplit = mem.PlayerData<int>(Offset.mrMushroomState) == 2; break;
+                case SplitName.MrMushroom2: shouldSplit = mem.PlayerData<int>(Offset.mrMushroomState) == 3; break;
+                case SplitName.MrMushroom3: shouldSplit = mem.PlayerData<int>(Offset.mrMushroomState) == 4; break;
+                case SplitName.MrMushroom4: shouldSplit = mem.PlayerData<int>(Offset.mrMushroomState) == 5; break;
+                case SplitName.MrMushroom5: shouldSplit = mem.PlayerData<int>(Offset.mrMushroomState) == 6; break;
+                case SplitName.MrMushroom6: shouldSplit = mem.PlayerData<int>(Offset.mrMushroomState) == 7; break;
+                case SplitName.MrMushroom7: shouldSplit = mem.PlayerData<int>(Offset.mrMushroomState) == 8; break;
+
+                #endregion Mister Mushroom
+
                 case SplitName.ColosseumBronze: shouldSplit = mem.PlayerData<bool>(Offset.colosseumBronzeCompleted); break;
                 case SplitName.ColosseumGold: shouldSplit = mem.PlayerData<bool>(Offset.colosseumGoldCompleted); break;
                 case SplitName.ColosseumSilver: shouldSplit = mem.PlayerData<bool>(Offset.colosseumSilverCompleted); break;
@@ -993,13 +1005,6 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.MaskFragment14: shouldSplit = mem.PlayerData<int>(Offset.heartPieces) == 14 || (mem.PlayerData<int>(Offset.maxHealthBase) == 8 && mem.PlayerData<int>(Offset.heartPieces) == 2); break;
                 case SplitName.MaskFragment15: shouldSplit = mem.PlayerData<int>(Offset.heartPieces) == 15 || (mem.PlayerData<int>(Offset.maxHealthBase) == 8 && mem.PlayerData<int>(Offset.heartPieces) == 3); break;
                 case SplitName.Mask4: shouldSplit = mem.PlayerData<int>(Offset.maxHealthBase) == 9; break;
-                case SplitName.MrMushroom1: shouldSplit = mem.PlayerData<int>(Offset.mrMushroomState) == 2; break;
-                case SplitName.MrMushroom2: shouldSplit = mem.PlayerData<int>(Offset.mrMushroomState) == 3; break;
-                case SplitName.MrMushroom3: shouldSplit = mem.PlayerData<int>(Offset.mrMushroomState) == 4; break;
-                case SplitName.MrMushroom4: shouldSplit = mem.PlayerData<int>(Offset.mrMushroomState) == 5; break;
-                case SplitName.MrMushroom5: shouldSplit = mem.PlayerData<int>(Offset.mrMushroomState) == 6; break;
-                case SplitName.MrMushroom6: shouldSplit = mem.PlayerData<int>(Offset.mrMushroomState) == 7; break;
-                case SplitName.MrMushroom7: shouldSplit = mem.PlayerData<int>(Offset.mrMushroomState) == 8; break;
                 case SplitName.NailUpgrade1: shouldSplit = mem.PlayerData<int>(Offset.nailSmithUpgrades) == 1; break;
                 case SplitName.NailUpgrade2: shouldSplit = mem.PlayerData<int>(Offset.nailSmithUpgrades) == 2; break;
                 case SplitName.NailUpgrade3: shouldSplit = mem.PlayerData<int>(Offset.nailSmithUpgrades) == 3; break;
