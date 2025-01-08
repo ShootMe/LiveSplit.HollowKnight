@@ -564,6 +564,8 @@ namespace LiveSplit.HollowKnight {
         EternalOrdealAchieved,
         [Description("Riding Stag (Event)"), ToolTip("Splits while riding the stag")]
         RidingStag,
+        [Description("Stag Position Updated (Event)"), ToolTip("Splits when the stag is called")]
+        StagMoved,
         [Description("Saved Cloth (Event)"), ToolTip("Splits when saving Cloth in Ancient Basin")]
         SavedCloth,
         [Description("Crystal Peak Lift Opened (Event)"), ToolTip("Splits when opening the lever for the lift between Dirtmouth and Crystal Peak")]

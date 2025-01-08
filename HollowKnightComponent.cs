@@ -759,6 +759,27 @@ namespace LiveSplit.HollowKnight {
 
                 #endregion White Palace & Path of Pain
 
+                #region Stags
+
+                case SplitName.RidingStag: shouldSplit = store.CheckToggledTrue(Offset.travelling); break;
+                case SplitName.StagMoved: shouldSplit = store.CheckChanged(Offset.stagPosition); break;
+
+                case SplitName.CrossroadsStation: shouldSplit = mem.PlayerData<bool>(Offset.openedCrossroads); break;
+                case SplitName.DeepnestStation: shouldSplit = mem.PlayerData<bool>(Offset.openedDeepnest); break;
+                case SplitName.GreenpathStation: shouldSplit = mem.PlayerData<bool>(Offset.openedGreenpath); break;
+                case SplitName.HiddenStationStation: shouldSplit = mem.PlayerData<bool>(Offset.openedHiddenStation); break;
+                case SplitName.KingsStationStation: shouldSplit = mem.PlayerData<bool>(Offset.openedRuins2); break;
+                case SplitName.QueensGardensStation: shouldSplit = mem.PlayerData<bool>(Offset.openedRoyalGardens); break;
+                case SplitName.QueensStationStation: shouldSplit = mem.PlayerData<bool>(Offset.openedFungalWastes); break;
+                case SplitName.RestingGroundsStation: shouldSplit = mem.PlayerData<bool>(Offset.openedRestingGrounds); break;
+                case SplitName.StagnestStation:
+                    shouldSplit = nextScene.Equals("Cliffs_03", StringComparison.OrdinalIgnoreCase)
+                        && mem.PlayerData<bool>(Offset.travelling)
+                        && mem.PlayerData<bool>(Offset.openedStagNest); break;
+                case SplitName.StoreroomsStation: shouldSplit = mem.PlayerData<bool>(Offset.openedRuins1); break;
+
+                #endregion Stags
+
                 case SplitName.Abyss: shouldSplit = mem.PlayerData<bool>(Offset.visitedAbyss); break;
                 case SplitName.Aluba: shouldSplit = mem.PlayerData<bool>(Offset.killedLazyFlyer); break;
                 case SplitName.AspidHunter: shouldSplit = mem.PlayerData<int>(Offset.killsSpitter) == 17; break;
@@ -770,11 +791,9 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.ColosseumBronze: shouldSplit = mem.PlayerData<bool>(Offset.colosseumBronzeCompleted); break;
                 case SplitName.ColosseumGold: shouldSplit = mem.PlayerData<bool>(Offset.colosseumGoldCompleted); break;
                 case SplitName.ColosseumSilver: shouldSplit = mem.PlayerData<bool>(Offset.colosseumSilverCompleted); break;
-                case SplitName.CrossroadsStation: shouldSplit = mem.PlayerData<bool>(Offset.openedCrossroads); break;
                 case SplitName.CrystalPeak: shouldSplit = mem.PlayerData<bool>(Offset.visitedMines); break;
                 case SplitName.Deepnest: shouldSplit = mem.PlayerData<bool>(Offset.visitedDeepnest); break;
                 case SplitName.DeepnestSpa: shouldSplit = mem.PlayerData<bool>(Offset.visitedDeepnestSpa); break;
-                case SplitName.DeepnestStation: shouldSplit = mem.PlayerData<bool>(Offset.openedDeepnest); break;
                 case SplitName.Dirtmouth: shouldSplit = mem.PlayerData<bool>(Offset.visitedDirtmouth); break;
                 case SplitName.ElderbugFlower: shouldSplit = mem.PlayerData<bool>(Offset.elderbugGaveFlower); break;
                 case SplitName.EternalOrdealAchieved: shouldSplit = mem.PlayerData<bool>(Offset.ordealAchieved); break;
@@ -788,16 +807,13 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.Godhome: shouldSplit = mem.PlayerData<bool>(Offset.visitedGodhome); break;
                 case SplitName.GorgeousHusk: shouldSplit = mem.PlayerData<bool>(Offset.killedGorgeousHusk); break;
                 case SplitName.Greenpath: shouldSplit = mem.PlayerData<bool>(Offset.visitedGreenpath); break;
-                case SplitName.GreenpathStation: shouldSplit = mem.PlayerData<bool>(Offset.openedGreenpath); break;
                 case SplitName.GreatHopper: shouldSplit = mem.PlayerData<bool>(Offset.killedGiantHopper); break;
                 case SplitName.GreatHuskSentry: shouldSplit = mem.PlayerData<bool>(Offset.killedGreatShieldZombie); break;
-                case SplitName.HiddenStationStation: shouldSplit = mem.PlayerData<bool>(Offset.openedHiddenStation); break;
                 case SplitName.Hive: shouldSplit = mem.PlayerData<bool>(Offset.visitedHive); break;
                 case SplitName.HuntersMark: shouldSplit = mem.PlayerData<bool>(Offset.killedHunterMark); break;
                 case SplitName.HuskMiner: shouldSplit = store.CheckIncreasedBy(Offset.killsZombieMiner, -1); break;
                 case SplitName.InfectedCrossroads: shouldSplit = mem.PlayerData<bool>(Offset.crossroadsInfected) && mem.PlayerData<bool>(Offset.visitedCrossroads); break;
                 case SplitName.KingdomsEdge: shouldSplit = mem.PlayerData<bool>(Offset.visitedOutskirts); break;
-                case SplitName.KingsStationStation: shouldSplit = mem.PlayerData<bool>(Offset.openedRuins2); break;
                 //case SplitName.Lemm1: shouldSplit = mem.PlayerData<bool>(Offset.metRelicDealer); break;
                 case SplitName.Lemm2: shouldSplit = mem.PlayerData<bool>(Offset.metRelicDealerShop); break;
                 case SplitName.LittleFool: shouldSplit = mem.PlayerData<bool>(Offset.littleFoolMet); break;
@@ -841,19 +857,11 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.Pantheon4: shouldSplit = mem.PlayerData<bool>(Offset.bossDoorStateTier4); break;
                 case SplitName.Pantheon5: shouldSplit = mem.PlayerData<bool>(Offset.bossDoorStateTier5); break;
                 case SplitName.QueensGardens: shouldSplit = mem.PlayerData<bool>(Offset.visitedRoyalGardens); break;
-                case SplitName.QueensGardensStation: shouldSplit = mem.PlayerData<bool>(Offset.openedRoyalGardens); break;
-                case SplitName.QueensStationStation: shouldSplit = mem.PlayerData<bool>(Offset.openedFungalWastes); break;
                 case SplitName.RestingGrounds: shouldSplit = mem.PlayerData<bool>(Offset.visitedRestingGrounds); break;
-                case SplitName.RestingGroundsStation: shouldSplit = mem.PlayerData<bool>(Offset.openedRestingGrounds); break;
                 case SplitName.RollerHuntersNotes: shouldSplit = mem.PlayerData<int>(Offset.killsRoller) == 0; break;
                 case SplitName.RoyalWaterways: shouldSplit = mem.PlayerData<bool>(Offset.visitedWaterways); break;
                 case SplitName.SeerDeparts: shouldSplit = mem.PlayerData<bool>(Offset.mothDeparted); break;
                 case SplitName.SpiritGladeOpen: shouldSplit = mem.PlayerData<bool>(Offset.gladeDoorOpened); break;
-                case SplitName.StagnestStation:
-                    shouldSplit = nextScene.Equals("Cliffs_03", StringComparison.OrdinalIgnoreCase)
-                                                              && mem.PlayerData<bool>(Offset.travelling)
-                                                              && mem.PlayerData<bool>(Offset.openedStagNest); break;
-                case SplitName.StoreroomsStation: shouldSplit = mem.PlayerData<bool>(Offset.openedRuins1); break;
                 case SplitName.UnchainedHollowKnight: shouldSplit = mem.PlayerData<bool>(Offset.unchainedHollowKnight); break;
                 case SplitName.VesselFragment1: shouldSplit = mem.PlayerData<int>(Offset.MPReserveMax) == 0 && mem.PlayerData<int>(Offset.vesselFragments) == 1; break;
                 case SplitName.VesselFragment2: shouldSplit = mem.PlayerData<int>(Offset.MPReserveMax) == 0 && mem.PlayerData<int>(Offset.vesselFragments) == 2; break;
@@ -1273,7 +1281,6 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.OnGhostCoinsIncremented:
                     shouldSplit = store.CheckIncremented(Offset.ghostCoins);
                     break;
-                case SplitName.RidingStag: shouldSplit = store.CheckToggledTrue(Offset.travelling); break;
 
                 case SplitName.OnObtainGhostMarissa:
                     shouldSplit = store.CheckIncremented(Offset.dreamOrbs) && sceneName == "Ruins_Bathhouse";
