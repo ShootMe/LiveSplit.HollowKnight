@@ -807,6 +807,32 @@ namespace LiveSplit.HollowKnight {
 
                 #endregion Areas
 
+                #region Miscellaneous
+
+                case SplitName.ManualSplit: shouldSplit = false; break;
+
+                case SplitName.DgateKingdomsEdgeAcid:
+                    shouldSplit =
+                        mem.PlayerDataString<string>(Offset.dreamGateScene).StartsWith("Deepnest_East_04")
+                        && (mem.PlayerData<float>(Offset.dreamGateX) > 27.0f && mem.PlayerData<float>(Offset.dreamGateX) < 29f)
+                        && (mem.PlayerData<float>(Offset.dreamGateY) > 7.0f && mem.PlayerData<float>(Offset.dreamGateY) < 9f);
+                    break;
+
+                case SplitName.PureSnail: // the award for the most miscellaneous split goes to this one probably
+                    int health = mem.PlayerData<int>(Offset.health);
+                    shouldSplit = mem.Focusing() // Healing
+                        && 0 < store.HealthBeforeFocus
+                        && (store.HealthBeforeFocus < health
+                            || (health == mem.PlayerData<int>(Offset.maxHealth)
+                                && mem.PlayerData<int>(Offset.MPCharge) + 33 <= store.MPChargeBeforeFocus))
+                        && mem.PlayerData<bool>(Offset.equippedCharm_5) // Baldur Shell
+                        && mem.PlayerData<bool>(Offset.equippedCharm_7) // Quick Focus
+                        && mem.PlayerData<bool>(Offset.equippedCharm_17) // Spore Shroom
+                        && mem.PlayerData<bool>(Offset.equippedCharm_28); // Shape of Unn
+                    break;
+
+                #endregion Miscellaneous
+
                 case SplitName.Aluba: shouldSplit = mem.PlayerData<bool>(Offset.killedLazyFlyer); break;
                 case SplitName.AspidHunter: shouldSplit = mem.PlayerData<int>(Offset.killsSpitter) == 17; break;
                 case SplitName.BeastsDenTrapBench: shouldSplit = mem.PlayerData<bool>(Offset.spiderCapture); break;
@@ -1196,13 +1222,6 @@ namespace LiveSplit.HollowKnight {
 
                 case SplitName.killedSoulTwister: shouldSplit = mem.PlayerData<bool>(Offset.killedMage); break;
 
-                case SplitName.DgateKingdomsEdgeAcid:
-                    shouldSplit =
-                        mem.PlayerDataString<string>(Offset.dreamGateScene).StartsWith("Deepnest_East_04") &&
-                        (mem.PlayerData<float>(Offset.dreamGateX) > 27.0f && mem.PlayerData<float>(Offset.dreamGateX) < 29f) &&
-                        (mem.PlayerData<float>(Offset.dreamGateY) > 7.0f && mem.PlayerData<float>(Offset.dreamGateY) < 9f);
-                    break;
-
                 case SplitName.FailedChampionEssence: shouldSplit = mem.PlayerData<bool>(Offset.falseKnightOrbsCollected); break;
                 case SplitName.SoulTyrantEssence: shouldSplit = mem.PlayerData<bool>(Offset.mageLordOrbsCollected); break;
                 case SplitName.LostKinEssence: shouldSplit = mem.PlayerData<bool>(Offset.infectedKnightOrbsCollected); break;
@@ -1282,7 +1301,6 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.givenWhiteLadyFlower: shouldSplit = mem.PlayerData<bool>(Offset.givenWhiteLadyFlower); break;
                 case SplitName.givenEmilitiaFlower: shouldSplit = mem.PlayerData<bool>(Offset.givenEmilitiaFlower); break;
 
-                case SplitName.ManualSplit: shouldSplit = false; break;
                 case SplitName.OnGhostCoinsIncremented:
                     shouldSplit = store.CheckIncremented(Offset.ghostCoins);
                     break;
@@ -1363,15 +1381,6 @@ namespace LiveSplit.HollowKnight {
 
                 case SplitName.AbyssDoor: shouldSplit = mem.PlayerData<bool>(Offset.abyssGateOpened); break;
                 case SplitName.AbyssLighthouse: shouldSplit = mem.PlayerData<bool>(Offset.abyssLighthouse); break;
-
-                // Spore Shroom : 17, Shape of Unn : 28, Quick Focus : 7, Baldur Shell : 5
-                case SplitName.PureSnail:
-                    shouldSplit = store.CheckIncreasedBy(Offset.health, 1) &&
-                        mem.PlayerData<bool>(Offset.equippedCharm_5) &&
-                        mem.PlayerData<bool>(Offset.equippedCharm_7) &&
-                        mem.PlayerData<bool>(Offset.equippedCharm_17) &&
-                        mem.PlayerData<bool>(Offset.equippedCharm_28);
-                    break;
 
 
                 #region Trial of the Warrior
