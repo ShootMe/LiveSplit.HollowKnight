@@ -58,6 +58,33 @@ namespace LiveSplit.HollowKnight {
         }
     }
     public enum SplitName {
+
+        [Description("[DEPRECATED] Start Run (Start)"), ToolTip("Splits when autosplitter version 3 would have automatically started runs")]
+        LegacyStart,
+
+        [Description("Start New Game (Start)"), ToolTip("Splits when starting a new game, including Normal, Steel Soul, and Godseeker mode")]
+        StartNewGame,
+        [Description("Start Pantheon (Start)"), ToolTip("Splits when starting a Pantheon run")]
+        StartPantheon,
+        [Description("Rando Wake (Start)"), ToolTip("Splits when gaining control after waking up in Rando")]
+        RandoWake,
+
+        [Description("[DEPRECATED] End Run (Ending)"), ToolTip("Splits when autosplitter version 3 would have automatically ended runs")]
+        LegacyEnd,
+
+        [Description("Credits Roll (Ending)"), ToolTip("Splits on any credits rolling")]
+        EndingSplit,
+        [Description("The Hollow Knight (Ending)"), ToolTip("Splits on The Hollow Knight ending")]
+        EndingA,
+        [Description("Sealed Siblings (Ending)"), ToolTip("Splits on Sealed Siblings ending")]
+        EndingB,
+        [Description("Dream No More (Ending)"), ToolTip("Splits on Dream No More ending")]
+        EndingC,
+        [Description("Embrace the Void (Ending)"), ToolTip("Splits on Embrace the Void ending")]
+        EndingD,
+        [Description("Delicate Flower (Ending)"), ToolTip("Splits on Delicate Flower ending")]
+        EndingE,
+
         [Description("Abyss Shriek (Skill)"), ToolTip("Splits when obtaining Abyss Shriek")]
         AbyssShriek,
         [Description("Crystal Heart (Skill)"), ToolTip("Splits when obtaining Crystal Heart")]
@@ -344,6 +371,8 @@ namespace LiveSplit.HollowKnight {
         EnterSoulMaster,
         [Description("Soul Master Encountered (Boss)"), ToolTip("Splits when Soul Master is activated the first time as the gate closes")]
         SoulMasterEncountered,
+        [Description("Soul Sanctum Hallownest Seal (Item)"), ToolTip("Splits when the Hallownest Seal in Soul Sanctum is collected")]
+        SoulSanctumSeal,
         [Description("Soul Tyrant (Boss)"), ToolTip("Splits when killing Soul Tyrant")]
         SoulTyrant,
         [Description("Soul Tyrant (Essence)"), ToolTip("Splits when getting Soul Tyrant essence")]
@@ -505,8 +534,6 @@ namespace LiveSplit.HollowKnight {
         CityGateOpen,
         [Description("City Gate w/ Mantis Lords defeated (Event)"), ToolTip("To make sure you don't forget Mantis Lords")]
         CityGateAndMantisLords,
-        [Description("Credits Roll (Event)"), ToolTip("Splits on any credits rolling")]
-        EndingSplit,
         [Description("Death (Event)"), ToolTip("Splits when player HP is 0")]
         PlayerDeath,
         [Description("Shade Killed (Event)"), ToolTip("Splits when the Shade is killed")]
@@ -747,12 +774,12 @@ namespace LiveSplit.HollowKnight {
 
         [Description("Has Claw (Transition)"), ToolTip("Splits on transition after Mantis Claw acquired")]
         TransClaw,
-        [Description("Has Fireball (Transition)"), ToolTip("Splits on transition after Vengeful Spirit acquired")]
+        [Description("Has Vengeful Spirit (Transition)"), ToolTip("Splits on transition after Vengeful Spirit acquired")]
         TransVS,
+        [Description("Has Shade Soul (Transition)"), ToolTip("Splits on transition after Shade Soul acquired (Room Dupe safe)")]
+        TransShadeSoul,
         [Description("Has Descending Dark (Transition)"), ToolTip("Splits on transition after Descending Dark acquired")]
         TransDescendingDark,
-        [Description("Has Shade Soul (Transition)"), ToolTip("Splits on transition after Shade Soul acquired")]
-        TransShadeSoul,
         [Description("Has Isma's Tear (Transition)"), ToolTip("Splits on transition after Isma's Tear acquired")]
         TransTear,
         [Description("Isma's Tear with Grub (Transition)"), ToolTip("Splits on transition after collecting Isma's Tear and saving the grub in Isma's Grove")]
@@ -787,6 +814,8 @@ namespace LiveSplit.HollowKnight {
         WaterwaysEntry,
         [Description("White Palace Entry (Transition)"), ToolTip("Splits when entering the first White Palace scene")]
         WhitePalaceEntry,
+        [Description("City Toll Bench Room (Transition)"), ToolTip("Splits when entering the city toll bench room")]
+        EnterCityTollBenchRoom,
 
         [Description("Baldur Shell (Charm)"), ToolTip("Splits when obtaining the Baldur Shell charm")]
         BaldurShell,
@@ -1637,10 +1666,10 @@ namespace LiveSplit.HollowKnight {
         AnyTransition,
         [Description("Transition excluding Save State (Transition)"), ToolTip("Splits when the knight enters a transition (excludes save states and Sly's basement)")]
         TransitionAfterSaveState,
+        [Description("Transition excluding discontinuities (Transition)"), ToolTip("Splits when the knight enters a transition (excludes discontinuities including save states, deaths, and dreamgates)")]
+        TransitionExcludingDiscontinuities,
         [Description("Manual Split (Misc)"), ToolTip("Never splits. Use this when you need to manually split while using ordered splits")]
         ManualSplit,
-        [Description("Rando Wake (Event)"), ToolTip("Splits when gaining control after waking up in Rando")]
-        RandoWake,
         [Description("Ghost Coins Incremented (Event)"), ToolTip("Splits when the ghostCoins PlayerData is updated. Unused by unmodded game, intended for use with mods.")]
         OnGhostCoinsIncremented,
 
