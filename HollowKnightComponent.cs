@@ -694,8 +694,6 @@ namespace LiveSplit.HollowKnight {
                         goto case SplitName.AnyTransition;
                     }
                     break;
-                case SplitName.WhitePalaceLowerEntry: shouldSplit = nextScene.StartsWith("White_Palace_01") && nextScene != currScene; break;
-                case SplitName.WhitePalaceLowerOrb: shouldSplit = nextScene.StartsWith("White_Palace_02") && nextScene != currScene; break;
                 case SplitName.QueensGardensPostArenaTransition: shouldSplit = nextScene.StartsWith("Fungus3_13") && nextScene != currScene; break;
                 case SplitName.QueensGardensFrogsTrans: shouldSplit = nextScene.StartsWith("Fungus1_23") && nextScene != currScene; break;
                 case SplitName.Pantheon1to4Entry: shouldSplit = nextScene.StartsWith("GG_Boss_Door_Entrance") && nextScene != currScene; break;
@@ -742,6 +740,8 @@ namespace LiveSplit.HollowKnight {
 
                 #region Rooms
 
+                case SplitName.WhitePalaceLowerEntry: shouldSplit = nextScene.StartsWith("White_Palace_01") && nextScene != currScene; break;
+                case SplitName.WhitePalaceLowerOrb: shouldSplit = nextScene.StartsWith("White_Palace_02") && nextScene != currScene; break;
                 case SplitName.WhitePalaceSecretRoom: shouldSplit = mem.PlayerData<bool>(Offset.whitePalaceSecretRoomVisited); break;
                 case SplitName.WhitePalaceEntry: shouldSplit = nextScene.StartsWith("White_Palace_11") && nextScene != currScene; break;
                 case SplitName.WhitePalaceLeftEntry: shouldSplit = nextScene.StartsWith("White_Palace_04") && nextScene != currScene; break;
