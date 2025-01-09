@@ -1,6 +1,7 @@
 ﻿namespace LiveSplit.HollowKnight {
     public enum Offset : int {
         health,
+        maxHealth,
         maxHealthBase,
         MPCharge,
         MPReserveMax,
@@ -283,6 +284,7 @@
         equippedCharm_28,
 
         equippedCharm_23,
+        equippedCharm_40,
         brokenCharm_23,
         brokenCharm_24,
         brokenCharm_25,
