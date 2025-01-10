@@ -23,6 +23,8 @@ namespace LiveSplit.HollowKnight
         private ConcurrentDictionary<Offset, Tracked<bool>> pdBools = new ConcurrentDictionary<Offset, Tracked<bool>>();
         public bool TraitorLordDeadOnEntry { get; private set; } = false;
         public bool DungDefenderAwakeConvoOnEntry { get; private set; } = false;
+        public int HealthBeforeFocus { get; private set; } = 0;
+        public int MPChargeBeforeFocus { get; private set; } = 0;
         /// <summary>
         /// Returns true if the knight is currently in a transition and has already split there
         /// </summary>
@@ -68,6 +70,8 @@ namespace LiveSplit.HollowKnight
             pdBools.Clear();
             TraitorLordDeadOnEntry = false;
             DungDefenderAwakeConvoOnEntry = false;
+            HealthBeforeFocus = 0;
+            MPChargeBeforeFocus = 0;
             SplitThisTransition = false;
             GladeEssence = 0;
             ResetKills();
@@ -201,6 +205,10 @@ namespace LiveSplit.HollowKnight
         public void Update() {
             if (mem.SceneName() == "RestingGrounds_08" && CheckIncremented(Offset.dreamOrbs)) {
                 GladeEssence++;
+            }
+            if (!mem.Focusing()) {
+                HealthBeforeFocus = mem.PlayerData<int>(Offset.health);
+                MPChargeBeforeFocus = mem.PlayerData<int>(Offset.MPCharge);
             }
             foreach (Offset offset in pdInts.Keys) {
                 pdInts[offset].Update(mem.PlayerData<int>(offset));
