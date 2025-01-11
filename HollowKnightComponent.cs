@@ -1309,6 +1309,16 @@ namespace LiveSplit.HollowKnight {
 
                 #endregion Benches
 
+                #region Main Menu
+
+                case SplitName.Menu: shouldSplit = sceneName == "Menu_Title"; break;
+                case SplitName.MenuClaw: shouldSplit = mem.PlayerData<bool>(Offset.hasWallJump); break;
+                case SplitName.MenuGorgeousHusk: shouldSplit = mem.PlayerData<bool>(Offset.killedGorgeousHusk); break;
+                case SplitName.MenuIsmasTear: shouldSplit = mem.PlayerData<bool>(Offset.hasAcidArmour); break;
+                case SplitName.MenuShadeSoul: shouldSplit = mem.PlayerData<int>(Offset.fireballLevel) == 2; break;
+
+                #endregion Main Menu
+
                 case SplitName.ColosseumBronze: shouldSplit = mem.PlayerData<bool>(Offset.colosseumBronzeCompleted); break;
                 case SplitName.ColosseumGold: shouldSplit = mem.PlayerData<bool>(Offset.colosseumGoldCompleted); break;
                 case SplitName.ColosseumSilver: shouldSplit = mem.PlayerData<bool>(Offset.colosseumSilverCompleted); break;
@@ -1356,12 +1366,6 @@ namespace LiveSplit.HollowKnight {
 
                 //case SplitName.AreaTestingSanctum: shouldSplit = mem.PlayerData<int>(Offset.currentArea) == (int)MapZone.SOUL_SOCIETY; break;
                 //case SplitName.AreaTestingSanctumUpper: shouldSplit = mem.PlayerData<int>(Offset.currentArea) == (int)MapZone.MAGE_TOWER; break;
-
-                case SplitName.Menu: shouldSplit = sceneName == "Menu_Title"; break;
-                case SplitName.MenuClaw: shouldSplit = mem.PlayerData<bool>(Offset.hasWallJump); break;
-                case SplitName.MenuGorgeousHusk: shouldSplit = mem.PlayerData<bool>(Offset.killedGorgeousHusk); break;
-                case SplitName.MenuIsmasTear: shouldSplit = mem.PlayerData<bool>(Offset.hasAcidArmour); break;
-                case SplitName.MenuShadeSoul: shouldSplit = mem.PlayerData<int>(Offset.fireballLevel) == 2; break;
 
                 case SplitName.mapDirtmouth: shouldSplit = mem.PlayerData<bool>(Offset.mapDirtmouth); break;
                 case SplitName.mapCrossroads: shouldSplit = mem.PlayerData<bool>(Offset.mapCrossroads); break;
