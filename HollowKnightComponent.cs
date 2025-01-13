@@ -291,138 +291,488 @@ namespace LiveSplit.HollowKnight {
 
 
         private SplitterAction CheckSplit(SplitName split, string nextScene, string sceneName) {
+            string currScene = sceneName;
             bool shouldSplit = false;
             bool shouldSkip = false;
             bool shouldReset = false;
             SplitterAction action;
 
             switch (split) {
-                case SplitName.Abyss: shouldSplit = mem.PlayerData<bool>(Offset.visitedAbyss); break;
-                case SplitName.AbyssShriek: shouldSplit = mem.PlayerData<int>(Offset.screamLevel) == 2; break;
-                case SplitName.Aluba: shouldSplit = mem.PlayerData<bool>(Offset.killedLazyFlyer); break;
-                case SplitName.AncestralMound: shouldSplit = nextScene.Equals("Crossroads_ShamanTemple") && nextScene != sceneName; break;
-                case SplitName.AspidHunter: shouldSplit = mem.PlayerData<int>(Offset.killsSpitter) == 17; break;
-                case SplitName.BaldurShell: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_5); break;
-                case SplitName.BeastsDenTrapBench: shouldSplit = mem.PlayerData<bool>(Offset.spiderCapture); break;
-                case SplitName.BlackKnight: shouldSplit = mem.PlayerData<bool>(Offset.killedBlackKnight); break;
-                case SplitName.BrettaRescued: shouldSplit = mem.PlayerData<bool>(Offset.brettaRescued); break;
-                case SplitName.BrummFlame: shouldSplit = mem.PlayerData<bool>(Offset.gotBrummsFlame); break;
-                case SplitName.BrokenVessel: shouldSplit = mem.PlayerData<bool>(Offset.killedInfectedKnight); break;
-                case SplitName.BroodingMawlek: shouldSplit = mem.PlayerData<bool>(Offset.killedMawlek); break;
-                case SplitName.CityOfTears: shouldSplit = mem.PlayerData<bool>(Offset.visitedRuins); break;
-                case SplitName.Collector: shouldSplit = mem.PlayerData<bool>(Offset.collectorDefeated); break;
-                case SplitName.TransCollector: shouldSplit = mem.PlayerData<bool>(Offset.collectorDefeated) && sceneName.StartsWith("Ruins2_11") && nextScene != sceneName; break;
-                case SplitName.Colosseum: shouldSplit = mem.PlayerData<bool>(Offset.seenColosseumTitle); break;
-                case SplitName.ColosseumBronze: shouldSplit = mem.PlayerData<bool>(Offset.colosseumBronzeCompleted); break;
-                case SplitName.ColosseumGold: shouldSplit = mem.PlayerData<bool>(Offset.colosseumGoldCompleted); break;
-                case SplitName.ColosseumSilver: shouldSplit = mem.PlayerData<bool>(Offset.colosseumSilverCompleted); break;
-                case SplitName.CrossroadsStation: shouldSplit = mem.PlayerData<bool>(Offset.openedCrossroads); break;
-                case SplitName.CrystalGuardian1: shouldSplit = mem.PlayerData<bool>(Offset.defeatedMegaBeamMiner); break;
-                case SplitName.CrystalGuardian2: shouldSplit = mem.PlayerData<int>(Offset.killsMegaBeamMiner) == 0; break;
-                case SplitName.CrystalHeart: shouldSplit = mem.PlayerData<bool>(Offset.hasSuperDash); break;
-                case SplitName.CrystalPeak: shouldSplit = mem.PlayerData<bool>(Offset.visitedMines); break;
-                case SplitName.CycloneSlash: shouldSplit = mem.PlayerData<bool>(Offset.hasCyclone); break;
-                case SplitName.Dashmaster: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_31); break;
-                case SplitName.DashSlash: shouldSplit = mem.PlayerData<bool>(Offset.hasUpwardSlash); break;
-                case SplitName.DeepFocus: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_34); break;
-                case SplitName.Deepnest: shouldSplit = mem.PlayerData<bool>(Offset.visitedDeepnest); break;
-                case SplitName.DeepnestSpa: shouldSplit = mem.PlayerData<bool>(Offset.visitedDeepnestSpa); break;
-                case SplitName.DeepnestStation: shouldSplit = mem.PlayerData<bool>(Offset.openedDeepnest); break;
-                case SplitName.DefendersCrest: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_10); break;
-                case SplitName.DescendingDark: shouldSplit = mem.PlayerData<int>(Offset.quakeLevel) == 2; break;
+
+                #region Start and End
+
+                case SplitName.LegacyStart:
+                    shouldSplit =
+                        (nextScene.Equals("Tutorial_01", StringComparison.OrdinalIgnoreCase)
+                            && mem.GameState() == GameState.ENTERING_LEVEL)
+                        || nextScene is "GG_Vengefly_V" or "GG_Boss_Door_Entrance" or "GG_Entrance_Cutscene";
+                    break;
+
+                case SplitName.LegacyEnd:
+                    shouldSplit =
+                        nextScene.StartsWith("Cinematic_Ending", StringComparison.OrdinalIgnoreCase)
+                        || nextScene == "GG_End_Sequence";
+                    break;
+
+                case SplitName.StartNewGame:
+                    shouldSplit =
+                        (nextScene.Equals("Tutorial_01", StringComparison.OrdinalIgnoreCase)
+                        && mem.GameState() == GameState.ENTERING_LEVEL)
+                        || nextScene is "GG_Entrance_Cutscene";
+                    break;
+                case SplitName.StartPantheon:
+                    shouldSplit =
+                        nextScene is "GG_Vengefly_V" or "GG_Boss_Door_Entrance";
+                    break;
+
+                case SplitName.RandoWake:
+                    shouldSplit =
+                        !mem.PlayerData<bool>(Offset.disablePause)
+                        && mem.GameState() == GameState.PLAYING
+                        && !menuingSceneNames.Contains(currScene);
+                    break;
+
+                case SplitName.EndingSplit: shouldSplit = nextScene.StartsWith("Cinematic_Ending", StringComparison.OrdinalIgnoreCase); break;
+                case SplitName.EndingA: shouldSplit = nextScene.Equals("Cinematic_Ending_A", StringComparison.OrdinalIgnoreCase); break;
+                case SplitName.EndingB: shouldSplit = nextScene.Equals("Cinematic_Ending_B", StringComparison.OrdinalIgnoreCase); break;
+                case SplitName.EndingC: shouldSplit = nextScene.Equals("Cinematic_Ending_C", StringComparison.OrdinalIgnoreCase); break;
+                case SplitName.EndingD: shouldSplit = nextScene.Equals("Cinematic_Ending_D", StringComparison.OrdinalIgnoreCase); break;
+                case SplitName.EndingE: shouldSplit = nextScene.Equals("Cinematic_Ending_E", StringComparison.OrdinalIgnoreCase); break;
+
+                #endregion Start and End
+
+                #region Skills
+
+                case SplitName.VengefulSpirit: shouldSplit = mem.PlayerData<int>(Offset.fireballLevel) == 1; break;
+                case SplitName.ShadeSoul: shouldSplit = mem.PlayerData<int>(Offset.fireballLevel) == 2; break;
                 case SplitName.DesolateDive: shouldSplit = mem.PlayerData<int>(Offset.quakeLevel) == 1; break;
-                case SplitName.Dirtmouth: shouldSplit = mem.PlayerData<bool>(Offset.visitedDirtmouth); break;
+                case SplitName.DescendingDark: shouldSplit = mem.PlayerData<int>(Offset.quakeLevel) == 2; break;
+                case SplitName.HowlingWraiths: shouldSplit = mem.PlayerData<int>(Offset.screamLevel) == 1; break;
+                case SplitName.AbyssShriek: shouldSplit = mem.PlayerData<int>(Offset.screamLevel) == 2; break;
+
+                case SplitName.DreamNail: shouldSplit = mem.PlayerData<bool>(Offset.hasDreamNail); break;
+                case SplitName.DreamGate: shouldSplit = mem.PlayerData<bool>(Offset.hasDreamGate); break;
+                case SplitName.DreamNail2: shouldSplit = mem.PlayerData<bool>(Offset.dreamNailUpgraded); break;
+
+                case SplitName.CycloneSlash: shouldSplit = mem.PlayerData<bool>(Offset.hasCyclone); break;
+                case SplitName.GreatSlash: shouldSplit = mem.PlayerData<bool>(Offset.hasDashSlash); break;
+                case SplitName.DashSlash: shouldSplit = mem.PlayerData<bool>(Offset.hasUpwardSlash); break;
+
+                case SplitName.MothwingCloak: shouldSplit = mem.PlayerData<bool>(Offset.hasDash); break;
+                case SplitName.ShadeCloak: shouldSplit = mem.PlayerData<bool>(Offset.hasShadowDash); break;
+                case SplitName.MantisClaw: shouldSplit = mem.PlayerData<bool>(Offset.hasWallJump); break;
+                case SplitName.MonarchWings: shouldSplit = mem.PlayerData<bool>(Offset.hasDoubleJump); break;
+                case SplitName.CrystalHeart: shouldSplit = mem.PlayerData<bool>(Offset.hasSuperDash); break;
+                case SplitName.IsmasTear: shouldSplit = mem.PlayerData<bool>(Offset.hasAcidArmour); break;
+
+                #endregion Skills
+
+                #region Dreamers
+
+                case SplitName.Lurien: shouldSplit = mem.PlayerData<bool>(Offset.maskBrokenLurien); break;
+                case SplitName.Monomon: shouldSplit = mem.PlayerData<bool>(Offset.maskBrokenMonomon); break;
+                case SplitName.Hegemol: shouldSplit = mem.PlayerData<bool>(Offset.maskBrokenHegemol); break;
+
                 case SplitName.Dreamer1: shouldSplit = mem.PlayerData<int>(Offset.guardiansDefeated) == 1; break;
                 case SplitName.Dreamer2: shouldSplit = mem.PlayerData<int>(Offset.guardiansDefeated) == 2; break;
                 case SplitName.Dreamer3: shouldSplit = mem.PlayerData<int>(Offset.guardiansDefeated) == 3; break;
-                case SplitName.DreamNail: shouldSplit = mem.PlayerData<bool>(Offset.hasDreamNail); break;
-                case SplitName.DreamNail2: shouldSplit = mem.PlayerData<bool>(Offset.dreamNailUpgraded); break;
-                case SplitName.DreamGate: shouldSplit = mem.PlayerData<bool>(Offset.hasDreamGate); break;
-                case SplitName.Dreamshield: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_38); break;
-                case SplitName.DreamWielder: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_30); break;
-                case SplitName.DungDefender: shouldSplit = mem.PlayerData<bool>(Offset.killedDungDefender); break;
-                case SplitName.ElderbugFlower: shouldSplit = mem.PlayerData<bool>(Offset.elderbugGaveFlower); break;
-                case SplitName.ElderHu: shouldSplit = mem.PlayerData<bool>(Offset.killedGhostHu); break;
-                case SplitName.ElegantKey: shouldSplit = mem.PlayerData<bool>(Offset.hasWhiteKey); break;
-                case SplitName.EternalOrdealAchieved: shouldSplit = mem.PlayerData<bool>(Offset.ordealAchieved); break;
-                case SplitName.EternalOrdealUnlocked: shouldSplit = mem.PlayerData<bool>(Offset.zoteStatueWallBroken); break;
-                case SplitName.FailedKnight: shouldSplit = mem.PlayerData<bool>(Offset.falseKnightDreamDefeated); break;
-                case SplitName.FalseKnight: shouldSplit = mem.PlayerData<bool>(Offset.killedFalseKnight); break;
-                case SplitName.Flukemarm: shouldSplit = mem.PlayerData<bool>(Offset.killedFlukeMother); break;
-                case SplitName.Flukenest: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_11); break;
-                case SplitName.FogCanyon: shouldSplit = mem.PlayerData<bool>(Offset.visitedFogCanyon); break;
-                case SplitName.ForgottenCrossroads:
-                    shouldSplit = mem.PlayerData<bool>(Offset.visitedCrossroads);
-                    shouldSkip = !sceneName.StartsWith("Crossroads_"); // in most cases it will cause the Split to Skip if this Split is triggered by the splits file getting Reset from incompatible splits
-                    break;
-                case SplitName.FragileGreed: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_24); break;
-                case SplitName.FragileHeart: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_23); break;
-                case SplitName.FragileStrength: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_25); break;
-                case SplitName.FungalWastes: shouldSplit = mem.PlayerData<bool>(Offset.visitedFungus); break;
-                case SplitName.FuryOfTheFallen: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_6); break;
-                case SplitName.Galien: shouldSplit = mem.PlayerData<bool>(Offset.killedGhostGalien); break;
+
+                // Old Timings, mark deprecated or whatever
+                case SplitName.LurienDreamer: shouldSplit = mem.PlayerData<bool>(Offset.lurienDefeated); break;
+                case SplitName.MonomonDreamer: shouldSplit = mem.PlayerData<bool>(Offset.monomonDefeated); break;
+                case SplitName.HegemolDreamer: shouldSplit = mem.PlayerData<bool>(Offset.hegemolDefeated); break;
+
+                #endregion Dreamers
+
+                #region Charms
+
                 case SplitName.GatheringSwarm: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_1); break;
+                case SplitName.WaywardCompass: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_2); break;
+                case SplitName.Grubsong: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_3); break;
+                case SplitName.StalwartShell: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_4); break;
+                case SplitName.BaldurShell: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_5); break;
+                case SplitName.FuryOfTheFallen: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_6); break;
+                case SplitName.QuickFocus: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_7); break;
+                case SplitName.LifebloodHeart: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_8); break;
+                case SplitName.LifebloodCore: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_9); break;
+                case SplitName.DefendersCrest: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_10); break;
+                case SplitName.Flukenest: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_11); break;
+                case SplitName.ThornsOfAgony: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_12); break;
+                case SplitName.MarkOfPride: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_13); break;
+                case SplitName.SteadyBody: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_14); break;
+                case SplitName.HeavyBlow: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_15); break;
+                case SplitName.SharpShadow: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_16); break;
+                case SplitName.SporeShroom: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_17); break;
+                case SplitName.Longnail: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_18); break;
+                case SplitName.ShamanStone: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_19); break;
+                case SplitName.SoulCatcher: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_20); break;
+                case SplitName.SoulEater: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_21); break;
                 case SplitName.GlowingWomb: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_22); break;
-                case SplitName.Godhome: shouldSplit = mem.PlayerData<bool>(Offset.visitedGodhome); break;
-                case SplitName.GodTamer: shouldSplit = mem.PlayerData<bool>(Offset.killedLobsterLancer); break;
-                case SplitName.GodTuner: shouldSplit = mem.PlayerData<bool>(Offset.hasGodfinder); break;
-                case SplitName.Gorb: shouldSplit = mem.PlayerData<bool>(Offset.killedGhostAladar); break;
-                case SplitName.GorgeousHusk: shouldSplit = mem.PlayerData<bool>(Offset.killedGorgeousHusk); break;
-                case SplitName.GreatSlash: shouldSplit = mem.PlayerData<bool>(Offset.hasDashSlash); break;
-                case SplitName.Greenpath: shouldSplit = mem.PlayerData<bool>(Offset.visitedGreenpath); break;
-                case SplitName.GreenpathStation: shouldSplit = mem.PlayerData<bool>(Offset.openedGreenpath); break;
+                // fragile charms are below
+                case SplitName.NailmastersGlory: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_26); break;
+                case SplitName.JonisBlessing: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_27); break;
+                case SplitName.ShapeOfUnn: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_28); break;
+                case SplitName.Hiveblood: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_29); break;
+                case SplitName.DreamWielder: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_30); break;
+                case SplitName.Dashmaster: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_31); break;
+                case SplitName.QuickSlash: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_32); break;
+                case SplitName.SpellTwister: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_33); break;
+                case SplitName.DeepFocus: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_34); break;
+                case SplitName.GrubberflysElegy: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_35); break;
+                // kingsoul/void heart are below
+                case SplitName.Sprintmaster: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_37); break;
+                case SplitName.Dreamshield: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_38); break;
+                case SplitName.Weaversong: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_39); break;
+
+                // Grimmchild
                 case SplitName.Grimmchild: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_40); break;
                 case SplitName.Grimmchild2: shouldSplit = mem.PlayerData<int>(Offset.grimmChildLevel) == 2; break;
                 case SplitName.Grimmchild3: shouldSplit = mem.PlayerData<int>(Offset.grimmChildLevel) == 3; break;
                 case SplitName.Grimmchild4: shouldSplit = mem.PlayerData<int>(Offset.grimmChildLevel) == 4; break;
                 case SplitName.CarefreeMelody: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_40) && mem.PlayerData<int>(Offset.grimmChildLevel) == 5; break;
-                case SplitName.GrubberflysElegy: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_35); break;
-                case SplitName.Grubsong: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_3); break;
-                case SplitName.GreatHopper: shouldSplit = mem.PlayerData<bool>(Offset.killedGiantHopper); break;
-                case SplitName.GreatHuskSentry: shouldSplit = mem.PlayerData<bool>(Offset.killedGreatShieldZombie); break;
-                case SplitName.GreyPrince: shouldSplit = mem.PlayerData<bool>(Offset.killedGreyPrince); break;
-                case SplitName.GruzMother: shouldSplit = mem.PlayerData<bool>(Offset.killedBigFly); break;
-                case SplitName.HeavyBlow: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_15); break;
-                case SplitName.Hegemol: shouldSplit = mem.PlayerData<bool>(Offset.maskBrokenHegemol); break;
-                case SplitName.HegemolDreamer: shouldSplit = mem.PlayerData<bool>(Offset.hegemolDefeated); break;
-                case SplitName.HiddenStationStation: shouldSplit = mem.PlayerData<bool>(Offset.openedHiddenStation); break;
-                case SplitName.Hive: shouldSplit = mem.PlayerData<bool>(Offset.visitedHive); break;
-                case SplitName.Hiveblood: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_29); break;
+
+                // Fragile / Unbreakable charms
+                case SplitName.FragileHeart: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_23); break;
+                case SplitName.UnbreakableHeart: shouldSplit = mem.PlayerData<bool>(Offset.fragileHealth_unbreakable); break;
+                case SplitName.FragileGreed: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_24); break;
+                case SplitName.UnbreakableGreed: shouldSplit = mem.PlayerData<bool>(Offset.fragileGreed_unbreakable); break;
+                case SplitName.FragileStrength: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_25); break;
+                case SplitName.UnbreakableStrength: shouldSplit = mem.PlayerData<bool>(Offset.fragileStrength_unbreakable); break;
+
+                case SplitName.AllBreakables:
+                    shouldSplit = mem.PlayerData<bool>(Offset.brokenCharm_23)
+                        && mem.PlayerData<bool>(Offset.brokenCharm_24)
+                        && mem.PlayerData<bool>(Offset.brokenCharm_25);
+                    break;
+                case SplitName.AllUnbreakables:
+                    shouldSplit = mem.PlayerData<bool>(Offset.fragileGreed_unbreakable)
+                        && mem.PlayerData<bool>(Offset.fragileHealth_unbreakable)
+                        && mem.PlayerData<bool>(Offset.fragileStrength_unbreakable);
+                    break;
+
+                // Kingsoul / Void Heart
+                case SplitName.Kingsoul: shouldSplit = mem.PlayerData<int>(Offset.charmCost_36) == 5 && mem.PlayerData<int>(Offset.royalCharmState) == 3; break;
+                case SplitName.VoidHeart: shouldSplit = mem.PlayerData<bool>(Offset.gotShadeCharm); break;
+                case SplitName.WhiteFragmentLeft: shouldSplit = mem.PlayerData<bool>(Offset.gotQueenFragment); break;
+                case SplitName.WhiteFragmentRight: shouldSplit = mem.PlayerData<bool>(Offset.gotKingFragment); break;
+                case SplitName.OnObtainWhiteFragment: shouldSplit = store.CheckIncreased(Offset.royalCharmState); break;
+
+                #endregion Charms
+
+                #region Bosses
+
+                // Progression Bosses
+                case SplitName.FalseKnight: shouldSplit = mem.PlayerData<bool>(Offset.killedFalseKnight); break;
+                case SplitName.BlackKnight: shouldSplit = mem.PlayerData<bool>(Offset.killedBlackKnight); break; // watcher knights
+                case SplitName.BrokenVessel: shouldSplit = mem.PlayerData<bool>(Offset.killedInfectedKnight); break;
+                case SplitName.HollowKnightBoss: shouldSplit = mem.PlayerData<bool>(Offset.killedHollowKnight); break;
                 case SplitName.HollowKnightDreamnail:
                     shouldSplit = nextScene.Equals("Dream_Final_Boss", StringComparison.OrdinalIgnoreCase);
                     shouldSkip = mem.PlayerData<bool>(Offset.killedHollowKnight);
                     break;
-                case SplitName.HollowKnightBoss: shouldSplit = mem.PlayerData<bool>(Offset.killedHollowKnight); break;
-                case SplitName.RadianceBoss: shouldSplit = mem.PlayerData<bool>(Offset.killedFinalBoss); break;
                 case SplitName.Hornet1: shouldSplit = mem.PlayerData<bool>(Offset.killedHornet); break;
                 case SplitName.Hornet2: shouldSplit = mem.PlayerData<bool>(Offset.hornetOutskirtsDefeated); break;
-                case SplitName.HowlingWraiths: shouldSplit = mem.PlayerData<int>(Offset.screamLevel) == 1; break;
+                case SplitName.RadianceBoss: shouldSplit = mem.PlayerData<bool>(Offset.killedFinalBoss); break;
+                case SplitName.SoulMaster: shouldSplit = mem.PlayerData<bool>(Offset.killedMageLord); break;
+                case SplitName.SoulMasterEncountered: shouldSplit = mem.PlayerData<bool>(Offset.mageLordEncountered); break;
+                case SplitName.SoulMasterPhase1: shouldSplit = mem.PlayerData<bool>(Offset.mageLordEncountered_2); break;
+                case SplitName.TraitorLord: shouldSplit = mem.PlayerData<bool>(Offset.killedTraitorLord); break;
+                case SplitName.Uumuu: shouldSplit = mem.PlayerData<bool>(Offset.killedMegaJellyfish); break;
+                case SplitName.UumuuEncountered: shouldSplit = mem.PlayerData<bool>(Offset.encounteredMegaJelly); break;
+
+                // Overworld Bosses
+                case SplitName.BroodingMawlek: shouldSplit = mem.PlayerData<bool>(Offset.killedMawlek); break;
+                case SplitName.Collector: shouldSplit = mem.PlayerData<bool>(Offset.collectorDefeated); break;
+                case SplitName.CrystalGuardian1: shouldSplit = mem.PlayerData<bool>(Offset.defeatedMegaBeamMiner); break;
+                case SplitName.CrystalGuardian2: shouldSplit = mem.PlayerData<int>(Offset.killsMegaBeamMiner) == 0; break;
+                case SplitName.DungDefender: shouldSplit = mem.PlayerData<bool>(Offset.killedDungDefender); break;
+                case SplitName.Flukemarm: shouldSplit = mem.PlayerData<bool>(Offset.killedFlukeMother); break;
+                case SplitName.GodTamer: shouldSplit = mem.PlayerData<bool>(Offset.killedLobsterLancer); break;
+                case SplitName.GruzMother: shouldSplit = mem.PlayerData<bool>(Offset.killedBigFly); break;
+                case SplitName.HiveKnight: shouldSplit = mem.PlayerData<bool>(Offset.killedHiveKnight); break;
+                case SplitName.MantisLords: shouldSplit = mem.PlayerData<bool>(Offset.defeatedMantisLords); break;
+                case SplitName.MegaMossCharger: shouldSplit = mem.PlayerData<bool>(Offset.megaMossChargerDefeated); break;
+                case SplitName.Nosk: shouldSplit = mem.PlayerData<bool>(Offset.killedMimicSpider); break;
+                case SplitName.KilledOblobbles: shouldSplit = mem.PlayerData<int>(Offset.killsOblobble) == 1; break;
+                case SplitName.killedSanctumWarrior: shouldSplit = mem.PlayerData<bool>(Offset.killedMageKnight); break;
+
+                // Pantheon Bosses
+                case SplitName.MatoOroNailBros: shouldSplit = mem.PlayerData<bool>(Offset.killedNailBros); break;
+                case SplitName.SheoPaintmaster: shouldSplit = mem.PlayerData<bool>(Offset.killedPaintmaster); break;
+                case SplitName.SlyNailsage: shouldSplit = mem.PlayerData<bool>(Offset.killedNailsage); break;
+                case SplitName.PureVessel: shouldSplit = mem.PlayerData<bool>(Offset.killedHollowKnightPrime); break;
+
+                // Dream Warriors
+                case SplitName.ElderHu: shouldSplit = mem.PlayerData<bool>(Offset.killedGhostHu); break;
+                case SplitName.Galien: shouldSplit = mem.PlayerData<bool>(Offset.killedGhostGalien); break;
+                case SplitName.Gorb: shouldSplit = mem.PlayerData<bool>(Offset.killedGhostAladar); break;
+                case SplitName.Markoth: shouldSplit = mem.PlayerData<bool>(Offset.killedGhostMarkoth); break;
+                case SplitName.Marmu: shouldSplit = mem.PlayerData<bool>(Offset.killedGhostMarmu); break;
+                case SplitName.NoEyes: shouldSplit = mem.PlayerData<bool>(Offset.killedGhostNoEyes); break;
+                case SplitName.Xero: shouldSplit = mem.PlayerData<bool>(Offset.killedGhostXero); break;
+
+                // Dream Bosses
+                case SplitName.FailedKnight: shouldSplit = mem.PlayerData<bool>(Offset.falseKnightDreamDefeated); break;
+                case SplitName.GreyPrince: shouldSplit = mem.PlayerData<bool>(Offset.killedGreyPrince); break;
+                case SplitName.SoulTyrant: shouldSplit = mem.PlayerData<bool>(Offset.mageLordDreamDefeated); break;
+                case SplitName.LostKin: shouldSplit = mem.PlayerData<bool>(Offset.infectedKnightDreamDefeated); break;
+                case SplitName.WhiteDefender: shouldSplit = mem.PlayerData<bool>(Offset.killedWhiteDefender); break;
+
+                // Grimm twice
+                case SplitName.TroupeMasterGrimm: shouldSplit = mem.PlayerData<bool>(Offset.killedGrimm); break;
+                case SplitName.NightmareKingGrimm: shouldSplit = mem.PlayerData<bool>(Offset.killedNightmareGrimm); break;
+
+                #endregion Bosses
+
+                #region Items
+
+                // Keys (Purist)
+                case SplitName.ElegantKey: shouldSplit = mem.PlayerData<bool>(Offset.hasWhiteKey); break;
+                case SplitName.LoveKey: shouldSplit = mem.PlayerData<bool>(Offset.hasLoveKey); break;
+                case SplitName.PaleLurkerKey: shouldSplit = mem.PlayerData<bool>(Offset.gotLurkerKey); break;
+                case SplitName.SimpleKey: shouldSplit = mem.PlayerData<int>(Offset.simpleKeys) > 0; break;
+                case SplitName.OnObtainSimpleKey: shouldSplit = store.CheckIncremented(Offset.simpleKeys); break;
+                case SplitName.SlyKey: shouldSplit = mem.PlayerData<bool>(Offset.hasSlykey); break;
+                case SplitName.SlySimpleKey: shouldSplit = mem.PlayerData<bool>(Offset.slySimpleKey); break;
+
+                // Keys (Radical)
+                case SplitName.KingsBrand: shouldSplit = mem.PlayerData<bool>(Offset.hasKingsBrand); break;
+                case SplitName.LumaflyLantern: shouldSplit = mem.PlayerData<bool>(Offset.hasLantern); break;
+                case SplitName.TramPass: shouldSplit = mem.PlayerData<bool>(Offset.hasTramPass); break;
+                case SplitName.CityKey: shouldSplit = mem.PlayerData<bool>(Offset.hasCityKey); break;
+
+                // Charm Notches
+                case SplitName.NotchFogCanyon: shouldSplit = mem.PlayerData<bool>(Offset.notchFogCanyon); break;
+                case SplitName.NotchSalubra1: shouldSplit = mem.PlayerData<bool>(Offset.salubraNotch1); break;
+                case SplitName.NotchSalubra2: shouldSplit = mem.PlayerData<bool>(Offset.salubraNotch2); break;
+                case SplitName.NotchSalubra3: shouldSplit = mem.PlayerData<bool>(Offset.salubraNotch3); break;
+                case SplitName.NotchSalubra4: shouldSplit = mem.PlayerData<bool>(Offset.salubraNotch4); break;
+                case SplitName.NotchShrumalOgres: shouldSplit = mem.PlayerData<bool>(Offset.notchShroomOgres); break;
+                case SplitName.NotchGrimm: shouldSplit = mem.PlayerData<bool>(Offset.gotGrimmNotch); break;
+                case SplitName.OnObtainCharmNotch: shouldSplit = store.CheckIncreased(Offset.charmSlots); break;
+
+                // Relics
+                case SplitName.OnObtainWanderersJournal: shouldSplit = store.CheckIncremented(Offset.trinket1); break;
+                case SplitName.AllSeals: shouldSplit = mem.PlayerData<int>(Offset.trinket2) + mem.PlayerData<int>(Offset.soldTrinket2) == 17; break;
+                case SplitName.OnObtainHallownestSeal: shouldSplit = store.CheckIncremented(Offset.trinket2); break;
+                case SplitName.SoulSanctumSeal: shouldSplit = store.CheckIncremented(Offset.trinket2) && currScene == "Ruins1_32"; break;
+                case SplitName.OnObtainKingsIdol: shouldSplit = store.CheckIncremented(Offset.trinket3); break;
+                case SplitName.GladeIdol: shouldSplit = store.CheckIncreased(Offset.trinket3) && currScene.StartsWith("RestingGrounds_08"); break;
+                case SplitName.DungDefenderIdol:
+                    shouldSplit = store.CheckIncreased(Offset.trinket3) && currScene.StartsWith("Waterways_15");
+                    break;
+                case SplitName.ArcaneEgg8: shouldSplit = mem.PlayerData<int>(Offset.trinket4) == 8; break;
+                case SplitName.OnObtainArcaneEgg: shouldSplit = store.CheckIncremented(Offset.trinket4); break;
+                case SplitName.OnObtainRancidEgg: shouldSplit = store.CheckIncremented(Offset.rancidEggs); break;
+
+                // Other
+                case SplitName.GodTuner: shouldSplit = mem.PlayerData<bool>(Offset.hasGodfinder); break;
+                case SplitName.SalubrasBlessing: shouldSplit = mem.PlayerData<bool>(Offset.salubraBlessing); break;
+                case SplitName.AllEggs: shouldSplit = mem.PlayerData<int>(Offset.rancidEggs) + mem.PlayerData<int>(Offset.jinnEggsSold) == 21; break;
+
+                #endregion Items
+
+                #region Transitions
+
+                // these aren't really sorted, there's so many and my brain can only handle so much split sorting, maybe next update
+
+                case SplitName.AncestralMound: shouldSplit = nextScene.Equals("Crossroads_ShamanTemple") && nextScene != currScene; break;
+                case SplitName.TransCollector: shouldSplit = mem.PlayerData<bool>(Offset.collectorDefeated) && currScene.StartsWith("Ruins2_11") && nextScene != currScene; break;
+                case SplitName.TeachersArchive: shouldSplit = currScene.Equals("Fungus3_archive", StringComparison.OrdinalIgnoreCase); break;
+                case SplitName.TransVS: shouldSplit = mem.PlayerData<int>(Offset.fireballLevel) == 1 && nextScene != currScene; break;
+                case SplitName.KingsPass: shouldSplit = currScene.StartsWith("Tutorial_01") && nextScene.StartsWith("Town"); break;
+                case SplitName.KingsPassEnterFromTown: shouldSplit = currScene.StartsWith("Town") && nextScene.StartsWith("Tutorial_01"); break;
+                case SplitName.BlueLake: shouldSplit = !currScene.StartsWith("Crossroads_50") && nextScene.StartsWith("Crossroads_50"); break; // blue lake is Crossroads_50
+                case SplitName.CatacombsEntry: shouldSplit = !currScene.StartsWith("RestingGrounds_10") && nextScene.StartsWith("RestingGrounds_10"); break;
+                case SplitName.EnterNKG: shouldSplit = currScene.StartsWith("Grimm_Main_Tent") && nextScene.StartsWith("Grimm_Nightmare"); break;
+                case SplitName.EnterGreenpath: shouldSplit = !currScene.StartsWith("Fungus1_01") && nextScene.StartsWith("Fungus1_01"); break;
+                case SplitName.EnterGreenpathWithOvercharm:
+                    shouldSplit = !currScene.StartsWith("Fungus1_01")
+                        && nextScene.StartsWith("Fungus1_01")
+                        && mem.PlayerData<bool>(Offset.canOvercharm);
+                    break;
+                case SplitName.EnterSanctum: shouldSplit = !currScene.StartsWith("Ruins1_23") && nextScene.StartsWith("Ruins1_23"); break;
+                case SplitName.EnterSanctumWithShadeSoul:
+                    shouldSplit = !currScene.StartsWith("Ruins1_23")
+                        && nextScene.StartsWith("Ruins1_23")
+                        && mem.PlayerData<int>(Offset.fireballLevel) == 2;
+                    break;
+                case SplitName.EnterAnyDream: shouldSplit = nextScene.StartsWith("Dream_") && nextScene != currScene; break;
+                case SplitName.EnterGodhome: shouldSplit = nextScene.StartsWith("GG_Atrium") && nextScene != currScene; break;
+                case SplitName.EnterJunkPit: shouldSplit = nextScene.Equals("GG_Waterways") && nextScene != currScene; break;
+                case SplitName.EnterDeepnest:
+                    shouldSplit =
+                        (nextScene.Equals("Fungus2_25")
+                        || nextScene.Equals("Deepnest_42")
+                        || nextScene.Equals("Abyss_03b")
+                        || nextScene.Equals("Deepnest_01b"))
+                        && nextScene != currScene;
+                    break;
+                case SplitName.EnterBeastDen: shouldSplit = nextScene.Equals("Deepnest_Spider_Town") && nextScene != currScene; break;
+                case SplitName.EnterCrown: shouldSplit = nextScene.Equals("Mines_23") && nextScene != currScene; break;
+                case SplitName.EnterDirtmouth: shouldSplit = nextScene.Equals("Town") && nextScene != currScene; break;
+                case SplitName.EnterRafters: shouldSplit = nextScene.Equals("Ruins1_03") && nextScene != currScene; break;
+                case SplitName.SalubraExit: shouldSplit = currScene.Equals("Room_Charm_Shop") && nextScene != currScene; break;
+                // since Ruins1_18 has both bench and bridge, don't include Ruins1_18 bridge to Ruins2_03b
+                case SplitName.SpireBenchExit: shouldSplit = currScene.StartsWith("Ruins1_18") && nextScene.StartsWith("Ruins2_01"); break;
+                case SplitName.PreGrimmShopTrans:
+                    shouldSplit = mem.PlayerData<bool>(Offset.hasLantern)
+                        && mem.PlayerData<int>(Offset.maxHealthBase) == 6
+                        && (mem.PlayerData<int>(Offset.vesselFragments) == 4 || (mem.PlayerData<int>(Offset.MPReserveMax) == 33 && mem.PlayerData<int>(Offset.vesselFragments) == 2))
+                        && !currScene.StartsWith("Room_shop");
+                    break;
+                case SplitName.WaterwaysEntry:
+                    shouldSplit =
+                        (nextScene.StartsWith("Waterways_01") // Simple Key manhole entrance
+                        || nextScene.StartsWith("Waterways_07")) // Right of Spike-tunnel, also where Tram entrance meets the rest
+                        && nextScene != currScene;
+                    break;
+                case SplitName.FogCanyonEntry:
+                    shouldSplit =
+                        (nextScene.StartsWith("Fungus3_01") // West Fog Canyon entrance from Greenpath
+                        || nextScene.StartsWith("Fungus3_02") // West Fog Canyon entrance from Queen's Station or QGA
+                        || nextScene.StartsWith("Fungus3_24") // West Fog Canyon entrance from Queen's Gardens via Overgrown Mound
+                        || nextScene.StartsWith("Fungus3_26")) // East Fog Canyon, where the Crossroads acid and Leg Eater acid entrances meet
+                        && nextScene != currScene;
+                    break;
+                case SplitName.FungalWastesEntry:
+                    shouldSplit =
+                        (nextScene.StartsWith("Fungus2_06") // Room outside Leg Eater
+                        || nextScene.StartsWith("Fungus2_03") // From Queens' Station
+                        || nextScene.StartsWith("Fungus2_23") // Bretta from Waterways
+                        || nextScene.StartsWith("Fungus2_20")) // Spore Shroom room, from QG (this one's unlikely to come up)
+                        && nextScene != currScene;
+                    break;
+                case SplitName.CrystalMoundExit: shouldSplit = currScene.StartsWith("Mines_35") && nextScene != currScene; break;
+                case SplitName.CrystalPeakEntry: shouldSplit = (nextScene.StartsWith("Mines_02") || nextScene.StartsWith("Mines_10")) && nextScene != currScene; break;
+                case SplitName.QueensGardensEntry: shouldSplit = (nextScene.StartsWith("Fungus3_34") || nextScene.StartsWith("Deepnest_43")) && nextScene != currScene; break;
+                case SplitName.BasinEntry: shouldSplit = nextScene.StartsWith("Abyss_04") && nextScene != currScene; break;
+                case SplitName.HiveEntry: shouldSplit = nextScene.StartsWith("Hive_01") && nextScene != currScene; break;
+                case SplitName.KingdomsEdgeEntry: shouldSplit = nextScene.StartsWith("Deepnest_East_03") && nextScene != currScene; break;
+                case SplitName.KingdomsEdgeOvercharmedEntry:
+                    shouldSplit =
+                        nextScene.StartsWith("Deepnest_East_03")
+                        && nextScene != currScene
+                        && mem.PlayerData<bool>(Offset.overcharmed);
+                    break;
+                case SplitName.GodhomeBench: shouldSplit = currScene.StartsWith("GG_Spa") && currScene != nextScene && !store.SplitThisTransition; break;
+                case SplitName.GodhomeLoreRoom:
+                    shouldSplit =
+                        (currScene.StartsWith("GG_Engine") || currScene.StartsWith("GG_Unn") || currScene.StartsWith("GG_Wyrm"))
+                        && currScene != nextScene
+                        && !store.SplitThisTransition;
+                    break;
+                case SplitName.TransClaw: shouldSplit = mem.PlayerData<bool>(Offset.hasWallJump) && nextScene != currScene; break;
+                case SplitName.TransGorgeousHusk: shouldSplit = mem.PlayerData<bool>(Offset.killedGorgeousHusk) && nextScene != currScene; break;
+                case SplitName.TransDescendingDark: shouldSplit = mem.PlayerData<int>(Offset.quakeLevel) == 2 && nextScene != currScene; break;
+                case SplitName.TransTear: shouldSplit = mem.PlayerData<bool>(Offset.hasAcidArmour) && nextScene != currScene; break;
+                case SplitName.TransTearWithGrub:
+                    shouldSplit =
+                        mem.PlayerData<bool>(Offset.hasAcidArmour)
+                        && mem.PlayerDataStringList(Offset.scenesGrubRescued).Contains("Waterways_13")
+                        && nextScene != currScene; break;
+                case SplitName.TransShadeSoul: // Should work with both normal movement and room dupes
+                    shouldSplit = mem.PlayerData<int>(Offset.fireballLevel) == 2
+                        && mem.HeroTransitionState() == HeroTransitionState.WAITING_TO_ENTER_LEVEL;
+                    break;
+                case SplitName.AnyTransition:
+                    shouldSplit = nextScene != currScene && !store.SplitThisTransition
+                                    && !(string.IsNullOrEmpty(currScene) || string.IsNullOrEmpty(nextScene)
+                                        || menuingSceneNames.Contains(currScene) || menuingSceneNames.Contains(nextScene));
+                    break;
+                case SplitName.TransitionAfterSaveState:
+                    if (!(debugSaveStateSceneNames.Contains(nextScene)
+                        || debugSaveStateSceneNames.Contains(currScene))) {
+                        goto case SplitName.AnyTransition;
+                    }
+                    break;
+                case SplitName.TransitionExcludingDiscontinuities:
+                    if (!(debugSaveStateSceneNames.Contains(nextScene)
+                        || debugSaveStateSceneNames.Contains(currScene)
+                        || mem.PlayerData<int>(Offset.health) == 0
+                        || mem.EntryGateName() is "dreamGate" or "door_dreamReturn")) {
+                        goto case SplitName.AnyTransition;
+                    }
+                    break;
+                case SplitName.WhitePalaceLowerEntry: shouldSplit = nextScene.StartsWith("White_Palace_01") && nextScene != currScene; break;
+                case SplitName.WhitePalaceLowerOrb: shouldSplit = nextScene.StartsWith("White_Palace_02") && nextScene != currScene; break;
+                case SplitName.QueensGardensPostArenaTransition: shouldSplit = nextScene.StartsWith("Fungus3_13") && nextScene != currScene; break;
+                case SplitName.QueensGardensFrogsTrans: shouldSplit = nextScene.StartsWith("Fungus1_23") && nextScene != currScene; break;
+                case SplitName.Pantheon1to4Entry: shouldSplit = nextScene.StartsWith("GG_Boss_Door_Entrance") && nextScene != currScene; break;
+                case SplitName.Pantheon5Entry: shouldSplit = nextScene.StartsWith("GG_Vengefly_V") && nextScene != currScene; break;
+                case SplitName.EnterHornet1: shouldSplit = nextScene.StartsWith("Fungus1_04") && nextScene != currScene; break;
+                case SplitName.EnterSoulMaster: shouldSplit = nextScene.StartsWith("Ruins1_24") && nextScene != currScene; break;
+                case SplitName.EnterHiveKnight: shouldSplit = nextScene.StartsWith("Hive_05") && nextScene != currScene; break;
+                case SplitName.EnterHornet2: shouldSplit = nextScene.StartsWith("Deepnest_East_Hornet") && nextScene != currScene; break;
+                case SplitName.EnterBroodingMawlek: shouldSplit = nextScene.StartsWith("Crossroads_09") && nextScene != currScene; break;
+                case SplitName.EnterNosk: shouldSplit = nextScene.StartsWith("Deepnest_32") && nextScene != currScene; break;
+                case SplitName.EnterTMG:
+                    shouldSplit = nextScene.StartsWith("Grimm_Main_Tent") && nextScene != currScene
+                        && mem.PlayerData<bool>(Offset.equippedCharm_40) // Equipped Grimmchild
+                        && mem.PlayerData<int>(Offset.grimmChildLevel) == 2
+                        && mem.PlayerData<int>(Offset.flamesCollected) == 3; break;
+                case SplitName.EnterLoveTower: shouldSplit = nextScene.StartsWith("Ruins2_11") && nextScene != currScene; break;
+
+                case SplitName.EnterCityTollBenchRoom: shouldSplit = nextScene.StartsWith("Ruins1_31") && nextScene != currScene; break;
+
+                case SplitName.VengeflyKingTrans: shouldSplit = mem.PlayerData<bool>(Offset.zoteRescuedBuzzer) && nextScene != currScene; break;
+                case SplitName.MegaMossChargerTrans: shouldSplit = mem.PlayerData<bool>(Offset.megaMossChargerDefeated) && nextScene != currScene; break;
+                case SplitName.ElderHuTrans: shouldSplit = mem.PlayerData<bool>(Offset.killedGhostHu) && nextScene != currScene; break;
+                case SplitName.BlackKnightTrans: shouldSplit = mem.PlayerData<bool>(Offset.killedBlackKnight) && nextScene != currScene; break;
+                case SplitName.BrokenVesselTrans:
+                    shouldSplit = nextScene != currScene
+                        && mem.PlayerData<bool>(Offset.killedInfectedKnight)
+                        && mem.PlayerData<int>(Offset.health) > 0;
+                    break;
+                case SplitName.LumaflyLanternTransition: shouldSplit = mem.PlayerData<bool>(Offset.hasLantern) && !currScene.StartsWith("Room_shop"); break;
+
+                // White palace and path of pain transition splits are in the White Palace & Path of Pain #region
+
+                #endregion Transitions
+
+                case SplitName.Abyss: shouldSplit = mem.PlayerData<bool>(Offset.visitedAbyss); break;
+                case SplitName.Aluba: shouldSplit = mem.PlayerData<bool>(Offset.killedLazyFlyer); break;
+                case SplitName.AspidHunter: shouldSplit = mem.PlayerData<int>(Offset.killsSpitter) == 17; break;
+                case SplitName.BeastsDenTrapBench: shouldSplit = mem.PlayerData<bool>(Offset.spiderCapture); break;
+                case SplitName.BrettaRescued: shouldSplit = mem.PlayerData<bool>(Offset.brettaRescued); break;
+                case SplitName.BrummFlame: shouldSplit = mem.PlayerData<bool>(Offset.gotBrummsFlame); break;
+                case SplitName.CityOfTears: shouldSplit = mem.PlayerData<bool>(Offset.visitedRuins); break;
+                case SplitName.Colosseum: shouldSplit = mem.PlayerData<bool>(Offset.seenColosseumTitle); break;
+                case SplitName.ColosseumBronze: shouldSplit = mem.PlayerData<bool>(Offset.colosseumBronzeCompleted); break;
+                case SplitName.ColosseumGold: shouldSplit = mem.PlayerData<bool>(Offset.colosseumGoldCompleted); break;
+                case SplitName.ColosseumSilver: shouldSplit = mem.PlayerData<bool>(Offset.colosseumSilverCompleted); break;
+                case SplitName.CrossroadsStation: shouldSplit = mem.PlayerData<bool>(Offset.openedCrossroads); break;
+                case SplitName.CrystalPeak: shouldSplit = mem.PlayerData<bool>(Offset.visitedMines); break;
+                case SplitName.Deepnest: shouldSplit = mem.PlayerData<bool>(Offset.visitedDeepnest); break;
+                case SplitName.DeepnestSpa: shouldSplit = mem.PlayerData<bool>(Offset.visitedDeepnestSpa); break;
+                case SplitName.DeepnestStation: shouldSplit = mem.PlayerData<bool>(Offset.openedDeepnest); break;
+                case SplitName.Dirtmouth: shouldSplit = mem.PlayerData<bool>(Offset.visitedDirtmouth); break;
+                case SplitName.ElderbugFlower: shouldSplit = mem.PlayerData<bool>(Offset.elderbugGaveFlower); break;
+                case SplitName.EternalOrdealAchieved: shouldSplit = mem.PlayerData<bool>(Offset.ordealAchieved); break;
+                case SplitName.EternalOrdealUnlocked: shouldSplit = mem.PlayerData<bool>(Offset.zoteStatueWallBroken); break;
+                case SplitName.FogCanyon: shouldSplit = mem.PlayerData<bool>(Offset.visitedFogCanyon); break;
+                case SplitName.ForgottenCrossroads:
+                    shouldSplit = mem.PlayerData<bool>(Offset.visitedCrossroads);
+                    shouldSkip = !sceneName.StartsWith("Crossroads_"); // in most cases it will cause the Split to Skip if this Split is triggered by the splits file getting Reset from incompatible splits
+                    break;
+                case SplitName.FungalWastes: shouldSplit = mem.PlayerData<bool>(Offset.visitedFungus); break;
+                case SplitName.Godhome: shouldSplit = mem.PlayerData<bool>(Offset.visitedGodhome); break;
+                case SplitName.GorgeousHusk: shouldSplit = mem.PlayerData<bool>(Offset.killedGorgeousHusk); break;
+                case SplitName.Greenpath: shouldSplit = mem.PlayerData<bool>(Offset.visitedGreenpath); break;
+                case SplitName.GreenpathStation: shouldSplit = mem.PlayerData<bool>(Offset.openedGreenpath); break;
+                case SplitName.GreatHopper: shouldSplit = mem.PlayerData<bool>(Offset.killedGiantHopper); break;
+                case SplitName.GreatHuskSentry: shouldSplit = mem.PlayerData<bool>(Offset.killedGreatShieldZombie); break;
+                case SplitName.HiddenStationStation: shouldSplit = mem.PlayerData<bool>(Offset.openedHiddenStation); break;
+                case SplitName.Hive: shouldSplit = mem.PlayerData<bool>(Offset.visitedHive); break;
                 case SplitName.HuntersMark: shouldSplit = mem.PlayerData<bool>(Offset.killedHunterMark); break;
                 case SplitName.HuskMiner: shouldSplit = store.CheckIncreasedBy(Offset.killsZombieMiner, -1); break;
                 case SplitName.InfectedCrossroads: shouldSplit = mem.PlayerData<bool>(Offset.crossroadsInfected) && mem.PlayerData<bool>(Offset.visitedCrossroads); break;
-                case SplitName.IsmasTear: shouldSplit = mem.PlayerData<bool>(Offset.hasAcidArmour); break;
-                case SplitName.JonisBlessing: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_27); break;
                 case SplitName.KingdomsEdge: shouldSplit = mem.PlayerData<bool>(Offset.visitedOutskirts); break;
-                case SplitName.KingsBrand: shouldSplit = mem.PlayerData<bool>(Offset.hasKingsBrand); break;
-                case SplitName.Kingsoul: shouldSplit = mem.PlayerData<int>(Offset.charmCost_36) == 5 && mem.PlayerData<int>(Offset.royalCharmState) == 3; break;
                 case SplitName.KingsStationStation: shouldSplit = mem.PlayerData<bool>(Offset.openedRuins2); break;
                 //case SplitName.Lemm1: shouldSplit = mem.PlayerData<bool>(Offset.metRelicDealer); break;
                 case SplitName.Lemm2: shouldSplit = mem.PlayerData<bool>(Offset.metRelicDealerShop); break;
-                case SplitName.LifebloodCore: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_9); break;
-                case SplitName.LifebloodHeart: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_8); break;
                 case SplitName.LittleFool: shouldSplit = mem.PlayerData<bool>(Offset.littleFoolMet); break;
-                case SplitName.Longnail: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_18); break;
-                case SplitName.LostKin: shouldSplit = mem.PlayerData<bool>(Offset.infectedKnightDreamDefeated); break;
-                case SplitName.LoveKey: shouldSplit = mem.PlayerData<bool>(Offset.hasLoveKey); break;
-                case SplitName.LumaflyLantern: shouldSplit = mem.PlayerData<bool>(Offset.hasLantern); break;
-                case SplitName.Lurien: shouldSplit = mem.PlayerData<bool>(Offset.maskBrokenLurien); break;
-                case SplitName.LurienDreamer: shouldSplit = mem.PlayerData<bool>(Offset.lurienDefeated); break;
                 case SplitName.Maggots: shouldSplit = mem.PlayerData<int>(Offset.killsPrayerSlug) == 0; break;
-                case SplitName.MantisClaw: shouldSplit = mem.PlayerData<bool>(Offset.hasWallJump); break;
-                case SplitName.MantisLords: shouldSplit = mem.PlayerData<bool>(Offset.defeatedMantisLords); break;
-                case SplitName.MarkOfPride: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_13); break;
-                case SplitName.Markoth: shouldSplit = mem.PlayerData<bool>(Offset.killedGhostMarkoth); break;
-                case SplitName.Marmu: shouldSplit = mem.PlayerData<bool>(Offset.killedGhostMarmu); break;
                 case SplitName.MaskFragment1: shouldSplit = mem.PlayerData<int>(Offset.maxHealthBase) == 5 && mem.PlayerData<int>(Offset.heartPieces) == 1; break;
                 case SplitName.MaskFragment2: shouldSplit = mem.PlayerData<int>(Offset.maxHealthBase) == 5 && mem.PlayerData<int>(Offset.heartPieces) == 2; break;
                 case SplitName.MaskFragment3: shouldSplit = mem.PlayerData<int>(Offset.maxHealthBase) == 5 && mem.PlayerData<int>(Offset.heartPieces) == 3; break;
@@ -439,14 +789,8 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.MaskFragment14: shouldSplit = mem.PlayerData<int>(Offset.heartPieces) == 14 || (mem.PlayerData<int>(Offset.maxHealthBase) == 8 && mem.PlayerData<int>(Offset.heartPieces) == 2); break;
                 case SplitName.MaskFragment15: shouldSplit = mem.PlayerData<int>(Offset.heartPieces) == 15 || (mem.PlayerData<int>(Offset.maxHealthBase) == 8 && mem.PlayerData<int>(Offset.heartPieces) == 3); break;
                 case SplitName.Mask4: shouldSplit = mem.PlayerData<int>(Offset.maxHealthBase) == 9; break;
-                case SplitName.MatoOroNailBros: shouldSplit = mem.PlayerData<bool>(Offset.killedNailBros); break;
-                case SplitName.MegaMossCharger: shouldSplit = mem.PlayerData<bool>(Offset.megaMossChargerDefeated); break;
                 case SplitName.MenderBug: shouldSplit = mem.PlayerData<bool>(Offset.killedMenderBug); break;
-                case SplitName.MonarchWings: shouldSplit = mem.PlayerData<bool>(Offset.hasDoubleJump); break;
-                case SplitName.Monomon: shouldSplit = mem.PlayerData<bool>(Offset.maskBrokenMonomon); break;
-                case SplitName.MonomonDreamer: shouldSplit = mem.PlayerData<bool>(Offset.monomonDefeated); break;
                 case SplitName.MossKnight: shouldSplit = mem.PlayerData<bool>(Offset.killedMossKnight); break;
-                case SplitName.MothwingCloak: shouldSplit = mem.PlayerData<bool>(Offset.hasDash); break;
                 case SplitName.MrMushroom1: shouldSplit = mem.PlayerData<int>(Offset.mrMushroomState) == 2; break;
                 case SplitName.MrMushroom2: shouldSplit = mem.PlayerData<int>(Offset.mrMushroomState) == 3; break;
                 case SplitName.MrMushroom3: shouldSplit = mem.PlayerData<int>(Offset.mrMushroomState) == 4; break;
@@ -455,23 +799,12 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.MrMushroom6: shouldSplit = mem.PlayerData<int>(Offset.mrMushroomState) == 7; break;
                 case SplitName.MrMushroom7: shouldSplit = mem.PlayerData<int>(Offset.mrMushroomState) == 8; break;
                 case SplitName.MushroomBrawler: shouldSplit = mem.PlayerData<int>(Offset.killsMushroomBrawler) == 6; break;
-                case SplitName.NailmastersGlory: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_26); break;
                 case SplitName.NailUpgrade1: shouldSplit = mem.PlayerData<int>(Offset.nailSmithUpgrades) == 1; break;
                 case SplitName.NailUpgrade2: shouldSplit = mem.PlayerData<int>(Offset.nailSmithUpgrades) == 2; break;
                 case SplitName.NailUpgrade3: shouldSplit = mem.PlayerData<int>(Offset.nailSmithUpgrades) == 3; break;
                 case SplitName.NailUpgrade4: shouldSplit = mem.PlayerData<int>(Offset.nailSmithUpgrades) == 4; break;
-                case SplitName.NightmareKingGrimm: shouldSplit = mem.PlayerData<bool>(Offset.killedNightmareGrimm); break;
                 case SplitName.NightmareLantern: shouldSplit = mem.PlayerData<bool>(Offset.nightmareLanternLit); break;
                 case SplitName.NightmareLanternDestroyed: shouldSplit = mem.PlayerData<bool>(Offset.destroyedNightmareLantern); break;
-                case SplitName.NoEyes: shouldSplit = mem.PlayerData<bool>(Offset.killedGhostNoEyes); break;
-                case SplitName.Nosk: shouldSplit = mem.PlayerData<bool>(Offset.killedMimicSpider); break;
-                case SplitName.NotchFogCanyon: shouldSplit = mem.PlayerData<bool>(Offset.notchFogCanyon); break;
-                case SplitName.NotchSalubra1: shouldSplit = mem.PlayerData<bool>(Offset.salubraNotch1); break;
-                case SplitName.NotchSalubra2: shouldSplit = mem.PlayerData<bool>(Offset.salubraNotch2); break;
-                case SplitName.NotchSalubra3: shouldSplit = mem.PlayerData<bool>(Offset.salubraNotch3); break;
-                case SplitName.NotchSalubra4: shouldSplit = mem.PlayerData<bool>(Offset.salubraNotch4); break;
-                case SplitName.NotchShrumalOgres: shouldSplit = mem.PlayerData<bool>(Offset.notchShroomOgres); break;
-                case SplitName.PaleLurkerKey: shouldSplit = mem.PlayerData<bool>(Offset.gotLurkerKey); break;
                 case SplitName.PaleOre: shouldSplit = mem.PlayerData<int>(Offset.ore) > 0; break;
                 case SplitName.Pantheon1: shouldSplit = mem.PlayerData<bool>(Offset.bossDoorStateTier1); break;
                 case SplitName.Pantheon2: shouldSplit = mem.PlayerData<bool>(Offset.bossDoorStateTier2); break;
@@ -479,56 +812,21 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.Pantheon4: shouldSplit = mem.PlayerData<bool>(Offset.bossDoorStateTier4); break;
                 case SplitName.Pantheon5: shouldSplit = mem.PlayerData<bool>(Offset.bossDoorStateTier5); break;
                 case SplitName.PathOfPain: shouldSplit = mem.PlayerData<bool>(Offset.newDataBindingSeal); break;
-                case SplitName.PureVessel: shouldSplit = mem.PlayerData<bool>(Offset.killedHollowKnightPrime); break;
                 case SplitName.QueensGardens: shouldSplit = mem.PlayerData<bool>(Offset.visitedRoyalGardens); break;
                 case SplitName.QueensGardensStation: shouldSplit = mem.PlayerData<bool>(Offset.openedRoyalGardens); break;
                 case SplitName.QueensStationStation: shouldSplit = mem.PlayerData<bool>(Offset.openedFungalWastes); break;
-                case SplitName.QuickSlash: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_32); break;
-                case SplitName.QuickFocus: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_7); break;
                 case SplitName.RestingGrounds: shouldSplit = mem.PlayerData<bool>(Offset.visitedRestingGrounds); break;
                 case SplitName.RestingGroundsStation: shouldSplit = mem.PlayerData<bool>(Offset.openedRestingGrounds); break;
                 case SplitName.RollerHuntersNotes: shouldSplit = mem.PlayerData<int>(Offset.killsRoller) == 0; break;
                 case SplitName.RoyalWaterways: shouldSplit = mem.PlayerData<bool>(Offset.visitedWaterways); break;
-                case SplitName.SalubrasBlessing: shouldSplit = mem.PlayerData<bool>(Offset.salubraBlessing); break;
                 case SplitName.SeerDeparts: shouldSplit = mem.PlayerData<bool>(Offset.mothDeparted); break;
-                case SplitName.ShadeCloak: shouldSplit = mem.PlayerData<bool>(Offset.hasShadowDash); break;
-                case SplitName.ShadeSoul: shouldSplit = mem.PlayerData<int>(Offset.fireballLevel) == 2; break;
-                case SplitName.ShamanStone: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_19); break;
-                case SplitName.ShapeOfUnn: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_28); break;
-                case SplitName.SharpShadow: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_16); break;
-                case SplitName.SheoPaintmaster: shouldSplit = mem.PlayerData<bool>(Offset.killedPaintmaster); break;
-                case SplitName.SimpleKey: shouldSplit = mem.PlayerData<int>(Offset.simpleKeys) > 0; break;
-                case SplitName.SlyKey: shouldSplit = mem.PlayerData<bool>(Offset.hasSlykey); break;
-                case SplitName.SlyNailsage: shouldSplit = mem.PlayerData<bool>(Offset.killedNailsage); break;
-                case SplitName.SoulCatcher: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_20); break;
-                case SplitName.SoulEater: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_21); break;
-                case SplitName.SoulMaster: shouldSplit = mem.PlayerData<bool>(Offset.killedMageLord); break;
-                case SplitName.SoulMasterPhase1: shouldSplit = mem.PlayerData<bool>(Offset.mageLordEncountered_2); break;
-                case SplitName.SoulTyrant: shouldSplit = mem.PlayerData<bool>(Offset.mageLordDreamDefeated); break;
-                case SplitName.SpellTwister: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_33); break;
-                case SplitName.SporeShroom: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_17); break;
                 case SplitName.SpiritGladeOpen: shouldSplit = mem.PlayerData<bool>(Offset.gladeDoorOpened); break;
-                case SplitName.Sprintmaster: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_37); break;
-                case SplitName.StalwartShell: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_4); break;
                 case SplitName.StagnestStation:
                     shouldSplit = nextScene.Equals("Cliffs_03", StringComparison.OrdinalIgnoreCase)
                                                               && mem.PlayerData<bool>(Offset.travelling)
                                                               && mem.PlayerData<bool>(Offset.openedStagNest); break;
-                case SplitName.SteadyBody: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_14); break;
                 case SplitName.StoreroomsStation: shouldSplit = mem.PlayerData<bool>(Offset.openedRuins1); break;
-                case SplitName.TeachersArchive: shouldSplit = sceneName.Equals("Fungus3_archive", StringComparison.OrdinalIgnoreCase); break;
-                case SplitName.ThornsOfAgony: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_12); break;
-                case SplitName.TraitorLord: shouldSplit = mem.PlayerData<bool>(Offset.killedTraitorLord); break;
-                case SplitName.TramPass: shouldSplit = mem.PlayerData<bool>(Offset.hasTramPass); break;
-                case SplitName.TroupeMasterGrimm: shouldSplit = mem.PlayerData<bool>(Offset.killedGrimm); break;
-                case SplitName.UnbreakableGreed: shouldSplit = mem.PlayerData<bool>(Offset.fragileGreed_unbreakable); break;
-                case SplitName.UnbreakableHeart: shouldSplit = mem.PlayerData<bool>(Offset.fragileHealth_unbreakable); break;
-                case SplitName.UnbreakableStrength: shouldSplit = mem.PlayerData<bool>(Offset.fragileStrength_unbreakable); break;
                 case SplitName.UnchainedHollowKnight: shouldSplit = mem.PlayerData<bool>(Offset.unchainedHollowKnight); break;
-                case SplitName.Uumuu: shouldSplit = mem.PlayerData<bool>(Offset.killedMegaJellyfish); break;
-                case SplitName.UumuuEncountered: shouldSplit = mem.PlayerData<bool>(Offset.encounteredMegaJelly); break;
-                case SplitName.VengefulSpirit: shouldSplit = mem.PlayerData<int>(Offset.fireballLevel) == 1; break;
-                case SplitName.TransVS: shouldSplit = mem.PlayerData<int>(Offset.fireballLevel) == 1 && nextScene != sceneName; break;
                 case SplitName.VesselFragment1: shouldSplit = mem.PlayerData<int>(Offset.MPReserveMax) == 0 && mem.PlayerData<int>(Offset.vesselFragments) == 1; break;
                 case SplitName.VesselFragment2: shouldSplit = mem.PlayerData<int>(Offset.MPReserveMax) == 0 && mem.PlayerData<int>(Offset.vesselFragments) == 2; break;
                 case SplitName.Vessel1: shouldSplit = mem.PlayerData<int>(Offset.MPReserveMax) == 33; break;
@@ -538,13 +836,8 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.VesselFragment7: shouldSplit = mem.PlayerData<int>(Offset.vesselFragments) == 7 || (mem.PlayerData<int>(Offset.MPReserveMax) == 66 && mem.PlayerData<int>(Offset.vesselFragments) == 1); break;
                 case SplitName.VesselFragment8: shouldSplit = mem.PlayerData<int>(Offset.vesselFragments) == 8 || (mem.PlayerData<int>(Offset.MPReserveMax) == 66 && mem.PlayerData<int>(Offset.vesselFragments) == 2); break;
                 case SplitName.Vessel3: shouldSplit = mem.PlayerData<int>(Offset.MPReserveMax) == 99; break;
-                case SplitName.VoidHeart: shouldSplit = mem.PlayerData<bool>(Offset.gotShadeCharm); break;
                 case SplitName.WatcherChandelier: shouldSplit = mem.PlayerData<bool>(Offset.watcherChandelier); break;
-                case SplitName.WaywardCompass: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_2); break;
-                case SplitName.Weaversong: shouldSplit = mem.PlayerData<bool>(Offset.gotCharm_39); break;
-                case SplitName.WhiteDefender: shouldSplit = mem.PlayerData<bool>(Offset.killedWhiteDefender); break;
                 case SplitName.WhitePalace: shouldSplit = mem.PlayerData<bool>(Offset.visitedWhitePalace); break;
-                case SplitName.Xero: shouldSplit = mem.PlayerData<bool>(Offset.killedGhostXero); break;
                 case SplitName.Zote1: shouldSplit = mem.PlayerData<bool>(Offset.zoteRescuedBuzzer); break;
                 case SplitName.Zote2: shouldSplit = mem.PlayerData<bool>(Offset.zoteRescuedDeepnest); break;
                 case SplitName.ZoteKilled: shouldSplit = mem.PlayerData<bool>(Offset.killedZote); break;
@@ -556,8 +849,6 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.TransFlame1: shouldSplit = mem.PlayerData<int>(Offset.flamesCollected) == 1 && nextScene != sceneName; break;
                 case SplitName.TransFlame2: shouldSplit = mem.PlayerData<int>(Offset.flamesCollected) == 2 && nextScene != sceneName; break;
                 case SplitName.TransFlame3: shouldSplit = mem.PlayerData<int>(Offset.flamesCollected) == 3 && nextScene != sceneName; break;
-                
-                case SplitName.HiveKnight: shouldSplit = mem.PlayerData<bool>(Offset.killedHiveKnight); break;
 
                 case SplitName.Ore1:
                 case SplitName.Ore2:
@@ -720,11 +1011,6 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.Essence2300: shouldSplit = mem.PlayerData<int>(Offset.dreamOrbs) >= 2300; break;
                 case SplitName.Essence2400: shouldSplit = mem.PlayerData<int>(Offset.dreamOrbs) >= 2400; break;
 
-                case SplitName.KingsPass: shouldSplit = sceneName.StartsWith("Tutorial_01") && nextScene.StartsWith("Town"); break;
-                case SplitName.KingsPassEnterFromTown: shouldSplit = sceneName.StartsWith("Town") && nextScene.StartsWith("Tutorial_01"); break;
-                case SplitName.BlueLake: shouldSplit = !sceneName.StartsWith("Crossroads_50") && nextScene.StartsWith("Crossroads_50"); break;
-                case SplitName.CatacombsEntry: shouldSplit = !sceneName.StartsWith("RestingGrounds_10") && nextScene.StartsWith("RestingGrounds_10"); break;
-
                 case SplitName.VengeflyKingP: shouldSplit = sceneName.StartsWith("GG_Vengefly") && nextScene.StartsWith("GG_Gruz_Mother"); break;
                 case SplitName.GruzMotherP: shouldSplit = sceneName.StartsWith("GG_Gruz_Mother") && nextScene.StartsWith("GG_False_Knight"); break;
                 case SplitName.FalseKnightP: shouldSplit = sceneName.StartsWith("GG_False_Knight") && nextScene.StartsWith("GG_Mega_Moss_Charger"); break;
@@ -795,9 +1081,6 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.PathOfPainTransition2: shouldSplit = nextScene.StartsWith("White_Palace_19") && sceneName.StartsWith("White_Palace_17"); break;
                 case SplitName.PathOfPainTransition3: shouldSplit = nextScene.StartsWith("White_Palace_20") && sceneName.StartsWith("White_Palace_19"); break;
                 case SplitName.PathOfPainRoom4DDark: shouldSplit = sceneName.StartsWith("White_Palace_20") && mem.OnGround() && mem.Spellquake(); break;
-
-                case SplitName.WhiteFragmentLeft: shouldSplit = mem.PlayerData<bool>(Offset.gotQueenFragment); break;
-                case SplitName.WhiteFragmentRight: shouldSplit = mem.PlayerData<bool>(Offset.gotKingFragment); break;
 
                 // sit at benches
                 case SplitName.BenchAny: shouldSplit = mem.PlayerData<bool>(Offset.atBench); break;
@@ -876,13 +1159,11 @@ namespace LiveSplit.HollowKnight {
                 */
                 case SplitName.TramDeepnest: shouldSplit = mem.PlayerData<bool>(Offset.openedTramLower); break;
                 case SplitName.WaterwaysManhole: shouldSplit = mem.PlayerData<bool>(Offset.openedWaterwaysManhole); break;
-                case SplitName.NotchGrimm: shouldSplit = mem.PlayerData<bool>(Offset.gotGrimmNotch); break;
                 //case SplitName.NotchSly1: shouldSplit = mem.PlayerData<bool>(Offset.slyNotch1); break;
                 //case SplitName.NotchSly2: shouldSplit = mem.PlayerData<bool>(Offset.slyNotch2); break;
                 case SplitName.SlyRescued: shouldSplit = mem.PlayerData<bool>(Offset.slyRescued); break;
 
                 case SplitName.FlowerQuest: shouldSplit = mem.PlayerData<bool>(Offset.xunFlowerGiven); break;
-                case SplitName.CityKey: shouldSplit = mem.PlayerData<bool>(Offset.hasCityKey); break;
                 //case SplitName.Al2ba: shouldSplit = mem.PlayerData<int>(Offset.killsLazyFlyer) == 2; break;
                 //case SplitName.Revek: shouldSplit = mem.PlayerData<int>(Offset.gladeGhostsKilled) == 19; break;
                 //case SplitName.EquippedFragileHealth: shouldSplit = mem.PlayerData<bool>(Offset.equippedCharm_23); break;
@@ -896,46 +1177,14 @@ namespace LiveSplit.HollowKnight {
                 //case SplitName.AreaTestingSanctum: shouldSplit = mem.PlayerData<int>(Offset.currentArea) == (int)MapZone.SOUL_SOCIETY; break;
                 //case SplitName.AreaTestingSanctumUpper: shouldSplit = mem.PlayerData<int>(Offset.currentArea) == (int)MapZone.MAGE_TOWER; break;
 
-                case SplitName.killedSanctumWarrior: shouldSplit = mem.PlayerData<bool>(Offset.killedMageKnight); break;
                 case SplitName.killedSoulTwister: shouldSplit = mem.PlayerData<bool>(Offset.killedMage); break;
 
-                case SplitName.EnterNKG: shouldSplit = sceneName.StartsWith("Grimm_Main_Tent") && nextScene.StartsWith("Grimm_Nightmare"); break;
-                case SplitName.EnterGreenpath: shouldSplit = !sceneName.StartsWith("Fungus1_01") && nextScene.StartsWith("Fungus1_01"); break;
-                case SplitName.EnterGreenpathWithOvercharm:
-                    shouldSplit = !sceneName.StartsWith("Fungus1_01")
-                        && nextScene.StartsWith("Fungus1_01")
-                        && mem.PlayerData<bool>(Offset.canOvercharm);
-                    break;
-                case SplitName.EnterSanctum: shouldSplit = !sceneName.StartsWith("Ruins1_23") && nextScene.StartsWith("Ruins1_23"); break;
-                case SplitName.EnterSanctumWithShadeSoul:
-                    shouldSplit = !sceneName.StartsWith("Ruins1_23")
-                        && nextScene.StartsWith("Ruins1_23")
-                        && mem.PlayerData<int>(Offset.fireballLevel) == 2;
-                    break;
-                case SplitName.EnterAnyDream: shouldSplit = nextScene.StartsWith("Dream_") && nextScene != sceneName; break;
-                case SplitName.EnterGodhome: shouldSplit = nextScene.StartsWith("GG_Atrium") && nextScene != sceneName; break;
                 case SplitName.DgateKingdomsEdgeAcid:
                     shouldSplit =
                         mem.PlayerDataString<string>(Offset.dreamGateScene).StartsWith("Deepnest_East_04") &&
                         (mem.PlayerData<float>(Offset.dreamGateX) > 27.0f && mem.PlayerData<float>(Offset.dreamGateX) < 29f) &&
                         (mem.PlayerData<float>(Offset.dreamGateY) > 7.0f && mem.PlayerData<float>(Offset.dreamGateY) < 9f);
                     break;
-                case SplitName.EnterJunkPit: shouldSplit = nextScene.Equals("GG_Waterways") && nextScene != sceneName; break;
-                case SplitName.EnterDeepnest:
-                    shouldSplit = 
-                        (nextScene.Equals("Fungus2_25") ||
-                        nextScene.Equals("Deepnest_42") ||
-                        nextScene.Equals("Abyss_03b") ||
-                        nextScene.Equals("Deepnest_01b")) &&
-                        nextScene != sceneName;
-                    break;
-                case SplitName.EnterBeastDen: shouldSplit = nextScene.Equals("Deepnest_Spider_Town") && nextScene != sceneName; break;
-                case SplitName.EnterCrown: shouldSplit = nextScene.Equals("Mines_23") && nextScene != sceneName; break;
-                case SplitName.EnterDirtmouth: shouldSplit = nextScene.Equals("Town") && nextScene != sceneName; break;
-                case SplitName.EnterRafters: shouldSplit = nextScene.Equals("Ruins1_03") && nextScene != sceneName; break;
-                case SplitName.SalubraExit: shouldSplit = sceneName.Equals("Room_Charm_Shop") && nextScene != sceneName; break;
-                // since Ruins1_18 has both bench and bridge, don't include Ruins1_18 bridge to Ruins2_03b
-                case SplitName.SpireBenchExit: shouldSplit = sceneName.StartsWith("Ruins1_18") && nextScene.StartsWith("Ruins2_01"); break;
 
                 case SplitName.FailedChampionEssence: shouldSplit = mem.PlayerData<bool>(Offset.falseKnightOrbsCollected); break;
                 case SplitName.SoulTyrantEssence: shouldSplit = mem.PlayerData<bool>(Offset.mageLordOrbsCollected); break;
@@ -948,12 +1197,6 @@ namespace LiveSplit.HollowKnight {
                         && mem.PlayerData<int>(Offset.maxHealthBase) == 6
                         && (mem.PlayerData<int>(Offset.vesselFragments) == 4 || (mem.PlayerData<int>(Offset.MPReserveMax) == 33 && mem.PlayerData<int>(Offset.vesselFragments) == 2));
                     break;
-                case SplitName.PreGrimmShopTrans:
-                    shouldSplit = mem.PlayerData<bool>(Offset.hasLantern)
-                        && mem.PlayerData<int>(Offset.maxHealthBase) == 6
-                        && (mem.PlayerData<int>(Offset.vesselFragments) == 4 || (mem.PlayerData<int>(Offset.MPReserveMax) == 33 && mem.PlayerData<int>(Offset.vesselFragments) == 2))
-                        && !sceneName.StartsWith("Room_shop");
-                    break;
                 case SplitName.ElderHuEssence: shouldSplit = mem.PlayerData<int>(Offset.elderHuDefeated) == 2; break;
                 case SplitName.GalienEssence: shouldSplit = mem.PlayerData<int>(Offset.galienDefeated) == 2; break;
                 case SplitName.GorbEssence: shouldSplit = mem.PlayerData<int>(Offset.aladarSlugDefeated) == 2; break;
@@ -962,39 +1205,6 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.XeroEssence: shouldSplit = mem.PlayerData<int>(Offset.xeroDefeated) == 2; break;
                 case SplitName.MarkothEssence: shouldSplit = mem.PlayerData<int>(Offset.markothDefeated) == 2; break;
 
-                case SplitName.DungDefenderIdol:
-                    shouldSplit = store.CheckIncreased(Offset.trinket3) && sceneName.StartsWith("Waterways_15");
-                    break;
-                case SplitName.WaterwaysEntry:
-                    shouldSplit = (nextScene.StartsWith("Waterways_01") // Simple Key manhole entrance
-                        || nextScene.StartsWith("Waterways_07") // Right of Spike-tunnel, also where Tram entrance meets the rest
-                        ) && nextScene != sceneName; break;
-                case SplitName.FogCanyonEntry:
-                    shouldSplit = (nextScene.StartsWith("Fungus3_01") // West Fog Canyon entrance from Greenpath
-                        || nextScene.StartsWith("Fungus3_02") // West Fog Canyon entrance from Queen's Station or QGA
-                        || nextScene.StartsWith("Fungus3_24") // West Fog Canyon entrance from Queen's Gardens via Overgrown Mound
-                        || nextScene.StartsWith("Fungus3_26") // East Fog Canyon, where the Crossroads acid and Leg Eater acid entrances meet
-                        ) && nextScene != sceneName; break;
-                case SplitName.FungalWastesEntry:
-                    shouldSplit = (nextScene.StartsWith("Fungus2_06") // Room outside Leg Eater
-                        || nextScene.StartsWith("Fungus2_03") // From Queens' Station
-                        || nextScene.StartsWith("Fungus2_23") // Bretta from Waterways
-                        || nextScene.StartsWith("Fungus2_20") // Spore Shroom room, from QG (this one's unlikely to come up)
-                        ) && nextScene != sceneName; break;
-                case SplitName.SoulMasterEncountered: shouldSplit = mem.PlayerData<bool>(Offset.mageLordEncountered); break;
-
-                case SplitName.CrystalMoundExit: shouldSplit = sceneName.StartsWith("Mines_35") && nextScene != sceneName; break;
-                case SplitName.CrystalPeakEntry: shouldSplit = (nextScene.StartsWith("Mines_02") || nextScene.StartsWith("Mines_10")) && nextScene != sceneName; break;
-                case SplitName.QueensGardensEntry: shouldSplit = (nextScene.StartsWith("Fungus3_34") || nextScene.StartsWith("Deepnest_43")) && nextScene != sceneName; break;
-                case SplitName.BasinEntry: shouldSplit = nextScene.StartsWith("Abyss_04") && nextScene != sceneName; break;
-                case SplitName.HiveEntry: shouldSplit = nextScene.StartsWith("Hive_01") && nextScene != sceneName; break;
-                case SplitName.KingdomsEdgeEntry: shouldSplit = nextScene.StartsWith("Deepnest_East_03") && nextScene != sceneName; break;
-                case SplitName.KingdomsEdgeOvercharmedEntry:
-                    shouldSplit =
-                        nextScene.StartsWith("Deepnest_East_03") &&
-                        nextScene != sceneName &&
-                        mem.PlayerData<bool>(Offset.overcharmed);
-                    break;
                 case SplitName.AllCharmNotchesLemm2CP:
                     shouldSplit =
                         mem.PlayerData<int>(Offset.soldTrinket1) == 1 &&
@@ -1011,29 +1221,11 @@ namespace LiveSplit.HollowKnight {
                         && (mem.GetCameraTarget().X < 29.5);
                     break;
                     
-                case SplitName.GodhomeBench: shouldSplit = sceneName.StartsWith("GG_Spa") && sceneName != nextScene && !store.SplitThisTransition; break;
-                case SplitName.GodhomeLoreRoom:
-                    shouldSplit =
-                        (sceneName.StartsWith("GG_Engine") || sceneName.StartsWith("GG_Unn") || sceneName.StartsWith("GG_Wyrm"))
-                        && sceneName != nextScene
-                        && !store.SplitThisTransition;
-                    break;
                 case SplitName.Menu: shouldSplit = sceneName == "Menu_Title"; break;
                 case SplitName.MenuClaw: shouldSplit = mem.PlayerData<bool>(Offset.hasWallJump); break;
                 case SplitName.MenuGorgeousHusk: shouldSplit = mem.PlayerData<bool>(Offset.killedGorgeousHusk); break;
                 case SplitName.MenuIsmasTear: shouldSplit = mem.PlayerData<bool>(Offset.hasAcidArmour); break;
                 case SplitName.MenuShadeSoul: shouldSplit = mem.PlayerData<int>(Offset.fireballLevel) == 2; break;
-                case SplitName.TransClaw: shouldSplit = mem.PlayerData<bool>(Offset.hasWallJump) && nextScene != sceneName; break;
-                case SplitName.TransGorgeousHusk: shouldSplit = mem.PlayerData<bool>(Offset.killedGorgeousHusk) && nextScene != sceneName; break;
-                case SplitName.TransDescendingDark: shouldSplit = mem.PlayerData<int>(Offset.quakeLevel) == 2 && nextScene != sceneName; break;
-                case SplitName.TransTear: shouldSplit = mem.PlayerData<bool>(Offset.hasAcidArmour) && nextScene != sceneName; break;
-                case SplitName.TransTearWithGrub:
-                    shouldSplit =
-                        mem.PlayerData<bool>(Offset.hasAcidArmour) &&
-                        mem.PlayerDataStringList(Offset.scenesGrubRescued).Contains("Waterways_13") &&
-
-                        nextScene != sceneName; break;
-                case SplitName.TransShadeSoul: shouldSplit = mem.PlayerData<int>(Offset.fireballLevel) == 2 && nextScene != sceneName; break;
                 case SplitName.PlayerDeath: shouldSplit = mem.PlayerData<int>(Offset.health) == 0; break;
                 case SplitName.ShadeKilled: shouldSplit = store.CheckToggledFalse(Offset.soulLimited); break;
                 case SplitName.SlyShopFinished:
@@ -1049,20 +1241,6 @@ namespace LiveSplit.HollowKnight {
                     break;
                 case SplitName.CorniferAtHome:
                     shouldSplit = mem.PlayerData<bool>(Offset.corniferAtHome) && sceneName.StartsWith("Town") && nextScene.StartsWith("Room_mapper");
-                    break;
-
-                case SplitName.AllSeals: shouldSplit = mem.PlayerData<int>(Offset.trinket2) + mem.PlayerData<int>(Offset.soldTrinket2) == 17; break;
-                case SplitName.AllEggs: shouldSplit = mem.PlayerData<int>(Offset.rancidEggs) + mem.PlayerData<int>(Offset.jinnEggsSold) == 21; break;
-                case SplitName.SlySimpleKey: shouldSplit = mem.PlayerData<bool>(Offset.slySimpleKey); break;
-                case SplitName.AllBreakables:
-                    shouldSplit = mem.PlayerData<bool>(Offset.brokenCharm_23) &&
-                        mem.PlayerData<bool>(Offset.brokenCharm_24) &&
-                        mem.PlayerData<bool>(Offset.brokenCharm_25);
-                    break;
-                case SplitName.AllUnbreakables:
-                    shouldSplit = mem.PlayerData<bool>(Offset.fragileGreed_unbreakable) &&
-                        mem.PlayerData<bool>(Offset.fragileHealth_unbreakable) &&
-                        mem.PlayerData<bool>(Offset.fragileStrength_unbreakable);
                     break;
 
                 case SplitName.MetEmilitia: shouldSplit = mem.PlayerData<bool>(Offset.metEmilitia); break;
@@ -1087,28 +1265,12 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.givenWhiteLadyFlower: shouldSplit = mem.PlayerData<bool>(Offset.givenWhiteLadyFlower); break;
                 case SplitName.givenEmilitiaFlower: shouldSplit = mem.PlayerData<bool>(Offset.givenEmilitiaFlower); break;
 
-                case SplitName.KilledOblobbles: shouldSplit = mem.PlayerData<int>(Offset.killsOblobble) == 1; break;
                 case SplitName.WhitePalaceEntry: shouldSplit = nextScene.StartsWith("White_Palace_11") && nextScene != sceneName; break;
                 case SplitName.ManualSplit: shouldSplit = false; break;
-                case SplitName.AnyTransition: shouldSplit = shouldSplitTransition(nextScene, sceneName); break;
-                case SplitName.TransitionAfterSaveState:
-                    if (shouldSplitTransition(nextScene, sceneName)) {
-                        shouldSplit = !(debugSaveStateSceneNames.Contains(nextScene) || debugSaveStateSceneNames.Contains(sceneName));
-                    }
-                    break;
-                case SplitName.RandoWake:
-                    shouldSplit = !mem.PlayerData<bool>(Offset.disablePause) && mem.GameState() == GameState.PLAYING && !menuingSceneNames.Contains(sceneName);
-                    break;
                 case SplitName.OnGhostCoinsIncremented:
                     shouldSplit = store.CheckIncremented(Offset.ghostCoins);
                     break;
                 case SplitName.RidingStag: shouldSplit = store.CheckToggledTrue(Offset.travelling); break;
-                case SplitName.WhitePalaceLowerEntry: shouldSplit = nextScene.StartsWith("White_Palace_01") && nextScene != sceneName; break;
-                case SplitName.WhitePalaceLowerOrb: shouldSplit = nextScene.StartsWith("White_Palace_02") && nextScene != sceneName; break;
-                case SplitName.QueensGardensPostArenaTransition: shouldSplit = nextScene.StartsWith("Fungus3_13") && nextScene != sceneName; break;
-                case SplitName.QueensGardensFrogsTrans: shouldSplit = nextScene.StartsWith("Fungus1_23") && nextScene != sceneName; break;
-                case SplitName.Pantheon1to4Entry: shouldSplit = nextScene.StartsWith("GG_Boss_Door_Entrance") && nextScene != sceneName; break;
-                case SplitName.Pantheon5Entry: shouldSplit = nextScene.StartsWith("GG_Vengefly_V") && nextScene != sceneName; break;
 
                 case SplitName.OnObtainGhostMarissa:
                     shouldSplit = store.CheckIncremented(Offset.dreamOrbs) && sceneName == "Ruins_Bathhouse";
@@ -1160,24 +1322,15 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.VesselFragSeer: if (sceneName == "RestingGrounds_07") { goto case SplitName.OnObtainVesselFragment; } break;
                 case SplitName.VesselFragFountain: if (sceneName == "Abyss_04") { goto case SplitName.OnObtainVesselFragment; } break;
 
-                case SplitName.OnObtainWanderersJournal: shouldSplit = store.CheckIncremented(Offset.trinket1); break;
-                case SplitName.OnObtainHallownestSeal: shouldSplit = store.CheckIncremented(Offset.trinket2); break;
-                case SplitName.OnObtainKingsIdol: shouldSplit = store.CheckIncremented(Offset.trinket3); break;
-                case SplitName.ArcaneEgg8: shouldSplit = mem.PlayerData<int>(Offset.trinket4) == 8; break;
-                case SplitName.OnObtainArcaneEgg: shouldSplit = store.CheckIncremented(Offset.trinket4); break;
-                case SplitName.OnObtainRancidEgg: shouldSplit = store.CheckIncremented(Offset.rancidEggs); break;
                 case SplitName.OnObtainMaskShard:
                     shouldSplit = store.CheckIncremented(Offset.maxHealthBase) || (store.CheckIncremented(Offset.heartPieces) && mem.PlayerData<int>(Offset.heartPieces) < 4);
                     break;
                 case SplitName.OnObtainVesselFragment:
                     shouldSplit = store.CheckIncreasedBy(Offset.MPReserveMax, 33) || (store.CheckIncremented(Offset.vesselFragments) && mem.PlayerData<int>(Offset.vesselFragments) < 3);
                     break;
-                case SplitName.OnObtainSimpleKey: shouldSplit = store.CheckIncremented(Offset.simpleKeys); break;
                 case SplitName.OnUseSimpleKey: shouldSplit = store.CheckIncreasedBy(Offset.simpleKeys, -1); break;
                 case SplitName.OnObtainGrub: shouldSplit = store.CheckIncremented(Offset.grubsCollected); break;
                 case SplitName.OnObtainPaleOre: shouldSplit = store.CheckIncremented(Offset.ore); break;
-                case SplitName.OnObtainWhiteFragment: shouldSplit = store.CheckIncreased(Offset.royalCharmState); break;
-                case SplitName.OnObtainCharmNotch: shouldSplit = store.CheckIncreased(Offset.charmSlots); break;
                 case SplitName.OnDefeatGPZ: shouldSplit = store.CheckIncremented(Offset.greyPrinceDefeats); break;
                 case SplitName.OnDefeatWhiteDefender: shouldSplit = store.CheckIncremented(Offset.whiteDefenderDefeats); break;
 
@@ -1192,34 +1345,9 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.ColosseumSilverExit: shouldSplit = mem.PlayerData<bool>(Offset.colosseumSilverCompleted) && !nextScene.StartsWith("Room_Colosseum_Silver") && nextScene != sceneName; break;
                 case SplitName.ColosseumGoldExit: shouldSplit = mem.PlayerData<bool>(Offset.colosseumGoldCompleted) && !nextScene.StartsWith("Room_Colosseum_Gold") && nextScene != sceneName; break;
                 case SplitName.SoulTyrantEssenceWithSanctumGrub: shouldSplit = mem.PlayerData<bool>(Offset.mageLordOrbsCollected) && mem.PlayerDataStringList(Offset.scenesGrubRescued).Contains("Ruins1_32"); break;
-                case SplitName.EndingSplit: shouldSplit = nextScene.StartsWith("Cinematic_Ending", StringComparison.OrdinalIgnoreCase) || nextScene == "GG_End_Sequence"; break;
 
-                case SplitName.EnterHornet1: shouldSplit = nextScene.StartsWith("Fungus1_04") && nextScene != sceneName; break;
-                case SplitName.EnterSoulMaster: shouldSplit = nextScene.StartsWith("Ruins1_24") && nextScene != sceneName; break;
-                case SplitName.EnterHiveKnight: shouldSplit = nextScene.StartsWith("Hive_05") && nextScene != sceneName; break;
-                case SplitName.EnterHornet2: shouldSplit = nextScene.StartsWith("Deepnest_East_Hornet") && nextScene != sceneName; break;
-                case SplitName.EnterBroodingMawlek: shouldSplit = nextScene.StartsWith("Crossroads_09") && nextScene != sceneName; break;
-                case SplitName.EnterNosk: shouldSplit = nextScene.StartsWith("Deepnest_32") && nextScene != sceneName; break;
-                case SplitName.EnterTMG:
-                    shouldSplit = nextScene.StartsWith("Grimm_Main_Tent") && nextScene != sceneName
-                    && mem.PlayerData<int>(Offset.grimmChildLevel) == 2
-                    && mem.PlayerData<int>(Offset.flamesCollected) == 3; break;
-                case SplitName.EnterLoveTower: shouldSplit = nextScene.StartsWith("Ruins2_11") && nextScene != sceneName; break;
-
-                case SplitName.VengeflyKingTrans: shouldSplit = mem.PlayerData<bool>(Offset.zoteRescuedBuzzer) && nextScene != sceneName; break;
-                case SplitName.MegaMossChargerTrans: shouldSplit = mem.PlayerData<bool>(Offset.megaMossChargerDefeated) && nextScene != sceneName; break;
-                case SplitName.ElderHuTrans: shouldSplit = mem.PlayerData<bool>(Offset.killedGhostHu) && nextScene != sceneName; break;
-                case SplitName.BlackKnightTrans: shouldSplit = mem.PlayerData<bool>(Offset.killedBlackKnight) && nextScene != sceneName; break;
-                case SplitName.BrokenVesselTrans: shouldSplit = 
-                        mem.PlayerData<bool>(Offset.killedInfectedKnight) && 
-                        mem.PlayerData<int>(Offset.health) > 0 &&
-                        nextScene != sceneName; 
-                    break;
-
-                case SplitName.GladeIdol: shouldSplit = store.CheckIncreased(Offset.trinket3) && sceneName.StartsWith("RestingGrounds_08"); break;
                 case SplitName.AbyssDoor: shouldSplit = mem.PlayerData<bool>(Offset.abyssGateOpened); break;
                 case SplitName.AbyssLighthouse: shouldSplit = mem.PlayerData<bool>(Offset.abyssLighthouse); break;
-                case SplitName.LumaflyLanternTransition: shouldSplit = mem.PlayerData<bool>(Offset.hasLantern) && !sceneName.StartsWith("Room_shop"); break;
 
                 // Spore Shroom : 17, Shape of Unn : 28, Quick Focus : 7, Baldur Shell : 5
                 case SplitName.PureSnail:
