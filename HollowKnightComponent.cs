@@ -291,12 +291,43 @@ namespace LiveSplit.HollowKnight {
 
 
         private SplitterAction CheckSplit(SplitName split, string nextScene, string sceneName) {
+            string currScene = sceneName;
             bool shouldSplit = false;
             bool shouldSkip = false;
             bool shouldReset = false;
             SplitterAction action;
 
             switch (split) {
+
+                #region Start and End
+
+                case SplitName.StartNewGame:
+                    shouldSplit =
+                        (nextScene.Equals("Tutorial_01", StringComparison.OrdinalIgnoreCase)
+                        && mem.GameState() == GameState.ENTERING_LEVEL)
+                        || nextScene is "GG_Entrance_Cutscene";
+                    break;
+                case SplitName.StartPantheon:
+                    shouldSplit =
+                        nextScene is "GG_Vengefly_V" or "GG_Boss_Door_Entrance";
+                    break;
+
+                case SplitName.RandoWake:
+                    shouldSplit =
+                        !mem.PlayerData<bool>(Offset.disablePause)
+                        && mem.GameState() == GameState.PLAYING
+                        && !menuingSceneNames.Contains(currScene);
+                    break;
+
+                case SplitName.EndingSplit: shouldSplit = nextScene.StartsWith("Cinematic_Ending", StringComparison.OrdinalIgnoreCase); break;
+                case SplitName.EndingA: shouldSplit = nextScene.Equals("Cinematic_Ending_A", StringComparison.OrdinalIgnoreCase); break;
+                case SplitName.EndingB: shouldSplit = nextScene.Equals("Cinematic_Ending_B", StringComparison.OrdinalIgnoreCase); break;
+                case SplitName.EndingC: shouldSplit = nextScene.Equals("Cinematic_Ending_C", StringComparison.OrdinalIgnoreCase); break;
+                case SplitName.EndingD: shouldSplit = nextScene.Equals("Cinematic_Ending_D", StringComparison.OrdinalIgnoreCase); break;
+                case SplitName.EndingE: shouldSplit = nextScene.Equals("Cinematic_Ending_E", StringComparison.OrdinalIgnoreCase); break;
+
+                #endregion Start and End
+
                 case SplitName.Abyss: shouldSplit = mem.PlayerData<bool>(Offset.visitedAbyss); break;
                 case SplitName.AbyssShriek: shouldSplit = mem.PlayerData<int>(Offset.screamLevel) == 2; break;
                 case SplitName.Aluba: shouldSplit = mem.PlayerData<bool>(Offset.killedLazyFlyer); break;
@@ -1096,9 +1127,6 @@ namespace LiveSplit.HollowKnight {
                         shouldSplit = !(debugSaveStateSceneNames.Contains(nextScene) || debugSaveStateSceneNames.Contains(sceneName));
                     }
                     break;
-                case SplitName.RandoWake:
-                    shouldSplit = !mem.PlayerData<bool>(Offset.disablePause) && mem.GameState() == GameState.PLAYING && !menuingSceneNames.Contains(sceneName);
-                    break;
                 case SplitName.OnGhostCoinsIncremented:
                     shouldSplit = store.CheckIncremented(Offset.ghostCoins);
                     break;
@@ -1192,7 +1220,6 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.ColosseumSilverExit: shouldSplit = mem.PlayerData<bool>(Offset.colosseumSilverCompleted) && !nextScene.StartsWith("Room_Colosseum_Silver") && nextScene != sceneName; break;
                 case SplitName.ColosseumGoldExit: shouldSplit = mem.PlayerData<bool>(Offset.colosseumGoldCompleted) && !nextScene.StartsWith("Room_Colosseum_Gold") && nextScene != sceneName; break;
                 case SplitName.SoulTyrantEssenceWithSanctumGrub: shouldSplit = mem.PlayerData<bool>(Offset.mageLordOrbsCollected) && mem.PlayerDataStringList(Offset.scenesGrubRescued).Contains("Ruins1_32"); break;
-                case SplitName.EndingSplit: shouldSplit = nextScene.StartsWith("Cinematic_Ending", StringComparison.OrdinalIgnoreCase) || nextScene == "GG_End_Sequence"; break;
 
                 case SplitName.EnterHornet1: shouldSplit = nextScene.StartsWith("Fungus1_04") && nextScene != sceneName; break;
                 case SplitName.EnterSoulMaster: shouldSplit = nextScene.StartsWith("Ruins1_24") && nextScene != sceneName; break;
