@@ -365,6 +365,8 @@ namespace LiveSplit.HollowKnight {
         EnterSoulMaster,
         [Description("Soul Master Encountered (Boss)"), ToolTip("Splits when Soul Master is activated the first time as the gate closes")]
         SoulMasterEncountered,
+        [Description("Soul Sanctum Hallownest Seal (Item)"), ToolTip("Splits when the Hallownest Seal in Soul Sanctum is collected")]
+        SoulSanctumSeal,
         [Description("Soul Tyrant (Boss)"), ToolTip("Splits when killing Soul Tyrant")]
         SoulTyrant,
         [Description("Soul Tyrant (Essence)"), ToolTip("Splits when getting Soul Tyrant essence")]
