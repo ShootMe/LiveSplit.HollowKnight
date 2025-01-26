@@ -653,6 +653,7 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.TransGorgeousHusk: shouldSplit = mem.PlayerData<bool>(Offset.killedGorgeousHusk) && nextScene != currScene; break;
                 case SplitName.TransDescendingDark: shouldSplit = mem.PlayerData<int>(Offset.quakeLevel) == 2 && nextScene != currScene; break;
                 case SplitName.TransTear: shouldSplit = mem.PlayerData<bool>(Offset.hasAcidArmour) && nextScene != currScene; break;
+                case SplitName.TransMapCrossroads: shouldSplit = mem.PlayerData<bool>(Offset.mapCrossroads) && nextScene != currScene; break;
                 case SplitName.TransTearWithGrub:
                     shouldSplit =
                         mem.PlayerData<bool>(Offset.hasAcidArmour)
@@ -1411,6 +1412,8 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.MaskFragment14: shouldSplit = mem.PlayerData<int>(Offset.heartPieces) == 14 || (mem.PlayerData<int>(Offset.maxHealthBase) == 8 && mem.PlayerData<int>(Offset.heartPieces) == 2); break;
                 case SplitName.MaskFragment15: shouldSplit = mem.PlayerData<int>(Offset.heartPieces) == 15 || (mem.PlayerData<int>(Offset.maxHealthBase) == 8 && mem.PlayerData<int>(Offset.heartPieces) == 3); break;
                 case SplitName.Mask4: shouldSplit = mem.PlayerData<int>(Offset.maxHealthBase) == 9; break;
+
+                case SplitName.Mask5: shouldSplit = mem.PlayerData<int>(Offset.maxHealthBase) == 10; break;
 
                 #endregion Mask Shards
 
