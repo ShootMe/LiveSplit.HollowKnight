@@ -652,8 +652,8 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.TransClaw: shouldSplit = mem.PlayerData<bool>(Offset.hasWallJump) && nextScene != currScene; break;
                 case SplitName.TransGorgeousHusk: shouldSplit = mem.PlayerData<bool>(Offset.killedGorgeousHusk) && nextScene != currScene; break;
                 case SplitName.TransDescendingDark: shouldSplit = mem.PlayerData<int>(Offset.quakeLevel) == 2 && nextScene != currScene; break;
-                case SplitName.TransTear: shouldSplit = mem.PlayerData<bool>(Offset.hasAcidArmour) && nextScene != currScene; break;
                 case SplitName.TransMapCrossroads: shouldSplit = mem.PlayerData<bool>(Offset.mapCrossroads) && nextScene != currScene; break;
+                case SplitName.TransTear: shouldSplit = mem.PlayerData<bool>(Offset.hasAcidArmour) && nextScene != currScene; break;
                 case SplitName.TransTearWithGrub:
                     shouldSplit =
                         mem.PlayerData<bool>(Offset.hasAcidArmour)
