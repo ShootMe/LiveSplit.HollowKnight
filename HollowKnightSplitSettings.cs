@@ -492,11 +492,11 @@ namespace LiveSplit.HollowKnight {
         [Description("Monomon the Teacher (Dreamer)"), ToolTip("Splits when you see the mask for Monomon")]
         Monomon,
 
-        [Description("Herrah (Old Dreamer Timing)"), ToolTip("Matches the old legacy split. Splits when Herrah is registered as defeated (In Spider Area)")]
+        [Description("Herrah (Old Dreamer Timing)"), ToolTip("For Dreamer Quit-outs on older patches. Splits when Herrah is registered as defeated (In Spider Area)")]
         HegemolDreamer,
-        [Description("Lurien (Old Dreamer Timing)"), ToolTip("Matches the old legacy split. Splits when Lurien is registered as defeated (After killing Watcher Knight)")]
+        [Description("Lurien (Old Dreamer Timing)"), ToolTip("For Dreamer Quit-outs on older patches. Splits when Lurien is registered as defeated (After killing Watcher Knight)")]
         LurienDreamer,
-        [Description("Monomon (Old Dreamer Timing)"), ToolTip("Matches the old legacy split. Splits when Monomon is registered as defeated (After killing Uumuu)")]
+        [Description("Monomon (Old Dreamer Timing)"), ToolTip("For Dreamer Quit-outs on older patches. Splits when Monomon is registered as defeated (After killing Uumuu)")]
         MonomonDreamer,
 
         [Description("First Dreamer (Dreamer)"), ToolTip("Splits when you see the mask for the first dreamer killed")]
