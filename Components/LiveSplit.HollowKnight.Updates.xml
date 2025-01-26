@@ -20,6 +20,8 @@
             <change>Added Stag Position Updated split (Mayo)</change>
             <change>Added City Toll Bench Room Transition split (Mayo)</change>
             <change>Added Transition excluding discontinuities split (AlexKnauth)</change>
+            <change>Added Mask Upgrade 20 split for glitched extra mask (Peeka)</change>
+            <change>Added Map Crossroads Transition split (Peeka)</change>
             <change>Fixed Credits Roll Ending split to not split on finishing any of Pantheon 1-4 (AlexKnauth)</change>
             <change>Fixed Main Menu splits to be more reliable (Mayo)</change>
             <change>Fixed Has Shade Soul Transition split to be room-dupe-safe (Python)</change>
