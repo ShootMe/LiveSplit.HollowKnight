@@ -12,8 +12,8 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]
 [assembly: Guid("b3294e28-2bd4-4e39-92fa-e04a620c7e77")]
-[assembly: AssemblyVersion("3.1.16.0")]
-[assembly: AssemblyFileVersion("3.1.16.0")]
+[assembly: AssemblyVersion("4.0.0.0")]
+[assembly: AssemblyFileVersion("4.0.0.0")]
 #if !Info
 [assembly: ComponentFactory(typeof(HollowKnightFactory))]
 #endif

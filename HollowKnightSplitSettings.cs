@@ -59,12 +59,18 @@ namespace LiveSplit.HollowKnight {
     }
     public enum SplitName {
 
+        [Description("[DEPRECATED] Start Run (Start)"), ToolTip("Splits when autosplitter version 3 would have automatically started runs")]
+        LegacyStart,
+
         [Description("Start New Game (Start)"), ToolTip("Splits when starting a new game, including Normal, Steel Soul, and Godseeker mode")]
         StartNewGame,
         [Description("Start Pantheon (Start)"), ToolTip("Splits when starting a Pantheon run")]
         StartPantheon,
         [Description("Rando Wake (Start)"), ToolTip("Splits when gaining control after waking up in Rando")]
         RandoWake,
+
+        [Description("[DEPRECATED] End Run (Ending)"), ToolTip("Splits when autosplitter version 3 would have automatically ended runs")]
+        LegacyEnd,
 
         [Description("Credits Roll (Ending)"), ToolTip("Splits on any credits rolling")]
         EndingSplit,
@@ -179,6 +185,8 @@ namespace LiveSplit.HollowKnight {
         MaskFragment15,
         [Description("Mask Upgrade 16 (Upgrade)"), ToolTip("Splits when getting 4 extra Masks (9 base HP)")]
         Mask4,
+        [Description("Mask Upgrade 20 (Upgrade)"), ToolTip("(Glichted Only) Splits when getting 5 extra Masks (10 base HP)")]
+        Mask5,
         [Description("Nail 1 (Upgrade)"), ToolTip("Splits upon upgrading to the Sharpened Nail")]
         NailUpgrade1,
         [Description("Nail 2 (Upgrade)"), ToolTip("Splits upon upgrading to the Channeled Nail")]
@@ -203,7 +211,7 @@ namespace LiveSplit.HollowKnight {
         VesselFragment7,
         [Description("Vessel Fragment 8 (Fragment)"), ToolTip("Splits when getting 8th Soul Vessel Fragment")]
         VesselFragment8,
-        [Description("Soul Vessel 3 (Upgrade)"), ToolTip("Splits when upgrading to 3 Soul Vessels (9 Soul Vessel Fragments")]
+        [Description("Soul Vessel 3 (Upgrade)"), ToolTip("Splits when upgrading to 3 Soul Vessels (9 Soul Vessel Fragments)")]
         Vessel3,
 
         [Description("Brooding Mawlek Mask Shard (Obtain)"), ToolTip("Splits when getting the Mask Shard from Brooding Mawlek")]
@@ -266,9 +274,6 @@ namespace LiveSplit.HollowKnight {
         DungDefender,
         [Description("Dung Defender Idol (Item)"), ToolTip("Splits when picking up Dung Defender idol as the first idol")]
         DungDefenderIdol,
-
-        
-        
         [Description("Glade Idol (Item)"), ToolTip("Splits when picking up the King's Idol in the Spirits' Glade")]
         GladeIdol,
         [Description("Elder Hu (Boss)"), ToolTip("Splits when killing Elder Hu")]
@@ -486,6 +491,8 @@ namespace LiveSplit.HollowKnight {
         NoskHornetP,
         [Description("Nightmare King Grimm (Pantheon)"), ToolTip("Splits after killing Nightmare King Grimm in Pantheon 5")]
         NightmareKingGrimmP,
+        [Description("Absolute Radiance (Ending)"), ToolTip("Splits after killing Absolute Radiance in Pantheon 5")]
+        RadianceP,
 
         [Description("Herrah the Beast (Dreamer)"), ToolTip("Splits when you see the mask for Herrah")]
         Hegemol,
@@ -564,6 +571,8 @@ namespace LiveSplit.HollowKnight {
         EternalOrdealAchieved,
         [Description("Riding Stag (Event)"), ToolTip("Splits while riding the stag")]
         RidingStag,
+        [Description("Stag Position Updated (Event)"), ToolTip("Splits when the stag is called")]
+        StagMoved,
         [Description("Saved Cloth (Event)"), ToolTip("Splits when saving Cloth in Ancient Basin")]
         SavedCloth,
         [Description("Crystal Peak Lift Opened (Event)"), ToolTip("Splits when opening the lever for the lift between Dirtmouth and Crystal Peak")]
@@ -611,8 +620,6 @@ namespace LiveSplit.HollowKnight {
         AspidHunter,
         [Description("Aluba (Killed)"), ToolTip("Splits when killing an Aluba")]
         Aluba,
-        //[Description("Al2ba (Killed)"), ToolTip("Splits when killing two Alubas")]
-        //Al2ba,
         [Description("Little Baldur Hunter's Notes (Killed)"), ToolTip("Splits when killing all little Baldurs needed for Hunter's Notes journal completion")]
         RollerHuntersNotes,
         [Description("Maggots (Killed)"), ToolTip("Splits when killing both Maggots")]
@@ -631,8 +638,6 @@ namespace LiveSplit.HollowKnight {
         killedSanctumWarrior,
         [Description("Soul Twister (Killed)"), ToolTip("Splits on first Soul Twister kill")]
         killedSoulTwister,
-        //[Description("Revek (Killed)"), ToolTip("Splits when talking to Revek after clearing all other Glade ghosts")]
-        //Revek,
         [Description("Moss Knight (Mini Boss)"), ToolTip("Splits when killing Moss Knight")]
         MossKnight,
         [Description("Shrumal Ogres (Mini Boss)"), ToolTip("Splits when killing the final Shrumal Ogre")]
@@ -770,10 +775,12 @@ namespace LiveSplit.HollowKnight {
         TransClaw,
         [Description("Has Vengeful Spirit (Transition)"), ToolTip("Splits on transition after Vengeful Spirit acquired")]
         TransVS,
+        [Description("Has Shade Soul (Transition)"), ToolTip("Splits on transition after Shade Soul acquired (Room Dupe safe)")]
+        TransShadeSoul,
         [Description("Has Descending Dark (Transition)"), ToolTip("Splits on transition after Descending Dark acquired")]
         TransDescendingDark,
-        [Description("Has Shade Soul (Transition)"), ToolTip("Splits on transition after Shade Soul acquired")]
-        TransShadeSoul,
+        [Description("Has Map Crossroads (Transition)"), ToolTip("Splits on transition after Crossroads Map acquired")]
+        TransMapCrossroads,
         [Description("Has Isma's Tear (Transition)"), ToolTip("Splits on transition after Isma's Tear acquired")]
         TransTear,
         [Description("Isma's Tear with Grub (Transition)"), ToolTip("Splits on transition after collecting Isma's Tear and saving the grub in Isma's Grove")]
@@ -808,6 +815,8 @@ namespace LiveSplit.HollowKnight {
         WaterwaysEntry,
         [Description("White Palace Entry (Transition)"), ToolTip("Splits when entering the first White Palace scene")]
         WhitePalaceEntry,
+        [Description("City Toll Bench Room (Transition)"), ToolTip("Splits when entering the city toll bench room")]
+        EnterCityTollBenchRoom,
 
         [Description("Baldur Shell (Charm)"), ToolTip("Splits when obtaining the Baldur Shell charm")]
         BaldurShell,
@@ -1442,12 +1451,24 @@ namespace LiveSplit.HollowKnight {
         Menu,
         [Description("Main Menu w/ Claw (Menu)"), ToolTip("Splits on transition to the main menu after Mantis Claw acquired")]
         MenuClaw,
+        [Description("Main Menu w/ Mothwing Cloak (Menu)"), ToolTip("Splits on transition to the main menu after Mothwing Cloak acquired")]
+        MenuCloak,
+        [Description("Main Menu w/ Dashmaster (Menu)"), ToolTip("Splits on transition to the main menu after Dashmaster acquired")]
+        MenuDashmaster,
+        [Description("Main Menu w/ Dream Nail (Menu)"), ToolTip("Splits on transition to the main menu after Dream Nail acquired")]
+        MenuDreamNail,
+        [Description("Main Menu w/ Dream Gate (Menu)"), ToolTip("Splits on transition to the main menu after Dream Gate acquired")]
+        MenuDreamGate,
+        [Description("Main Menu w/ 3 Dreamers (Menu)"), ToolTip("Splits on transition to the main menu after 3 Dreamers acquired")]
+        MenuDreamer3,
         [Description("Main Menu w/ Ghusk (Menu)"), ToolTip("Splits on transition to the main menu after Gorgeous Husk defeated")]
         MenuGorgeousHusk,
         [Description("Main Menu w/ Isma's Tear (Menu)"), ToolTip("Splits on transition to the main menu after Isma's Tear acquired")]
         MenuIsmasTear,
         [Description("Main Menu w/ Shade Soul (Menu)"), ToolTip("Splits on transition to the main menu after Shade Soul acquired")]
         MenuShadeSoul,
+        [Description("Main Menu w/ Void Heart (Menu)"), ToolTip("Splits on transition to the main menu after Void Heart acquired")]
+        MenuVoidHeart,
         
         [Description("Cornifer at Home (Transition)"), ToolTip("Splits when entering Iselda's hut while Cornifer is sleeping")]
         CorniferAtHome,
@@ -1658,32 +1679,12 @@ namespace LiveSplit.HollowKnight {
         AnyTransition,
         [Description("Transition excluding Save State (Transition)"), ToolTip("Splits when the knight enters a transition (excludes save states and Sly's basement)")]
         TransitionAfterSaveState,
+        [Description("Transition excluding discontinuities (Transition)"), ToolTip("Splits when the knight enters a transition (excludes discontinuities including save states, deaths, and dreamgates)")]
+        TransitionExcludingDiscontinuities,
         [Description("Manual Split (Misc)"), ToolTip("Never splits. Use this when you need to manually split while using ordered splits")]
         ManualSplit,
         [Description("Ghost Coins Incremented (Event)"), ToolTip("Splits when the ghostCoins PlayerData is updated. Unused by unmodded game, intended for use with mods.")]
         OnGhostCoinsIncremented,
-
-        /*
-        [Description("Mage Door (Test)"), ToolTip("Splits when Nailsmith is spared")]
-        MageDoor,
-        [Description("Sanctum Warrior Window (Test)"), ToolTip("Splits when Nailsmith is killed")]
-        MageWindow,
-        [Description("Mage Lord Enc. (Test)"), ToolTip("Splits when Nailsmith is spared")]
-        MageLordEncountered,
-        [Description("Mage Lord 2 Enc. (Test)"), ToolTip("Splits when Nailsmith is killed")]
-        MageDoor2,
-        [Description("Mage Window (Test)"), ToolTip("Splits when Nailsmith is spared")]
-        MageWindowGlass,
-        [Description("Mage Window Glass (Test)"), ToolTip("Splits when Nailsmith is killed")]
-        MageLordEncountered2,
-        */
-
-
-
-        /*
-        [Description("Equipped fr. health (menu testing)"), ToolTip("Splits when equipping charm23, for timing menuing")]
-        EquippedFragileHealth,
-        */
 
     }
     public class ToolTipAttribute : Attribute {
