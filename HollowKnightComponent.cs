@@ -563,142 +563,142 @@ namespace LiveSplit.HollowKnight {
 
                 // these aren't really sorted, there's so many and my brain can only handle so much split sorting, maybe next update
 
-                case SplitName.AncestralMound: shouldSplit = nextScene.Equals("Crossroads_ShamanTemple") && nextScene != sceneName; break;
-                case SplitName.TransCollector: shouldSplit = mem.PlayerData<bool>(Offset.collectorDefeated) && sceneName.StartsWith("Ruins2_11") && nextScene != sceneName; break;
-                case SplitName.TeachersArchive: shouldSplit = sceneName.Equals("Fungus3_archive", StringComparison.OrdinalIgnoreCase); break;
-                case SplitName.TransVS: shouldSplit = mem.PlayerData<int>(Offset.fireballLevel) == 1 && nextScene != sceneName; break;
+                case SplitName.AncestralMound: shouldSplit = nextScene.Equals("Crossroads_ShamanTemple") && nextScene != currScene; break;
+                case SplitName.TransCollector: shouldSplit = mem.PlayerData<bool>(Offset.collectorDefeated) && currScene.StartsWith("Ruins2_11") && nextScene != currScene; break;
+                case SplitName.TeachersArchive: shouldSplit = currScene.Equals("Fungus3_archive", StringComparison.OrdinalIgnoreCase); break;
+                case SplitName.TransVS: shouldSplit = mem.PlayerData<int>(Offset.fireballLevel) == 1 && nextScene != currScene; break;
 
-                case SplitName.KingsPass: shouldSplit = sceneName.StartsWith("Tutorial_01") && nextScene.StartsWith("Town"); break;
-                case SplitName.KingsPassEnterFromTown: shouldSplit = sceneName.StartsWith("Town") && nextScene.StartsWith("Tutorial_01"); break;
-                case SplitName.BlueLake: shouldSplit = !sceneName.StartsWith("Crossroads_50") && nextScene.StartsWith("Crossroads_50"); break;
-                case SplitName.CatacombsEntry: shouldSplit = !sceneName.StartsWith("RestingGrounds_10") && nextScene.StartsWith("RestingGrounds_10"); break;
+                case SplitName.KingsPass: shouldSplit = currScene.StartsWith("Tutorial_01") && nextScene.StartsWith("Town"); break;
+                case SplitName.KingsPassEnterFromTown: shouldSplit = currScene.StartsWith("Town") && nextScene.StartsWith("Tutorial_01"); break;
+                case SplitName.BlueLake: shouldSplit = !currScene.StartsWith("Crossroads_50") && nextScene.StartsWith("Crossroads_50"); break;
+                case SplitName.CatacombsEntry: shouldSplit = !currScene.StartsWith("RestingGrounds_10") && nextScene.StartsWith("RestingGrounds_10"); break;
 
-                case SplitName.EnterNKG: shouldSplit = sceneName.StartsWith("Grimm_Main_Tent") && nextScene.StartsWith("Grimm_Nightmare"); break;
-                case SplitName.EnterGreenpath: shouldSplit = !sceneName.StartsWith("Fungus1_01") && nextScene.StartsWith("Fungus1_01"); break;
+                case SplitName.EnterNKG: shouldSplit = currScene.StartsWith("Grimm_Main_Tent") && nextScene.StartsWith("Grimm_Nightmare"); break;
+                case SplitName.EnterGreenpath: shouldSplit = !currScene.StartsWith("Fungus1_01") && nextScene.StartsWith("Fungus1_01"); break;
                 case SplitName.EnterGreenpathWithOvercharm:
-                    shouldSplit = !sceneName.StartsWith("Fungus1_01")
+                    shouldSplit = !currScene.StartsWith("Fungus1_01")
                         && nextScene.StartsWith("Fungus1_01")
                         && mem.PlayerData<bool>(Offset.canOvercharm);
                     break;
-                case SplitName.EnterSanctum: shouldSplit = !sceneName.StartsWith("Ruins1_23") && nextScene.StartsWith("Ruins1_23"); break;
+                case SplitName.EnterSanctum: shouldSplit = !currScene.StartsWith("Ruins1_23") && nextScene.StartsWith("Ruins1_23"); break;
                 case SplitName.EnterSanctumWithShadeSoul:
-                    shouldSplit = !sceneName.StartsWith("Ruins1_23")
+                    shouldSplit = !currScene.StartsWith("Ruins1_23")
                         && nextScene.StartsWith("Ruins1_23")
                         && mem.PlayerData<int>(Offset.fireballLevel) == 2;
                     break;
-                case SplitName.EnterAnyDream: shouldSplit = nextScene.StartsWith("Dream_") && nextScene != sceneName; break;
-                case SplitName.EnterGodhome: shouldSplit = nextScene.StartsWith("GG_Atrium") && nextScene != sceneName; break;
+                case SplitName.EnterAnyDream: shouldSplit = nextScene.StartsWith("Dream_") && nextScene != currScene; break;
+                case SplitName.EnterGodhome: shouldSplit = nextScene.StartsWith("GG_Atrium") && nextScene != currScene; break;
 
-                case SplitName.EnterJunkPit: shouldSplit = nextScene.Equals("GG_Waterways") && nextScene != sceneName; break;
+                case SplitName.EnterJunkPit: shouldSplit = nextScene.Equals("GG_Waterways") && nextScene != currScene; break;
                 case SplitName.EnterDeepnest:
                     shouldSplit =
                         (nextScene.Equals("Fungus2_25") ||
                         nextScene.Equals("Deepnest_42") ||
                         nextScene.Equals("Abyss_03b") ||
                         nextScene.Equals("Deepnest_01b")) &&
-                        nextScene != sceneName;
+                        nextScene != currScene;
                     break;
-                case SplitName.EnterBeastDen: shouldSplit = nextScene.Equals("Deepnest_Spider_Town") && nextScene != sceneName; break;
-                case SplitName.EnterCrown: shouldSplit = nextScene.Equals("Mines_23") && nextScene != sceneName; break;
-                case SplitName.EnterDirtmouth: shouldSplit = nextScene.Equals("Town") && nextScene != sceneName; break;
-                case SplitName.EnterRafters: shouldSplit = nextScene.Equals("Ruins1_03") && nextScene != sceneName; break;
-                case SplitName.SalubraExit: shouldSplit = sceneName.Equals("Room_Charm_Shop") && nextScene != sceneName; break;
+                case SplitName.EnterBeastDen: shouldSplit = nextScene.Equals("Deepnest_Spider_Town") && nextScene != currScene; break;
+                case SplitName.EnterCrown: shouldSplit = nextScene.Equals("Mines_23") && nextScene != currScene; break;
+                case SplitName.EnterDirtmouth: shouldSplit = nextScene.Equals("Town") && nextScene != currScene; break;
+                case SplitName.EnterRafters: shouldSplit = nextScene.Equals("Ruins1_03") && nextScene != currScene; break;
+                case SplitName.SalubraExit: shouldSplit = currScene.Equals("Room_Charm_Shop") && nextScene != currScene; break;
                 // since Ruins1_18 has both bench and bridge, don't include Ruins1_18 bridge to Ruins2_03b
-                case SplitName.SpireBenchExit: shouldSplit = sceneName.StartsWith("Ruins1_18") && nextScene.StartsWith("Ruins2_01"); break;
+                case SplitName.SpireBenchExit: shouldSplit = currScene.StartsWith("Ruins1_18") && nextScene.StartsWith("Ruins2_01"); break;
 
                 case SplitName.PreGrimmShopTrans:
                     shouldSplit = mem.PlayerData<bool>(Offset.hasLantern)
                         && mem.PlayerData<int>(Offset.maxHealthBase) == 6
                         && (mem.PlayerData<int>(Offset.vesselFragments) == 4 || (mem.PlayerData<int>(Offset.MPReserveMax) == 33 && mem.PlayerData<int>(Offset.vesselFragments) == 2))
-                        && !sceneName.StartsWith("Room_shop");
+                        && !currScene.StartsWith("Room_shop");
                     break;
 
                 case SplitName.WaterwaysEntry:
                     shouldSplit = (nextScene.StartsWith("Waterways_01") // Simple Key manhole entrance
                         || nextScene.StartsWith("Waterways_07") // Right of Spike-tunnel, also where Tram entrance meets the rest
-                        ) && nextScene != sceneName; break;
+                        ) && nextScene != currScene; break;
                 case SplitName.FogCanyonEntry:
                     shouldSplit = (nextScene.StartsWith("Fungus3_01") // West Fog Canyon entrance from Greenpath
                         || nextScene.StartsWith("Fungus3_02") // West Fog Canyon entrance from Queen's Station or QGA
                         || nextScene.StartsWith("Fungus3_24") // West Fog Canyon entrance from Queen's Gardens via Overgrown Mound
                         || nextScene.StartsWith("Fungus3_26") // East Fog Canyon, where the Crossroads acid and Leg Eater acid entrances meet
-                        ) && nextScene != sceneName; break;
+                        ) && nextScene != currScene; break;
                 case SplitName.FungalWastesEntry:
                     shouldSplit = (nextScene.StartsWith("Fungus2_06") // Room outside Leg Eater
                         || nextScene.StartsWith("Fungus2_03") // From Queens' Station
                         || nextScene.StartsWith("Fungus2_23") // Bretta from Waterways
                         || nextScene.StartsWith("Fungus2_20") // Spore Shroom room, from QG (this one's unlikely to come up)
-                        ) && nextScene != sceneName; break;
+                        ) && nextScene != currScene; break;
 
-                case SplitName.CrystalMoundExit: shouldSplit = sceneName.StartsWith("Mines_35") && nextScene != sceneName; break;
-                case SplitName.CrystalPeakEntry: shouldSplit = (nextScene.StartsWith("Mines_02") || nextScene.StartsWith("Mines_10")) && nextScene != sceneName; break;
-                case SplitName.QueensGardensEntry: shouldSplit = (nextScene.StartsWith("Fungus3_34") || nextScene.StartsWith("Deepnest_43")) && nextScene != sceneName; break;
-                case SplitName.BasinEntry: shouldSplit = nextScene.StartsWith("Abyss_04") && nextScene != sceneName; break;
-                case SplitName.HiveEntry: shouldSplit = nextScene.StartsWith("Hive_01") && nextScene != sceneName; break;
-                case SplitName.KingdomsEdgeEntry: shouldSplit = nextScene.StartsWith("Deepnest_East_03") && nextScene != sceneName; break;
+                case SplitName.CrystalMoundExit: shouldSplit = currScene.StartsWith("Mines_35") && nextScene != currScene; break;
+                case SplitName.CrystalPeakEntry: shouldSplit = (nextScene.StartsWith("Mines_02") || nextScene.StartsWith("Mines_10")) && nextScene != currScene; break;
+                case SplitName.QueensGardensEntry: shouldSplit = (nextScene.StartsWith("Fungus3_34") || nextScene.StartsWith("Deepnest_43")) && nextScene != currScene; break;
+                case SplitName.BasinEntry: shouldSplit = nextScene.StartsWith("Abyss_04") && nextScene != currScene; break;
+                case SplitName.HiveEntry: shouldSplit = nextScene.StartsWith("Hive_01") && nextScene != currScene; break;
+                case SplitName.KingdomsEdgeEntry: shouldSplit = nextScene.StartsWith("Deepnest_East_03") && nextScene != currScene; break;
                 case SplitName.KingdomsEdgeOvercharmedEntry:
                     shouldSplit =
                         nextScene.StartsWith("Deepnest_East_03") &&
-                        nextScene != sceneName &&
+                        nextScene != currScene &&
                         mem.PlayerData<bool>(Offset.overcharmed);
                     break;
 
-                case SplitName.GodhomeBench: shouldSplit = sceneName.StartsWith("GG_Spa") && sceneName != nextScene && !store.SplitThisTransition; break;
+                case SplitName.GodhomeBench: shouldSplit = currScene.StartsWith("GG_Spa") && currScene != nextScene && !store.SplitThisTransition; break;
                 case SplitName.GodhomeLoreRoom:
                     shouldSplit =
-                        (sceneName.StartsWith("GG_Engine") || sceneName.StartsWith("GG_Unn") || sceneName.StartsWith("GG_Wyrm"))
-                        && sceneName != nextScene
+                        (currScene.StartsWith("GG_Engine") || currScene.StartsWith("GG_Unn") || currScene.StartsWith("GG_Wyrm"))
+                        && currScene != nextScene
                         && !store.SplitThisTransition;
                     break;
 
-                case SplitName.TransClaw: shouldSplit = mem.PlayerData<bool>(Offset.hasWallJump) && nextScene != sceneName; break;
-                case SplitName.TransGorgeousHusk: shouldSplit = mem.PlayerData<bool>(Offset.killedGorgeousHusk) && nextScene != sceneName; break;
-                case SplitName.TransDescendingDark: shouldSplit = mem.PlayerData<int>(Offset.quakeLevel) == 2 && nextScene != sceneName; break;
-                case SplitName.TransTear: shouldSplit = mem.PlayerData<bool>(Offset.hasAcidArmour) && nextScene != sceneName; break;
+                case SplitName.TransClaw: shouldSplit = mem.PlayerData<bool>(Offset.hasWallJump) && nextScene != currScene; break;
+                case SplitName.TransGorgeousHusk: shouldSplit = mem.PlayerData<bool>(Offset.killedGorgeousHusk) && nextScene != currScene; break;
+                case SplitName.TransDescendingDark: shouldSplit = mem.PlayerData<int>(Offset.quakeLevel) == 2 && nextScene != currScene; break;
+                case SplitName.TransTear: shouldSplit = mem.PlayerData<bool>(Offset.hasAcidArmour) && nextScene != currScene; break;
                 case SplitName.TransTearWithGrub:
                     shouldSplit =
                         mem.PlayerData<bool>(Offset.hasAcidArmour) &&
                         mem.PlayerDataStringList(Offset.scenesGrubRescued).Contains("Waterways_13") &&
 
-                        nextScene != sceneName; break;
-                case SplitName.TransShadeSoul: shouldSplit = mem.PlayerData<int>(Offset.fireballLevel) == 2 && nextScene != sceneName; break;
+                        nextScene != currScene; break;
+                case SplitName.TransShadeSoul: shouldSplit = mem.PlayerData<int>(Offset.fireballLevel) == 2 && nextScene != currScene; break;
 
-                case SplitName.AnyTransition: shouldSplit = shouldSplitTransition(nextScene, sceneName); break;
+                case SplitName.AnyTransition: shouldSplit = shouldSplitTransition(nextScene, currScene); break;
                 case SplitName.TransitionAfterSaveState:
-                    if (shouldSplitTransition(nextScene, sceneName)) {
-                        shouldSplit = !(debugSaveStateSceneNames.Contains(nextScene) || debugSaveStateSceneNames.Contains(sceneName));
+                    if (shouldSplitTransition(nextScene, currScene)) {
+                        shouldSplit = !(debugSaveStateSceneNames.Contains(nextScene) || debugSaveStateSceneNames.Contains(currScene));
                     }
                     break;
 
-                case SplitName.QueensGardensPostArenaTransition: shouldSplit = nextScene.StartsWith("Fungus3_13") && nextScene != sceneName; break;
-                case SplitName.QueensGardensFrogsTrans: shouldSplit = nextScene.StartsWith("Fungus1_23") && nextScene != sceneName; break;
-                case SplitName.Pantheon1to4Entry: shouldSplit = nextScene.StartsWith("GG_Boss_Door_Entrance") && nextScene != sceneName; break;
-                case SplitName.Pantheon5Entry: shouldSplit = nextScene.StartsWith("GG_Vengefly_V") && nextScene != sceneName; break;
+                case SplitName.QueensGardensPostArenaTransition: shouldSplit = nextScene.StartsWith("Fungus3_13") && nextScene != currScene; break;
+                case SplitName.QueensGardensFrogsTrans: shouldSplit = nextScene.StartsWith("Fungus1_23") && nextScene != currScene; break;
+                case SplitName.Pantheon1to4Entry: shouldSplit = nextScene.StartsWith("GG_Boss_Door_Entrance") && nextScene != currScene; break;
+                case SplitName.Pantheon5Entry: shouldSplit = nextScene.StartsWith("GG_Vengefly_V") && nextScene != currScene; break;
 
-                case SplitName.EnterHornet1: shouldSplit = nextScene.StartsWith("Fungus1_04") && nextScene != sceneName; break;
-                case SplitName.EnterSoulMaster: shouldSplit = nextScene.StartsWith("Ruins1_24") && nextScene != sceneName; break;
-                case SplitName.EnterHiveKnight: shouldSplit = nextScene.StartsWith("Hive_05") && nextScene != sceneName; break;
-                case SplitName.EnterHornet2: shouldSplit = nextScene.StartsWith("Deepnest_East_Hornet") && nextScene != sceneName; break;
-                case SplitName.EnterBroodingMawlek: shouldSplit = nextScene.StartsWith("Crossroads_09") && nextScene != sceneName; break;
-                case SplitName.EnterNosk: shouldSplit = nextScene.StartsWith("Deepnest_32") && nextScene != sceneName; break;
+                case SplitName.EnterHornet1: shouldSplit = nextScene.StartsWith("Fungus1_04") && nextScene != currScene; break;
+                case SplitName.EnterSoulMaster: shouldSplit = nextScene.StartsWith("Ruins1_24") && nextScene != currScene; break;
+                case SplitName.EnterHiveKnight: shouldSplit = nextScene.StartsWith("Hive_05") && nextScene != currScene; break;
+                case SplitName.EnterHornet2: shouldSplit = nextScene.StartsWith("Deepnest_East_Hornet") && nextScene != currScene; break;
+                case SplitName.EnterBroodingMawlek: shouldSplit = nextScene.StartsWith("Crossroads_09") && nextScene != currScene; break;
+                case SplitName.EnterNosk: shouldSplit = nextScene.StartsWith("Deepnest_32") && nextScene != currScene; break;
                 case SplitName.EnterTMG:
-                    shouldSplit = nextScene.StartsWith("Grimm_Main_Tent") && nextScene != sceneName
+                    shouldSplit = nextScene.StartsWith("Grimm_Main_Tent") && nextScene != currScene
                     && mem.PlayerData<int>(Offset.grimmChildLevel) == 2
                     && mem.PlayerData<int>(Offset.flamesCollected) == 3; break;
-                case SplitName.EnterLoveTower: shouldSplit = nextScene.StartsWith("Ruins2_11") && nextScene != sceneName; break;
+                case SplitName.EnterLoveTower: shouldSplit = nextScene.StartsWith("Ruins2_11") && nextScene != currScene; break;
 
-                case SplitName.VengeflyKingTrans: shouldSplit = mem.PlayerData<bool>(Offset.zoteRescuedBuzzer) && nextScene != sceneName; break;
-                case SplitName.MegaMossChargerTrans: shouldSplit = mem.PlayerData<bool>(Offset.megaMossChargerDefeated) && nextScene != sceneName; break;
-                case SplitName.ElderHuTrans: shouldSplit = mem.PlayerData<bool>(Offset.killedGhostHu) && nextScene != sceneName; break;
-                case SplitName.BlackKnightTrans: shouldSplit = mem.PlayerData<bool>(Offset.killedBlackKnight) && nextScene != sceneName; break;
+                case SplitName.VengeflyKingTrans: shouldSplit = mem.PlayerData<bool>(Offset.zoteRescuedBuzzer) && nextScene != currScene; break;
+                case SplitName.MegaMossChargerTrans: shouldSplit = mem.PlayerData<bool>(Offset.megaMossChargerDefeated) && nextScene != currScene; break;
+                case SplitName.ElderHuTrans: shouldSplit = mem.PlayerData<bool>(Offset.killedGhostHu) && nextScene != currScene; break;
+                case SplitName.BlackKnightTrans: shouldSplit = mem.PlayerData<bool>(Offset.killedBlackKnight) && nextScene != currScene; break;
                 case SplitName.BrokenVesselTrans:
                     shouldSplit =
                         mem.PlayerData<bool>(Offset.killedInfectedKnight) &&
                         mem.PlayerData<int>(Offset.health) > 0 &&
-                        nextScene != sceneName;
+                        nextScene != currScene;
                     break;
 
-                case SplitName.LumaflyLanternTransition: shouldSplit = mem.PlayerData<bool>(Offset.hasLantern) && !sceneName.StartsWith("Room_shop"); break;
+                case SplitName.LumaflyLanternTransition: shouldSplit = mem.PlayerData<bool>(Offset.hasLantern) && !currScene.StartsWith("Room_shop"); break;
 
                 // White palace and path of pain transition splits are in the White Palace & Path of Pain #region
 
