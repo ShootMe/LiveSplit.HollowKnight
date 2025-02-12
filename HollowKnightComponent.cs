@@ -1184,6 +1184,10 @@ namespace LiveSplit.HollowKnight {
 
                 case SplitName.FailedChampionEssence: shouldSplit = mem.PlayerData<bool>(Offset.falseKnightOrbsCollected); break;
                 case SplitName.SoulTyrantEssence: shouldSplit = mem.PlayerData<bool>(Offset.mageLordOrbsCollected); break;
+                case SplitName.SoulTyrantEssenceWithSanctumGrub:
+                    shouldSplit =
+                        mem.PlayerData<bool>(Offset.mageLordOrbsCollected)
+                        && mem.PlayerDataStringList(Offset.scenesGrubRescued).Contains("Ruins1_32"); break;
                 case SplitName.LostKinEssence: shouldSplit = mem.PlayerData<bool>(Offset.infectedKnightOrbsCollected); break;
                 case SplitName.WhiteDefenderEssence: shouldSplit = mem.PlayerData<bool>(Offset.whiteDefenderOrbsCollected); break;
                 case SplitName.GreyPrinceEssence: shouldSplit = mem.PlayerData<bool>(Offset.greyPrinceOrbsCollected); break;
@@ -1442,7 +1446,6 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.ColosseumBronzeExit: shouldSplit = mem.PlayerData<bool>(Offset.colosseumBronzeCompleted) && !nextScene.StartsWith("Room_Colosseum_Bronze") && nextScene != sceneName; break;
                 case SplitName.ColosseumSilverExit: shouldSplit = mem.PlayerData<bool>(Offset.colosseumSilverCompleted) && !nextScene.StartsWith("Room_Colosseum_Silver") && nextScene != sceneName; break;
                 case SplitName.ColosseumGoldExit: shouldSplit = mem.PlayerData<bool>(Offset.colosseumGoldCompleted) && !nextScene.StartsWith("Room_Colosseum_Gold") && nextScene != sceneName; break;
-                case SplitName.SoulTyrantEssenceWithSanctumGrub: shouldSplit = mem.PlayerData<bool>(Offset.mageLordOrbsCollected) && mem.PlayerDataStringList(Offset.scenesGrubRescued).Contains("Ruins1_32"); break;
 
                 #region Trial of the Warrior
                 case SplitName.Bronze1a: // 1 × Shielded Fool
