@@ -13,7 +13,7 @@ namespace LiveSplit.HollowKnight {
         public bool IsHooked { get; set; }
         private DateTime lastHooked;
         private int uiManager, inputHandler, cameraCtrl, gameState, heroController, camTarget, camMode, camTMode, camDest, menuState, uiState, achievementHandler;
-        private int heroAccepting, actorState, transistionState, camTeleport, playerData, debugInfo, tilemapDirty, cState, sceneName, nextSceneName, entryGateName, hazardRespawning, onGround, spellquake;
+        private int heroAccepting, actorState, transistionState, camTeleport, playerData, debugInfo, tilemapDirty, cState, sceneName, nextSceneName, entryGateName, hazardRespawning, onGround, spellquake, focusing;
         //private int sceneData, awardAchievementEvent;
         private Version lastVersion;
 
@@ -63,6 +63,7 @@ namespace LiveSplit.HollowKnight {
             hazardRespawning = 0x26;
             onGround = 0x9;
             spellquake = 0x37;
+            focusing = 0x39;
 
             int versionString = 0x1c;
             string version;
@@ -105,6 +106,7 @@ namespace LiveSplit.HollowKnight {
                 hazardRespawning = 0x2e;
                 onGround = 0x11;
                 spellquake = 0x3f;
+                focusing = 0x41;
 
                 versionString = 0x38;
 
@@ -449,6 +451,10 @@ namespace LiveSplit.HollowKnight {
         public bool Spellquake() {
             //GameManager._instance.hero_ctrl.cState.spellquake
             return gameManager.Read<bool>(Program, 0x0, heroController, cState, spellquake);
+        }
+        public bool Focusing() {
+            //GameManager._instance.hero_ctrl.cState.focusing
+            return gameManager.Read<bool>(Program, 0x0, heroController, cState, focusing);
         }
         public string AchievementKey() {
             IntPtr basePointer = gameManager.Read<IntPtr>(Program, 0x0, achievementHandler);
