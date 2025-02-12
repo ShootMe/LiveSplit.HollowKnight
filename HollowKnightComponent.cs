@@ -1028,6 +1028,8 @@ namespace LiveSplit.HollowKnight {
 
                 #region Grubs & Mimics
 
+                case SplitName.OnObtainGrub: shouldSplit = store.CheckIncremented(Offset.grubsCollected); break;
+
                 case SplitName.Grub1: shouldSplit = mem.PlayerData<int>(Offset.grubsCollected) == 1; break;
                 case SplitName.Grub2: shouldSplit = mem.PlayerData<int>(Offset.grubsCollected) == 2; break;
                 case SplitName.Grub3: shouldSplit = mem.PlayerData<int>(Offset.grubsCollected) == 3; break;
@@ -1419,7 +1421,6 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.OnObtainVesselFragment:
                     shouldSplit = store.CheckIncreasedBy(Offset.MPReserveMax, 33) || (store.CheckIncremented(Offset.vesselFragments) && mem.PlayerData<int>(Offset.vesselFragments) < 3);
                     break;
-                case SplitName.OnObtainGrub: shouldSplit = store.CheckIncremented(Offset.grubsCollected); break;
 
                 case SplitName.ColosseumBronzeUnlocked: shouldSplit = mem.PlayerData<bool>(Offset.colosseumBronzeOpened); break;
                 case SplitName.ColosseumSilverUnlocked: shouldSplit = mem.PlayerData<bool>(Offset.colosseumSilverOpened); break;
