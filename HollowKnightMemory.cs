@@ -13,7 +13,7 @@ namespace LiveSplit.HollowKnight {
         public bool IsHooked { get; set; }
         private DateTime lastHooked;
         private int uiManager, inputHandler, cameraCtrl, gameState, heroController, camTarget, camMode, camTMode, camDest, menuState, uiState, achievementHandler;
-        private int heroAccepting, actorState, transistionState, camTeleport, playerData, debugInfo, tilemapDirty, cState, sceneName, nextSceneName, hazardRespawning, onGround, spellquake;
+        private int heroAccepting, actorState, transistionState, camTeleport, playerData, debugInfo, tilemapDirty, cState, sceneName, nextSceneName, entryGateName, hazardRespawning, onGround, spellquake;
         //private int sceneData, awardAchievementEvent;
         private Version lastVersion;
 
@@ -35,6 +35,7 @@ namespace LiveSplit.HollowKnight {
             //sceneData = 0x34;
             sceneName = 0xc;
             nextSceneName = 0x10;
+            entryGateName = 0x14;
             uiManager = 0x84;
             inputHandler = 0x68;
             cameraCtrl = 0x74;
@@ -71,6 +72,7 @@ namespace LiveSplit.HollowKnight {
             if (MemoryReader.is64Bit) {
                 sceneName = 0x18;
                 nextSceneName = 0x20;
+                entryGateName = 0x28;
                 inputHandler = 0x40;
                 achievementHandler = 0x50;
                 cameraCtrl = 0x80;
@@ -417,6 +419,12 @@ namespace LiveSplit.HollowKnight {
             //GameManager._instance.nextSceneName
             return gameManager.Read(Program, 0x0, nextSceneName);
         }
+
+        public string EntryGateName() {
+            //GameManager._instance.entryGateName
+            return gameManager.Read(Program, 0x0, entryGateName);
+        }
+
         public bool UsesSceneTransitionRoutine() {
             /*
              * 1.3.1.5 and above swap from using LoadSceneAdditive to a SceneTransitionRoutine triggered
