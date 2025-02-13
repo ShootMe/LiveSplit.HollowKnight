@@ -179,6 +179,8 @@ namespace LiveSplit.HollowKnight {
         MaskFragment15,
         [Description("Mask Upgrade 16 (Upgrade)"), ToolTip("Splits when getting 4 extra Masks (9 base HP)")]
         Mask4,
+        [Description("Mask Upgrade 20 (Upgrade)"), ToolTip("(Glitched Only) Splits when getting 5 extra Masks (10 base HP)")]
+        Mask5,
         [Description("Nail 1 (Upgrade)"), ToolTip("Splits upon upgrading to the Sharpened Nail")]
         NailUpgrade1,
         [Description("Nail 2 (Upgrade)"), ToolTip("Splits upon upgrading to the Channeled Nail")]
@@ -778,6 +780,8 @@ namespace LiveSplit.HollowKnight {
         TransShadeSoul,
         [Description("Has Descending Dark (Transition)"), ToolTip("Splits on transition after Descending Dark acquired")]
         TransDescendingDark,
+        [Description("Has Map Crossroads (Transition)"), ToolTip("Splits on transition after Crossroads Map acquired")]
+        TransMapCrossroads,
         [Description("Has Isma's Tear (Transition)"), ToolTip("Splits on transition after Isma's Tear acquired")]
         TransTear,
         [Description("Isma's Tear with Grub (Transition)"), ToolTip("Splits on transition after collecting Isma's Tear and saving the grub in Isma's Grove")]
