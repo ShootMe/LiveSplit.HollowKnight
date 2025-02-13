@@ -179,7 +179,7 @@ namespace LiveSplit.HollowKnight {
         MaskFragment15,
         [Description("Mask Upgrade 16 (Upgrade)"), ToolTip("Splits when getting 4 extra Masks (9 base HP)")]
         Mask4,
-        [Description("Mask Upgrade 20 (Upgrade)"), ToolTip("(Glichted Only) Splits when getting 5 extra Masks (10 base HP)")]
+        [Description("Mask Upgrade 20 (Upgrade)"), ToolTip("(Glitched Only) Splits when getting 5 extra Masks (10 base HP)")]
         Mask5,
         [Description("Nail 1 (Upgrade)"), ToolTip("Splits upon upgrading to the Sharpened Nail")]
         NailUpgrade1,
