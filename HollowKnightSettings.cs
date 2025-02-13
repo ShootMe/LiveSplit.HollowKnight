@@ -180,41 +180,80 @@ namespace LiveSplit.HollowKnight {
 
             return xmlSettings;
         }
+
         public void SetSettings(XmlNode settings) {
-            XmlNode orderedNode = settings.SelectSingleNode(".//Ordered");
-            XmlNode AutosplitEndRunsNode = settings.SelectSingleNode(".//AutosplitEndRuns");
-            XmlNode AutosplitStartRunsNode = settings.SelectSingleNode(".//AutosplitStartRuns");
-            bool isOrdered = false;
-            bool isAutosplitEndRuns = false;
 
-            if (orderedNode != null) {
-                bool.TryParse(orderedNode.InnerText, out isOrdered);
-            }
-            if (AutosplitEndRunsNode != null) {
-                bool.TryParse(AutosplitEndRunsNode.InnerText, out isAutosplitEndRuns);
-            }
-            if (AutosplitStartRunsNode != null) {
-                string splitDescription = AutosplitStartRunsNode.InnerText.Trim();
-                if (!string.IsNullOrEmpty(splitDescription)) {
-                    cboStartTriggerName.DataSource = GetAvailableSplits();
-                    AutosplitStartRuns = HollowKnightSplitSettings.GetSplitName(splitDescription);
-                    MemberInfo info = typeof(SplitName).GetMember(AutosplitStartRuns.ToString())[0];
-                    DescriptionAttribute description = (DescriptionAttribute)info.GetCustomAttributes(typeof(DescriptionAttribute), false)[0];
-                    cboStartTriggerName.Text = description.Description;
-                    chkAutosplitStartRuns.Checked = true;
+            XmlNode splitsNode = settings.SelectSingleNode(".//Splits"); // will be null if it's the WASM autosplitter
+            XmlNode customSettingsNode = settings.SelectSingleNode(".//CustomSettings"); // will be null if it's the Default autosplitter
+
+            if (splitsNode != null) {
+                // Default autosplitter
+                XmlNode orderedNode = settings.SelectSingleNode(".//Ordered");
+                XmlNode AutosplitEndRunsNode = settings.SelectSingleNode(".//AutosplitEndRuns");
+                XmlNode AutosplitStartRunsNode = settings.SelectSingleNode(".//AutosplitStartRuns");
+                bool isOrdered = false;
+                bool isAutosplitEndRuns = false;
+
+                if (orderedNode != null) {
+                    bool.TryParse(orderedNode.InnerText, out isOrdered);
                 }
-            }
-            Ordered = isOrdered;
-            AutosplitEndRuns = isAutosplitEndRuns;
+                if (AutosplitEndRunsNode != null) {
+                    bool.TryParse(AutosplitEndRunsNode.InnerText, out isAutosplitEndRuns);
+                }
+                if (AutosplitStartRunsNode != null) {
+                    string splitDescription = AutosplitStartRunsNode.InnerText.Trim();
+                    if (!string.IsNullOrEmpty(splitDescription)) {
+                        cboStartTriggerName.DataSource = GetAvailableSplits();
+                        AutosplitStartRuns = HollowKnightSplitSettings.GetSplitName(splitDescription);
+                        MemberInfo info = typeof(SplitName).GetMember(AutosplitStartRuns.ToString())[0];
+                        DescriptionAttribute description = (DescriptionAttribute)info.GetCustomAttributes(typeof(DescriptionAttribute), false)[0];
+                        cboStartTriggerName.Text = description.Description;
+                        chkAutosplitStartRuns.Checked = true;
+                    }
+                }
+                Ordered = isOrdered;
+                AutosplitEndRuns = isAutosplitEndRuns;
 
-            Splits.Clear();
-            XmlNodeList splitNodes = settings.SelectNodes(".//Splits/Split");
-            foreach (XmlNode splitNode in splitNodes) {
-                string splitDescription = splitNode.InnerText;
-                SplitName split = HollowKnightSplitSettings.GetSplitName(splitDescription);
-                Splits.Add(split);
+                Splits.Clear();
+                XmlNodeList splitNodes = settings.SelectNodes(".//Splits/Split");
+                foreach (XmlNode splitNode in splitNodes) {
+                    string splitDescription = splitNode.InnerText;
+                    SplitName split = HollowKnightSplitSettings.GetSplitName(splitDescription);
+                    Splits.Add(split);
+                }
+
+            } else if (customSettingsNode != null) {
+                // WASM autosplitter
+                bool afterStart = false;
+                Ordered = true;
+                AutosplitEndRuns = true;
+
+                Splits.Clear();
+                XmlNodeList splitNodes = settings.SelectNodes(".//CustomSettings/Setting[@id='splits']/Setting");
+                foreach (XmlNode splitNode in splitNodes) {
+                    string value = splitNode.Attributes.GetNamedItem("value").Value;
+                    if (!afterStart) {
+                        afterStart = true;
+                        if (value != "LegacyStart") {
+                            cboStartTriggerName.DataSource = GetAvailableSplits();
+                            AutosplitStartRuns = HollowKnightSplitSettings.GetSplitName(value);
+                            MemberInfo info = typeof(SplitName).GetMember(AutosplitStartRuns.ToString())[0];
+                            DescriptionAttribute description = (DescriptionAttribute)info.GetCustomAttributes(typeof(DescriptionAttribute), false)[0];
+                            cboStartTriggerName.Text = description.Description;
+                            chkAutosplitStartRuns.Checked = true;
+                        }
+                    } else {
+                        Splits.Add(HollowKnightSplitSettings.GetSplitName(value));
+                    }
+                }
+            } else {
+                // no splits settings, default
+                Ordered = false;
+                AutosplitEndRuns = false;
+                Splits.Clear();
             }
         }
+
         private HollowKnightSplitSettings createSetting() {
             HollowKnightSplitSettings setting = new HollowKnightSplitSettings();
             List<string> splitNames = GetAvailableSplits();
