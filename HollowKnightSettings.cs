@@ -182,6 +182,7 @@ namespace LiveSplit.HollowKnight {
         }
 
         public void SetSettings(XmlNode settings) {
+            isLoading = true;
 
             XmlNode splitsNode = settings.SelectSingleNode(".//Splits"); // will be null if it's the WASM autosplitter
             XmlNode customSettingsNode = settings.SelectSingleNode(".//CustomSettings"); // will be null if it's the Default autosplitter
@@ -252,6 +253,8 @@ namespace LiveSplit.HollowKnight {
                 AutosplitEndRuns = false;
                 Splits.Clear();
             }
+
+            isLoading = false;
         }
 
         private HollowKnightSplitSettings createSetting() {
