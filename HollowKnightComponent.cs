@@ -2175,6 +2175,7 @@ namespace LiveSplit.HollowKnight {
         public void OnReset(object sender, TimerPhase e) {
             currentSplit = -1;
             state = 0;
+            menuSplitHelper = false;
             lookForTeleporting = false;
             Model.CurrentState.IsGameTimePaused = true;
             splitsDone.Clear();
@@ -2197,6 +2198,7 @@ namespace LiveSplit.HollowKnight {
         public void OnStart(object sender, EventArgs e) {
             currentSplit = 0;
             state = 0;
+            menuSplitHelper = false;
             Model.CurrentState.IsGameTimePaused = true;
             Model.CurrentState.SetGameTime(Model.CurrentState.CurrentTime.RealTime);
             splitsDone.Clear();
@@ -2214,13 +2216,14 @@ namespace LiveSplit.HollowKnight {
         public void OnSkipSplit(object sender, EventArgs e) {
             currentSplit++;
             state = 0;
+            menuSplitHelper = false;
         }
         public void OnSplit(object sender, EventArgs e) {
             currentSplit++;
+            state = 0;
+            menuSplitHelper = false;
             store.SplitThisTransition = true;
             store.Update();
-
-            state = 0;
         }
         public Control GetSettingsControl(LayoutMode mode) { return settings; }
         public void SetSettings(XmlNode document) { settings.SetSettings(document); }
