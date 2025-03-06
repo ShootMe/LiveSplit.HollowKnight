@@ -303,7 +303,8 @@ namespace LiveSplit.HollowKnight {
 
                 case SplitName.StartNewGame:
                     shouldSplit =
-                        (nextScene.Equals("Tutorial_01", StringComparison.OrdinalIgnoreCase)
+                        (currScene is "Intro_Cutscene" or "Opening_Sequence"
+                        && nextScene.Equals("Tutorial_01", StringComparison.OrdinalIgnoreCase)
                         && mem.GameState() == GameState.ENTERING_LEVEL)
                         || nextScene is "GG_Entrance_Cutscene";
                     break;
