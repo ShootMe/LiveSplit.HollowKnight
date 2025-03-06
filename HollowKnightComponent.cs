@@ -277,18 +277,6 @@ namespace LiveSplit.HollowKnight {
             return SplitterAction.Pass;
         }
 
-        private bool shouldSplitTransition(string nextScene, string sceneName) {
-            if (nextScene != sceneName && !store.SplitThisTransition) {
-                return !(
-                    string.IsNullOrEmpty(sceneName) ||
-                    string.IsNullOrEmpty(nextScene) ||
-                    menuingSceneNames.Contains(sceneName) ||
-                    menuingSceneNames.Contains(nextScene)
-                );
-            }
-            return false;
-        }
-
 
         private SplitterAction CheckSplit(SplitName split, string nextScene, string currScene) {
             bool shouldSplit = false;
