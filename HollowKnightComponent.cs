@@ -618,6 +618,7 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.WaterwaysEntry:
                     shouldSplit =
                         (nextScene.StartsWith("Waterways_01") // Simple Key manhole entrance
+                        || nextScene.StartsWith("Waterways_06") // Left of Spike-tunnel
                         || nextScene.StartsWith("Waterways_07")) // Right of Spike-tunnel, also where Tram entrance meets the rest
                         && nextScene != currScene;
                     break;
