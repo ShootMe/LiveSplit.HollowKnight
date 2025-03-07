@@ -290,8 +290,7 @@ namespace LiveSplit.HollowKnight {
         }
 
 
-        private SplitterAction CheckSplit(SplitName split, string nextScene, string sceneName) {
-            string currScene = sceneName;
+        private SplitterAction CheckSplit(SplitName split, string nextScene, string currScene) {
             bool shouldSplit = false;
             bool shouldSkip = false;
             bool shouldReset = false;
@@ -303,7 +302,7 @@ namespace LiveSplit.HollowKnight {
 
                 case SplitName.StartNewGame:
                     shouldSplit =
-                        (currScene is "Intro_Cutscene" or "Opening_Sequence"
+                        (store.PrevScene is "Intro_Cutscene" or "Opening_Sequence"
                         && nextScene.Equals("Tutorial_01", StringComparison.OrdinalIgnoreCase)
                         && mem.GameState() == GameState.ENTERING_LEVEL)
                         || nextScene is "GG_Entrance_Cutscene";
@@ -1327,7 +1326,7 @@ namespace LiveSplit.HollowKnight {
 
                 #region Main Menu
 
-                case SplitName.Menu: shouldSplit = sceneName == "Menu_Title"; break;
+                case SplitName.Menu: shouldSplit = currScene == "Menu_Title"; break;
                 case SplitName.MenuClaw: shouldSplit = mem.PlayerData<bool>(Offset.hasWallJump); break;
                 case SplitName.MenuGorgeousHusk: shouldSplit = mem.PlayerData<bool>(Offset.killedGorgeousHusk); break;
                 case SplitName.MenuIsmasTear: shouldSplit = mem.PlayerData<bool>(Offset.hasAcidArmour); break;

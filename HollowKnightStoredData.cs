@@ -30,6 +30,11 @@ namespace LiveSplit.HollowKnight
         /// </summary>
         public bool SplitThisTransition { get; set; } = false;
         public int GladeEssence { get; set; } = 0;
+        /// <summary>
+        /// Stores the value sceneName had before the latest transition
+        /// During a transition, this can be the same as sceneName if nextScene is different
+        /// </summary>
+        public string PrevScene { get; private set; } = "";
 
         // Colosseum enemies
         public int killsColShieldStart { get; set; }
@@ -220,6 +225,7 @@ namespace LiveSplit.HollowKnight
                 || mem.GameState() is GameState.EXITING_LEVEL or GameState.LOADING
                 || mem.SceneName() != mem.NextSceneName()) {
                 // In transition
+                PrevScene = mem.SceneName();
                 TraitorLordDeadOnEntry = mem.PlayerData<bool>(Offset.killedTraitorLord);
                 DungDefenderAwakeConvoOnEntry = mem.PlayerData<bool>(Offset.dungDefenderAwakeConvo);
             } else {
