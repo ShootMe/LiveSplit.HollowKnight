@@ -660,6 +660,12 @@ namespace LiveSplit.HollowKnight {
                         && !store.SplitThisTransition;
                     break;
 
+                case SplitName.BrettaHouse: shouldSplit = nextScene == "Room_Bretta" && currScene != nextScene; break;
+                case SplitName.BrettaHouseBubbles: shouldSplit = nextScene == "BrettaHouseBubbles" && currScene != nextScene; break;
+                case SplitName.BrettaHouseBumpers: shouldSplit = nextScene == "BrettaHouseBumpers" && currScene != nextScene; break;
+                case SplitName.BrettaHouseSwitches: shouldSplit = nextScene == "BrettaHouseSwitches" && currScene != nextScene; break;
+                case SplitName.BrettaHouseZippers: shouldSplit = nextScene == "BrettaHouseZippers" && currScene != nextScene; break;
+
                 case SplitName.TransClaw: shouldSplit = mem.PlayerData<bool>(Offset.hasWallJump) && nextScene != currScene; break;
                 case SplitName.TransGorgeousHusk: shouldSplit = mem.PlayerData<bool>(Offset.killedGorgeousHusk) && nextScene != currScene; break;
                 case SplitName.TransDescendingDark: shouldSplit = mem.PlayerData<int>(Offset.quakeLevel) == 2 && nextScene != currScene; break;

@@ -739,6 +739,16 @@ namespace LiveSplit.HollowKnight {
         EnterBeastDen,
         [Description("Blue Lake (Transition)"), ToolTip("Splits on transition to Blue Lake from either side")]
         BlueLake,
+        [Description("Bretta House (Transition)"), ToolTip("Splits on transition to Bretta's House")]
+        BrettaHouse,
+        [Description("Bretta House Bubbles (Transition)"), ToolTip("Splits on transition to the fourth room of Bretta's House C-Side")]
+        BrettaHouseBubbles,
+        [Description("Bretta House Bumpers (Transition)"), ToolTip("Splits on transition to the third room of Bretta's House C-Side")]
+        BrettaHouseBumpers,
+        [Description("Bretta House Switches (Transition)"), ToolTip("Splits on transition to the second room of Bretta's House C-Side")]
+        BrettaHouseSwitches,
+        [Description("Bretta House Zippers (Transition)"), ToolTip("Splits on transition to the first room of Bretta's House C-Side")]
+        BrettaHouseZippers,
         [Description("Catacombs Entry (Transition)"), ToolTip("Splits on entry to the catacombs below Resting Grounds")]
         CatacombsEntry,
         [Description("Crystal Peak Entry (Transition)"), ToolTip("Splits on transition to the room where the dive and toll entrances meet, or the room right of Dirtmouth")]
