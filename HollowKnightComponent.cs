@@ -2177,7 +2177,7 @@ namespace LiveSplit.HollowKnight {
             state = 0;
             menuSplitHelper = false;
             lookForTeleporting = false;
-            lastGameState = GameState.PRIMER:
+            lastGameState = GameState.PRIMER;
             Model.CurrentState.IsGameTimePaused = true;
             splitsDone.Clear();
             store.Reset();
@@ -2200,7 +2200,7 @@ namespace LiveSplit.HollowKnight {
             currentSplit = 0;
             state = 0;
             menuSplitHelper = false;
-            lastGameState = GameState.PRIMER:
+            lastGameState = GameState.PRIMER;
             Model.CurrentState.IsGameTimePaused = true;
             Model.CurrentState.SetGameTime(Model.CurrentState.CurrentTime.RealTime);
             splitsDone.Clear();
