@@ -59,12 +59,18 @@ namespace LiveSplit.HollowKnight {
     }
     public enum SplitName {
 
+        [Description("[DEPRECATED] Start Run (Start)"), ToolTip("Splits when autosplitter version 3 would have automatically started runs")]
+        LegacyStart,
+
         [Description("Start New Game (Start)"), ToolTip("Splits when starting a new game, including Normal, Steel Soul, and Godseeker mode")]
         StartNewGame,
         [Description("Start Pantheon (Start)"), ToolTip("Splits when starting a Pantheon run")]
         StartPantheon,
         [Description("Rando Wake (Start)"), ToolTip("Splits when gaining control after waking up in Rando")]
         RandoWake,
+
+        [Description("[DEPRECATED] End Run (Ending)"), ToolTip("Splits when autosplitter version 3 would have automatically ended runs")]
+        LegacyEnd,
 
         [Description("Credits Roll (Ending)"), ToolTip("Splits on any credits rolling, any ending")]
         EndingSplit,
