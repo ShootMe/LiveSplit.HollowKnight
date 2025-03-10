@@ -1,5 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <updates>
+    <update version="3.1.17">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change>New transition autosplits for Scattered and Lost DLC</change>
+        </changelog>
+    </update>
     <update version="3.1.16">
         <files>
             <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
