@@ -288,6 +288,19 @@ namespace LiveSplit.HollowKnight {
 
                 #region Start and End
 
+                case SplitName.LegacyStart:
+                    shouldSplit =
+                        (nextScene.Equals("Tutorial_01", StringComparison.OrdinalIgnoreCase)
+                            && mem.GameState() == GameState.ENTERING_LEVEL)
+                        || nextScene is "GG_Vengefly_V" or "GG_Boss_Door_Entrance" or "GG_Entrance_Cutscene";
+                    break;
+
+                case SplitName.LegacyEnd:
+                    shouldSplit =
+                        nextScene.StartsWith("Cinematic_Ending", StringComparison.OrdinalIgnoreCase)
+                        || nextScene == "GG_End_Sequence";
+                    break;
+
                 case SplitName.StartNewGame:
                     shouldSplit =
                         (store.PrevScene is "Intro_Cutscene" or "Opening_Sequence"
