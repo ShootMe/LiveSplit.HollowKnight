@@ -290,8 +290,7 @@ namespace LiveSplit.HollowKnight {
         }
 
 
-        private SplitterAction CheckSplit(SplitName split, string nextScene, string sceneName) {
-            string currScene = sceneName;
+        private SplitterAction CheckSplit(SplitName split, string nextScene, string currScene) {
             bool shouldSplit = false;
             bool shouldSkip = false;
             bool shouldReset = false;
@@ -303,7 +302,8 @@ namespace LiveSplit.HollowKnight {
 
                 case SplitName.StartNewGame:
                     shouldSplit =
-                        (nextScene.Equals("Tutorial_01", StringComparison.OrdinalIgnoreCase)
+                        (store.PrevScene is "Intro_Cutscene" or "Opening_Sequence"
+                        && nextScene.Equals("Tutorial_01", StringComparison.OrdinalIgnoreCase)
                         && mem.GameState() == GameState.ENTERING_LEVEL)
                         || nextScene is "GG_Entrance_Cutscene";
                     break;
@@ -1332,7 +1332,7 @@ namespace LiveSplit.HollowKnight {
 
                 #region Main Menu
 
-                case SplitName.Menu: shouldSplit = sceneName == "Menu_Title"; break;
+                case SplitName.Menu: shouldSplit = currScene == "Menu_Title"; break;
                 case SplitName.MenuClaw: shouldSplit = mem.PlayerData<bool>(Offset.hasWallJump); break;
                 case SplitName.MenuGorgeousHusk: shouldSplit = mem.PlayerData<bool>(Offset.killedGorgeousHusk); break;
                 case SplitName.MenuIsmasTear: shouldSplit = mem.PlayerData<bool>(Offset.hasAcidArmour); break;
@@ -2183,6 +2183,7 @@ namespace LiveSplit.HollowKnight {
             state = 0;
             menuSplitHelper = false;
             lookForTeleporting = false;
+            lastGameState = GameState.PRIMER;
             Model.CurrentState.IsGameTimePaused = true;
             splitsDone.Clear();
             store.Reset();
@@ -2205,6 +2206,7 @@ namespace LiveSplit.HollowKnight {
             currentSplit = 0;
             state = 0;
             menuSplitHelper = false;
+            lastGameState = GameState.PRIMER;
             Model.CurrentState.IsGameTimePaused = true;
             Model.CurrentState.SetGameTime(Model.CurrentState.CurrentTime.RealTime);
             splitsDone.Clear();
