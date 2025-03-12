@@ -55,6 +55,7 @@
     <Prefer32Bit>false</Prefer32Bit>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
+  
   <PropertyGroup>
     <LiveSplitRefs>..\..\LiveSplit</LiveSplitRefs>
   </PropertyGroup>
@@ -66,6 +67,7 @@
   </PropertyGroup>
 </Project>
   -->
+  
   <ItemGroup>
     <Reference Include="LiveSplit.Core">
       <HintPath>$(LiveSplitRefs)\LiveSplit.Core.dll</HintPath>
@@ -146,7 +148,6 @@
     <EmbeddedResource Include="PlayerData\V1032.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="LocalBuildProperties.props" />
     <None Include="README.md" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -741,13 +741,13 @@ namespace LiveSplit.HollowKnight {
         BlueLake,
         [Description("Bretta House (Transition)"), ToolTip("Splits on transition to Bretta's House")]
         BrettaHouse,
-        [Description("Bretta House Bubbles (Transition)"), ToolTip("Splits on transition to the fourth room of Bretta's House C-Side")]
+        [Description("Bretta House Bubbles (Transition)"), ToolTip("Modded (Scattered and Lost): Splits on transition to the fourth room of Bretta's House C-Side")]
         BrettaHouseBubbles,
-        [Description("Bretta House Bumpers (Transition)"), ToolTip("Splits on transition to the third room of Bretta's House C-Side")]
+        [Description("Bretta House Bumpers (Transition)"), ToolTip("Modded (Scattered and Lost): Splits on transition to the third room of Bretta's House C-Side")]
         BrettaHouseBumpers,
-        [Description("Bretta House Switches (Transition)"), ToolTip("Splits on transition to the second room of Bretta's House C-Side")]
+        [Description("Bretta House Switches (Transition)"), ToolTip("Modded (Scattered and Lost): Splits on transition to the second room of Bretta's House C-Side")]
         BrettaHouseSwitches,
-        [Description("Bretta House Zippers (Transition)"), ToolTip("Splits on transition to the first room of Bretta's House C-Side")]
+        [Description("Bretta House Zippers (Transition)"), ToolTip("Modded (Scattered and Lost): Splits on transition to the first room of Bretta's House C-Side")]
         BrettaHouseZippers,
         [Description("Catacombs Entry (Transition)"), ToolTip("Splits on entry to the catacombs below Resting Grounds")]
         CatacombsEntry,
