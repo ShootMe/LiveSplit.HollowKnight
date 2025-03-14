@@ -668,7 +668,7 @@ namespace LiveSplit.HollowKnight {
         RestingGroundsStation,
         [Description("Distant Village (Stag Station)"), ToolTip("Splits when obtaining Distant Village Stag Station")]
         DeepnestStation,
-        [Description("Hidden Station (Stag Station)"), ToolTip("Splits when obtaining to Hidden Station Stag Station")]
+        [Description("Hidden Station (Stag Station)"), ToolTip("Splits when obtaining Hidden Station Stag Station")]
         HiddenStationStation,
         [Description("Stagnest (Stag Station)"), ToolTip("Splits when traveling to Stagnest (Requires Ordered Splits)")]
         StagnestStation,
