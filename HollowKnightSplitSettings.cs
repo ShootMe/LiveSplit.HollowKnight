@@ -672,6 +672,8 @@ namespace LiveSplit.HollowKnight {
         HiddenStationStation,
         [Description("Stagnest (Stag Station)"), ToolTip("Splits when traveling to Stagnest (Requires Ordered Splits)")]
         StagnestStation,
+        [Description("Stagnest Buy (Stag Station)"), ToolTip("Splits when obtaining Stagnest Station")]
+        StagnestStationBuy,
 
         [Description("Mr. Mushroom 1 (Spot)"), ToolTip("Splits when talking to Mister Mushroom in Fungal Wastes")]
         MrMushroom1,

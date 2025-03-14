@@ -798,6 +798,7 @@ namespace LiveSplit.HollowKnight {
                     shouldSplit = nextScene.Equals("Cliffs_03", StringComparison.OrdinalIgnoreCase)
                         && mem.PlayerData<bool>(Offset.travelling)
                         && mem.PlayerData<bool>(Offset.openedStagNest); break;
+                case SplitName.StagnestStationBuy: shouldSplit = mem.PlayerData<bool>(Offset.openedStagNest); break;
                 case SplitName.StoreroomsStation: shouldSplit = mem.PlayerData<bool>(Offset.openedRuins1); break;
 
                 #endregion Stags
