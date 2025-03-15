@@ -59,12 +59,18 @@ namespace LiveSplit.HollowKnight {
     }
     public enum SplitName {
 
+        [Description("[DEPRECATED] Start Run (Start)"), ToolTip("Splits when autosplitter version 3 would have automatically started runs")]
+        LegacyStart,
+
         [Description("Start New Game (Start)"), ToolTip("Splits when starting a new game, including Normal, Steel Soul, and Godseeker mode")]
         StartNewGame,
         [Description("Start Pantheon (Start)"), ToolTip("Splits when starting a Pantheon run")]
         StartPantheon,
         [Description("Rando Wake (Start)"), ToolTip("Splits when gaining control after waking up in Rando")]
         RandoWake,
+
+        [Description("[DEPRECATED] End Run (Ending)"), ToolTip("Splits when autosplitter version 3 would have automatically ended runs")]
+        LegacyEnd,
 
         [Description("Credits Roll (Ending)"), ToolTip("Splits on any credits rolling")]
         EndingSplit,
@@ -268,9 +274,6 @@ namespace LiveSplit.HollowKnight {
         DungDefender,
         [Description("Dung Defender Idol (Item)"), ToolTip("Splits when picking up Dung Defender idol as the first idol")]
         DungDefenderIdol,
-
-        
-        
         [Description("Glade Idol (Item)"), ToolTip("Splits when picking up the King's Idol in the Spirits' Glade")]
         GladeIdol,
         [Description("Elder Hu (Boss)"), ToolTip("Splits when killing Elder Hu")]
@@ -617,8 +620,6 @@ namespace LiveSplit.HollowKnight {
         AspidHunter,
         [Description("Aluba (Killed)"), ToolTip("Splits when killing an Aluba")]
         Aluba,
-        //[Description("Al2ba (Killed)"), ToolTip("Splits when killing two Alubas")]
-        //Al2ba,
         [Description("Little Baldur Hunter's Notes (Killed)"), ToolTip("Splits when killing all little Baldurs needed for Hunter's Notes journal completion")]
         RollerHuntersNotes,
         [Description("Maggots (Killed)"), ToolTip("Splits when killing both Maggots")]
@@ -637,8 +638,6 @@ namespace LiveSplit.HollowKnight {
         killedSanctumWarrior,
         [Description("Soul Twister (Killed)"), ToolTip("Splits on first Soul Twister kill")]
         killedSoulTwister,
-        //[Description("Revek (Killed)"), ToolTip("Splits when talking to Revek after clearing all other Glade ghosts")]
-        //Revek,
         [Description("Moss Knight (Mini Boss)"), ToolTip("Splits when killing Moss Knight")]
         MossKnight,
         [Description("Shrumal Ogres (Mini Boss)"), ToolTip("Splits when killing the final Shrumal Ogre")]
@@ -986,7 +985,7 @@ namespace LiveSplit.HollowKnight {
         TransFlame2,
         [Description("Grimm Flame 3 (Transition)"), ToolTip("Splits on transition after obtaining the third flame on current Grimmchild cycle.")]
         TransFlame3,
-        
+
         [Description("Pale Ore 1 (Ore)"), ToolTip("Splits after obtaining the first pale ore.")]
         Ore1,
         [Description("Pale Ore 2 (Ore)"), ToolTip("Splits after obtaining the second pale ore.")]
@@ -1464,13 +1463,25 @@ namespace LiveSplit.HollowKnight {
         Menu,
         [Description("Main Menu w/ Claw (Menu)"), ToolTip("Splits on transition to the main menu after Mantis Claw acquired")]
         MenuClaw,
+        [Description("Main Menu w/ Mothwing Cloak (Menu)"), ToolTip("Splits on transition to the main menu after Mothwing Cloak acquired")]
+        MenuCloak,
+        [Description("Main Menu w/ Dashmaster (Menu)"), ToolTip("Splits on transition to the main menu after Dashmaster acquired")]
+        MenuDashmaster,
+        [Description("Main Menu w/ Dream Nail (Menu)"), ToolTip("Splits on transition to the main menu after Dream Nail acquired")]
+        MenuDreamNail,
+        [Description("Main Menu w/ Dream Gate (Menu)"), ToolTip("Splits on transition to the main menu after Dream Gate acquired")]
+        MenuDreamGate,
+        [Description("Main Menu w/ 3 Dreamers (Menu)"), ToolTip("Splits on transition to the main menu after 3 Dreamers acquired")]
+        MenuDreamer3,
         [Description("Main Menu w/ Ghusk (Menu)"), ToolTip("Splits on transition to the main menu after Gorgeous Husk defeated")]
         MenuGorgeousHusk,
         [Description("Main Menu w/ Isma's Tear (Menu)"), ToolTip("Splits on transition to the main menu after Isma's Tear acquired")]
         MenuIsmasTear,
         [Description("Main Menu w/ Shade Soul (Menu)"), ToolTip("Splits on transition to the main menu after Shade Soul acquired")]
         MenuShadeSoul,
-        
+        [Description("Main Menu w/ Void Heart (Menu)"), ToolTip("Splits on transition to the main menu after Void Heart acquired")]
+        MenuVoidHeart,
+
         [Description("Cornifer at Home (Transition)"), ToolTip("Splits when entering Iselda's hut while Cornifer is sleeping")]
         CorniferAtHome,
         [Description("All Seals (Item)"), ToolTip("Splits when 17 Hallownest Seals have been collected")]
@@ -1686,28 +1697,6 @@ namespace LiveSplit.HollowKnight {
         ManualSplit,
         [Description("Ghost Coins Incremented (Event)"), ToolTip("Splits when the ghostCoins PlayerData is updated. Unused by unmodded game, intended for use with mods.")]
         OnGhostCoinsIncremented,
-
-        /*
-        [Description("Mage Door (Test)"), ToolTip("Splits when Nailsmith is spared")]
-        MageDoor,
-        [Description("Sanctum Warrior Window (Test)"), ToolTip("Splits when Nailsmith is killed")]
-        MageWindow,
-        [Description("Mage Lord Enc. (Test)"), ToolTip("Splits when Nailsmith is spared")]
-        MageLordEncountered,
-        [Description("Mage Lord 2 Enc. (Test)"), ToolTip("Splits when Nailsmith is killed")]
-        MageDoor2,
-        [Description("Mage Window (Test)"), ToolTip("Splits when Nailsmith is spared")]
-        MageWindowGlass,
-        [Description("Mage Window Glass (Test)"), ToolTip("Splits when Nailsmith is killed")]
-        MageLordEncountered2,
-        */
-
-
-
-        /*
-        [Description("Equipped fr. health (menu testing)"), ToolTip("Splits when equipping charm23, for timing menuing")]
-        EquippedFragileHealth,
-        */
 
     }
     public class ToolTipAttribute : Attribute {
