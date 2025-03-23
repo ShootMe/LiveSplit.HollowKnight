@@ -1,4 +1,4 @@
-﻿using System;
+f﻿using System;
 using System.ComponentModel;
 using System.Reflection;
 using System.Windows.Forms;
@@ -1470,6 +1470,13 @@ namespace LiveSplit.HollowKnight {
         MenuIsmasTear,
         [Description("Main Menu w/ Shade Soul (Menu)"), ToolTip("Splits on transition to the main menu after Shade Soul acquired")]
         MenuShadeSoul,
+
+        [Description("Main Menu w/ Herrah (Menu"), ToolTip("For Dreamer Quit-outs on older patches. Splits on transition to the main menu after Herrah is registered as defeated")]
+        MenuHegemol,
+        [Description("Main Menu w/ Lurien (Menu)"), ToolTip("For Dreamer Quit-outs on older patches. Splits on transition to the main menu after Lurien is registered as defeated")]
+        MenuLurien,
+        [Description("Main Menu w/ Monomon (Menu)"), ToolTip("For Dreamer Quit-outs on older patches. Splits on transition to the main menu after Monomon is registered as defeated")]
+        MenuMonomon,
         
         [Description("Cornifer at Home (Transition)"), ToolTip("Splits when entering Iselda's hut while Cornifer is sleeping")]
         CorniferAtHome,
