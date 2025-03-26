@@ -1339,6 +1339,11 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.MenuIsmasTear: shouldSplit = mem.PlayerData<bool>(Offset.hasAcidArmour); break;
                 case SplitName.MenuShadeSoul: shouldSplit = mem.PlayerData<int>(Offset.fireballLevel) == 2; break;
 
+                // Main Menu Dreamers for quitouts
+                case SplitName.MenuLurien: shouldSplit = mem.PlayerData<bool>(Offset.lurienDefeated); break;
+                case SplitName.MenuMonomon: shouldSplit = mem.PlayerData<bool>(Offset.monomonDefeated); break;
+                case SplitName.MenuHegemol: shouldSplit = mem.PlayerData<bool>(Offset.hegemolDefeated); break;
+
                 #endregion Main Menu
 
                 #region Maps
