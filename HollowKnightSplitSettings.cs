@@ -35,7 +35,7 @@ namespace LiveSplit.HollowKnight {
                     return split;
                 }
             }
-            return SplitName.ForgottenCrossroads;
+            return SplitName.ManualSplit;
         }
 
         private void picHandle_MouseMove(object sender, MouseEventArgs e) {
@@ -66,13 +66,13 @@ namespace LiveSplit.HollowKnight {
         [Description("Rando Wake (Start)"), ToolTip("Splits when gaining control after waking up in Rando")]
         RandoWake,
 
-        [Description("Credits Roll (Ending)"), ToolTip("Splits on any credits rolling")]
+        [Description("Credits Roll (Ending)"), ToolTip("Splits on any credits rolling, any ending")]
         EndingSplit,
         [Description("The Hollow Knight (Ending)"), ToolTip("Splits on The Hollow Knight ending")]
         EndingA,
         [Description("Sealed Siblings (Ending)"), ToolTip("Splits on Sealed Siblings ending")]
         EndingB,
-        [Description("Dream No More (Ending)"), ToolTip("Splits on Dream No More ending")]
+        [Description("Dream No More (Ending)"), ToolTip("Splits on Dream No More ending, True Ending")]
         EndingC,
         [Description("Embrace the Void (Ending)"), ToolTip("Splits on Embrace the Void ending")]
         EndingD,
@@ -268,9 +268,6 @@ namespace LiveSplit.HollowKnight {
         DungDefender,
         [Description("Dung Defender Idol (Item)"), ToolTip("Splits when picking up Dung Defender idol as the first idol")]
         DungDefenderIdol,
-
-        
-        
         [Description("Glade Idol (Item)"), ToolTip("Splits when picking up the King's Idol in the Spirits' Glade")]
         GladeIdol,
         [Description("Elder Hu (Boss)"), ToolTip("Splits when killing Elder Hu")]
@@ -488,7 +485,7 @@ namespace LiveSplit.HollowKnight {
         NoskHornetP,
         [Description("Nightmare King Grimm (Pantheon)"), ToolTip("Splits after killing Nightmare King Grimm in Pantheon 5")]
         NightmareKingGrimmP,
-        [Description("Absolute Radiance (Ending)"), ToolTip("Splits after killing Absolute Radiance in Pantheon 5")]
+        [Description("Absolute Radiance (Ending)"), ToolTip("Splits after killing Absolute Radiance in Pantheon 5, Godhome Ending")]
         RadianceP,
 
         [Description("Herrah the Beast (Dreamer)"), ToolTip("Splits when you see the mask for Herrah")]
@@ -617,8 +614,6 @@ namespace LiveSplit.HollowKnight {
         AspidHunter,
         [Description("Aluba (Killed)"), ToolTip("Splits when killing an Aluba")]
         Aluba,
-        //[Description("Al2ba (Killed)"), ToolTip("Splits when killing two Alubas")]
-        //Al2ba,
         [Description("Little Baldur Hunter's Notes (Killed)"), ToolTip("Splits when killing all little Baldurs needed for Hunter's Notes journal completion")]
         RollerHuntersNotes,
         [Description("Maggots (Killed)"), ToolTip("Splits when killing both Maggots")]
@@ -637,8 +632,6 @@ namespace LiveSplit.HollowKnight {
         killedSanctumWarrior,
         [Description("Soul Twister (Killed)"), ToolTip("Splits on first Soul Twister kill")]
         killedSoulTwister,
-        //[Description("Revek (Killed)"), ToolTip("Splits when talking to Revek after clearing all other Glade ghosts")]
-        //Revek,
         [Description("Moss Knight (Mini Boss)"), ToolTip("Splits when killing Moss Knight")]
         MossKnight,
         [Description("Shrumal Ogres (Mini Boss)"), ToolTip("Splits when killing the final Shrumal Ogre")]
@@ -986,7 +979,7 @@ namespace LiveSplit.HollowKnight {
         TransFlame2,
         [Description("Grimm Flame 3 (Transition)"), ToolTip("Splits on transition after obtaining the third flame on current Grimmchild cycle.")]
         TransFlame3,
-        
+
         [Description("Pale Ore 1 (Ore)"), ToolTip("Splits after obtaining the first pale ore.")]
         Ore1,
         [Description("Pale Ore 2 (Ore)"), ToolTip("Splits after obtaining the second pale ore.")]
@@ -1693,28 +1686,6 @@ namespace LiveSplit.HollowKnight {
         ManualSplit,
         [Description("Ghost Coins Incremented (Event)"), ToolTip("Splits when the ghostCoins PlayerData is updated. Unused by unmodded game, intended for use with mods.")]
         OnGhostCoinsIncremented,
-
-        /*
-        [Description("Mage Door (Test)"), ToolTip("Splits when Nailsmith is spared")]
-        MageDoor,
-        [Description("Sanctum Warrior Window (Test)"), ToolTip("Splits when Nailsmith is killed")]
-        MageWindow,
-        [Description("Mage Lord Enc. (Test)"), ToolTip("Splits when Nailsmith is spared")]
-        MageLordEncountered,
-        [Description("Mage Lord 2 Enc. (Test)"), ToolTip("Splits when Nailsmith is killed")]
-        MageDoor2,
-        [Description("Mage Window (Test)"), ToolTip("Splits when Nailsmith is spared")]
-        MageWindowGlass,
-        [Description("Mage Window Glass (Test)"), ToolTip("Splits when Nailsmith is killed")]
-        MageLordEncountered2,
-        */
-
-
-
-        /*
-        [Description("Equipped fr. health (menu testing)"), ToolTip("Splits when equipping charm23, for timing menuing")]
-        EquippedFragileHealth,
-        */
 
     }
     public class ToolTipAttribute : Attribute {
