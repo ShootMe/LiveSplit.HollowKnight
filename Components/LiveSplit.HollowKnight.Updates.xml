@@ -1,5 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <updates>
+    <update version="4.0.0">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change>Major autosplitter update:</change>
+            <change>Splits saved in this version of the autosplitter will not be compatible with previous versions. It is strongly recommended to backup your saves before saving them in this version</change>
+            <change>All splits are now ordered, and have start-triggering and end-triggering autosplits which are integrated into the regular splits list</change>
+            <change>Splits for previously implicit start and end conditions now exist, and have automatically been added to your splits where applicable.</change>
+            <change>It is preferred for you to edit your splits to use start/end point splits specific for the category you are running.</change>
+            <change></change>
+            <change>New and updated splits:</change>
+            <change>Added Menu splits for Mothwing Cloak, Dashmaster, Dream Nail, Dream Gate, Void Heart and 3 Dreamers (Mayo)</change>
+            <change>Fixed Main Menu splits to be more reliable (Mayo)</change>
+        </changelog>
+    </update>
     <update version="3.2.0">
         <files>
             <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>

@@ -10,12 +10,10 @@ using System.Xml;
 namespace LiveSplit.HollowKnight {
     public partial class HollowKnightSettings : UserControl {
         public List<SplitName> Splits { get; private set; }
-        public bool Ordered { get; set; }
-        public bool AutosplitEndRuns { get; set; }
-        public SplitName? AutosplitStartRuns { get; set; }
         private static ReaderWriterLockSlim isLoading = new ReaderWriterLockSlim(LockRecursionPolicy.NoRecursion);
         private List<string> availableSplits = new List<string>();
         private List<string> availableSplitsAlphaSorted = new List<string>();
+        private Label startTriggerSeparator = new Label();
 
         public HollowKnightSettings() {
             isLoading.EnterWriteLock();
@@ -37,6 +35,7 @@ namespace LiveSplit.HollowKnight {
         private void Settings_Load(object sender, EventArgs e) {
             LoadSettings();
         }
+
         public void LoadSettings() {
             try {
                 // 5 seconds, higher priority than UpdateSplits
@@ -53,10 +52,6 @@ namespace LiveSplit.HollowKnight {
                 flowMain.Controls.RemoveAt(i);
             }
 
-            chkOrdered.Checked = Ordered;
-            chkAutosplitEndRuns.Checked = AutosplitEndRuns;
-            chkAutosplitStartRuns.Checked = AutosplitStartRuns != null;
-
             foreach (SplitName split in Splits) {
                 MemberInfo info = typeof(SplitName).GetMember(split.ToString())[0];
                 DescriptionAttribute description = (DescriptionAttribute)info.GetCustomAttributes(typeof(DescriptionAttribute), false)[0];
@@ -70,9 +65,27 @@ namespace LiveSplit.HollowKnight {
                 flowMain.Controls.Add(setting);
             }
 
+            AddStartTriggerSeparator();
+
             isLoading.ExitReadLock();
             this.flowMain.ResumeLayout(true);
         }
+
+        private void AddStartTriggerSeparator() {
+            // horizontal rule (https://stackoverflow.com/a/3296161)
+            this.startTriggerSeparator.AccessibleName = "Start trigger separator";
+            this.startTriggerSeparator.Text = string.Empty;
+            this.startTriggerSeparator.BorderStyle = BorderStyle.Fixed3D;
+            this.startTriggerSeparator.AutoSize = false;
+            this.startTriggerSeparator.Height = 2;
+            this.flowMain.Controls.Add(this.startTriggerSeparator);
+            PositionStartTriggerSeparator();
+        }
+
+        private void PositionStartTriggerSeparator() {
+            this.flowMain.Controls.SetChildIndex(this.startTriggerSeparator, 2);
+        }
+
         private void AddHandlers(HollowKnightSplitSettings setting) {
             setting.cboName.SelectedIndexChanged += new EventHandler(ControlChanged);
             setting.btnRemove.Click += new EventHandler(btnRemove_Click);
@@ -153,12 +166,8 @@ namespace LiveSplit.HollowKnight {
                 return;
             }
 
-            Ordered = chkOrdered.Checked;
-            AutosplitEndRuns = chkAutosplitEndRuns.Checked;
-            AutosplitStartRuns = chkAutosplitStartRuns.Checked ?
-                HollowKnightSplitSettings.GetSplitName(cboStartTriggerName.Text) : null;
-
             Splits.Clear();
+
             foreach (Control c in flowMain.Controls) {
                 if (c is HollowKnightSplitSettings) {
                     HollowKnightSplitSettings setting = (HollowKnightSplitSettings)c;
@@ -170,14 +179,15 @@ namespace LiveSplit.HollowKnight {
             }
 
             isLoading.ExitWriteLock();
+            PositionStartTriggerSeparator();
         }
         public XmlNode UpdateSettings(XmlDocument document) {
+
             XmlElement xmlSettings = document.CreateElement("Settings");
 
-            XmlElement xmlOrdered = document.CreateElement("Ordered");
-            xmlOrdered.InnerText = Ordered.ToString();
-            xmlSettings.AppendChild(xmlOrdered);
+            // TODO: have livesplit automatically change starting and ending split to just another split
 
+            /*
             XmlElement xmlAutosplitEndRuns = document.CreateElement("AutosplitEndRuns");
             xmlAutosplitEndRuns.InnerText = AutosplitEndRuns.ToString();
             xmlSettings.AppendChild(xmlAutosplitEndRuns);
@@ -185,6 +195,7 @@ namespace LiveSplit.HollowKnight {
             XmlElement xmlAutosplitStartRuns = document.CreateElement("AutosplitStartRuns");
             xmlAutosplitStartRuns.InnerText = AutosplitStartRuns.ToString();
             xmlSettings.AppendChild(xmlAutosplitStartRuns);
+            */
 
             XmlElement xmlSplits = document.CreateElement("Splits");
             xmlSettings.AppendChild(xmlSplits);
@@ -217,28 +228,6 @@ namespace LiveSplit.HollowKnight {
                 XmlNode orderedNode = settings.SelectSingleNode(".//Ordered");
                 XmlNode AutosplitEndRunsNode = settings.SelectSingleNode(".//AutosplitEndRuns");
                 XmlNode AutosplitStartRunsNode = settings.SelectSingleNode(".//AutosplitStartRuns");
-                bool isOrdered = false;
-                bool isAutosplitEndRuns = false;
-
-                if (orderedNode != null) {
-                    bool.TryParse(orderedNode.InnerText, out isOrdered);
-                }
-                if (AutosplitEndRunsNode != null) {
-                    bool.TryParse(AutosplitEndRunsNode.InnerText, out isAutosplitEndRuns);
-                }
-                if (AutosplitStartRunsNode != null) {
-                    string splitDescription = AutosplitStartRunsNode.InnerText.Trim();
-                    if (!string.IsNullOrEmpty(splitDescription)) {
-                        cboStartTriggerName.DataSource = GetAvailableSplits();
-                        AutosplitStartRuns = HollowKnightSplitSettings.GetSplitName(splitDescription);
-                        MemberInfo info = typeof(SplitName).GetMember(AutosplitStartRuns.ToString())[0];
-                        DescriptionAttribute description = (DescriptionAttribute)info.GetCustomAttributes(typeof(DescriptionAttribute), false)[0];
-                        cboStartTriggerName.Text = description.Description;
-                        chkAutosplitStartRuns.Checked = true;
-                    }
-                }
-                Ordered = isOrdered;
-                AutosplitEndRuns = isAutosplitEndRuns;
 
                 Splits.Clear();
                 XmlNodeList splitNodes = settings.SelectNodes(".//Splits/Split");
@@ -248,35 +237,41 @@ namespace LiveSplit.HollowKnight {
                     Splits.Add(split);
                 }
 
+                if (AutosplitStartRunsNode != null || AutosplitEndRunsNode != null || orderedNode != null) { // if it's the an old .lss file
+                    string splitDescription = AutosplitStartRunsNode?.InnerText?.Trim();
+
+                    // if there's an explicit auto-start split, add it to the list, if not, add legacy start
+                    if (!string.IsNullOrEmpty(splitDescription)) {
+                        Splits.Insert(0, HollowKnightSplitSettings.GetSplitName(splitDescription));
+                    } else { // implicit auto-start in .lss, add it to the list
+                        Splits.Insert(0, SplitName.LegacyStart); // add the legacy start split for now
+                    }
+
+                    // check if autoend split
+                    bool isAutosplitEndRuns = false;
+                    if (AutosplitEndRunsNode != null) {
+                        bool.TryParse(AutosplitEndRunsNode.InnerText, out isAutosplitEndRuns);
+                    }
+
+                    // if there's an explicit auto-end, leave it, if there's not, add legacy ending split to list
+                    if (!isAutosplitEndRuns) {
+                        Splits.Add(SplitName.LegacyEnd);
+                    }
+
+                }
             } else if (customSettingsNode != null) {
                 // WASM autosplitter
-                bool afterStart = false;
-                Ordered = true;
-                AutosplitEndRuns = true;
-
                 Splits.Clear();
                 XmlNodeList splitNodes = settings.SelectNodes(".//CustomSettings/Setting[@id='splits']/Setting");
                 foreach (XmlNode splitNode in splitNodes) {
                     string value = splitNode.Attributes.GetNamedItem("value").Value;
-                    if (!afterStart) {
-                        afterStart = true;
-                        if (value != "LegacyStart") {
-                            cboStartTriggerName.DataSource = GetAvailableSplits();
-                            AutosplitStartRuns = HollowKnightSplitSettings.GetSplitName(value);
-                            MemberInfo info = typeof(SplitName).GetMember(AutosplitStartRuns.ToString())[0];
-                            DescriptionAttribute description = (DescriptionAttribute)info.GetCustomAttributes(typeof(DescriptionAttribute), false)[0];
-                            cboStartTriggerName.Text = description.Description;
-                            chkAutosplitStartRuns.Checked = true;
-                        }
-                    } else {
-                        Splits.Add(HollowKnightSplitSettings.GetSplitName(value));
-                    }
+                    Splits.Add(HollowKnightSplitSettings.GetSplitName(value));
                 }
             } else {
                 // no splits settings, default
-                Ordered = false;
-                AutosplitEndRuns = false;
                 Splits.Clear();
+                Splits.Insert(0, SplitName.LegacyStart);
+                Splits.Add(SplitName.LegacyEnd);
             }
 
             isLoading.ExitWriteLock();
@@ -327,12 +322,6 @@ namespace LiveSplit.HollowKnight {
                     }
                 }
             }
-
-            if (chkAutosplitStartRuns.Checked) {
-                string text = cboStartTriggerName.Text;
-                cboStartTriggerName.DataSource = GetAvailableSplits();
-                cboStartTriggerName.Text = text;
-            }
         }
         private void flowMain_DragDrop(object sender, DragEventArgs e) {
             UpdateSplits();
@@ -357,22 +346,7 @@ namespace LiveSplit.HollowKnight {
                     destination.Invalidate();
                 }
             }
-        }
-        private void AutosplitEndChanged(object sender, EventArgs e) {
-            UpdateSplits();
-        }
-
-        private void AutosplitStartChanged(object sender, EventArgs e) {
-            if (chkAutosplitStartRuns.Checked) {
-                cboStartTriggerName.Enabled = true;
-                cboStartTriggerName.DataSource = GetAvailableSplits();
-            }
-            else {
-                cboStartTriggerName.Text = "";
-                cboStartTriggerName.Enabled = false;
-                cboStartTriggerName.DataSource = new List<string>();
-            }
-            UpdateSplits();
+            PositionStartTriggerSeparator();
         }
 
         private void cboStartTriggerName_SelectedIndexChanged(object sender, EventArgs e) {
