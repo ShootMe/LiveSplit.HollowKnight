@@ -1457,12 +1457,24 @@ namespace LiveSplit.HollowKnight {
         Menu,
         [Description("Main Menu w/ Claw (Menu)"), ToolTip("Splits on transition to the main menu after Mantis Claw acquired")]
         MenuClaw,
+        [Description("Main Menu w/ Mothwing Cloak (Menu)"), ToolTip("Splits on transition to the main menu after Mothwing Cloak acquired")]
+        MenuCloak,
+        [Description("Main Menu w/ Dashmaster (Menu)"), ToolTip("Splits on transition to the main menu after Dashmaster acquired")]
+        MenuDashmaster,
+        [Description("Main Menu w/ Dream Nail (Menu)"), ToolTip("Splits on transition to the main menu after Dream Nail acquired")]
+        MenuDreamNail,
+        [Description("Main Menu w/ Dream Gate (Menu)"), ToolTip("Splits on transition to the main menu after Dream Gate acquired")]
+        MenuDreamGate,
+        [Description("Main Menu w/ 3 Dreamers (Menu)"), ToolTip("Splits on transition to the main menu after 3 Dreamers acquired")]
+        MenuDreamer3,
         [Description("Main Menu w/ Ghusk (Menu)"), ToolTip("Splits on transition to the main menu after Gorgeous Husk defeated")]
         MenuGorgeousHusk,
         [Description("Main Menu w/ Isma's Tear (Menu)"), ToolTip("Splits on transition to the main menu after Isma's Tear acquired")]
         MenuIsmasTear,
         [Description("Main Menu w/ Shade Soul (Menu)"), ToolTip("Splits on transition to the main menu after Shade Soul acquired")]
         MenuShadeSoul,
+        [Description("Main Menu w/ Void Heart (Menu)"), ToolTip("Splits on transition to the main menu after Void Heart acquired")]
+        MenuVoidHeart,
 
         [Description("Main Menu w/ Herrah (Menu)"), ToolTip("For Dreamer Quit-outs on older patches. Splits on transition to the main menu after Herrah is registered as defeated")]
         MenuHegemol,
@@ -1470,7 +1482,7 @@ namespace LiveSplit.HollowKnight {
         MenuLurien,
         [Description("Main Menu w/ Monomon (Menu)"), ToolTip("For Dreamer Quit-outs on older patches. Splits on transition to the main menu after Monomon is registered as defeated")]
         MenuMonomon,
-        
+
         [Description("Cornifer at Home (Transition)"), ToolTip("Splits when entering Iselda's hut while Cornifer is sleeping")]
         CorniferAtHome,
         [Description("All Seals (Item)"), ToolTip("Splits when 17 Hallownest Seals have been collected")]
