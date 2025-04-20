@@ -2208,6 +2208,7 @@ namespace LiveSplit.HollowKnight {
             currentSplit--;
             //if (!settings.Ordered) splitsDone.Remove(lastSplitDone); Reminder of THIS BREAKS THINGS
             state = 0;
+            menuSplitHelper = false;
         }
         public void OnSkipSplit(object sender, EventArgs e) {
             currentSplit++;
