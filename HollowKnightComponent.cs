@@ -572,6 +572,7 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.EnterCrown: shouldSplit = nextScene.Equals("Mines_23") && nextScene != currScene; break;
                 case SplitName.EnterDirtmouth: shouldSplit = nextScene.Equals("Town") && nextScene != currScene; break;
                 case SplitName.EnterRafters: shouldSplit = nextScene.Equals("Ruins1_03") && nextScene != currScene; break;
+                case SplitName.LemmShopExit: shouldSplit = mem.PlayerData<bool>(Offset.metRelicDealerShop) && currScene.StartsWith("Ruins1_05b") && nextScene != currScene; break;
                 case SplitName.SalubraExit: shouldSplit = currScene.Equals("Room_Charm_Shop") && nextScene != currScene; break;
                 // since Ruins1_18 has both bench and bridge, don't include Ruins1_18 bridge to Ruins2_03b
                 case SplitName.SpireBenchExit: shouldSplit = currScene.StartsWith("Ruins1_18") && nextScene.StartsWith("Ruins2_01"); break;

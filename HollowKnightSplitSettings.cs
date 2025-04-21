@@ -776,6 +776,8 @@ namespace LiveSplit.HollowKnight {
         EnterCrown,
         [Description("Rafters (Transition)"), ToolTip("Splits on any transition into the City Rafters room")]
         EnterRafters,
+        [Description("Lemm Shop Exit (Transition)"), ToolTip("Splits on transition after talking to Lemm in the shop")]
+        LemmShopExit,
         [Description("Salubra Exit (Transition)"), ToolTip("Splits on the transition out of Salubra's Hut")]
         SalubraExit,
         [Description("Spire Bench Exit (Transition)"), ToolTip("Splits on the transition out of the bench room in Watcher's Spire")]
