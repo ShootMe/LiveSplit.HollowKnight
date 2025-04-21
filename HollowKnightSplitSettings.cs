@@ -752,6 +752,8 @@ namespace LiveSplit.HollowKnight {
         CrystalPeakEntry,
         [Description("Crystal Mound Exit (Transition)"), ToolTip("Splits on transition from Crystal Mound")]
         CrystalMoundExit,
+        [Description("Crossroads (Transition)"), ToolTip("Splits on transition through the Well from Dirtmouth to Crossroads")]
+        EnterCrossroads,
         [Description("Deepnest (Transition)"), ToolTip("Splits on transition into Deepnest")]
         EnterDeepnest,
         [Description("Dirtmouth (Transition)"), ToolTip("Splits on any transition into Dirtmouth Town")]
