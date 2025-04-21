@@ -610,6 +610,7 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.CrystalPeakEntry: shouldSplit = (nextScene.StartsWith("Mines_02") || nextScene.StartsWith("Mines_10")) && nextScene != currScene; break;
                 case SplitName.QueensGardensEntry: shouldSplit = (nextScene.StartsWith("Fungus3_34") || nextScene.StartsWith("Deepnest_43")) && nextScene != currScene; break;
                 case SplitName.BasinEntry: shouldSplit = nextScene.StartsWith("Abyss_04") && nextScene != currScene; break;
+                case SplitName.BasinSpikePitExit: shouldSplit = currScene.StartsWith("Abyss_18") && nextScene.StartsWith("Abyss_19"); break;
                 case SplitName.HiveEntry: shouldSplit = nextScene.StartsWith("Hive_01") && nextScene != currScene; break;
                 case SplitName.KingdomsEdgeEntry: shouldSplit = nextScene.StartsWith("Deepnest_East_03") && nextScene != currScene; break;
                 case SplitName.KingdomsEdgeOvercharmedEntry:

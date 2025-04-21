@@ -730,6 +730,8 @@ namespace LiveSplit.HollowKnight {
         AncestralMound,
         [Description("Ancient Basin (Transition)"), ToolTip("Splits on transition to Ancient Basin")]
         BasinEntry,
+        [Description("Basin Spike Pit Exit (Transition)"), ToolTip("Splits on transition after crossing the Spike Pit from Basin Toll Bench towards Broken Vessel")]
+        BasinSpikePitExit,
         [Description("Beast Den (Transition)"), ToolTip("Splits on transition into Beast Den")]
         EnterBeastDen,
         [Description("Blue Lake (Transition)"), ToolTip("Splits on transition to Blue Lake from either side")]
