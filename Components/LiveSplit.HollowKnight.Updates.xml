@@ -1,5 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <updates>
+    <update version="3.2.1">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change>Added Menu splits for each dreamer for quitouts on older patches (VioletBlight)</change>
+            <change>Added Menu splits for Mothwing Cloak, Dashmaster, Dream Nail, Dream Gate, Void Heart, and 3 Dreamers (Mayo)</change>
+            <change>Added Transition splits for Enter Crossroads, Lemm Shop Exit, and Basin Spike Pit Exit (AlexKnauth)</change>
+            <change>Fixed Menu splits to be more reliable (Mayo, AlexKnauth)</change>
+        </changelog>
+    </update>
     <update version="3.2.0">
         <files>
             <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
