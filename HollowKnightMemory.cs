@@ -13,7 +13,7 @@ namespace LiveSplit.HollowKnight {
         public bool IsHooked { get; set; }
         private DateTime lastHooked;
         private int uiManager, inputHandler, cameraCtrl, gameState, heroController, camTarget, camMode, camTMode, camDest, menuState, uiState, achievementHandler;
-        private int heroAccepting, actorState, transistionState, camTeleport, playerData, debugInfo, tilemapDirty, cState, sceneName, nextSceneName, entryGateName, hazardRespawning, onGround, spellquake, focusing;
+        private int heroAccepting, actorState, transistionState, camTeleport, playerData, debugInfo, tilemapDirty, cState, sceneName, nextSceneName, entryGateName, hazardDeath, hazardRespawning, onGround, recoilFrozen, spellquake, focusing;
         //private int sceneData, awardAchievementEvent;
         private Version lastVersion;
 
@@ -60,8 +60,10 @@ namespace LiveSplit.HollowKnight {
             heroAccepting = 0x457;
             actorState = 0x374;
             transistionState = 0x37c;
+            hazardDeath = 0x25; // best guess, TODO actually check
             hazardRespawning = 0x26;
             onGround = 0x9;
+            recoilFrozen = 0x28; // best guess, TODO actually check
             spellquake = 0x37;
             focusing = 0x39;
 
@@ -103,8 +105,10 @@ namespace LiveSplit.HollowKnight {
                 heroAccepting = 0x6e7;
 
                 //HeroControllerStates
+                hazardDeath = 0x2d;
                 hazardRespawning = 0x2e;
                 onGround = 0x11;
+                recoilFrozen = 0x30;
                 spellquake = 0x3f;
                 focusing = 0x41;
 
@@ -440,6 +444,10 @@ namespace LiveSplit.HollowKnight {
             //GameManager._instance.tileMapDirty
             return gameManager.Read<bool>(Program, 0x0, tilemapDirty);
         }
+        public bool HazardDeath() {
+            //GameManager._instance.hero_ctrl.cState.hazardDeath
+            return gameManager.Read<bool>(Program, 0x0, heroController, cState, hazardDeath);
+        }
         public bool HazardRespawning() {
             //GameManager._instance.hero_ctrl.cState.hazardRespawning
             return gameManager.Read<bool>(Program, 0x0, heroController, cState, hazardRespawning);
@@ -447,6 +455,10 @@ namespace LiveSplit.HollowKnight {
         public bool OnGround() {
             //GameManager._instance.hero_ctrl.cState.onGround
             return gameManager.Read<bool>(Program, 0x0, heroController, cState, onGround);
+        }
+        public bool RecoilFrozen() {
+            //GameManager._instance.hero_ctrl.cState.recoilFrozen
+            return gameManager.Read<bool>(Program, 0x0, heroController, cState, recoilFrozen);
         }
         public bool Spellquake() {
             //GameManager._instance.hero_ctrl.cState.spellquake
