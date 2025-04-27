@@ -48,6 +48,7 @@ namespace LiveSplit.HollowKnight {
         private PlayerData pdata = new PlayerData();
         private GameState lastGameState;
         private bool menuSplitHelper;
+        private int menuSplitCountdown;
         private bool lookForTeleporting;
         private List<string> menuingSceneNames = new List<string> { "Menu_Title", "Quit_To_Menu", "PermaDeath" };
         private List<string> debugSaveStateSceneNames = new List<string> { "Room_Mender_House", "Room_Sly_Storeroom" };
@@ -222,6 +223,7 @@ namespace LiveSplit.HollowKnight {
                         splitsDone.Add(Split);
                         lastSplitDone = Split;
                         menuSplitHelper = false;
+                        menuSplitCountdown = 20;
                         if (hasLog || !Console.IsOutputRedirected) WriteLogWithTime("Split: " + Split);
                         return SplitterAction.Split;
                     }
@@ -251,8 +253,12 @@ namespace LiveSplit.HollowKnight {
         }
 
         private bool MenuSplitHelper(bool pre) {
-            if (mem.GameState() is GameState.PLAYING or GameState.CUTSCENE) {
+            if (lastGameState is GameState.PLAYING or GameState.CUTSCENE) {
                 menuSplitHelper = pre;
+                menuSplitCountdown = 20;
+            } else if (0 < menuSplitCountdown) {
+                menuSplitHelper = pre;
+                menuSplitCountdown -= 1;
             }
             return menuSplitHelper;
         }
@@ -2173,6 +2179,7 @@ namespace LiveSplit.HollowKnight {
             currentSplit = -1;
             state = 0;
             menuSplitHelper = false;
+            menuSplitCountdown = 20;
             lookForTeleporting = false;
             lastGameState = GameState.PRIMER;
             Model.CurrentState.IsGameTimePaused = true;
@@ -2197,6 +2204,7 @@ namespace LiveSplit.HollowKnight {
             currentSplit = 0;
             state = 0;
             menuSplitHelper = false;
+            menuSplitCountdown = 20;
             lastGameState = GameState.PRIMER;
             Model.CurrentState.IsGameTimePaused = true;
             Model.CurrentState.SetGameTime(Model.CurrentState.CurrentTime.RealTime);
@@ -2212,16 +2220,19 @@ namespace LiveSplit.HollowKnight {
             //if (!settings.Ordered) splitsDone.Remove(lastSplitDone); Reminder of THIS BREAKS THINGS
             state = 0;
             menuSplitHelper = false;
+            menuSplitCountdown = 20;
         }
         public void OnSkipSplit(object sender, EventArgs e) {
             currentSplit++;
             state = 0;
             menuSplitHelper = false;
+            menuSplitCountdown = 20;
         }
         public void OnSplit(object sender, EventArgs e) {
             currentSplit++;
             state = 0;
             menuSplitHelper = false;
+            menuSplitCountdown = 20;
             store.SplitThisTransition = true;
             store.Update();
         }
