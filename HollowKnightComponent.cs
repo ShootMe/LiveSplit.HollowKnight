@@ -430,7 +430,7 @@ namespace LiveSplit.HollowKnight {
                     shouldSplit = nextScene.Equals("Dream_Final_Boss", StringComparison.OrdinalIgnoreCase);
                     shouldSkip = mem.PlayerData<bool>(Offset.killedHollowKnight);
                     break;
-                case SplitName.Hornet1: shouldSplit = mem.PlayerData<bool>(Offset.killedHornet); break;
+                case SplitName.Hornet1: shouldSplit = mem.PlayerData<bool>(Offset.hornet1Defeated); break;
                 case SplitName.Hornet2: shouldSplit = mem.PlayerData<bool>(Offset.hornetOutskirtsDefeated); break;
                 case SplitName.RadianceBoss: shouldSplit = mem.PlayerData<bool>(Offset.killedFinalBoss); break;
                 case SplitName.SoulMaster: shouldSplit = mem.PlayerData<bool>(Offset.killedMageLord); break;
