@@ -140,6 +140,7 @@
         heartPieces,
         vesselFragments,
         mawlekDefeated,
+        hornet1Defeated,
         collectorDefeated,
         hornetOutskirtsDefeated,
         mageLordDreamDefeated,

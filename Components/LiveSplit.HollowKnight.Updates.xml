@@ -1,5 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <updates>
+    <update version="3.2.2">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change>Fixed Hornet1 to not split on Hornet2</change>
+            <change>Fixed Menu splits on frame-perfect quitouts</change>
+        </changelog>
+    </update>
     <update version="3.2.1">
         <files>
             <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
