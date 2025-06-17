@@ -610,7 +610,7 @@ namespace LiveSplit.HollowKnight {
         [Description("Path of Pain (Completed)"), ToolTip("Splits when completing the Path of Pain in White Palace")]
         PathOfPain,
 
-        [Description("Aspid Hunter (Mini Boss)"), ToolTip("Splits when killing the final Aspid Hunter")]
+        [Description("Aspid Hunter (Mini Boss)"), ToolTip("Splits when killing 3 Aspid Hunters in a row")]
         AspidHunter,
         [Description("Aluba (Killed)"), ToolTip("Splits when killing an Aluba")]
         Aluba,
@@ -636,8 +636,10 @@ namespace LiveSplit.HollowKnight {
         killedSoulTwister,
         [Description("Moss Knight (Mini Boss)"), ToolTip("Splits when killing Moss Knight")]
         MossKnight,
-        [Description("Shrumal Ogres (Mini Boss)"), ToolTip("Splits when killing the final Shrumal Ogre")]
+        [Description("Shrumal Ogres (Mini Boss)"), ToolTip("Splits when killing 2 Shrumal Ogres in a row")]
         MushroomBrawler,
+        [Description("Petra Arena (Mini Boss)"), ToolTip("Splits when killing 3 Petras in a row")]
+        PetraArena,
         [Description("Zote Rescued - Vengefly King (Mini Boss)"), ToolTip("Splits when rescuing Zote from the Vengefly King")]
         Zote1,
         [Description("Vengefly King Killed (Transition)"), ToolTip("Splits on transition after Vengefly King in Greenpath killed")]
