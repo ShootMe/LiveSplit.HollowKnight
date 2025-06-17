@@ -21,6 +21,8 @@ namespace LiveSplit.HollowKnight
 
         private ConcurrentDictionary<Offset, Tracked<int>> pdInts = new ConcurrentDictionary<Offset, Tracked<int>>();
         private ConcurrentDictionary<Offset, Tracked<bool>> pdBools = new ConcurrentDictionary<Offset, Tracked<bool>>();
+        private ConcurrentDictionary<Offset, int> pdEntryInts = new ConcurrentDictionary<Offset, int>();
+        private ConcurrentDictionary<Offset, bool> pdEntryBools = new ConcurrentDictionary<Offset, bool>();
         private Tracked<bool> hazardDeath = new Tracked<bool>(false);
         private Tracked<bool> recoilFrozen = new Tracked<bool>(false);
         public bool TraitorLordDeadOnEntry { get; private set; } = false;
@@ -129,6 +131,32 @@ namespace LiveSplit.HollowKnight
         }
 
         /// <summary>
+        /// Gets the value the PD int given by offset had, on entry after the last transition
+        /// </summary>
+        /// <param name="offset"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public int GetValueOnEntry(Offset offset) {
+            if (!pdEntryInts.ContainsKey(offset)) {
+                pdEntryInts[offset] = mem.PlayerData<int>(offset);
+            }
+            return pdEntryInts[offset];
+        }
+
+        /// <summary>
+        /// Gets the value the PD bool given by offset had, on entry after the last transition
+        /// </summary>
+        /// <param name="offset"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public bool GetBoolValueOnEntry(Offset offset) {
+            if (!pdEntryBools.ContainsKey(offset)) {
+                pdEntryBools[offset] = mem.PlayerData<bool>(offset);
+            }
+            return pdEntryBools[offset];
+        }
+
+        /// <summary>
         /// Checks if the PD int given by offset has increased by value (i.e. new - old = value) since the last update
         /// </summary>
         /// <param name="offset"></param>
@@ -217,6 +245,17 @@ namespace LiveSplit.HollowKnight
         }
 
         /// <summary>
+        /// Checks if the PD int given by offset has increased by value (i.e. new - old = value) since the last transition
+        /// </summary>
+        /// <param name="offset"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public bool CheckIncreasedSinceEntryBy(Offset offset, int value) {
+            int previous = GetValueOnEntry(offset);
+            return mem.PlayerData<int>(offset) - previous == value;
+        }
+
+        /// <summary>
         /// Checks if hazardDeath has toggled from False to True since the last update
         /// </summary>
         /// <returns></returns>
@@ -258,6 +297,8 @@ namespace LiveSplit.HollowKnight
                 PrevScene = mem.SceneName();
                 TraitorLordDeadOnEntry = mem.PlayerData<bool>(Offset.killedTraitorLord);
                 DungDefenderAwakeConvoOnEntry = mem.PlayerData<bool>(Offset.dungDefenderAwakeConvo);
+                pdEntryInts.Clear();
+                pdEntryBools.Clear();
             } else {
                 // Not in transition
                 SplitThisTransition = false;
