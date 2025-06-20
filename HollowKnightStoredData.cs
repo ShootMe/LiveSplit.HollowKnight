@@ -25,8 +25,6 @@ namespace LiveSplit.HollowKnight
         private ConcurrentDictionary<Offset, bool> pdEntryBools = new ConcurrentDictionary<Offset, bool>();
         private Tracked<bool> hazardDeath = new Tracked<bool>(false);
         private Tracked<bool> recoilFrozen = new Tracked<bool>(false);
-        public bool TraitorLordDeadOnEntry { get; private set; } = false;
-        public bool DungDefenderAwakeConvoOnEntry { get; private set; } = false;
         public int HealthBeforeFocus { get; private set; } = 0;
         public int MPChargeBeforeFocus { get; private set; } = 0;
         /// <summary>
@@ -48,8 +46,8 @@ namespace LiveSplit.HollowKnight
         public void Reset() {
             pdInts.Clear();
             pdBools.Clear();
-            TraitorLordDeadOnEntry = false;
-            DungDefenderAwakeConvoOnEntry = false;
+            pdEntryInts.Clear();
+            pdEntryBools.Clear();
             HealthBeforeFocus = 0;
             MPChargeBeforeFocus = 0;
             SplitThisTransition = false;
@@ -235,8 +233,6 @@ namespace LiveSplit.HollowKnight
                 || mem.SceneName() != mem.NextSceneName()) {
                 // In transition
                 PrevScene = mem.SceneName();
-                TraitorLordDeadOnEntry = mem.PlayerData<bool>(Offset.killedTraitorLord);
-                DungDefenderAwakeConvoOnEntry = mem.PlayerData<bool>(Offset.dungDefenderAwakeConvo);
                 pdEntryInts.Clear();
                 pdEntryBools.Clear();
             } else {

@@ -998,11 +998,12 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.HappyCouplePlayerDataEvent: shouldSplit = mem.PlayerData<bool>(Offset.nailsmithConvoArt); break;
 
                 case SplitName.WhiteDefenderStatueUnlocked:
+                    bool convo = store.GetBoolValueOnEntry(Offset.dungDefenderAwakeConvo);
                     shouldSplit =
                         currScene == "Waterways_15"
                         && mem.PlayerData<bool>(Offset.dungDefenderAwoken)
                         && mem.PlayerData<bool>(Offset.dungDefenderLeft)
-                        && store.DungDefenderAwakeConvoOnEntry
+                        && convo
                         && (mem.GetCameraTarget().X < 29.5);
                     break;
 
@@ -1513,7 +1514,8 @@ namespace LiveSplit.HollowKnight {
                     shouldSplit = store.CheckIncremented(Offset.dreamOrbs) && currScene == "Cliffs_05";
                     break;
                 case SplitName.OnObtainGhostCloth:
-                    shouldSplit = store.CheckIncremented(Offset.dreamOrbs) && currScene == "Fungus3_23" && store.TraitorLordDeadOnEntry;
+                    bool traitorLordBeenDead = store.GetBoolValueOnEntry(Offset.killedTraitorLord);
+                    shouldSplit = store.CheckIncremented(Offset.dreamOrbs) && currScene == "Fungus3_23" && traitorLordBeenDead;
                     break;
                 case SplitName.OnObtainGhostVespa:
                     // UsesSceneTransitionRoutine is true on patches where Hive Knight exists
