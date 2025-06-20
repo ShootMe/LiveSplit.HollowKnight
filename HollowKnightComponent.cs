@@ -836,6 +836,16 @@ namespace LiveSplit.HollowKnight {
 
                 case SplitName.Aluba: shouldSplit = mem.PlayerData<bool>(Offset.killedLazyFlyer); break;
                 case SplitName.AspidHunter: shouldSplit = mem.PlayerData<int>(Offset.killsSpitter) == 17; break;
+                case SplitName.CrystalPeakHuntersNotes:
+                    shouldSplit =
+                        mem.PlayerData<int>(Offset.killsLaserBug) == 0 // Crystal Crawler?
+                        && mem.PlayerData<int>(Offset.killsMegaBeamMiner) == 0 // Crystal Guardian 1&2
+                        && mem.PlayerData<int>(Offset.killsCrystalFlyer) == 0 // Crystal Hunter
+                        && mem.PlayerData<int>(Offset.killsBeamMiner) == 0 // Crystallised Husk
+                        && mem.PlayerData<int>(Offset.killsMinesCrawler) == 0 // Glimback?
+                        && mem.PlayerData<int>(Offset.killsZombieMiner) == 0 // Husk Miner
+                        && mem.PlayerData<int>(Offset.killsCrystalCrawler) == 0; // Shardmite?
+                    break;
                 case SplitName.GorgeousHusk: shouldSplit = mem.PlayerData<bool>(Offset.killedGorgeousHusk); break;
                 case SplitName.GreatHopper: shouldSplit = mem.PlayerData<bool>(Offset.killedGiantHopper); break;
                 case SplitName.GreatHuskSentry: shouldSplit = mem.PlayerData<bool>(Offset.killedGreatShieldZombie); break;

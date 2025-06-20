@@ -614,6 +614,8 @@ namespace LiveSplit.HollowKnight {
         AspidHunter,
         [Description("Aluba (Killed)"), ToolTip("Splits when killing an Aluba")]
         Aluba,
+        [Description("Crystal Peak Hunter's Notes (Killed)"), ToolTip("Splits when killing all Crystal Peak enemies needed for Hunter's Notes journal completion\n(Includes Crystal Crawler, Crystal Guardian 1&2, Crystal Hunter, Crystallised Husk, Glimback, Husk Miner, and Shardmite. Excludes Bluggsac, Grimmkin Novice, and Grub Mimic.)")]
+        CrystalPeakHuntersNotes,
         [Description("Little Baldur Hunter's Notes (Killed)"), ToolTip("Splits when killing all little Baldurs needed for Hunter's Notes journal completion")]
         RollerHuntersNotes,
         [Description("Maggots (Killed)"), ToolTip("Splits when killing both Maggots")]
