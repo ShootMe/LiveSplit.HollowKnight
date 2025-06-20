@@ -570,7 +570,7 @@ namespace LiveSplit.HollowKnight {
                     shouldSplit =
                         (nextScene.Equals("Fungus2_25") // From Mantis Lords or Fungal Core
                         || nextScene.Equals("Deepnest_42") // From Queen's Gardens
-                        || nextScene.Equals("Abyss_03b") // From Tram
+                        || nextScene.Equals("Abyss_03_b") // From Tram
                         || nextScene.Equals("Deepnest_01b")) // From Fungal near Spore Shroom
                         && nextScene != currScene;
                     break;
@@ -620,7 +620,7 @@ namespace LiveSplit.HollowKnight {
                     shouldSplit =
                         (nextScene.StartsWith("Fungus3_34") // Queen's Gardens entrance from QGA or Overgrown Mound
                         || nextScene.Equals("Fungus2_25") // Deepnest entrance from Mantis Lords or Fungal Core
-                        || nextScene.Equals("Abyss_03b") // Deepnest entrance from Tram
+                        || nextScene.Equals("Abyss_03_b") // Deepnest entrance from Tram
                         || nextScene.Equals("Deepnest_01b")) // Deepnest entrance from Fungal near Spore Shroom
                         && nextScene != currScene;
                     break;
