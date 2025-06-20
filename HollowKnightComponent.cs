@@ -117,8 +117,6 @@ namespace LiveSplit.HollowKnight {
                 }
             }
 
-            store.ResetKills();
-
         }
 #else
 		public HollowKnightComponent() {
@@ -126,8 +124,6 @@ namespace LiveSplit.HollowKnight {
         settings = new HollowKnightSettings();
         foreach (string key in keys) {
             currentValues[key] = "";
-
-        store.ResetKills();
 
 			}
 #endif
@@ -2320,7 +2316,6 @@ namespace LiveSplit.HollowKnight {
 
             if (shouldReset) {
                 action = SplitterAction.Reset;
-                store.ResetKills();
             } else if (shouldSkip) {
                 action = SplitterAction.Skip;
             } else if (shouldSplit) {
