@@ -811,6 +811,8 @@ namespace LiveSplit.HollowKnight {
         KingdomsEdgeOvercharmedEntry,
         [Description("NKG Dream (Transition)"), ToolTip("Splits on transition into Nightmare King Grimm dream")]
         EnterNKG,
+        [Description("Queen's Gardens or Deepnest (Transition)"), ToolTip("Splits on transition into either Queen's Gardens or Deepnest")]
+        EnterQueensGardensOrDeepnest,
         [Description("Queen's Garden Entry (Transition)"), ToolTip("Splits on transition to QG scene following QGA or above Deepnest")]
         QueensGardensEntry,
         [Description("Queen's Garden - Frogs (Transition)"), ToolTip("Splits on transition to QG frogs scene")]

@@ -568,10 +568,10 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.EnterJunkPit: shouldSplit = nextScene.Equals("GG_Waterways") && nextScene != currScene; break;
                 case SplitName.EnterDeepnest:
                     shouldSplit =
-                        (nextScene.Equals("Fungus2_25")
-                        || nextScene.Equals("Deepnest_42")
-                        || nextScene.Equals("Abyss_03b")
-                        || nextScene.Equals("Deepnest_01b"))
+                        (nextScene.Equals("Fungus2_25") // From Mantis Lords or Fungal Core
+                        || nextScene.Equals("Deepnest_42") // From Queen's Gardens
+                        || nextScene.Equals("Abyss_03_b") // From Tram
+                        || nextScene.Equals("Deepnest_01b")) // From Fungal near Spore Shroom
                         && nextScene != currScene;
                     break;
                 case SplitName.EnterBeastDen: shouldSplit = nextScene.Equals("Deepnest_Spider_Town") && nextScene != currScene; break;
@@ -616,6 +616,14 @@ namespace LiveSplit.HollowKnight {
 
                 case SplitName.CrystalMoundExit: shouldSplit = currScene.StartsWith("Mines_35") && nextScene != currScene; break;
                 case SplitName.CrystalPeakEntry: shouldSplit = (nextScene.StartsWith("Mines_02") || nextScene.StartsWith("Mines_10")) && nextScene != currScene; break;
+                case SplitName.EnterQueensGardensOrDeepnest:
+                    shouldSplit =
+                        (nextScene.StartsWith("Fungus3_34") // Queen's Gardens entrance from QGA or Overgrown Mound
+                        || nextScene.Equals("Fungus2_25") // Deepnest entrance from Mantis Lords or Fungal Core
+                        || nextScene.Equals("Abyss_03_b") // Deepnest entrance from Tram
+                        || nextScene.Equals("Deepnest_01b")) // Deepnest entrance from Fungal near Spore Shroom
+                        && nextScene != currScene;
+                    break;
                 case SplitName.QueensGardensEntry: shouldSplit = (nextScene.StartsWith("Fungus3_34") || nextScene.StartsWith("Deepnest_43")) && nextScene != currScene; break;
                 case SplitName.BasinEntry: shouldSplit = nextScene.StartsWith("Abyss_04") && nextScene != currScene; break;
                 case SplitName.BasinSpikePitExit: shouldSplit = currScene.StartsWith("Abyss_18") && nextScene.StartsWith("Abyss_19"); break;
