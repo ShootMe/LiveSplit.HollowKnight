@@ -1,5 +1,6 @@
 ﻿#if !Info
 using LiveSplit.Model;
+using LiveSplit.TimeFormatters;
 using LiveSplit.UI;
 using LiveSplit.UI.Components;
 #endif
@@ -53,6 +54,11 @@ namespace LiveSplit.HollowKnight {
         private List<string> menuingSceneNames = new List<string> { "Menu_Title", "Quit_To_Menu", "PermaDeath" };
         private List<string> debugSaveStateSceneNames = new List<string> { "Room_Mender_House", "Room_Sly_Storeroom" };
 
+        private string lastExitingLevel;
+        private int hits = 0;
+        private List<int> segmentHits = new List<int>();
+        private List<int> cumulativeHits = new List<int>();
+
         enum SplitterAction {
             Pass,
             Split,
@@ -86,6 +92,11 @@ namespace LiveSplit.HollowKnight {
                 state.OnSplit += OnSplit;
                 state.OnUndoSplit += OnUndoSplit;
                 state.OnSkipSplit += OnSkipSplit;
+                state.Run.Metadata.SetCustomVariable("hits", "0");
+                state.Run.Metadata.SetCustomVariable("segment hits", "0");
+                state.Run.Metadata.SetCustomVariable("pb hits", TimeFormatConstants.DASH);
+                state.Run.Metadata.SetCustomVariable("comparison hits", TimeFormatConstants.DASH);
+                state.Run.Metadata.SetCustomVariable("delta hits", TimeFormatConstants.DASH);
 
                 if (state.CurrentTimingMethod == TimingMethod.RealTime) {
                     var timingMessage = MessageBox.Show(
@@ -173,6 +184,7 @@ namespace LiveSplit.HollowKnight {
                     }
                 }
                 LoadRemoval(gameState, uIState, nextScene, sceneName);
+                HandleHits(gameState, uIState, nextScene, sceneName);
             }
 
             store.Update();
@@ -211,6 +223,106 @@ namespace LiveSplit.HollowKnight {
                 */
                 ;
             lastGameState = gameState;
+        }
+
+        private void HitsReset(TimerPhase e) {
+            // save cumulativeHits to settings.ComparisonHits
+            for (int i = 0; i < cumulativeHits.Count; i++) {
+                if (i < settings.ComparisonHits.Count) {
+                    settings.ComparisonHits[i] = Math.Min(settings.ComparisonHits[i], cumulativeHits[i]);
+                } else {
+                    settings.ComparisonHits.Add(cumulativeHits[i]);
+                }
+            }
+
+            if (e == TimerPhase.Ended) {
+                Model.CurrentState.Run.Metadata.SetCustomVariable("pb hits", settings.ComparisonHits[settings.ComparisonHits.Count - 1].ToString());
+            }
+
+            hits = 0;
+            segmentHits.Clear();
+            cumulativeHits.Clear();
+            Model.CurrentState.Run.Metadata.SetCustomVariable("hits", "0");
+            Model.CurrentState.Run.Metadata.SetCustomVariable("segment hits", "0");
+        }
+
+        private void HitsIndexChanged() {
+            while (segmentHits.Count < currentSplit + 1) {
+                segmentHits.Add(0);
+            }
+            Model.CurrentState.Run.Metadata.SetCustomVariable("segment hits", segmentHits[currentSplit].ToString());
+            if (currentSplit >= 0 && currentSplit < settings.ComparisonHits.Count) {
+                Model.CurrentState.Run.Metadata.SetCustomVariable("comparison hits", settings.ComparisonHits[currentSplit].ToString());
+                Model.CurrentState.Run.Metadata.SetCustomVariable("delta hits", DeltaString(hits - settings.ComparisonHits[currentSplit]));
+            } else {
+                Model.CurrentState.Run.Metadata.SetCustomVariable("comparison hits", TimeFormatConstants.DASH);
+                Model.CurrentState.Run.Metadata.SetCustomVariable("delta hits", TimeFormatConstants.DASH);
+            }
+            while (cumulativeHits.Count < currentSplit) {
+                cumulativeHits.Add(hits);
+            }
+            if (currentSplit >= 1) {
+                cumulativeHits[currentSplit - 1] = hits;
+            }
+        }
+
+        private void HandleHits(GameState gameState, UIState _uIState, string _nextScene, string sceneName) {
+            // TODO: set segment hits to 0 when moving to a new segment, also reset delta hits at the same time
+            // TODO: also reset these when resetting the run
+            if (settings.HitCounter is HollowKnightSettings.HitsMethod.None) {
+                return;
+            }
+
+            if (store.RecoilFrozenToggledTrue()) {
+                AddHit();
+            }
+            if (store.HazardDeathToggledTrue()) {
+                AddHit();
+            }
+            if (store.CheckDecreasedTo(Offset.health, 0)) {
+                AddHit();
+            }
+
+            if (settings.HitCounter is HollowKnightSettings.HitsMethod.HitsDreamFalls) {
+                if (gameState == GameState.ENTERING_LEVEL && lastExitingLevel == sceneName && IsDream(sceneName)) {
+                    AddHit();
+                }
+                if (gameState == GameState.EXITING_LEVEL) {
+                    lastExitingLevel ??= sceneName;
+                } else {
+                    lastExitingLevel = null;
+                }
+            }
+        }
+
+        private bool IsDream(string sceneName) {
+            return sceneName.StartsWith("Dream_")
+                || (sceneName.StartsWith("GG_") && !sceneName.Contains("way") && !sceneName.Contains("Lurker"));
+        }
+
+        private void AddHit() {
+            hits += 1;
+            Model.CurrentState.Run.Metadata.SetCustomVariable("hits", hits.ToString());
+            while (segmentHits.Count < currentSplit + 1) {
+                segmentHits.Add(0);
+            }
+            segmentHits[currentSplit] += 1;
+            Model.CurrentState.Run.Metadata.SetCustomVariable("segment hits", segmentHits[currentSplit].ToString());
+            if (currentSplit < settings.ComparisonHits.Count) {
+                Model.CurrentState.Run.Metadata.SetCustomVariable("delta hits", DeltaString(hits - settings.ComparisonHits[currentSplit]));
+            } else {
+                Model.CurrentState.Run.Metadata.SetCustomVariable("delta hits", TimeFormatConstants.DASH);
+            }
+        }
+
+        private string DeltaString(int delta) {
+            if (delta > 0) {
+                return "+" + delta.ToString();
+            } else if (delta < 0) {
+                return TimeFormatConstants.MINUS + (-delta).ToString();
+            } else {
+                return delta.ToString();
+            }
         }
 
         private SplitterAction NotOrderedSplits(GameState gameState, UIState uIState, string nextScene, string sceneName) {
@@ -2185,6 +2297,7 @@ namespace LiveSplit.HollowKnight {
             Model.CurrentState.IsGameTimePaused = true;
             splitsDone.Clear();
             store.Reset();
+            HitsReset(e);
             if (failedValues.Count > 0) {
                 WriteLog("---------Splits without match-------------------");
                 foreach (var value in failedValues) {
@@ -2208,6 +2321,7 @@ namespace LiveSplit.HollowKnight {
             lastGameState = GameState.PRIMER;
             Model.CurrentState.IsGameTimePaused = true;
             Model.CurrentState.SetGameTime(Model.CurrentState.CurrentTime.RealTime);
+            HitsIndexChanged();
             splitsDone.Clear();
             store.Reset();
             failedValues.Clear();
@@ -2217,6 +2331,9 @@ namespace LiveSplit.HollowKnight {
         }
         public void OnUndoSplit(object sender, EventArgs e) {
             currentSplit--;
+            segmentHits[currentSplit] += segmentHits[currentSplit + 1];
+            segmentHits[currentSplit + 1] = 0;
+            HitsIndexChanged();
             //if (!settings.Ordered) splitsDone.Remove(lastSplitDone); Reminder of THIS BREAKS THINGS
             state = 0;
             menuSplitHelper = false;
@@ -2224,12 +2341,19 @@ namespace LiveSplit.HollowKnight {
         }
         public void OnSkipSplit(object sender, EventArgs e) {
             currentSplit++;
+            while (segmentHits.Count < currentSplit + 1) {
+                segmentHits.Add(0);
+            }
+            segmentHits[currentSplit] += segmentHits[currentSplit - 1];
+            segmentHits[currentSplit - 1] = 0;
+            HitsIndexChanged();
             state = 0;
             menuSplitHelper = false;
             menuSplitCountdown = 20;
         }
         public void OnSplit(object sender, EventArgs e) {
             currentSplit++;
+            HitsIndexChanged();
             state = 0;
             menuSplitHelper = false;
             menuSplitCountdown = 20;
