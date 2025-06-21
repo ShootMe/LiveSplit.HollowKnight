@@ -57,6 +57,7 @@ namespace LiveSplit.HollowKnight {
         private string lastExitingLevel;
         private int hits = 0;
         private List<int> segmentHits = new List<int>();
+        private List<int> cumulativeHits = new List<int>();
 
         enum SplitterAction {
             Pass,
@@ -224,9 +225,23 @@ namespace LiveSplit.HollowKnight {
             lastGameState = gameState;
         }
 
-        private void HitsReset() {
+        private void HitsReset(TimerPhase e) {
+            // save cumulativeHits to settings.ComparisonHits
+            for (int i = 0; i < cumulativeHits.Count; i++) {
+                if (i < settings.ComparisonHits.Count) {
+                    settings.ComparisonHits[i] = Math.Min(settings.ComparisonHits[i], cumulativeHits[i]);
+                } else {
+                    settings.ComparisonHits.Add(cumulativeHits[i]);
+                }
+            }
+
+            if (e == TimerPhase.Ended) {
+                Model.CurrentState.Run.Metadata.SetCustomVariable("pb hits", settings.ComparisonHits[settings.ComparisonHits.Count - 1].ToString());
+            }
+
             hits = 0;
             segmentHits.Clear();
+            cumulativeHits.Clear();
             Model.CurrentState.Run.Metadata.SetCustomVariable("hits", "0");
             Model.CurrentState.Run.Metadata.SetCustomVariable("segment hits", "0");
         }
@@ -243,14 +258,11 @@ namespace LiveSplit.HollowKnight {
                 Model.CurrentState.Run.Metadata.SetCustomVariable("comparison hits", TimeFormatConstants.DASH);
                 Model.CurrentState.Run.Metadata.SetCustomVariable("delta hits", TimeFormatConstants.DASH);
             }
-            while (settings.ComparisonHits.Count < currentSplit) {
-                settings.ComparisonHits.Add(hits);
+            while (cumulativeHits.Count < currentSplit) {
+                cumulativeHits.Add(hits);
             }
             if (currentSplit >= 1) {
-                settings.ComparisonHits[currentSplit - 1] = Math.Min(settings.ComparisonHits[currentSplit - 1], hits);
-                if (Model.CurrentState.CurrentPhase == TimerPhase.Ended) {
-                    Model.CurrentState.Run.Metadata.SetCustomVariable("pb hits", settings.ComparisonHits[settings.ComparisonHits.Count - 1].ToString());
-                }
+                cumulativeHits[currentSplit - 1] = hits;
             }
         }
 
@@ -2303,7 +2315,7 @@ namespace LiveSplit.HollowKnight {
             Model.CurrentState.IsGameTimePaused = true;
             splitsDone.Clear();
             store.Reset();
-            HitsReset();
+            HitsReset(e);
             if (failedValues.Count > 0) {
                 WriteLog("---------Splits without match-------------------");
                 foreach (var value in failedValues) {
@@ -2337,6 +2349,8 @@ namespace LiveSplit.HollowKnight {
         }
         public void OnUndoSplit(object sender, EventArgs e) {
             currentSplit--;
+            segmentHits[currentSplit] += segmentHits[currentSplit + 1];
+            segmentHits[currentSplit + 1] = 0;
             HitsIndexChanged();
             //if (!settings.Ordered) splitsDone.Remove(lastSplitDone); Reminder of THIS BREAKS THINGS
             state = 0;
@@ -2345,6 +2359,11 @@ namespace LiveSplit.HollowKnight {
         }
         public void OnSkipSplit(object sender, EventArgs e) {
             currentSplit++;
+            while (segmentHits.Count < currentSplit + 1) {
+                segmentHits.Add(0);
+            }
+            segmentHits[currentSplit] += segmentHits[currentSplit - 1];
+            segmentHits[currentSplit - 1] = 0;
             HitsIndexChanged();
             state = 0;
             menuSplitHelper = false;
