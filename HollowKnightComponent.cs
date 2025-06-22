@@ -94,7 +94,11 @@ namespace LiveSplit.HollowKnight {
                 state.OnSkipSplit += OnSkipSplit;
                 state.Run.Metadata.SetCustomVariable("hits", "0");
                 state.Run.Metadata.SetCustomVariable("segment hits", "0");
-                state.Run.Metadata.SetCustomVariable("pb hits", TimeFormatConstants.DASH);
+                if (settings.ComparisonHits.Count == state.Run.Count) {
+                    state.Run.Metadata.SetCustomVariable("pb hits", settings.ComparisonHits[settings.ComparisonHits.Count - 1].ToString());
+                } else {
+                    state.Run.Metadata.SetCustomVariable("pb hits", TimeFormatConstants.DASH);
+                }
                 state.Run.Metadata.SetCustomVariable("comparison hits", TimeFormatConstants.DASH);
                 state.Run.Metadata.SetCustomVariable("delta hits", TimeFormatConstants.DASH);
 
