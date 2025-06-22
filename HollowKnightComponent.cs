@@ -2365,7 +2365,16 @@ namespace LiveSplit.HollowKnight {
             store.Update();
         }
         public Control GetSettingsControl(LayoutMode mode) { return settings; }
-        public void SetSettings(XmlNode document) { settings.SetSettings(document); }
+        public void SetSettings(XmlNode document) {
+            settings.SetSettings(document);
+            if (Model != null) {
+                if (settings.ComparisonHits.Count == Model.CurrentState.Run.Count) {
+                    Model.CurrentState.Run.Metadata.SetCustomVariable("pb hits", settings.ComparisonHits[settings.ComparisonHits.Count - 1].ToString());
+                } else {
+                    Model.CurrentState.Run.Metadata.SetCustomVariable("pb hits", TimeFormatConstants.DASH);
+                }
+            }
+        }
         public XmlNode GetSettings(XmlDocument document) { return settings.UpdateSettings(document); }
         public void DrawHorizontal(Graphics g, LiveSplitState state, float height, Region clipRegion) { }
         public void DrawVertical(Graphics g, LiveSplitState state, float width, Region clipRegion) { }
