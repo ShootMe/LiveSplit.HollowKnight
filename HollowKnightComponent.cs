@@ -2351,7 +2351,14 @@ namespace LiveSplit.HollowKnight {
             segmentHits[currentSplit + 1] = 0;
             HitsIndexChanged();
             if (currentSplit < cumulativeHits.Count) {
-                cumulativeHits.RemoveRange(currentSplit, cumulativeHits.Count - currentSplit);
+                int i = currentSplit;
+                // go back through skipped splits
+                while (1 <= i && Model.CurrentState.Run[i - 1].SplitTime.RealTime == null) {
+                    i--;
+                }
+                // Run[i - 1] was not skipped, but Run[i] was skipped or undone,
+                // so remove cumulativeHits from there on
+                cumulativeHits.RemoveRange(i, cumulativeHits.Count - i);
             }
             //if (!settings.Ordered) splitsDone.Remove(lastSplitDone); Reminder of THIS BREAKS THINGS
             state = 0;
