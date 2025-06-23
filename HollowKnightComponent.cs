@@ -262,12 +262,6 @@ namespace LiveSplit.HollowKnight {
                 Model.CurrentState.Run.Metadata.SetCustomVariable("comparison hits", TimeFormatConstants.DASH);
                 Model.CurrentState.Run.Metadata.SetCustomVariable("delta hits", TimeFormatConstants.DASH);
             }
-            while (cumulativeHits.Count < currentSplit) {
-                cumulativeHits.Add(hits);
-            }
-            if (currentSplit >= 1) {
-                cumulativeHits[currentSplit - 1] = hits;
-            }
         }
 
         private void HandleHits(GameState gameState, UIState _uIState, string _nextScene, string sceneName) {
@@ -2338,6 +2332,9 @@ namespace LiveSplit.HollowKnight {
             segmentHits[currentSplit] += segmentHits[currentSplit + 1];
             segmentHits[currentSplit + 1] = 0;
             HitsIndexChanged();
+            if (currentSplit < cumulativeHits.Count) {
+                cumulativeHits.RemoveRange(currentSplit, cumulativeHits.Count - currentSplit);
+            }
             //if (!settings.Ordered) splitsDone.Remove(lastSplitDone); Reminder of THIS BREAKS THINGS
             state = 0;
             menuSplitHelper = false;
@@ -2358,6 +2355,12 @@ namespace LiveSplit.HollowKnight {
         public void OnSplit(object sender, EventArgs e) {
             currentSplit++;
             HitsIndexChanged();
+            while (cumulativeHits.Count < currentSplit) {
+                cumulativeHits.Add(hits);
+            }
+            if (currentSplit >= 1) {
+                cumulativeHits[currentSplit - 1] = hits;
+            }
             state = 0;
             menuSplitHelper = false;
             menuSplitCountdown = 20;
