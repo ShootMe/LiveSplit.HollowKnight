@@ -813,11 +813,13 @@ namespace LiveSplit.HollowKnight {
         KingdomsEdgeOvercharmedEntry,
         [Description("NKG Dream (Transition)"), ToolTip("Splits on transition into Nightmare King Grimm dream")]
         EnterNKG,
-        [Description("Queen's Garden Entry (Transition)"), ToolTip("Splits on transition to QG scene following QGA or above Deepnest")]
+        [Description("Queen's Gardens or Deepnest (Transition)"), ToolTip("Splits on transition into either Queen's Gardens or Deepnest")]
+        EnterQueensGardensOrDeepnest,
+        [Description("Queen's Gardens Entry (Transition)"), ToolTip("Splits on transition to QG scene following QGA or above Deepnest")]
         QueensGardensEntry,
-        [Description("Queen's Garden - Frogs (Transition)"), ToolTip("Splits on transition to QG frogs scene")]
+        [Description("Queen's Gardens - Frogs (Transition)"), ToolTip("Splits on transition to QG frogs scene")]
         QueensGardensFrogsTrans,
-        [Description("Queen's Garden - Post-Upper Arena (Transition)"), ToolTip("Splits on transition to room after upper arena in QG")]
+        [Description("Queen's Gardens - Post-Upper Arena (Transition)"), ToolTip("Splits on transition to room after upper arena in QG")]
         QueensGardensPostArenaTransition,
         [Description("Soul Sanctum (Transition)"), ToolTip("Splits when entering Soul Sanctum")]
         EnterSanctum,
@@ -1369,7 +1371,7 @@ namespace LiveSplit.HollowKnight {
         BenchCG1,
         [Description("Grey Mourner (Bench)"), ToolTip("Splits when sitting on the bench by the Grey Mourner")]
         BenchFlowerQuest,
-        [Description("Queen's Garden Cornifer (Bench)"), ToolTip("Splits when sitting on the bench by Cornifer in Queen's Gardens")]
+        [Description("Queen's Gardens Cornifer (Bench)"), ToolTip("Splits when sitting on the bench by Cornifer in Queen's Gardens")]
         BenchQGCornifer,
         [Description("Queen's Gardens Toll (Bench)"), ToolTip("Splits when sitting on the toll bench in Queen's Gardens")]
         BenchQGToll,
@@ -1391,7 +1393,7 @@ namespace LiveSplit.HollowKnight {
         BenchHallOfGods,
         */
 
-        [Description("Queen's Garden Bench (Toll)"), ToolTip("Splits when buying Queen's Garden toll bench")]
+        [Description("Queen's Gardens Bench (Toll)"), ToolTip("Splits when buying Queen's Gardens toll bench")]
         TollBenchQG,
         [Description("Sanctum Bench (Toll)"), ToolTip("Splits when buying City/Sanctum toll bench by Cornifer's location")]
         TollBenchCity,
