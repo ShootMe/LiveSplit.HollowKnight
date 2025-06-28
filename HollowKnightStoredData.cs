@@ -21,6 +21,8 @@ namespace LiveSplit.HollowKnight
 
         private ConcurrentDictionary<Offset, Tracked<int>> pdInts = new ConcurrentDictionary<Offset, Tracked<int>>();
         private ConcurrentDictionary<Offset, Tracked<bool>> pdBools = new ConcurrentDictionary<Offset, Tracked<bool>>();
+        private Tracked<bool> hazardDeath = new Tracked<bool>(false);
+        private Tracked<bool> recoilFrozen = new Tracked<bool>(false);
         public bool TraitorLordDeadOnEntry { get; private set; } = false;
         public bool DungDefenderAwakeConvoOnEntry { get; private set; } = false;
         public int HealthBeforeFocus { get; private set; } = 0;
@@ -162,6 +164,17 @@ namespace LiveSplit.HollowKnight
             Tracked<int> tracked = GetValue(offset);
             return tracked.current > tracked.previous;
         }
+        /// <summary>
+        /// Checks if the PD int given by offset has decreased to value since the last update
+        /// </summary>
+        /// <param name="offset"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public bool CheckDecreasedTo(Offset offset, int value) {
+            Tracked<int> tracked = GetValue(offset);
+            return tracked.current == value && tracked.previous > value;
+        }
+
 
         /// <summary>
         /// Checks if the PD bool given by offset has toggled since the last update
@@ -203,6 +216,21 @@ namespace LiveSplit.HollowKnight
             return tracked.previous && tracked.current;
         }
 
+        /// <summary>
+        /// Checks if hazardDeath has toggled from False to True since the last update
+        /// </summary>
+        /// <returns></returns>
+        public bool HazardDeathToggledTrue() {
+            return hazardDeath.current && !hazardDeath.previous;
+        }
+        /// <summary>
+        /// Checks if recoilFrazen has toggled from False to True since the last update
+        /// </summary>
+        /// <returns></returns>
+        public bool RecoilFrozenToggledTrue() {
+            return recoilFrozen.current && !recoilFrozen.previous;
+        }
+
         public HollowKnightStoredData(HollowKnightMemory mem) {
             this.mem = mem;
         }
@@ -221,6 +249,8 @@ namespace LiveSplit.HollowKnight
             foreach (Offset offset in pdBools.Keys) {
                 pdBools[offset].Update(mem.PlayerData<bool>(offset));
             }
+            hazardDeath.Update(mem.HazardDeath());
+            recoilFrozen.Update(mem.RecoilFrozen());
             if (mem.HeroTransitionState() != HeroTransitionState.WAITING_TO_TRANSITION 
                 || mem.GameState() is GameState.EXITING_LEVEL or GameState.LOADING
                 || mem.SceneName() != mem.NextSceneName()) {
