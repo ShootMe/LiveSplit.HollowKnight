@@ -101,6 +101,7 @@ namespace LiveSplit.HollowKnight {
                 }
                 state.Run.Metadata.SetCustomVariable("comparison hits", TimeFormatConstants.DASH);
                 state.Run.Metadata.SetCustomVariable("delta hits", TimeFormatConstants.DASH);
+                state.Run.Metadata.SetCustomVariable("item", "");
 
                 if (state.CurrentTimingMethod == TimingMethod.RealTime) {
                     var timingMessage = MessageBox.Show(
@@ -328,6 +329,8 @@ namespace LiveSplit.HollowKnight {
                     continue;
                 } else if (Split.ToString().StartsWith("Menu") || !((gameState == GameState.INACTIVE && uIState == UIState.INACTIVE) || (gameState == GameState.MAIN_MENU))) {
                     if (CheckSplit(Split, nextScene, sceneName) == SplitterAction.Split) {
+                        // item = split description name without qualifier in parentheses
+                        Model.CurrentState.Run.Metadata.SetCustomVariable("item", HollowKnightSplitSettings.SplitDescriptionName(HollowKnightSplitSettings.GetSplitDescription(Split)));
                         splitsDone.Add(Split);
                         lastSplitDone = Split;
                         menuSplitHelper = false;
@@ -2389,6 +2392,7 @@ namespace LiveSplit.HollowKnight {
             menuSplitCountdown = 20;
             store.SplitThisTransition = true;
             store.Update();
+            Model.CurrentState.Run.Metadata.SetCustomVariable("item", "");
         }
         public Control GetSettingsControl(LayoutMode mode) { return settings; }
         public void SetSettings(XmlNode document) {
