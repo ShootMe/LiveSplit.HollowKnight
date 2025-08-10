@@ -265,8 +265,6 @@ namespace LiveSplit.HollowKnight {
         }
 
         private void HandleHits(GameState gameState, UIState _uIState, string _nextScene, string sceneName) {
-            // TODO: set segment hits to 0 when moving to a new segment, also reset delta hits at the same time
-            // TODO: also reset these when resetting the run
             if (settings.HitCounter is HollowKnightSettings.HitsMethod.None) {
                 return;
             }
