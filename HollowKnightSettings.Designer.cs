@@ -34,6 +34,8 @@
             this.chkAutosplitStartRuns = new System.Windows.Forms.CheckBox();
             this.chkOrdered = new System.Windows.Forms.CheckBox();
             this.chkAutosplitEndRuns = new System.Windows.Forms.CheckBox();
+            this.hitCounterLabel = new System.Windows.Forms.Label();
+            this.cboHitCounter = new System.Windows.Forms.ComboBox();
             this.SortBy_GroupBox = new System.Windows.Forms.GroupBox();
             this.rdAlpha = new System.Windows.Forms.RadioButton();
             this.rdType = new System.Windows.Forms.RadioButton();
@@ -47,7 +49,7 @@
             // 
             // btnAddSplit
             // 
-            this.btnAddSplit.Location = new System.Drawing.Point(6, 92);
+            this.btnAddSplit.Location = new System.Drawing.Point(6, 119);
             this.btnAddSplit.Name = "btnAddSplit";
             this.btnAddSplit.Size = new System.Drawing.Size(57, 21);
             this.btnAddSplit.TabIndex = 0;
@@ -67,7 +69,7 @@
             this.flowMain.Location = new System.Drawing.Point(0, 0);
             this.flowMain.Margin = new System.Windows.Forms.Padding(0);
             this.flowMain.Name = "flowMain";
-            this.flowMain.Size = new System.Drawing.Size(456, 129);
+            this.flowMain.Size = new System.Drawing.Size(456, 156);
             this.flowMain.TabIndex = 0;
             this.flowMain.WrapContents = false;
             this.flowMain.DragDrop += new System.Windows.Forms.DragEventHandler(this.flowMain_DragDrop);
@@ -82,7 +84,7 @@
             this.flowOptions.Location = new System.Drawing.Point(0, 0);
             this.flowOptions.Margin = new System.Windows.Forms.Padding(0);
             this.flowOptions.Name = "flowOptions";
-            this.flowOptions.Size = new System.Drawing.Size(456, 129);
+            this.flowOptions.Size = new System.Drawing.Size(456, 156);
             this.flowOptions.TabIndex = 0;
             // 
             // Options_GroupBox
@@ -93,14 +95,14 @@
             this.Options_GroupBox.Controls.Add(this.SortBy_GroupBox);
             this.Options_GroupBox.Location = new System.Drawing.Point(3, 3);
             this.Options_GroupBox.Name = "Options_GroupBox";
-            this.Options_GroupBox.Size = new System.Drawing.Size(450, 123);
+            this.Options_GroupBox.Size = new System.Drawing.Size(450, 150);
             this.Options_GroupBox.TabIndex = 6;
             this.Options_GroupBox.TabStop = false;
             this.Options_GroupBox.Text = "Options";
             // 
             // versionLabel
             // 
-            this.versionLabel.Location = new System.Drawing.Point(262, 89);
+            this.versionLabel.Location = new System.Drawing.Point(262, 116);
             this.versionLabel.Name = "versionLabel";
             this.versionLabel.Size = new System.Drawing.Size(182, 24);
             this.versionLabel.TabIndex = 7;
@@ -113,9 +115,11 @@
             this.RunBehaviour_GroupBox.Controls.Add(this.chkAutosplitStartRuns);
             this.RunBehaviour_GroupBox.Controls.Add(this.chkOrdered);
             this.RunBehaviour_GroupBox.Controls.Add(this.chkAutosplitEndRuns);
+            this.RunBehaviour_GroupBox.Controls.Add(this.hitCounterLabel);
+            this.RunBehaviour_GroupBox.Controls.Add(this.cboHitCounter);
             this.RunBehaviour_GroupBox.Location = new System.Drawing.Point(143, 15);
             this.RunBehaviour_GroupBox.Name = "RunBehaviour_GroupBox";
-            this.RunBehaviour_GroupBox.Size = new System.Drawing.Size(301, 71);
+            this.RunBehaviour_GroupBox.Size = new System.Drawing.Size(301, 98);
             this.RunBehaviour_GroupBox.TabIndex = 7;
             this.RunBehaviour_GroupBox.TabStop = false;
             this.RunBehaviour_GroupBox.Text = "Run behaviour";
@@ -164,6 +168,24 @@
             this.ToolTips.SetToolTip(this.chkAutosplitEndRuns, "Any autosplit can stop the timer on final split to finish a run");
             this.chkAutosplitEndRuns.UseVisualStyleBackColor = true;
             this.chkAutosplitEndRuns.CheckedChanged += new System.EventHandler(this.AutosplitEndChanged);
+            // 
+            // hitCounterLabel
+            // 
+            this.hitCounterLabel.Location = new System.Drawing.Point(6, 69);
+            this.hitCounterLabel.Name = "hitCounterLabel";
+            this.hitCounterLabel.Size = new System.Drawing.Size(139, 21);
+            this.hitCounterLabel.TabIndex = 7;
+            this.hitCounterLabel.Text = "Hit counter:";
+            this.hitCounterLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // cboHitCounter
+            // 
+            this.cboHitCounter.FormattingEnabled = true;
+            this.cboHitCounter.Location = new System.Drawing.Point(148, 69);
+            this.cboHitCounter.Name = "cboHitCounter";
+            this.cboHitCounter.Size = new System.Drawing.Size(145, 21);
+            this.cboHitCounter.TabIndex = 7;
+            this.cboHitCounter.SelectedIndexChanged += new System.EventHandler(this.cboHitCounter_SelectedIndexChanged);
             // 
             // SortBy_GroupBox
             // 
@@ -214,7 +236,7 @@
             this.Controls.Add(this.flowMain);
             this.Margin = new System.Windows.Forms.Padding(0);
             this.Name = "HollowKnightSettings";
-            this.Size = new System.Drawing.Size(456, 129);
+            this.Size = new System.Drawing.Size(456, 150);
             this.Load += new System.EventHandler(this.Settings_Load);
             this.flowMain.ResumeLayout(false);
             this.flowMain.PerformLayout();
@@ -244,5 +266,7 @@
         private System.Windows.Forms.GroupBox SortBy_GroupBox;
         private System.Windows.Forms.CheckBox chkAutosplitStartRuns;
         private System.Windows.Forms.ComboBox cboStartTriggerName;
+        private System.Windows.Forms.Label hitCounterLabel;
+        private System.Windows.Forms.ComboBox cboHitCounter;
     }
 }
