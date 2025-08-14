@@ -1,5 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <updates>
+    <update version="3.2.3">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change>Added a journal split for Crystal Peak Hunter's Notes</change>
+            <change>Added a transition split for Enter Queen's Gardens or Deepnest</change>
+            <change>Added a Hit Counter that sets a Custom Variable 'hits' to the cumulative hits so far in the current run</change>
+            <change>Fixed the transition split for Enter Deepnest via tram</change>
+        </changelog>
+    </update>
     <update version="3.2.2">
         <files>
             <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
