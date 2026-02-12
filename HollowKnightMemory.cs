@@ -571,6 +571,8 @@ namespace LiveSplit.HollowKnight {
                 file = asm.GetManifestResourceStream("LiveSplit.HollowKnight.PlayerData.V1315.txt");
             } else if (ver.Minor == 4) {
                 file = asm.GetManifestResourceStream("LiveSplit.HollowKnight.PlayerData.V1424.txt");
+            } else if (ver.Minor == 5 && ver.Build >= 12459) {
+                file = asm.GetManifestResourceStream("LiveSplit.HollowKnight.PlayerData.V1512459.txt");
             }
 
             if (file != null) {
