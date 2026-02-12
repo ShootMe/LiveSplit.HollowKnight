@@ -116,12 +116,54 @@ namespace LiveSplit.HollowKnight {
 
                 do {
                     version = gameManager.Read(Program, 0x0, inputHandler, debugInfo, versionString);
+                    // 1.5.12459
+                    if (string.IsNullOrEmpty(version)) {
+                        version = gameManager.Read(Program, 0x0, inputHandler + 0x8, debugInfo + 0x8, versionString + 0x8);
+                    }
                     if (string.IsNullOrEmpty(version)) {
                         Thread.Sleep(50);
                     }
                 } while (string.IsNullOrEmpty(version) && len-- > 0);
 
                 lastVersion = new Version(version);
+
+                // 1.5.12459
+                if (lastVersion.Build >= 12459) {
+                    sceneName = 0x20;
+                    nextSceneName = 0x28;
+                    entryGateName = 0x30;
+                    inputHandler = 0x48;
+                    achievementHandler = 0x58;
+                    cameraCtrl = 0x88;
+                    heroController = 0x90;
+                    uiManager = 0xa8;
+                    playerData = 0xd0;
+                    //sceneData = 0xd8;
+                    gameState = 0x18c;
+                    tilemapDirty = 0x1c3;
+
+                    //InputHandler
+                    debugInfo = 0x68;
+
+                    //CameraController
+                    camTarget = 0x50;
+                    camMode = 0x74;
+                    camTeleport = 0x7f;
+
+                    //CameraTarget
+                    camTMode = 0x44;
+                    camDest = 0x48;
+
+                    //HeroController
+                    cState = 0x218;
+                    actorState = 0x5a8;
+                    transistionState = 0x5b0;
+                    heroAccepting = 0x68f;
+
+                    //HeroControllerStates thankfully the same between 1.5.68 and 1.5.12459
+
+                    versionString = 0x40;
+                }
 
                 if (lastVersion.Build == 68) {
                     //UIManager
