@@ -428,7 +428,19 @@ namespace LiveSplit.HollowKnight {
         }
         public MainMenuState MenuState() {
             //GameManager._instance.uiManager.menuState
-            return (MainMenuState)gameManager.Read<int>(Program, 0x0, uiManager, menuState);
+            int menu = gameManager.Read<int>(Program, 0x0, uiManager, menuState);
+            // not 1.5.12459
+            if (menuState != 0x2f8) {
+                // ADVANCED_GAMEPAD_MENU
+                if (menu >= 4) {
+                    menu += 1;
+                }
+                // ADVANCED_VIDEO_MENU
+                if (menu >= 9) {
+                    menu += 1;
+                }
+            }
+            return (MainMenuState)menu;
         }
         public UIState UIState() {
             //GameManager._instance.uiManager.uiState
