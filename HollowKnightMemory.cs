@@ -163,9 +163,11 @@ namespace LiveSplit.HollowKnight {
                     //HeroControllerStates thankfully the same between 1.5.68 and 1.5.12459
 
                     versionString = 0x40;
-                }
 
-                if (lastVersion.Build == 68) {
+                    //UIManager
+                    uiState = 0x2f4;
+                    menuState = 0x2f8;
+                } else if (lastVersion.Build == 68) {
                     //UIManager
                     uiState = 0x29c;
                     menuState = 0x2a0;
