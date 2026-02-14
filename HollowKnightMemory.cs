@@ -13,7 +13,7 @@ namespace LiveSplit.HollowKnight {
         public bool IsHooked { get; set; }
         private DateTime lastHooked;
         private int uiManager, inputHandler, cameraCtrl, gameState, heroController, camTarget, camMode, camTMode, camDest, menuState, uiState, achievementHandler;
-        private int heroAccepting, actorState, transistionState, camTeleport, playerData, debugInfo, tilemapDirty, cState, sceneName, nextSceneName, entryGateName, hazardDeath, hazardRespawning, onGround, recoilFrozen, spellquake, focusing;
+        private int heroAccepting, actorState, transistionState, camTeleport, playerData, debugInfo, inputAccepting, tilemapDirty, cState, sceneName, nextSceneName, entryGateName, hazardDeath, hazardRespawning, onGround, recoilFrozen, spellquake, focusing;
         //private int sceneData, awardAchievementEvent;
         private Version lastVersion;
 
@@ -42,6 +42,7 @@ namespace LiveSplit.HollowKnight {
             gameState = 0x98;
             heroController = 0x78;
             debugInfo = 0x2c;
+            inputAccepting = 0x58;
             tilemapDirty = 0xcf;
             achievementHandler = 0x78;
 
@@ -88,6 +89,7 @@ namespace LiveSplit.HollowKnight {
 
                 //InputHandler
                 debugInfo = 0x60;
+                inputAccepting = 0xa4;
 
                 //CameraController
                 camTarget = 0x48;
@@ -116,6 +118,10 @@ namespace LiveSplit.HollowKnight {
 
                 do {
                     version = gameManager.Read(Program, 0x0, inputHandler, debugInfo, versionString);
+                    // 1.5.12459
+                    if (string.IsNullOrEmpty(version)) {
+                        version = gameManager.Read(Program, 0x0, inputHandler + 0x8, debugInfo + 0x8, versionString + 0x8);
+                    }
                     if (string.IsNullOrEmpty(version)) {
                         Thread.Sleep(50);
                     }
@@ -123,7 +129,48 @@ namespace LiveSplit.HollowKnight {
 
                 lastVersion = new Version(version);
 
-                if (lastVersion.Build == 68) {
+                // 1.5.12459
+                if (lastVersion.Build >= 12459) {
+                    sceneName = 0x20;
+                    nextSceneName = 0x28;
+                    entryGateName = 0x30;
+                    inputHandler = 0x48;
+                    achievementHandler = 0x58;
+                    cameraCtrl = 0x88;
+                    heroController = 0x90;
+                    uiManager = 0xa8;
+                    playerData = 0xd0;
+                    //sceneData = 0xd8;
+                    gameState = 0x18c;
+                    tilemapDirty = 0x1c3;
+
+                    //InputHandler
+                    debugInfo = 0x68;
+                    inputAccepting = 0xac;
+
+                    //CameraController
+                    camTarget = 0x50;
+                    camMode = 0x74;
+                    camTeleport = 0x7f;
+
+                    //CameraTarget
+                    camTMode = 0x44;
+                    camDest = 0x48;
+
+                    //HeroController
+                    cState = 0x218;
+                    actorState = 0x5a8;
+                    transistionState = 0x5b0;
+                    heroAccepting = 0x68f;
+
+                    //HeroControllerStates thankfully the same between 1.5.68 and 1.5.12459
+
+                    versionString = 0x40;
+
+                    //UIManager
+                    uiState = 0x2f4;
+                    menuState = 0x2f8;
+                } else if (lastVersion.Build == 68) {
                     //UIManager
                     uiState = 0x29c;
                     menuState = 0x2a0;
@@ -169,6 +216,7 @@ namespace LiveSplit.HollowKnight {
                         heroController = 0x40;
                         tilemapDirty = 0xef;
                         debugInfo = 0x30;
+                        inputAccepting = 0x5c;
 
                         camMode = 0x38;
                         camTeleport = 0x43;
@@ -384,7 +432,19 @@ namespace LiveSplit.HollowKnight {
         }
         public MainMenuState MenuState() {
             //GameManager._instance.uiManager.menuState
-            return (MainMenuState)gameManager.Read<int>(Program, 0x0, uiManager, menuState);
+            int menu = gameManager.Read<int>(Program, 0x0, uiManager, menuState);
+            // not 1.5.12459
+            if (menuState != 0x2f8) {
+                // ADVANCED_GAMEPAD_MENU
+                if (menu >= 4) {
+                    menu += 1;
+                }
+                // ADVANCED_VIDEO_MENU
+                if (menu >= 9) {
+                    menu += 1;
+                }
+            }
+            return (MainMenuState)menu;
         }
         public UIState UIState() {
             //GameManager._instance.uiManager.uiState
@@ -396,13 +456,7 @@ namespace LiveSplit.HollowKnight {
         }
         public bool AcceptingInput() {
             //GameManager._instance.InputHandler.acceptingInput
-            if (lastVersion?.Minor >= 3) {
-                if (lastVersion?.Minor >= 5) {
-                    return gameManager.Read<bool>(Program, 0x0, inputHandler, 0xa4);
-                }
-                return gameManager.Read<bool>(Program, 0x0, inputHandler, 0x5c);
-            }
-            return gameManager.Read<bool>(Program, 0x0, inputHandler, 0x58);
+            return gameManager.Read<bool>(Program, 0x0, inputHandler, inputAccepting);
         }
         public bool AcceptingInputHero() {
             //GameManager._instance.heroCtrl.acceptingInput
@@ -529,6 +583,8 @@ namespace LiveSplit.HollowKnight {
                 file = asm.GetManifestResourceStream("LiveSplit.HollowKnight.PlayerData.V1315.txt");
             } else if (ver.Minor == 4) {
                 file = asm.GetManifestResourceStream("LiveSplit.HollowKnight.PlayerData.V1424.txt");
+            } else if (ver.Minor == 5 && ver.Build >= 12459) {
+                file = asm.GetManifestResourceStream("LiveSplit.HollowKnight.PlayerData.V1512459.txt");
             }
 
             if (file != null) {

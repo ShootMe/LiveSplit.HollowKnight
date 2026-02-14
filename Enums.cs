@@ -517,10 +517,12 @@
         MAIN_MENU,
         OPTIONS_MENU,
         GAMEPAD_MENU,
+        ADVANCED_GAMEPAD_MENU, // 1.5.12459
         KEYBOARD_MENU,
         SAVE_PROFILES,
         AUDIO_MENU,
         VIDEO_MENU,
+        ADVANCED_VIDEO_MENU, // 1.5.12459
         EXIT_PROMPT,
         OVERSCAN_MENU,
         GAME_OPTIONS_MENU,
