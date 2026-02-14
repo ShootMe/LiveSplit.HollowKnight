@@ -1,5 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <updates>
+    <update version="3.2.4">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change>Update for 1.5.12459</change>
+        </changelog>
+    </update>
     <update version="3.2.3">
         <files>
             <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
