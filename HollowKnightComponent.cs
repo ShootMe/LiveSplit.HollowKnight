@@ -275,7 +275,7 @@ namespace LiveSplit.HollowKnight {
             if (store.HazardDeathToggledTrue()) {
                 AddHit();
             }
-            if (store.CheckDecreasedTo(Offset.health, 0)) {
+            if (store.CheckDecreasedTo(Offset.health, 0) && gameState == GameState.PLAYING) {
                 AddHit();
             }
 
