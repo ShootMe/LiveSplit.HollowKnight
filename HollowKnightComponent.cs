@@ -1134,6 +1134,31 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.NailUpgrade2: shouldSplit = mem.PlayerData<int>(Offset.nailSmithUpgrades) == 2; break;
                 case SplitName.NailUpgrade3: shouldSplit = mem.PlayerData<int>(Offset.nailSmithUpgrades) == 3; break;
                 case SplitName.NailUpgrade4: shouldSplit = mem.PlayerData<int>(Offset.nailSmithUpgrades) == 4; break;
+                
+                case SplitName.NailUpgrade1Transition:
+                    shouldSplit =
+                        mem.PlayerData<int>(Offset.nailSmithUpgrades) == 1
+                        && nextScene.Equals("Ruins1_04")
+                        && nextScene != currScene;
+                    break;
+                case SplitName.NailUpgrade2Transition:
+                    shouldSplit =
+                        mem.PlayerData<int>(Offset.nailSmithUpgrades) == 2
+                        && nextScene.Equals("Ruins1_04")
+                        && nextScene != currScene;
+                    break;
+                case SplitName.NailUpgrade3Transition:
+                    shouldSplit =
+                        mem.PlayerData<int>(Offset.nailSmithUpgrades) == 3
+                        && nextScene.Equals("Ruins1_04")
+                        && nextScene != currScene;
+                    break;
+                case SplitName.NailUpgrade4Transition:
+                    shouldSplit =
+                        mem.PlayerData<int>(Offset.nailSmithUpgrades) == 4
+                        && nextScene.Equals("Ruins1_04")
+                        && nextScene != currScene;
+                    break;
 
                 #endregion Pale Ore & Nail Upgrades
 
