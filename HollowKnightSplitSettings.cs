@@ -189,6 +189,14 @@ namespace LiveSplit.HollowKnight {
         NailUpgrade3,
         [Description("Nail 4 (Upgrade)"), ToolTip("Splits upon upgrading to the Pure Nail")]
         NailUpgrade4,
+        [Description("Nail 1 (Transition)"), ToolTip("Splits on transition after upgrading to the Sharpened Nail")]
+        NailUpgrade1Transition,
+        [Description("Nail 2 (Transition)"), ToolTip("Splits on transition after upgrading to the Channeled Nail")]
+        NailUpgrade2Transition,
+        [Description("Nail 3 (Transition)"), ToolTip("Splits on transition after upgrading to the Coiled Nail")]
+        NailUpgrade3Transition,
+        [Description("Nail 4 (Transition)"), ToolTip("Splits on transition after upgrading to the Pure Nail")]
+        NailUpgrade4Transition,
         [Description("Vessel Fragment 1 (Fragment)"), ToolTip("Splits when getting 1st Soul Vessel Fragment")]
         VesselFragment1,
         [Description("Vessel Fragment 2 (Fragment)"), ToolTip("Splits when getting 2nd Soul Vessel Fragment")]
