@@ -21,10 +21,10 @@ namespace LiveSplit.HollowKnight
 
         private ConcurrentDictionary<Offset, Tracked<int>> pdInts = new ConcurrentDictionary<Offset, Tracked<int>>();
         private ConcurrentDictionary<Offset, Tracked<bool>> pdBools = new ConcurrentDictionary<Offset, Tracked<bool>>();
+        private ConcurrentDictionary<Offset, int> pdEntryInts = new ConcurrentDictionary<Offset, int>();
+        private ConcurrentDictionary<Offset, bool> pdEntryBools = new ConcurrentDictionary<Offset, bool>();
         private Tracked<bool> hazardDeath = new Tracked<bool>(false);
         private Tracked<bool> recoilFrozen = new Tracked<bool>(false);
-        public bool TraitorLordDeadOnEntry { get; private set; } = false;
-        public bool DungDefenderAwakeConvoOnEntry { get; private set; } = false;
         public int HealthBeforeFocus { get; private set; } = 0;
         public int MPChargeBeforeFocus { get; private set; } = 0;
         /// <summary>
@@ -38,35 +38,6 @@ namespace LiveSplit.HollowKnight
         /// </summary>
         public string PrevScene { get; private set; } = "";
 
-        // Colosseum enemies
-        public int killsColShieldStart { get; set; }
-        public int killsColRollerStart { get; set; }
-        public int killsColMinerStart { get; set; }
-        public int killsSpitterStart { get; set; }
-        public int killsSuperSpitterStart { get; set; }
-        public int killsBuzzerStart { get; set; }
-        public int killsBigBuzzerStart { get; set; }
-        public int killsBurstingBouncerStart { get; set; }
-        public int killsBigFlyStart { get; set; }
-        public int killsColWormStart { get; set; }
-        public int killsColFlyingSentryStart { get; set; }
-        public int killsColMosquitoStart { get; set; }
-        public int killsCeilingDropperStart { get; set; }
-        public int killsColHopperStart { get; set; }
-        public int killsGiantHopperStart { get; set; }
-        public int killsGrubMimicStart { get; set; }
-        public int killsBlobbleStart { get; set; }
-        public int killsOblobbleStart { get; set; }
-        public int killsAngryBuzzerStart { get; set; }
-        public int killsHeavyMantisStart { get; set; }
-        public int killsHeavyMantisFlyerStart { get; set; }
-        public int killsMageKnightStart { get; set; }
-        public int killsMageStart { get; set; }
-        public int killsElectricMageStart { get; set; }
-        public int killsLesserMawlekStart { get; set; }
-        public int killsMawlekStart { get; set; }
-        public int killsLobsterLancerStart { get; set; }
-
         private HollowKnightMemory mem;
 
         /// <summary>
@@ -75,45 +46,14 @@ namespace LiveSplit.HollowKnight
         public void Reset() {
             pdInts.Clear();
             pdBools.Clear();
-            TraitorLordDeadOnEntry = false;
-            DungDefenderAwakeConvoOnEntry = false;
+            pdEntryInts.Clear();
+            pdEntryBools.Clear();
             HealthBeforeFocus = 0;
             MPChargeBeforeFocus = 0;
             SplitThisTransition = false;
             GladeEssence = 0;
-            ResetKills();
         }
 
-        public void ResetKills()
-        {
-            killsColShieldStart = mem.PlayerData<int>(Offset.killsColShield);
-            killsColRollerStart = mem.PlayerData<int>(Offset.killsColRoller);
-            killsColMinerStart = mem.PlayerData<int>(Offset.killsColMiner);
-            killsSpitterStart = mem.PlayerData<int>(Offset.killsSpitter);
-            killsSuperSpitterStart = mem.PlayerData<int>(Offset.killsSuperSpitter);
-            killsBuzzerStart = mem.PlayerData<int>(Offset.killsBuzzer);
-            killsBigBuzzerStart = mem.PlayerData<int>(Offset.killsBigBuzzer);
-            killsBurstingBouncerStart = mem.PlayerData<int>(Offset.killsBurstingBouncer);
-            killsBigFlyStart = mem.PlayerData<int>(Offset.killsBigFly);
-            killsColWormStart = mem.PlayerData<int>(Offset.killsColWorm);
-            killsColFlyingSentryStart = mem.PlayerData<int>(Offset.killsColFlyingSentry);
-            killsColMosquitoStart = mem.PlayerData<int>(Offset.killsColMosquito);
-            killsCeilingDropperStart = mem.PlayerData<int>(Offset.killsCeilingDropper);
-            killsColHopperStart = mem.PlayerData<int>(Offset.killsColHopper);
-            killsGiantHopperStart = mem.PlayerData<int>(Offset.killsGiantHopper);
-            killsGrubMimicStart = mem.PlayerData<int>(Offset.killsGrubMimic);
-            killsBlobbleStart = mem.PlayerData<int>(Offset.killsBlobble);
-            killsOblobbleStart = mem.PlayerData<int>(Offset.killsOblobble);
-            killsAngryBuzzerStart = mem.PlayerData<int>(Offset.killsAngryBuzzer);
-            killsHeavyMantisStart = mem.PlayerData<int>(Offset.killsHeavyMantis);
-            killsHeavyMantisFlyerStart = mem.PlayerData<int>(Offset.killsMantisHeavyFlyer);
-            killsMageKnightStart = mem.PlayerData<int>(Offset.killsMageKnight);
-            killsMageStart = mem.PlayerData<int>(Offset.killsMage);
-            killsElectricMageStart = mem.PlayerData<int>(Offset.killsElectricMage);
-            killsLesserMawlekStart = mem.PlayerData<int>(Offset.killsLesserMawlek);
-            killsMawlekStart = mem.PlayerData<int>(Offset.killsMawlek);
-            killsLobsterLancerStart = mem.PlayerData<int>(Offset.killsLobsterLancer);
-        }
         private Tracked<int> GetValue(Offset offset) {
             if (!pdInts.ContainsKey(offset)) {
                 pdInts[offset] = new Tracked<int>(mem.PlayerData<int>(offset));
@@ -126,6 +66,32 @@ namespace LiveSplit.HollowKnight
                 pdBools[offset] = new Tracked<bool>(mem.PlayerData<bool>(offset));
             }
             return pdBools[offset];
+        }
+
+        /// <summary>
+        /// Gets the value the PD int given by offset had, on entry after the last transition
+        /// </summary>
+        /// <param name="offset"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public int GetValueOnEntry(Offset offset) {
+            if (!pdEntryInts.ContainsKey(offset)) {
+                pdEntryInts[offset] = mem.PlayerData<int>(offset);
+            }
+            return pdEntryInts[offset];
+        }
+
+        /// <summary>
+        /// Gets the value the PD bool given by offset had, on entry after the last transition
+        /// </summary>
+        /// <param name="offset"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public bool GetBoolValueOnEntry(Offset offset) {
+            if (!pdEntryBools.ContainsKey(offset)) {
+                pdEntryBools[offset] = mem.PlayerData<bool>(offset);
+            }
+            return pdEntryBools[offset];
         }
 
         /// <summary>
@@ -217,6 +183,17 @@ namespace LiveSplit.HollowKnight
         }
 
         /// <summary>
+        /// Checks if the PD int given by offset has increased by value (i.e. new - old = value) since the last transition
+        /// </summary>
+        /// <param name="offset"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public bool CheckIncreasedSinceEntryBy(Offset offset, int value) {
+            int previous = GetValueOnEntry(offset);
+            return mem.PlayerData<int>(offset) - previous == value;
+        }
+
+        /// <summary>
         /// Checks if hazardDeath has toggled from False to True since the last update
         /// </summary>
         /// <returns></returns>
@@ -256,8 +233,8 @@ namespace LiveSplit.HollowKnight
                 || mem.SceneName() != mem.NextSceneName()) {
                 // In transition
                 PrevScene = mem.SceneName();
-                TraitorLordDeadOnEntry = mem.PlayerData<bool>(Offset.killedTraitorLord);
-                DungDefenderAwakeConvoOnEntry = mem.PlayerData<bool>(Offset.dungDefenderAwakeConvo);
+                pdEntryInts.Clear();
+                pdEntryBools.Clear();
             } else {
                 // Not in transition
                 SplitThisTransition = false;
