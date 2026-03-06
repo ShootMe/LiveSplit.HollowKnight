@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
 
@@ -28,14 +29,37 @@ namespace LiveSplit.HollowKnight {
         public static SplitName GetSplitName(string text) {
             foreach (SplitName split in Enum.GetValues(typeof(SplitName))) {
                 string name = split.ToString();
-                MemberInfo info = typeof(SplitName).GetMember(name)[0];
-                DescriptionAttribute description = (DescriptionAttribute)info.GetCustomAttributes(typeof(DescriptionAttribute), false)[0];
+                string description = GetSplitDescription(split);
 
-                if (name.Equals(text, StringComparison.OrdinalIgnoreCase) || description.Description.Equals(text, StringComparison.OrdinalIgnoreCase)) {
+                if (name.Equals(text, StringComparison.OrdinalIgnoreCase) || description.Equals(text, StringComparison.OrdinalIgnoreCase)) {
                     return split;
                 }
             }
             return SplitName.ManualSplit;
+        }
+
+        /// <summary>
+        /// Gets the split description of the given split
+        /// </summary>
+        /// <param name="split">Split to look up</param>
+        /// <returns>Split description including both name and qualifier in parentheses</returns>
+        public static string GetSplitDescription(SplitName split) {
+            MemberInfo info = typeof(SplitName).GetMember(split.ToString())[0];
+            DescriptionAttribute description = (DescriptionAttribute)info.GetCustomAttributes(typeof(DescriptionAttribute), false)[0];
+            return description.Description;
+        }
+        /// <summary>
+        /// Removes the qualifier in parentheses from a split description, producing only the name
+        /// </summary>
+        /// <param name="description">Split description</param>
+        /// <returns>Name without qualifier</returns>
+        public static string SplitDescriptionName(string description) {
+            Match m = Regex.Match(description, "(?<name>.+)\\s+\\(.+\\)");
+            if (m.Success) {
+                return m.Groups["name"].Value;
+            } else {
+                return description;
+            }
         }
 
         private void picHandle_MouseMove(object sender, MouseEventArgs e) {
