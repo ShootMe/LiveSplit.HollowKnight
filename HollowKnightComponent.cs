@@ -658,11 +658,16 @@ namespace LiveSplit.HollowKnight {
 
                 case SplitName.EnterNKG: shouldSplit = currScene.StartsWith("Grimm_Main_Tent") && nextScene.StartsWith("Grimm_Nightmare"); break;
                 case SplitName.EnterCrossroads: shouldSplit = nextScene.StartsWith("Crossroads_01") && nextScene != currScene; break;
-                case SplitName.EnterGreenpath: shouldSplit = !currScene.StartsWith("Fungus1_01") && nextScene.StartsWith("Fungus1_01"); break;
+                case SplitName.EnterGreenpath:
+                    shouldSplit = !store.SplitThisTransition
+                        && !currScene.StartsWith("Fungus1_")
+                        && (nextScene.StartsWith("Fungus1_01") || nextScene.StartsWith("Fungus1_11"));
+                    break;
                 case SplitName.EnterGreenpathWithOvercharm:
-                    shouldSplit = !currScene.StartsWith("Fungus1_01")
-                        && nextScene.StartsWith("Fungus1_01")
-                        && mem.PlayerData<bool>(Offset.canOvercharm);
+                    shouldSplit = !store.SplitThisTransition
+                        && mem.PlayerData<bool>(Offset.canOvercharm)
+                        && !currScene.StartsWith("Fungus1_")
+                        && (nextScene.StartsWith("Fungus1_01") || nextScene.StartsWith("Fungus1_11"));
                     break;
                 case SplitName.EnterSanctum: shouldSplit = !currScene.StartsWith("Ruins1_23") && nextScene.StartsWith("Ruins1_23"); break;
                 case SplitName.EnterSanctumWithShadeSoul:
