@@ -13,6 +13,7 @@ using System.Xml;
 namespace LiveSplit.HollowKnight {
 #if !Info
     public class HollowKnightComponent : IComponent {
+        private static bool hasAskedGameTime = false;
         public TimerModel Model { get; set; }
 #else
 	public class HollowKnightComponent {
@@ -102,7 +103,8 @@ namespace LiveSplit.HollowKnight {
                 state.Run.Metadata.SetCustomVariable("comparison hits", TimeFormatConstants.DASH);
                 state.Run.Metadata.SetCustomVariable("delta hits", TimeFormatConstants.DASH);
 
-                if (state.CurrentTimingMethod == TimingMethod.RealTime) {
+                if (state.CurrentTimingMethod == TimingMethod.RealTime && !hasAskedGameTime) {
+                    hasAskedGameTime = true;
                     var timingMessage = MessageBox.Show(
                         "Hollow Knight uses Time without Loads (Game Time) as the main timing method.\n" +
                         "LiveSplit is currently set to show Real Time (RTA).\n" +
@@ -115,6 +117,8 @@ namespace LiveSplit.HollowKnight {
                         state.CurrentTimingMethod = TimingMethod.GameTime;
                     }
                 }
+                
+                settings.Model = Model;
             }
 
             store.ResetKills();
@@ -220,6 +224,10 @@ namespace LiveSplit.HollowKnight {
                     && (loadingMenu || (uIState != UIState.PAUSED && (!string.IsNullOrEmpty(nextScene) || sceneName == "_test_charms")))
                     && nextScene != sceneName)
                 || (mem.TileMapDirty() && !mem.UsesSceneTransitionRoutine())
+                || (settings.PauseOnMainMenu
+                    && gameState is GameState.MAIN_MENU
+                    && uIState is UIState.MENU_HOME or UIState.MENU_OPTIONS or UIState.MENU_PROFILES
+                    && sceneName == "Menu_Title")
                 /* comment below parts out for release
                 || (mem.MenuState() == MainMenuState.EXIT_PROMPT && mem.GameState() == GameState.PAUSED && uIState == UIState.PAUSED
                     && (mem.CameraMode() is CameraMode.FROZEN or CameraMode.FOLLOWING) && (mem.GetCameraTargetMode() is TargetMode.FREE or TargetMode.FOLLOW_HERO))

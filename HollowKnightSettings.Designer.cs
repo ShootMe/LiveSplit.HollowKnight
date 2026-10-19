@@ -34,6 +34,7 @@
             this.chkAutosplitStartRuns = new System.Windows.Forms.CheckBox();
             this.chkOrdered = new System.Windows.Forms.CheckBox();
             this.chkAutosplitEndRuns = new System.Windows.Forms.CheckBox();
+            this.chkPauseOnMainMenu = new System.Windows.Forms.CheckBox();
             this.hitCounterLabel = new System.Windows.Forms.Label();
             this.cboHitCounter = new System.Windows.Forms.ComboBox();
             this.SortBy_GroupBox = new System.Windows.Forms.GroupBox();
@@ -49,7 +50,7 @@
             // 
             // btnAddSplit
             // 
-            this.btnAddSplit.Location = new System.Drawing.Point(6, 119);
+            this.btnAddSplit.Location = new System.Drawing.Point(6, 146);
             this.btnAddSplit.Name = "btnAddSplit";
             this.btnAddSplit.Size = new System.Drawing.Size(57, 21);
             this.btnAddSplit.TabIndex = 0;
@@ -95,14 +96,14 @@
             this.Options_GroupBox.Controls.Add(this.SortBy_GroupBox);
             this.Options_GroupBox.Location = new System.Drawing.Point(3, 3);
             this.Options_GroupBox.Name = "Options_GroupBox";
-            this.Options_GroupBox.Size = new System.Drawing.Size(450, 150);
+            this.Options_GroupBox.Size = new System.Drawing.Size(450, 177);
             this.Options_GroupBox.TabIndex = 6;
             this.Options_GroupBox.TabStop = false;
             this.Options_GroupBox.Text = "Options";
             // 
             // versionLabel
             // 
-            this.versionLabel.Location = new System.Drawing.Point(262, 116);
+            this.versionLabel.Location = new System.Drawing.Point(262, 143);
             this.versionLabel.Name = "versionLabel";
             this.versionLabel.Size = new System.Drawing.Size(182, 24);
             this.versionLabel.TabIndex = 7;
@@ -115,11 +116,12 @@
             this.RunBehaviour_GroupBox.Controls.Add(this.chkAutosplitStartRuns);
             this.RunBehaviour_GroupBox.Controls.Add(this.chkOrdered);
             this.RunBehaviour_GroupBox.Controls.Add(this.chkAutosplitEndRuns);
+            this.RunBehaviour_GroupBox.Controls.Add(this.chkPauseOnMainMenu);
             this.RunBehaviour_GroupBox.Controls.Add(this.hitCounterLabel);
             this.RunBehaviour_GroupBox.Controls.Add(this.cboHitCounter);
             this.RunBehaviour_GroupBox.Location = new System.Drawing.Point(143, 15);
             this.RunBehaviour_GroupBox.Name = "RunBehaviour_GroupBox";
-            this.RunBehaviour_GroupBox.Size = new System.Drawing.Size(301, 98);
+            this.RunBehaviour_GroupBox.Size = new System.Drawing.Size(301, 125);
             this.RunBehaviour_GroupBox.TabIndex = 7;
             this.RunBehaviour_GroupBox.TabStop = false;
             this.RunBehaviour_GroupBox.Text = "Run behaviour";
@@ -169,22 +171,33 @@
             this.chkAutosplitEndRuns.UseVisualStyleBackColor = true;
             this.chkAutosplitEndRuns.CheckedChanged += new System.EventHandler(this.AutosplitEndChanged);
             // 
+            // chkPauseOnMainMenu
+            // 
+            this.chkPauseOnMainMenu.Location = new System.Drawing.Point(6, 69);
+            this.chkPauseOnMainMenu.Name = "chkPauseOnMainMenu";
+            this.chkPauseOnMainMenu.Size = new System.Drawing.Size(293, 19);
+            this.chkPauseOnMainMenu.TabIndex = 8;
+            this.chkPauseOnMainMenu.Text = "Pause on Main Menu (Required Off for All Glitches)";
+            this.ToolTips.SetToolTip(this.chkPauseOnMainMenu, "Required Off for All Glitches");
+            this.chkPauseOnMainMenu.UseVisualStyleBackColor = true;
+            this.chkPauseOnMainMenu.CheckedChanged += new System.EventHandler(this.PauseOnMainMenuChanged);
+            // 
             // hitCounterLabel
             // 
-            this.hitCounterLabel.Location = new System.Drawing.Point(6, 69);
+            this.hitCounterLabel.Location = new System.Drawing.Point(6, 96);
             this.hitCounterLabel.Name = "hitCounterLabel";
             this.hitCounterLabel.Size = new System.Drawing.Size(139, 21);
-            this.hitCounterLabel.TabIndex = 7;
+            this.hitCounterLabel.TabIndex = 9;
             this.hitCounterLabel.Text = "Hit counter:";
             this.hitCounterLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // cboHitCounter
             // 
             this.cboHitCounter.FormattingEnabled = true;
-            this.cboHitCounter.Location = new System.Drawing.Point(148, 69);
+            this.cboHitCounter.Location = new System.Drawing.Point(148, 96);
             this.cboHitCounter.Name = "cboHitCounter";
             this.cboHitCounter.Size = new System.Drawing.Size(145, 21);
-            this.cboHitCounter.TabIndex = 7;
+            this.cboHitCounter.TabIndex = 9;
             this.cboHitCounter.SelectedIndexChanged += new System.EventHandler(this.cboHitCounter_SelectedIndexChanged);
             // 
             // SortBy_GroupBox
@@ -266,6 +279,7 @@
         private System.Windows.Forms.GroupBox SortBy_GroupBox;
         private System.Windows.Forms.CheckBox chkAutosplitStartRuns;
         private System.Windows.Forms.ComboBox cboStartTriggerName;
+        private System.Windows.Forms.CheckBox chkPauseOnMainMenu;
         private System.Windows.Forms.Label hitCounterLabel;
         private System.Windows.Forms.ComboBox cboHitCounter;
     }

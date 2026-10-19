@@ -7,12 +7,16 @@ using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
 using System.Xml;
+using LiveSplit.Model;
 namespace LiveSplit.HollowKnight {
     public partial class HollowKnightSettings : UserControl {
+        private static bool hasAskedPauseOnMainMenu = false;
+        public TimerModel Model { get; set; }
         public List<SplitName> Splits { get; private set; }
         public bool Ordered { get; set; }
         public bool AutosplitEndRuns { get; set; }
         public SplitName? AutosplitStartRuns { get; set; }
+        public bool PauseOnMainMenu { get; set; }
         public HitsMethod HitCounter { get; set; }
         public List<int> ComparisonHits { get; set; }
         private static ReaderWriterLockSlim isLoading = new ReaderWriterLockSlim(LockRecursionPolicy.NoRecursion);
@@ -61,6 +65,7 @@ namespace LiveSplit.HollowKnight {
             chkOrdered.Checked = Ordered;
             chkAutosplitEndRuns.Checked = AutosplitEndRuns;
             chkAutosplitStartRuns.Checked = AutosplitStartRuns != null;
+            chkPauseOnMainMenu.Checked = PauseOnMainMenu;
 
             cboHitCounter.DataSource = GetHitCounters();
             MemberInfo hitCounterInfo = typeof(HitsMethod).GetMember(HitCounter.ToString())[0];
@@ -167,6 +172,7 @@ namespace LiveSplit.HollowKnight {
             AutosplitEndRuns = chkAutosplitEndRuns.Checked;
             AutosplitStartRuns = chkAutosplitStartRuns.Checked ?
                 HollowKnightSplitSettings.GetSplitName(cboStartTriggerName.Text) : null;
+            PauseOnMainMenu = chkPauseOnMainMenu.Checked;
 
             HitCounter = GetHitsMethod(cboHitCounter.Text);
 
@@ -197,6 +203,10 @@ namespace LiveSplit.HollowKnight {
             XmlElement xmlAutosplitStartRuns = document.CreateElement("AutosplitStartRuns");
             xmlAutosplitStartRuns.InnerText = AutosplitStartRuns.ToString();
             xmlSettings.AppendChild(xmlAutosplitStartRuns);
+
+            XmlElement xmlPauseOnMainMenu = document.CreateElement("PauseOnMainMenu");
+            xmlPauseOnMainMenu.InnerText = PauseOnMainMenu.ToString();
+            xmlSettings.AppendChild(xmlPauseOnMainMenu);
 
             XmlElement xmlHitCounter = document.CreateElement("HitCounter");
             xmlHitCounter.InnerText = HitCounter.ToString();
@@ -243,9 +253,11 @@ namespace LiveSplit.HollowKnight {
                 XmlNode orderedNode = settings.SelectSingleNode(".//Ordered");
                 XmlNode AutosplitEndRunsNode = settings.SelectSingleNode(".//AutosplitEndRuns");
                 XmlNode AutosplitStartRunsNode = settings.SelectSingleNode(".//AutosplitStartRuns");
+                XmlNode PauseOnMainMenuNode = settings.SelectSingleNode(".//PauseOnMainMenu");
                 XmlNode HitCounterNode = settings.SelectSingleNode(".//HitCounter");
                 bool isOrdered = false;
                 bool isAutosplitEndRuns = false;
+                bool isPauseOnMainMenu = false;
 
                 if (orderedNode != null) {
                     bool.TryParse(orderedNode.InnerText, out isOrdered);
@@ -264,8 +276,12 @@ namespace LiveSplit.HollowKnight {
                         chkAutosplitStartRuns.Checked = true;
                     }
                 }
+                if (PauseOnMainMenuNode != null) {
+                    bool.TryParse(PauseOnMainMenuNode.InnerText, out isPauseOnMainMenu);
+                }
                 Ordered = isOrdered;
                 AutosplitEndRuns = isAutosplitEndRuns;
+                PauseOnMainMenu = isPauseOnMainMenu;
 
                 if (HitCounterNode != null) {
                     string hitCounterDescription = HitCounterNode.InnerText.Trim();
@@ -297,6 +313,13 @@ namespace LiveSplit.HollowKnight {
                 bool afterStart = false;
                 Ordered = true;
                 AutosplitEndRuns = true;
+
+                XmlNode pauseOnMainMenuNode = settings.SelectSingleNode(".//CustomSettings/Setting[@id='pause_on_main_menu']");
+                bool isPauseOnMainMenu = false;
+                if (pauseOnMainMenuNode != null) {
+                    bool.TryParse(pauseOnMainMenuNode.InnerText, out isPauseOnMainMenu);
+                }
+                PauseOnMainMenu = isPauseOnMainMenu;
 
                 XmlNode hitCounterNode = settings.SelectSingleNode(".//CustomSettings/Setting[@id='hit_counter']");
                 if (hitCounterNode != null) {
@@ -344,10 +367,63 @@ namespace LiveSplit.HollowKnight {
                 // no splits settings, default
                 Ordered = false;
                 AutosplitEndRuns = false;
+                PauseOnMainMenu = false;
                 Splits.Clear();
             }
 
+            HandleAskPauseOnMainMenu();
+
             isLoading.ExitWriteLock();
+        }
+
+        public void HandleAskPauseOnMainMenu() {
+            if (Model != null && Model.CurrentState.CurrentPhase is TimerPhase.NotRunning && !hasAskedPauseOnMainMenu) {
+                hasAskedPauseOnMainMenu = true;
+                bool isAllGlitches = false;
+                bool isNMG = false;
+                bool isNMMS = false;
+
+                foreach (var v in Model.CurrentState.Run.Metadata.VariableValueNames.Values) {
+                    if (v.Contains("All Glitches") || v.Contains("Fast")) {
+                        isAllGlitches = true;
+                        break;
+                    } else if (v.Contains("No Major Glitches") || v.Contains("NMG") || v.Contains("Slow")) {
+                        isNMG = true;
+                        break;
+                    } else if (v.Contains("No Main Menu Storage") || v.Contains("NMMS")) {
+                        isNMMS = true;
+                        break;
+                    }
+                }
+
+                if (PauseOnMainMenu && isAllGlitches) {
+                    var askOffMessage = MessageBox.Show(
+                        "Hollow Knight All Glitches rules require the \"Pause on Main Menu\" setting to be turned Off.\n" +
+                        "That setting is currently On.\n" +
+                        "Would you like to turn that setting Off?",
+                        "LiveSplit | Hollow Knight",
+                        MessageBoxButtons.YesNo, MessageBoxIcon.Question
+                    );
+
+                    if (askOffMessage == DialogResult.Yes) {
+                        PauseOnMainMenu = false;
+                        chkPauseOnMainMenu.Checked = false;
+                    }
+                } else if (!PauseOnMainMenu && (isNMG || isNMMS)) {
+                    var askOnMessage = MessageBox.Show(
+                        "Hollow Knight " + (isNMG ? "NMG" : "NMMS") + " rules allow the \"Pause on Main Menu\" setting to be turned On.\n" +
+                        "That setting is currently Off.\n" +
+                        "Would you like to turn that setting On?",
+                        "LiveSplit | Hollow Knight",
+                        MessageBoxButtons.YesNo, MessageBoxIcon.Question
+                    );
+
+                    if (askOnMessage == DialogResult.Yes) {
+                        PauseOnMainMenu = true;
+                        chkPauseOnMainMenu.Checked = true;
+                    }
+                }
+            }
         }
 
         private HollowKnightSplitSettings createSetting() {
@@ -454,6 +530,10 @@ namespace LiveSplit.HollowKnight {
         }
 
         private void cboStartTriggerName_SelectedIndexChanged(object sender, EventArgs e) {
+            UpdateSplits();
+        }
+
+        private void PauseOnMainMenuChanged(object sender, EventArgs e) {
             UpdateSplits();
         }
 
