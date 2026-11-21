@@ -11,6 +11,8 @@ using LiveSplit.Model;
 namespace LiveSplit.HollowKnight {
     public partial class HollowKnightSettings : UserControl {
         private static bool hasRefusedAsk = false;
+        private static int lastAskHash = 0;
+        private static DialogResult lastAskResult = DialogResult.None;
         public TimerModel Model { get; set; }
         public List<SplitName> Splits { get; private set; }
         public bool Ordered { get; set; }
@@ -411,28 +413,41 @@ namespace LiveSplit.HollowKnight {
                 }
 
                 if (PauseOnMainMenu && isAllGlitches) {
-                    var askOffMessage = MessageBox.Show(
-                        "Hollow Knight All Glitches rules require the \"Pause on Main Menu\" setting to be turned Off.\n" +
-                        "That setting is currently On.\n" +
-                        "Would you like to turn that setting Off?",
-                        "LiveSplit | Hollow Knight",
-                        MessageBoxButtons.YesNo, MessageBoxIcon.Question
-                    );
+                    DialogResult askOffMessage = lastAskResult;
+                    int hc = RunMetadataHashCode();
+                    if (lastAskHash != hc) {
+                        askOffMessage = MessageBox.Show(
+                            "Hollow Knight All Glitches rules require the \"Pause on Main Menu\" setting to be turned Off.\n" +
+                            "That setting is currently On.\n" +
+                            "Would you like to turn that setting Off?",
+                            "LiveSplit | Hollow Knight",
+                            MessageBoxButtons.YesNo, MessageBoxIcon.Question
+                        );
+                        lastAskHash = hc;
+                        lastAskResult = askOffMessage;
+                    }
 
                     if (askOffMessage == DialogResult.Yes) {
                         PauseOnMainMenu = false;
                         chkPauseOnMainMenu.Checked = false;
                         hasSetPauseOnMainMenu = true;
                         hasRefusedAsk = false;
+                        Model.CurrentState.Run.Metadata.GetHashCode();
                     }
                 } else if (!PauseOnMainMenu && (isNMG || isNMMS)) {
-                    var askOnMessage = MessageBox.Show(
-                        "Hollow Knight " + (isNMG ? "NMG" : "NMMS") + " rules allow the \"Pause on Main Menu\" setting to be turned On.\n" +
-                        "That setting is currently Off.\n" +
-                        "Would you like to turn that setting On?",
-                        "LiveSplit | Hollow Knight",
-                        MessageBoxButtons.YesNo, MessageBoxIcon.Question
-                    );
+                    DialogResult askOnMessage = lastAskResult;
+                    int hc = RunMetadataHashCode();
+                    if (lastAskHash != hc) {
+                        askOnMessage = MessageBox.Show(
+                            "Hollow Knight " + (isNMG ? "NMG" : "NMMS") + " rules allow the \"Pause on Main Menu\" setting to be turned On.\n" +
+                            "That setting is currently Off.\n" +
+                            "Would you like to turn that setting On?",
+                            "LiveSplit | Hollow Knight",
+                            MessageBoxButtons.YesNo, MessageBoxIcon.Question
+                        );
+                        lastAskHash = hc;
+                        lastAskResult = askOnMessage;
+                    }
 
                     if (askOnMessage == DialogResult.Yes) {
                         PauseOnMainMenu = true;
@@ -441,14 +456,20 @@ namespace LiveSplit.HollowKnight {
                         hasRefusedAsk = false;
                     }
                 } else if (!(hasSetPauseOnMainMenu || isAllGlitches || isNMG || isNMMS)) {
-                    var askOnOffMessage = MessageBox.Show(
-                        "NMG and NMMS rules allow \"Pause on Main Menu\" On,\n" +
-                        "but All Glitches rules require it Off.\n" +
-                        "That setting is currently Off by default.\n" +
-                        "Would you like to turn that setting On?",
-                        "LiveSplit | Hollow Knight",
-                        MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question
-                    );
+                    DialogResult askOnOffMessage = lastAskResult;
+                    int hc = RunMetadataHashCode();
+                    if (lastAskHash != hc) {
+                        askOnOffMessage = MessageBox.Show(
+                            "NMG and NMMS rules allow \"Pause on Main Menu\" On,\n" +
+                            "but All Glitches rules require it Off.\n" +
+                            "That setting is currently Off by default.\n" +
+                            "Would you like to turn that setting On?",
+                            "LiveSplit | Hollow Knight",
+                            MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question
+                        );
+                        lastAskHash = hc;
+                        lastAskResult = askOnOffMessage;
+                    }
 
                     if (askOnOffMessage == DialogResult.Yes) {
                         PauseOnMainMenu = true;
@@ -465,6 +486,26 @@ namespace LiveSplit.HollowKnight {
                     hasRefusedAsk = false;
                 }
             }
+        }
+
+        // RunMetadataHashCode includes Metadata + data that HandleAskPauseOnMainMenu uses to decide asks
+        private int RunMetadataHashCode() {
+            var run = Model.CurrentState.Run;
+
+            int vars_hc = run.Metadata.VariableValueNames.Count.GetHashCode();
+            foreach (var v in run.Metadata.VariableValueNames.Values) {
+                vars_hc = unchecked(vars_hc + v.GetHashCode());
+            }
+
+            return (
+                run.FilePath,
+                run.GameName,
+                run.CategoryName,
+                run.Count,
+                vars_hc,
+                PauseOnMainMenu,
+                hasSetPauseOnMainMenu
+            ).GetHashCode();
         }
 
         private HollowKnightSplitSettings createSetting() {
