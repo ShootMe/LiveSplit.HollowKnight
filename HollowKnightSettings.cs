@@ -10,7 +10,7 @@ using System.Xml;
 using LiveSplit.Model;
 namespace LiveSplit.HollowKnight {
     public partial class HollowKnightSettings : UserControl {
-        private static bool hasAskedPauseOnMainMenu = false;
+        private static bool hasRefusedAsk = false;
         public TimerModel Model { get; set; }
         public List<SplitName> Splits { get; private set; }
         public bool Ordered { get; set; }
@@ -390,8 +390,9 @@ namespace LiveSplit.HollowKnight {
         }
 
         public void HandleAskPauseOnMainMenu() {
-            if (Model != null && Model.CurrentState.CurrentPhase is TimerPhase.NotRunning && !hasAskedPauseOnMainMenu) {
-                hasAskedPauseOnMainMenu = true;
+            if (Model != null && Model.CurrentState.CurrentPhase is TimerPhase.NotRunning && !hasRefusedAsk) {
+                // hasRefusedAsk: false before, true for now, will be set back to false later if needed
+                hasRefusedAsk = true;
                 bool isAllGlitches = false;
                 bool isNMG = false;
                 bool isNMMS = false;
@@ -422,6 +423,7 @@ namespace LiveSplit.HollowKnight {
                         PauseOnMainMenu = false;
                         chkPauseOnMainMenu.Checked = false;
                         hasSetPauseOnMainMenu = true;
+                        hasRefusedAsk = false;
                     }
                 } else if (!PauseOnMainMenu && (isNMG || isNMMS)) {
                     var askOnMessage = MessageBox.Show(
@@ -436,10 +438,11 @@ namespace LiveSplit.HollowKnight {
                         PauseOnMainMenu = true;
                         chkPauseOnMainMenu.Checked = true;
                         hasSetPauseOnMainMenu = true;
+                        hasRefusedAsk = false;
                     }
                 } else if (!(hasSetPauseOnMainMenu || isAllGlitches || isNMG || isNMMS)) {
                     var askOnOffMessage = MessageBox.Show(
-                        "NMG and NMMS rules allow the \"Pause on Main Menu\" setting On,\n" +
+                        "NMG and NMMS rules allow \"Pause on Main Menu\" On,\n" +
                         "but All Glitches rules require it Off.\n" +
                         "That setting is currently Off by default.\n" +
                         "Would you like to turn that setting On?",
@@ -451,11 +454,15 @@ namespace LiveSplit.HollowKnight {
                         PauseOnMainMenu = true;
                         chkPauseOnMainMenu.Checked = true;
                         hasSetPauseOnMainMenu = true;
+                        hasRefusedAsk = false;
                     } else if (askOnOffMessage == DialogResult.No) {
                         PauseOnMainMenu = false;
                         chkPauseOnMainMenu.Checked = false;
                         hasSetPauseOnMainMenu = true;
+                        hasRefusedAsk = false;
                     }
+                } else {
+                    hasRefusedAsk = false;
                 }
             }
         }
