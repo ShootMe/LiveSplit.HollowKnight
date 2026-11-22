@@ -1,5 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <updates>
+    <update version="3.3.0">
+        <files>
+            <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change>Added a setting to Pause GameTime on Main Menu</change>
+            <change>Added a popup asking to set Pause on Main Menu if not set correctly</change>
+        </changelog>
+    </update>
     <update version="3.2.7">
         <files>
             <file path="Components/LiveSplit.HollowKnight.dll" status="changed"/>
