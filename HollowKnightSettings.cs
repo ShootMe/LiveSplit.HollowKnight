@@ -419,9 +419,10 @@ namespace LiveSplit.HollowKnight {
                         askOffMessage = MessageBox.Show(
                             "Hollow Knight All Glitches rules require the \"Pause on Main Menu\" setting to be turned Off.\n" +
                             "That setting is currently On.\n" +
-                            "Would you like to turn that setting Off?",
+                            "Would you like to turn that setting Off?\n" +
+                            "(Cancel means don't ask again this session)",
                             "LiveSplit | Hollow Knight",
-                            MessageBoxButtons.YesNo, MessageBoxIcon.Question
+                            MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question
                         );
                         lastAskHash = hc;
                         lastAskResult = askOffMessage;
@@ -432,7 +433,9 @@ namespace LiveSplit.HollowKnight {
                         chkPauseOnMainMenu.Checked = false;
                         hasSetPauseOnMainMenu = true;
                         hasRefusedAsk = false;
-                        Model.CurrentState.Run.Metadata.GetHashCode();
+                    } else if (askOffMessage == DialogResult.No) {
+                        hasSetPauseOnMainMenu = true;
+                        hasRefusedAsk = false;
                     }
                 } else if (!PauseOnMainMenu && (isNMG || isNMMS)) {
                     DialogResult askOnMessage = lastAskResult;
@@ -441,9 +444,10 @@ namespace LiveSplit.HollowKnight {
                         askOnMessage = MessageBox.Show(
                             "Hollow Knight " + (isNMG ? "NMG" : "NMMS") + " rules allow the \"Pause on Main Menu\" setting to be turned On.\n" +
                             "That setting is currently Off.\n" +
-                            "Would you like to turn that setting On?",
+                            "Would you like to turn that setting On?\n" +
+                            "(Cancel means don't ask again this session)",
                             "LiveSplit | Hollow Knight",
-                            MessageBoxButtons.YesNo, MessageBoxIcon.Question
+                            MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question
                         );
                         lastAskHash = hc;
                         lastAskResult = askOnMessage;
@@ -452,6 +456,9 @@ namespace LiveSplit.HollowKnight {
                     if (askOnMessage == DialogResult.Yes) {
                         PauseOnMainMenu = true;
                         chkPauseOnMainMenu.Checked = true;
+                        hasSetPauseOnMainMenu = true;
+                        hasRefusedAsk = false;
+                    } else if (askOnMessage == DialogResult.No) {
                         hasSetPauseOnMainMenu = true;
                         hasRefusedAsk = false;
                     }
@@ -463,7 +470,8 @@ namespace LiveSplit.HollowKnight {
                             "NMG and NMMS rules allow \"Pause on Main Menu\" On,\n" +
                             "but All Glitches rules require it Off.\n" +
                             "That setting is currently Off by default.\n" +
-                            "Would you like to turn that setting On?",
+                            "Would you like to turn that setting On?\n" +
+                            "(Cancel means don't ask again this session)",
                             "LiveSplit | Hollow Knight",
                             MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question
                         );
