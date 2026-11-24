@@ -226,7 +226,8 @@ namespace LiveSplit.HollowKnight {
                 || (mem.TileMapDirty() && !mem.UsesSceneTransitionRoutine())
                 || (settings.PauseOnMainMenu
                     && gameState is GameState.MAIN_MENU
-                    && uIState is UIState.MENU_HOME or UIState.MENU_OPTIONS or UIState.MENU_PROFILES
+                    && uIState is UIState.MENU_HOME or UIState.MENU_PROFILES
+                    && mem.MenuState() is MainMenuState.MAIN_MENU or MainMenuState.SAVE_PROFILES
                     && sceneName == "Menu_Title")
                 /* comment below parts out for release
                 || (mem.MenuState() == MainMenuState.EXIT_PROMPT && mem.GameState() == GameState.PAUSED && uIState == UIState.PAUSED
